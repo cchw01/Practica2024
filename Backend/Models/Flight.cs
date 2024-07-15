@@ -11,8 +11,8 @@ public class Flight
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Key]
     public int FlightNumber { get; set; }
-    public virtual Airport DepartingAeroport { get; set; }
-    public virtual Airport DestinationAeroport { get; set; }
+    public virtual Airport DepartingAirport { get; set; }
+    public virtual Airport DestinationAirport { get; set; }
     public DateTime DepartingTime { get; set; }
     public DateTime FlightTime { get; set; }
     public int FlightCost { get; set; }
