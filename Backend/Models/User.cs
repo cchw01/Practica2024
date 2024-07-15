@@ -13,6 +13,6 @@ namespace Backend.Models
         public string Role { get; set; }
         public string EmailAddress { get; set; }
         public string Password { get; set; }
-        public List<Ticket> TicketList { get; set; }
+        public virtual List<Ticket> TicketList { get; set; }
     }
 }
