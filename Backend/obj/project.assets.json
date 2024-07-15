@@ -428,19 +428,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pestr\\.nuget\\packages\\": {}
+    "C:\\Users\\onofr\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pestr\\source\\repos\\Practica2024\\Backend\\Backend.csproj",
+      "projectUniqueName": "C:\\Users\\onofr\\OneDrive\\Desktop\\Practica2024\\Backend\\Backend.csproj",
       "projectName": "Backend",
-      "projectPath": "C:\\Users\\pestr\\source\\repos\\Practica2024\\Backend\\Backend.csproj",
-      "packagesPath": "C:\\Users\\pestr\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pestr\\source\\repos\\Practica2024\\Backend\\obj\\",
+      "projectPath": "C:\\Users\\onofr\\OneDrive\\Desktop\\Practica2024\\Backend\\Backend.csproj",
+      "packagesPath": "C:\\Users\\onofr\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\onofr\\OneDrive\\Desktop\\Practica2024\\Backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\pestr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\onofr\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -460,11 +460,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -495,7 +490,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
