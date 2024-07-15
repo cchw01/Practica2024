@@ -1,4 +1,4 @@
-import { Ticket } from './ticket-item';
+import { TicketItem } from './ticket-item';
 
 export interface UserItem {
   userId: number;
@@ -6,5 +6,5 @@ export interface UserItem {
   role: string;
   emailAddress: string;
   password: string;
-  ticketList: Ticket[];
+  ticketList: TicketItem[];
 }
