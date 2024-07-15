@@ -8,7 +8,7 @@ export interface FlightItem {
   destinationAirport: AirportItem;
   departingTime: Date;
   flightTime: number;
-  Aircraft: AircraftItem;
+  aircraft: AircraftItem;
   flightCost: number;
   discountOffer: DiscountItem;
 }
