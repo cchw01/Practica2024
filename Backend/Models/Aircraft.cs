@@ -7,11 +7,11 @@ namespace Backend.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        private string RegistrationNumber { get; set; }
-        private string Maker { get; set; }
-        private string Model { get; set; }
-        private int NumberOfSeats { get; set; }
-        private int AutonomyInHours { get; set; }
-        private double MaxCargo { get; set; }
+        public string RegistrationNumber { get; set; }
+        public string Maker { get; set; }
+        public string Model { get; set; }
+        public int NumberOfSeats { get; set; }
+        public int AutonomyInHours { get; set; }
+        public double MaxCargo { get; set; }
     }
 }
