@@ -1,15 +1,14 @@
-import { Airport } from './airport.model';
-import { Discount } from './discount.model';
-import { Aircraft } from './aircraft.model';
+import { AirportItem } from './airport-item.model';
+import { DiscountItem } from './discount-item.model';
+import { AircraftItem } from './aircraft-item.model';
 
-export interface Flight {
+export interface FlightItem {
   flightNumber: number;
-  departingAirport: Airport;
-  destinationAirport: Airport;
+  departingAirport: AirportItem;
+  destinationAirport: AirportItem;
   departingTime: Date;
   flightTime: number;
-  Aircraft: Aircraft;
+  Aircraft: AircraftItem;
   flightCost: number;
-  discountOffer: Discount;
+  discountOffer: DiscountItem;
 }
- 
