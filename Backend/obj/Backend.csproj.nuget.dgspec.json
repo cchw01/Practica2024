@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\onofr\\OneDrive\\Desktop\\Practica2024\\Backend\\Backend.csproj": {}
+    "C:\\Waters Files\\FinalProject\\Practica2024\\Backend\\Backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\onofr\\OneDrive\\Desktop\\Practica2024\\Backend\\Backend.csproj": {
+    "C:\\Waters Files\\FinalProject\\Practica2024\\Backend\\Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\onofr\\OneDrive\\Desktop\\Practica2024\\Backend\\Backend.csproj",
+        "projectUniqueName": "C:\\Waters Files\\FinalProject\\Practica2024\\Backend\\Backend.csproj",
         "projectName": "Backend",
-        "projectPath": "C:\\Users\\onofr\\OneDrive\\Desktop\\Practica2024\\Backend\\Backend.csproj",
-        "packagesPath": "C:\\Users\\onofr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\onofr\\OneDrive\\Desktop\\Practica2024\\Backend\\obj\\",
+        "projectPath": "C:\\Waters Files\\FinalProject\\Practica2024\\Backend\\Backend.csproj",
+        "packagesPath": "C:\\Users\\claud\\.nuget\\packages\\",
+        "outputPath": "C:\\Waters Files\\FinalProject\\Practica2024\\Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\onofr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\claud\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -34,6 +35,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -64,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
