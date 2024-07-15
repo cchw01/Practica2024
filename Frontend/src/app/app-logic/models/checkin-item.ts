@@ -6,11 +6,11 @@ export enum IdDocumentType {
 }
 
 export interface CheckInItem {
-    CheckInId: number;
-    Ticket: TicketItem;
-    PassengerName: string;
-    IdDocumentType: IdDocumentType;
-    DocumentData: string;
-    CheckInStatus: boolean;
-    PassengerEmail: string;
+    checkInId: number;
+    ticket: TicketItem;
+    passengerName: string;
+    idDocumentType: IdDocumentType;
+    documentData: string;
+    checkInStatus: boolean;
+    passengerEmail: string;
 }
