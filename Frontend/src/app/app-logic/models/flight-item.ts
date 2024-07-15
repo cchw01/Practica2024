@@ -1,6 +1,6 @@
-import { AirportItem } from './airport-item.model';
-import { DiscountItem } from './discount-item.model';
-import { AircraftItem } from './aircraft-item.model';
+import { AirportItem } from './airport-item';
+import { DiscountItem } from './discount-item';
+import { AircraftItem } from './aircraft-item';
 
 export interface FlightItem {
   flightNumber: number;
