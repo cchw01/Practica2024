@@ -163,6 +163,9 @@ namespace Backend.Migrations
                     b.Property<int>("PassengerId")
                         .HasColumnType("int");
 
+                    b.Property<int>("PassengerUserId")
+                        .HasColumnType("int");
+
                     b.Property<float>("Price")
                         .HasColumnType("real");
 

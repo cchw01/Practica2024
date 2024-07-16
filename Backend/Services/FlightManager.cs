@@ -39,7 +39,7 @@ namespace Backend.Services
 
         public void UpdateFlight(Flight flight)
         {
-            var oldFlight = flightContext.Flights.FirstOrDefault(x => x.FlightNumber == item.FlightNumber);
+            var oldFlight = flightContext.Flights.FirstOrDefault(x => x.FlightNumber == flight.FlightNumber);
             if (oldFlight == null)
                 throw new ArgumentException("Flight does not exist");
 

@@ -16,6 +16,7 @@ namespace Backend.Services
         // Get all users
         public List<User> GetUsers()
         {
+            Console.WriteLine("S-a ajuns in manager");
             return applicationDBContext.Users.ToList();
         }
 
