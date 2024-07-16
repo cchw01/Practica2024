@@ -1,16 +1,20 @@
-import { TicketItem } from "./ticket-item";
+import { TicketItem } from './ticket-item';
 export enum IdDocumentType {
-    IdentityCard,
-    Passport,
-    DriverLicense
+  IdentityCard,
+  Passport,
+  DriverLicense,
 }
 
-export interface CheckInItem {
-    checkInId: number;
-    ticket: TicketItem;
-    passengerName: string;
-    idDocumentType: IdDocumentType;
-    documentData: string;
-    checkInStatus: boolean;
-    passengerEmail: string;
+export class CheckInItem {
+  checkInId!: number;
+  ticket!: TicketItem;
+  passengerName!: string;
+  idDocumentType!: IdDocumentType;
+  documentData!: string;
+  checkInStatus!: boolean;
+  passengerEmail!: string;
+
+  constructor(checkin?: Partial<CheckInItem>) {
+    Object.assign(this, checkin);
+  }
 }
