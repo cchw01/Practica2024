@@ -127,7 +127,8 @@ namespace Backend.Migrations
                     PassengerId = table.Column<int>(type: "int", nullable: false),
                     CheckIn = table.Column<bool>(type: "bit", nullable: false),
                     Luggage = table.Column<bool>(type: "bit", nullable: false),
-                    Price = table.Column<float>(type: "real", nullable: false)
+                    Price = table.Column<float>(type: "real", nullable: false),
+                    PassengerUserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

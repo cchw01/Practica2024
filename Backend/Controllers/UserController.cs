@@ -10,15 +10,17 @@ namespace Backend.Controllers
     {
         private readonly UserManager userManager;
 
-        public UserController(UserManager userManager)
+        public UserController()
         {
-            this.userManager = userManager;
+            userManager = new UserManager();
         }
 
         [HttpGet]
         public IActionResult GetUsers()
         {
+            Console.WriteLine("S-a ajuns in getController");
             return Ok(userManager.GetUsers());
+
         }
 
         [HttpGet]

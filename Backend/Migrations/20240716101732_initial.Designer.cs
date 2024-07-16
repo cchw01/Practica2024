@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240716090844_initial")]
+    [Migration("20240716101732_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -164,6 +164,9 @@ namespace Backend.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int>("PassengerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PassengerUserId")
                         .HasColumnType("int");
 
                     b.Property<float>("Price")
