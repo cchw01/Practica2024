@@ -9,7 +9,8 @@
     public class CheckIn
     {
 
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public int CheckInId { get; set; }
         public Ticket Ticket { get; set; }
         public string PassengerName { get; set; }

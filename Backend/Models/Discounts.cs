@@ -2,6 +2,8 @@
 {
     public class Discounts
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public int DiscountId { get; set; }
         public string DiscountName { get; set; }
         public string DiscountDescription { get; set;}
