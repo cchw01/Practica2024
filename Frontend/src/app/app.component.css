@@ -1,0 +1,58 @@
+.navigation-button {
+    background-color: #fff;
+    color: #000;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 16px;
+}
+ 
+.navigation-button:hover {
+    background-color: #f1f1f1;
+}
+ 
+.mat-toolbar {
+    background-color: #673ab7;
+    display: flex;
+    align-items: center;
+}
+ 
+.app-title {
+    color: #fff;
+    flex: 1;
+}
+ 
+.spacer {
+    flex: 1;
+}
+
+footer {
+  background-color: #673ab7;
+  padding: 1rem;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+footer nav a {
+  margin: 0 1rem;
+  color: #007bff;
+  text-decoration: none;
+}
+
+footer nav a:hover {
+  text-decoration: underline;
+}
+ 
+ 
+.copyright-text {
+    color: #fff;
+}
