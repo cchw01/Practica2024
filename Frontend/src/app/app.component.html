@@ -3,9 +3,12 @@
   <span class="spacer"></span>
   <button class="navigation-button" mat-button routerLink="/">Home</button>
   <button class="navigation-button" mat-button routerLink="/login">Log In</button>
+  <button class="navigation-button" mat-button routerLink="/flights">Flights</button>
   <button class="navigation-button" mat-button routerLink="/check-in">Check In</button>
   <button class="navigation-button" mat-button routerLink="/contact">Contact</button>
 </mat-toolbar>
+
+<router-outlet></router-outlet>
 
 <footer>
   <div class="footer-content">
@@ -17,5 +20,3 @@
     </nav>
   </div>
 </footer>
-
-<router-outlet></router-outlet>
