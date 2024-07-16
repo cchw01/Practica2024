@@ -18,14 +18,62 @@ namespace Backend.ApplicationDBContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Specify the connection string here
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=ApplicationDB;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AirlineCompanyDB;Trusted_Connection=True;");
         }
+        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+  
+   
 
+    // Ticket and Flight (Many-to-One)
+    modelBuilder.Entity<Ticket>()
+        .HasOne(t => t.Flight)
+        .WithMany(f => f.PassengerList)
+        .HasForeignKey(t => t.FlightId);
+
+    // Ticket and User (Many-to-One)
+    modelBuilder.Entity<Ticket>()
+        .HasOne(t => t.Passenger)
+        .WithMany(u => u.TicketList)
+        .HasForeignKey(t => t.PassengerId);
+
+    // CheckIn and Ticket (One-to-One)
+    modelBuilder.Entity<CheckIn>()
+        .HasOne(c => c.Ticket)
+        .WithOne(t => t.CheckIn)
+        .HasForeignKey<CheckIn>(c => c.TicketId);
+
+    // Discounts and Flight (Many-to-One or One-to-One)
+    // This setup assumes each discount can apply to only one flight
+    modelBuilder.Entity<Discounts>()
+        .HasOne(d => d.Flight)
+        .WithMany() // If a flight can have multiple discounts, use WithMany() here
+        .HasForeignKey(d => d.FlightId);
+
+    // User and Flight (Many-to-Many) via Tickets
+    modelBuilder.Entity<User>()
+        .HasMany(u => u.TicketList)
+        .WithOne(t => t.Passenger)
+        .HasForeignKey(t => t.PassengerId);
+
+    // Setting up a join table for User and Flight indirectly through Tickets
+    modelBuilder.Entity<Flight>()
+        .HasMany(f => f.PassengerList)
+        .WithMany(u => u.TicketList)
+        .UsingEntity<Ticket>(
+            j => j.HasOne(t => t.Passenger).WithMany(u => u.TicketList),
+            j => j.HasOne(t => t.Flight).WithMany(f => f.PassengerList)
+        );
+}*/
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+
             // Configuring relationships
+
+            /*-------------------------------------*/
+
             modelBuilder.Entity<Flight>()
                 .HasOne(f => f.DepartingAirport)
                 .WithMany()
@@ -38,6 +86,17 @@ namespace Backend.ApplicationDBContext
                 .HasForeignKey(f => f.DestinationAirportId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Ticket>()
+                .HasOne(t => t.Passenger)
+                .WithMany()
+                .HasForeignKey(t => t.PassengerId);
+
+         
+            modelBuilder.Entity<Ticket>()
+                .HasOne(t => t.Flight)
+                .WithMany()
+                .HasForeignKey(t => t.FlightId);
+
             modelBuilder.Entity<Discounts>()
                 .HasOne(d => d.Flight)
                 .WithMany()
@@ -45,23 +104,23 @@ namespace Backend.ApplicationDBContext
 
             modelBuilder.Entity<CheckIn>()
                 .HasOne(c => c.Ticket)
-                .WithOne(t => t.CheckIn)
+                .WithOne()
                 .HasForeignKey<CheckIn>(c => c.TicketId);
 
-            modelBuilder.Entity<Ticket>()
-                .HasOne(t => t.Flight)
-                .WithMany()
-                .HasForeignKey(t => t.FlightId);
 
-            modelBuilder.Entity<Ticket>()
-                .HasOne(t => t.Passenger)
-                .WithMany(u => u.TicketList)
-                .HasForeignKey(t => t.PassengerId);
+            /*-------------------------------------*/
 
-            modelBuilder.Entity<Ticket>()
-                .HasOne(t => t.CheckIn)
-                .WithOne(c => c.Ticket)
-                .HasForeignKey<Ticket>(t => t.CheckInId);
+            modelBuilder.Entity<User>()
+           .HasMany(u => u.TicketList)
+           .WithOne(t => t.Passenger)
+           .HasForeignKey(t => t.PassengerId)
+           .OnDelete(DeleteBehavior.Cascade);
+
+
+
+
+
+
         }
     }
 }
