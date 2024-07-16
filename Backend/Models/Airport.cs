@@ -9,7 +9,6 @@ namespace Backend.Models
         [Key]
         public int AirportId { get; set; }
         public string Location { get; set; }
-
         public string AirportName { get; set; }
 
     }

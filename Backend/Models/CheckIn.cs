@@ -1,4 +1,7 @@
-﻿namespace Backend.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Backend.Models
 {
     public enum IdDocumentType
     {
@@ -12,7 +15,9 @@
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int CheckInId { get; set; }
-        public Ticket Ticket { get; set; }
+        public int TicketId { get; set; }
+        [ForeignKey("TicketId")]
+        public virtual Ticket Ticket { get; set; }
         public string PassengerName { get; set; }
         public IdDocumentType IdDocumentType { get; set; }
         public string DocumentData { get; set; }
