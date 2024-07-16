@@ -49,7 +49,7 @@ namespace Backend.Services
         {
             var oldUser = applicationDBContext.Users.FirstOrDefault(x => x.UserId == user.UserId);
             if (oldUser == null)
-                throw new ArgumentException("User doesn't exist");
+                throw new ArgumentException("User doesn't exist.");
 
             oldUser.Name = user.Name;
             oldUser.EmailAddress = user.EmailAddress;

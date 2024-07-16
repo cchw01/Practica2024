@@ -41,7 +41,7 @@ namespace Backend.Controllers
             }
             catch
             {
-                return BadRequest($"An error occured. The item was not added.");
+                return BadRequest($"An error occured. The user was not added.");
             }
         }
 
