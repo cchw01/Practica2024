@@ -8,7 +8,8 @@ import { ContactComponent } from './menu-items/contact/contact.component';
 import { LoginComponent } from './menu-items/login/login.component';
 import { CheckInComponent } from './menu-items/check-in/check-in.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import {MatToolbarModule} from '@angular/material/toolbar'
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { UserProfileComponent } from './menu-items/user-profile/user-profile.component'
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {MatToolbarModule} from '@angular/material/toolbar'
     HomePageComponent,
     ContactComponent,
     LoginComponent,
-    CheckInComponent
+    CheckInComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
