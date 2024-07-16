@@ -11,6 +11,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { FlightsComponent } from './menu-items/flights/flights.component';
 import { FlightComponent } from './menu-items/flights/flight/flight.component'
+import { UserProfileComponent } from './menu-items/user-profile/user-profile.component'
+
 
 @NgModule({
   declarations: [
@@ -20,7 +22,10 @@ import { FlightComponent } from './menu-items/flights/flight/flight.component'
     LoginComponent,
     CheckInComponent,
     FlightsComponent,
-    FlightComponent
+    FlightComponent,
+    UserProfileComponent
+
+
   ],
   imports: [
     BrowserModule,
