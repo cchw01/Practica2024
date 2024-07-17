@@ -15,9 +15,9 @@ namespace Backend.Services
         {
             return aircraftContext.Aircrafts.ToList();
         }
-        public Aircraft GetAircraft(string registrationNumber)
+        public Aircraft GetAircraft(int aircraftId)
         {
-            return aircraftContext.Aircrafts.FirstOrDefault(x => x.RegistrationNumber == registrationNumber);
+            return aircraftContext.Aircrafts.FirstOrDefault(x => x.AircraftId == aircraftId);
         }
 
         public void AddAircraft(Aircraft aircraft)
@@ -28,9 +28,10 @@ namespace Backend.Services
 
         public void UpdateAircraft(Aircraft aircraft)
         {
-            var existingAircraft = aircraftContext.Aircrafts.FirstOrDefault(x => x.RegistrationNumber == aircraft.RegistrationNumber);
+            var existingAircraft = aircraftContext.Aircrafts.FirstOrDefault(x => x.AircraftId == aircraft.AircraftId);
             if(existingAircraft!=null)
             {
+                existingAircraft.RegistrationNumber = aircraft.RegistrationNumber;
                 existingAircraft.Maker = aircraft.Maker;
                 existingAircraft.Model = aircraft.Model;
                 existingAircraft.NumberOfSeats = aircraft.NumberOfSeats;
@@ -46,9 +47,9 @@ namespace Backend.Services
             }
         }
 
-        public void RemoveItem(string registrationNumber)
+        public void RemoveItem(int aircraftId)
         {
-            var aircraft = aircraftContext.Aircrafts.FirstOrDefault(x => x.RegistrationNumber == registrationNumber);
+            var aircraft = aircraftContext.Aircrafts.FirstOrDefault(x => x.AircraftId == aircraftId);
             if (aircraft == null)
             {
                 throw new Exception("Aircraft not found");

@@ -1,5 +1,6 @@
 using Backend.ApplicationDBContext;
 using Backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services
 {
@@ -12,14 +13,18 @@ namespace Backend.Services
         }
         public List<Ticket> GetTickets()
         {
-            return ticketContext.Tickets.ToList();
+            return ticketContext.Tickets.Include(a => a.Flight).Include(u => u.User).ToList();
         }
         public Ticket GetTicket(int ticketId)
         {
-            return ticketContext.Tickets.FirstOrDefault(x => x.TicketId == ticketId);
+            return ticketContext.Tickets
+                .Include(a => a.Flight).Include(u => u.User)
+                .FirstOrDefault(x => x.TicketId == ticketId);
         }
         public void AddTicket(Ticket item)
         {
+            item.Flight = null;
+            item.User = null;
             ticketContext.Tickets.Add(item);
             ticketContext.SaveChanges();
         }
@@ -35,8 +40,8 @@ namespace Backend.Services
             var oldItem = ticketContext.Tickets.FirstOrDefault(x => x.TicketId == item.TicketId);
             if (oldItem == null) throw new ArgumentException("item deos not exist");
 
-            oldItem.Flight = item.Flight;
-            oldItem.Passenger = item.Passenger;
+            oldItem.FlightId = item.FlightId;
+            oldItem.UserId = item.UserId;
             oldItem.CheckIn = item.CheckIn;
             oldItem.Luggage = item.Luggage;
             oldItem.Price = item.Price;

@@ -1,6 +1,7 @@
 using Backend.ApplicationDBContext;
 
 using Backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services
 {
@@ -15,16 +16,31 @@ namespace Backend.Services
 
         public List<Discounts> GetDiscounts()
         {
-            return discountContext.Discounts.ToList();
+            return discountContext.Discounts
+                .Include(f=> f.Flight)
+                .ThenInclude(a => a.DepartingAirport)
+                .Include(f=> f.Flight)
+                .ThenInclude(a => a.DestinationAirport)
+                .Include(f=> f.Flight)
+                .ThenInclude(a=>a.Aircraft).ToList();
+                
         }
 
         public Discounts GetDiscount(int discountId)
         {
-            return discountContext.Discounts.FirstOrDefault(x => x.DiscountId == discountId);
+            return discountContext.Discounts
+                 .Include(f => f.Flight)
+                .ThenInclude(a => a.DepartingAirport)
+                .Include(f => f.Flight)
+                .ThenInclude(a => a.DestinationAirport)
+                .Include(f => f.Flight)
+                .ThenInclude(a => a.Aircraft)
+                .FirstOrDefault(x => x.DiscountId == discountId);
         }
 
         public void AddDiscount(Discounts item)
         {
+            item.Flight = null;
             discountContext.Discounts.Add(item);
             discountContext.SaveChanges();
         }
@@ -44,7 +60,7 @@ namespace Backend.Services
 
             oldItem.DiscountName = item.DiscountName;
             oldItem.DiscountDescription = item.DiscountDescription;
-            oldItem.Flight = item.Flight;
+            oldItem.FlightId = item.FlightId;
             oldItem.DiscountPercentage = item.DiscountPercentage;
             oldItem.StartDate = item.StartDate;
             oldItem.EndDate = item.EndDate;

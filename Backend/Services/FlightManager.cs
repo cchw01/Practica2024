@@ -1,6 +1,7 @@
 ﻿using Backend.Models;
 using System.Xml.Serialization;
 using Backend.ApplicationDBContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services
 {
@@ -14,16 +15,28 @@ namespace Backend.Services
         }
         public List<Flight> GetFlights()
         {
-            return flightContext.Flights.ToList();
+            return flightContext.Flights
+                .Include(f => f.DepartingAirport)
+                .Include(f => f.DestinationAirport)
+                .Include(f => f.Aircraft)
+                .ToList();
         }
 
         public Flight GetFlight(int flightNumber)
         {
-            return flightContext.Flights.FirstOrDefault(x => x.FlightNumber == flightNumber);
+            return flightContext.Flights
+                .Include(f => f.DepartingAirport)
+                .Include(f => f.DestinationAirport)
+                .Include(f => f.Aircraft)
+                .FirstOrDefault(x => x.FlightNumber == flightNumber);
         }
 
         public void AddFlight(Flight flight)
         {
+            flight.DepartingAirport = null;
+            flight.DestinationAirport = null;
+            flight.Aircraft = null;
+
             flightContext.Flights.Add(flight);
             flightContext.SaveChanges();
         }
@@ -43,29 +56,20 @@ namespace Backend.Services
             if (oldFlight == null)
                 throw new ArgumentException("Flight does not exist");
 
-            oldFlight.DepartingAirport = flight.DepartingAirport;
-            oldFlight.DestinationAirport = flight.DestinationAirport;
+            oldFlight.DepartingAirportId = flight.DepartingAirportId;
+            oldFlight.DestinationAirportId = flight.DestinationAirportId;
+            oldFlight.AircraftId = flight.AircraftId;
             oldFlight.DepartingTime = flight.DepartingTime;
             oldFlight.FlightTime = flight.FlightTime;
             oldFlight.FlightCost = flight.FlightCost;
             oldFlight.DiscountOffer = flight.DiscountOffer;
-            oldFlight.PassengerList = flight.PassengerList;
 
             flightContext.Flights.Update(oldFlight);
             flightContext.SaveChanges();
         }
 
 
-
     }
 
 
 }
-
-
-
-
-
-
-
-

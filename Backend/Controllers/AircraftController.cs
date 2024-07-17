@@ -19,15 +19,15 @@ namespace Backend.Controllers
             return Ok(aircraftManager.GetAllAircrafts());
         }
         [HttpGet]
-        [Route("{registrationNumber}")]
-        public IActionResult GetAircraft(string registrationNumber)
+        [Route("{aircraftId}")]
+        public IActionResult GetAircraft(int aircraftId)
         {
-            var aircraft = aircraftManager.GetAircraft(registrationNumber);
+            var aircraft = aircraftManager.GetAircraft(aircraftId);
             if (aircraft != null)
             {
                 return Ok(aircraft);
             }
-            return NotFound($"can't found item with id:{registrationNumber}");
+            return NotFound($"can't found item with id:{aircraftId}");
         }
         [HttpPost]
         public IActionResult AddNewAircraft(Models.Aircraft item)
@@ -56,12 +56,12 @@ namespace Backend.Controllers
             }
         }
         [HttpDelete]
-        [Route("{registrationNumber}")]
-        public IActionResult RemoveAircraft(string registrationNumber)
+        [Route("{aircraftId}")]
+        public IActionResult RemoveAircraft(int aircraftId)
         {
             try
             {
-                aircraftManager.RemoveItem(registrationNumber);
+                aircraftManager.RemoveItem(aircraftId);
                 return Ok();
             }
             catch (System.Exception ex)

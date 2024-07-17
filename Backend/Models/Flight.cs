@@ -17,11 +17,15 @@ public class Flight
     public virtual Airport DepartingAirport { get; set; }
     [ForeignKey("DestinationAirportId")]
     public virtual Airport DestinationAirport { get; set; }
+
+    public int AircraftId { get; set; }
+    [ForeignKey("AircraftId")]
+    public virtual Aircraft Aircraft { get; set; }
     public DateTime DepartingTime { get; set; }
     public DateTime FlightTime { get; set; }
     public int FlightCost { get; set; }
     public int DiscountOffer { get; set; }
-    public virtual List<User> PassengerList { get; set; }
+    public virtual ICollection<FlightTicket> PassengerList { get; set; }
 
 
 }

@@ -3,18 +3,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Models
 {
-    public class Ticket
+    public class UserTicket
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
+        public int UserTicketId { get; set; }
         public int TicketId { get; set; }
-        public int FlightId { get; set; }
         public int UserId { get; set; }
-        public virtual Flight Flight { get; set; }
-        public virtual User User { get; set; }
-        public bool CheckIn { get; set; }
-        public bool Luggage { get; set; }
-        public float Price { get; set; }
 
+        [ForeignKey("TicketId")]
+        public virtual Ticket Ticket { get; set; }
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
     }
 }

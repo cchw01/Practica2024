@@ -15,7 +15,9 @@ namespace Backend.Migrations
                 name: "Aircrafts",
                 columns: table => new
                 {
-                    RegistrationNumber = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AircraftId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RegistrationNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Maker = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NumberOfSeats = table.Column<int>(type: "int", nullable: false),
@@ -24,7 +26,7 @@ namespace Backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Aircrafts", x => x.RegistrationNumber);
+                    table.PrimaryKey("PK_Aircrafts", x => x.AircraftId);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,6 +44,22 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.UserId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Flights",
                 columns: table => new
                 {
@@ -49,6 +67,7 @@ namespace Backend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DepartingAirportId = table.Column<int>(type: "int", nullable: false),
                     DestinationAirportId = table.Column<int>(type: "int", nullable: false),
+                    AircraftId = table.Column<int>(type: "int", nullable: false),
                     DepartingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FlightTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FlightCost = table.Column<int>(type: "int", nullable: false),
@@ -57,6 +76,12 @@ namespace Backend.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Flights", x => x.FlightNumber);
+                    table.ForeignKey(
+                        name: "FK_Flights_Aircrafts_AircraftId",
+                        column: x => x.AircraftId,
+                        principalTable: "Aircrafts",
+                        principalColumn: "AircraftId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Flights_Airports_DepartingAirportId",
                         column: x => x.DepartingAirportId,
@@ -96,39 +121,16 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FlightNumber = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.UserId);
-                    table.ForeignKey(
-                        name: "FK_Users_Flights_FlightNumber",
-                        column: x => x.FlightNumber,
-                        principalTable: "Flights",
-                        principalColumn: "FlightNumber");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Tickets",
                 columns: table => new
                 {
                     TicketId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FlightId = table.Column<int>(type: "int", nullable: false),
-                    PassengerId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     CheckIn = table.Column<bool>(type: "bit", nullable: false),
                     Luggage = table.Column<bool>(type: "bit", nullable: false),
-                    Price = table.Column<float>(type: "real", nullable: false),
-                    PassengerUserId = table.Column<int>(type: "int", nullable: false)
+                    Price = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -140,8 +142,8 @@ namespace Backend.Migrations
                         principalColumn: "FlightNumber",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Tickets_Users_PassengerId",
-                        column: x => x.PassengerId,
+                        name: "FK_Tickets_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
@@ -171,6 +173,58 @@ namespace Backend.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "FlightTickets",
+                columns: table => new
+                {
+                    FlightId = table.Column<int>(type: "int", nullable: false),
+                    TicketId = table.Column<int>(type: "int", nullable: false),
+                    FlightTicketId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FlightTickets", x => new { x.FlightId, x.TicketId });
+                    table.ForeignKey(
+                        name: "FK_FlightTickets_Flights_FlightId",
+                        column: x => x.FlightId,
+                        principalTable: "Flights",
+                        principalColumn: "FlightNumber",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FlightTickets_Tickets_TicketId",
+                        column: x => x.TicketId,
+                        principalTable: "Tickets",
+                        principalColumn: "TicketId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserTickets",
+                columns: table => new
+                {
+                    TicketId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserTicketId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserTickets", x => new { x.UserId, x.TicketId });
+                    table.ForeignKey(
+                        name: "FK_UserTickets_Tickets_TicketId",
+                        column: x => x.TicketId,
+                        principalTable: "Tickets",
+                        principalColumn: "TicketId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserTickets_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CheckIns_TicketId",
                 table: "CheckIns",
@@ -183,6 +237,11 @@ namespace Backend.Migrations
                 column: "FlightId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Flights_AircraftId",
+                table: "Flights",
+                column: "AircraftId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Flights_DepartingAirportId",
                 table: "Flights",
                 column: "DepartingAirportId");
@@ -193,27 +252,31 @@ namespace Backend.Migrations
                 column: "DestinationAirportId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FlightTickets_TicketId",
+                table: "FlightTickets",
+                column: "TicketId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tickets_FlightId",
                 table: "Tickets",
                 column: "FlightId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_PassengerId",
+                name: "IX_Tickets_UserId",
                 table: "Tickets",
-                column: "PassengerId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_FlightNumber",
-                table: "Users",
-                column: "FlightNumber");
+                name: "IX_UserTickets_TicketId",
+                table: "UserTickets",
+                column: "TicketId",
+                unique: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Aircrafts");
-
             migrationBuilder.DropTable(
                 name: "CheckIns");
 
@@ -221,13 +284,22 @@ namespace Backend.Migrations
                 name: "Discounts");
 
             migrationBuilder.DropTable(
+                name: "FlightTickets");
+
+            migrationBuilder.DropTable(
+                name: "UserTickets");
+
+            migrationBuilder.DropTable(
                 name: "Tickets");
+
+            migrationBuilder.DropTable(
+                name: "Flights");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Flights");
+                name: "Aircrafts");
 
             migrationBuilder.DropTable(
                 name: "Airports");
