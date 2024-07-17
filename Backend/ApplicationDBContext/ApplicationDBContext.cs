@@ -22,8 +22,6 @@ namespace Backend.ApplicationDBContext
         {
             base.OnModelCreating(modelBuilder);
 
-            // Define relationships clearly
-
             // Flight relationships
             modelBuilder.Entity<Flight>()
                 .HasOne(f => f.DepartingAirport)
