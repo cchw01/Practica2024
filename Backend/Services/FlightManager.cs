@@ -62,7 +62,6 @@ namespace Backend.Services
             oldFlight.DepartingTime = flight.DepartingTime;
             oldFlight.FlightTime = flight.FlightTime;
             oldFlight.FlightCost = flight.FlightCost;
-            oldFlight.DiscountOffer = flight.DiscountOffer;
 
             flightContext.Flights.Update(oldFlight);
             flightContext.SaveChanges();

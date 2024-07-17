@@ -35,7 +35,7 @@ namespace Backend.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult AddNewDiscount(Discounts item)
+		public IActionResult AddNewDiscount(Discount item)
 		{
 			try
 			{
@@ -49,7 +49,7 @@ namespace Backend.Controllers
 		}
 
 		[HttpPut]
-		public IActionResult UpdateDiscount(Discounts item)
+		public IActionResult UpdateDiscount(Discount item)
 		{
 			try
 			{

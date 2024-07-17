@@ -24,10 +24,7 @@ public class Flight
     public DateTime DepartingTime { get; set; }
     public DateTime FlightTime { get; set; }
     public int FlightCost { get; set; }
-    public int? DiscountId { get; set; } 
-    [ForeignKey("DiscountId")]
-    public virtual Discounts Discount { get; set; }
+    public virtual Discount Discount { get; set; }
     public virtual ICollection<Ticket> PassengerList { get; set; }
-
 
 }

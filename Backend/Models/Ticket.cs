@@ -14,8 +14,6 @@ namespace Backend.Models
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
-        public int? CheckInId { get; set; }
-        [ForeignKey("CheckInId")]
         public virtual CheckIn CheckIn { get; set; }
         public bool Luggage { get; set; }
         public float Price { get; set; }

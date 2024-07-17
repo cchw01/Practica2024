@@ -8,7 +8,7 @@ namespace Backend.ApplicationDBContext
         public DbSet<Aircraft> Aircrafts { get; set; }
         public DbSet<Airport> Airports { get; set; }
         public DbSet<CheckIn> CheckIns { get; set; }
-        public DbSet<Discounts> Discounts { get; set; }
+        public DbSet<Discount> Discounts { get; set; }
         public DbSet<Flight> Flights { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<User> Users { get; set; }
@@ -22,8 +22,9 @@ namespace Backend.ApplicationDBContext
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configuring relationships
+            // Define relationships clearly
 
+            // Flight relationships
             modelBuilder.Entity<Flight>()
                 .HasOne(f => f.DepartingAirport)
                 .WithMany()
@@ -44,9 +45,9 @@ namespace Backend.ApplicationDBContext
 
             modelBuilder.Entity<Flight>()
                 .HasOne(f => f.Discount)
-                .WithMany()
-                .HasForeignKey(f => f.DiscountId)
-                .OnDelete(DeleteBehavior.SetNull); 
+                .WithOne(d => d.Flight)
+                .HasForeignKey<Discount>(d => d.FlightId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Ticket>()
                 .HasOne(t => t.User)
@@ -63,13 +64,7 @@ namespace Backend.ApplicationDBContext
             modelBuilder.Entity<Ticket>()
                 .HasOne(t => t.CheckIn)
                 .WithOne(c => c.Ticket)
-                .HasForeignKey<Ticket>(t => t.CheckInId)
-                .OnDelete(DeleteBehavior.SetNull); 
-
-            modelBuilder.Entity<Discounts>()
-                .HasOne(d => d.Flight)
-                .WithMany()
-                .HasForeignKey(d => d.FlightId)
+                .HasForeignKey<CheckIn>(c => c.TicketId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<CheckIn>()

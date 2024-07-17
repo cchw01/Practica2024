@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class intial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -70,8 +70,7 @@ namespace Backend.Migrations
                     AircraftId = table.Column<int>(type: "int", nullable: false),
                     DepartingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FlightTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FlightCost = table.Column<int>(type: "int", nullable: false),
-                    DiscountOffer = table.Column<int>(type: "int", nullable: false)
+                    FlightCost = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -128,7 +127,6 @@ namespace Backend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FlightId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    CheckIn = table.Column<bool>(type: "bit", nullable: false),
                     Luggage = table.Column<bool>(type: "bit", nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false)
                 },
@@ -182,7 +180,8 @@ namespace Backend.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Discounts_FlightId",
                 table: "Discounts",
-                column: "FlightId");
+                column: "FlightId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Flights_AircraftId",

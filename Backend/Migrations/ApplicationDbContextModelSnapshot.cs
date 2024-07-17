@@ -114,7 +114,7 @@ namespace Backend.Migrations
                     b.ToTable("CheckIns");
                 });
 
-            modelBuilder.Entity("Backend.Models.Discounts", b =>
+            modelBuilder.Entity("Backend.Models.Discount", b =>
                 {
                     b.Property<int>("DiscountId")
                         .ValueGeneratedOnAdd()
@@ -144,7 +144,8 @@ namespace Backend.Migrations
 
                     b.HasKey("DiscountId");
 
-                    b.HasIndex("FlightId");
+                    b.HasIndex("FlightId")
+                        .IsUnique();
 
                     b.ToTable("Discounts");
                 });
@@ -156,9 +157,6 @@ namespace Backend.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TicketId"));
-
-                    b.Property<bool>("CheckIn")
-                        .HasColumnType("bit");
 
                     b.Property<int>("FlightId")
                         .HasColumnType("int");
@@ -230,9 +228,6 @@ namespace Backend.Migrations
                     b.Property<int>("DestinationAirportId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DiscountOffer")
-                        .HasColumnType("int");
-
                     b.Property<int>("FlightCost")
                         .HasColumnType("int");
 
@@ -253,7 +248,7 @@ namespace Backend.Migrations
             modelBuilder.Entity("Backend.Models.CheckIn", b =>
                 {
                     b.HasOne("Backend.Models.Ticket", "Ticket")
-                        .WithOne()
+                        .WithOne("CheckIn")
                         .HasForeignKey("Backend.Models.CheckIn", "TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -261,11 +256,11 @@ namespace Backend.Migrations
                     b.Navigation("Ticket");
                 });
 
-            modelBuilder.Entity("Backend.Models.Discounts", b =>
+            modelBuilder.Entity("Backend.Models.Discount", b =>
                 {
                     b.HasOne("Flight", "Flight")
-                        .WithMany()
-                        .HasForeignKey("FlightId")
+                        .WithOne("Discount")
+                        .HasForeignKey("Backend.Models.Discount", "FlightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -318,6 +313,12 @@ namespace Backend.Migrations
                     b.Navigation("DestinationAirport");
                 });
 
+            modelBuilder.Entity("Backend.Models.Ticket", b =>
+                {
+                    b.Navigation("CheckIn")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Backend.Models.User", b =>
                 {
                     b.Navigation("TicketList");
@@ -325,6 +326,9 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Flight", b =>
                 {
+                    b.Navigation("Discount")
+                        .IsRequired();
+
                     b.Navigation("PassengerList");
                 });
 #pragma warning restore 612, 618

@@ -14,7 +14,7 @@ namespace Backend.Services
             discountContext = new ApplicationDbContext();
         }
 
-        public List<Discounts> GetDiscounts()
+        public List<Discount> GetDiscounts()
         {
             return discountContext.Discounts
                 .Include(f=> f.Flight)
@@ -26,7 +26,7 @@ namespace Backend.Services
                 
         }
 
-        public Discounts GetDiscount(int discountId)
+        public Discount GetDiscount(int discountId)
         {
             return discountContext.Discounts
                  .Include(f => f.Flight)
@@ -38,7 +38,7 @@ namespace Backend.Services
                 .FirstOrDefault(x => x.DiscountId == discountId);
         }
 
-        public void AddDiscount(Discounts item)
+        public void AddDiscount(Discount item)
         {
             item.Flight = null;
             discountContext.Discounts.Add(item);
@@ -53,7 +53,7 @@ namespace Backend.Services
             discountContext.SaveChanges();
         }
 
-        public void UpdateDiscount(Discounts item)
+        public void UpdateDiscount(Discount item)
         {
             var oldItem = discountContext.Discounts.FirstOrDefault(x => x.DiscountId == item.DiscountId);
             if (oldItem == null) throw new ArgumentException("Item does not exist");
