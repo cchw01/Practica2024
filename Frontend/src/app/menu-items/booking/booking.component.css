@@ -1,14 +1,70 @@
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  mat-form-field {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  
+.booking-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.styled-button {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 12px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #3f51b5;
+  border: 2px solid #3f51b5;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.styled-button:hover {
+  background-color: #303f9f;
+  border-color: #303f9f;
+}
+
+.styled-button:active {
+  background-color: #283593;
+  border-color: #283593;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 5px #3f51b5;
+}
+
+.mat-toolbar {
+  padding: 10px;
+  background-color: #3f51b5;
+  display: flex;
+  align-items: center;
+}
+
+.app-title {
+  color: #fff;
+  flex: 1;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.form-group{
+  padding-top: 10px;
+}
+
+input {
+  height: auto;
+}
+
+.label-mat-form{
+  padding-bottom: 0;
+}

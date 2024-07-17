@@ -7,15 +7,23 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./booking.component.css']
 })
 export class BookingComponent implements OnInit {
-  flightId!: string;
-  userId!: string;
+  ticketId!: number;
+  flight!: string; // Update this type as necessary
+  passenger!: string; // Update this type as necessary
+  checkIn!: string; // Update this type as necessary
+  luggage!: boolean;
+  price!: number;
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.flightId = params.get('flightId') ?? '';
-      this.userId = params.get('userId') ?? '';
+      this.ticketId = +(params.get('ticketId') ?? 0);
+      this.flight = params.get('flight') ?? '';
+      this.passenger = params.get('passenger') ?? '';
+      this.checkIn = params.get('checkIn') ?? '';
+      this.luggage = (params.get('luggage') === 'true');
+      this.price = +(params.get('price') ?? 0);
     });
   }
 
