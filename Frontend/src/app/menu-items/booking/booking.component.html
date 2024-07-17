@@ -1,50 +1,50 @@
-<mat-toolbar color="primary">
-  <span class="app-title">Book Your Flight</span>
-</mat-toolbar>
+<div class="title-table">
+  <mat-toolbar>
+    <span>Book Your Flight</span>
+    <button class="navigation-button" mat-button routerLink="/tickets">Tickets Table</button>
+  </mat-toolbar>
+</div>
 
 <div class="booking-container">
   <form (ngSubmit)="onSubmit()" #bookingForm="ngForm">
-    <div class="form-group">
-      <mat-form-field appearance="fill">
-        <mat-label>Ticket ID</mat-label>
-        <input matInput [(ngModel)]="ticket.ticketId" name="ticketId" readonly>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field appearance="fill">
-        <mat-label>Flight</mat-label>
-        <input matInput [(ngModel)]="ticket.flight" name="flight" readonly>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field appearance="fill">
-        <mat-label>Passenger</mat-label>
-        <input matInput [(ngModel)]="ticket.passenger" name="passenger" readonly>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field appearance="fill">
-        <mat-label>Check-In</mat-label>
-        <input matInput [(ngModel)]="ticket.checkIn" name="checkIn" readonly>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field appearance="fill">
-        <mat-label>Luggage</mat-label>
-        <mat-select [(ngModel)]="ticket.luggage" name="luggage" disabled>
-          <mat-option [value]="true">Yes</mat-option>
-          <mat-option [value]="false">No</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field appearance="fill">
-        <mat-label>Price</mat-label>
-        <input matInput [(ngModel)]="ticket.price" name="price" readonly type="number">
-      </mat-form-field>
+    <div class="form-group" *ngIf="ticket">
+      <label class="form-label">Flight to {{ticket.flight.destinationAirport.location}}</label>
+      <span class="form-value">Flight Number: {{ ticket.flight.flightNumber }}</span>
+      <span class="form-value">Departing from: {{ ticket.flight.departingAirport.airportName }}</span>
+      <span class="form-value">Departing on: {{ ticket.flight.departingTime | date: 'dd/MM/yyyy hh:mm a'}}</span>
+      <span class="form-value">Flying to: {{ ticket.flight.destinationAirport.airportName }}</span>
     </div>
 
-    <button mat-raised-button color="primary" type="submit" class="styled-button">Book Flight</button>
-    <button mat-raised-button color="warn" type="button" class="styled-button" (click)="goBack()">Go Back</button>
+    <!--<div class="form-group" *ngIf="ticket?.passager">-->
+    <div class="form-group" *ngIf="1">
+      <label class="form-label">Passenger</label>
+      <span class="form-value">{{ ticket.passager.name }}</span>
+      <span class="form-value">{{ ticket.passager.emailAddress }}</span>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Check-In</label>
+      <span class="form-value">Status: {{ ticket.checkIn? 'Done' : 'Not done' }}</span>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Luggage</label>
+      <mat-select class="form-value" [(ngModel)]="ticket.luggage" name="luggage">
+        <mat-option [value]="true">Yes</mat-option>
+        <mat-option [value]="false">No</mat-option>
+      </mat-select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Price</label>
+      <span class="form-value">Initial price: {{ ticket.flight.flightCost| currency }}</span>
+      <span class="form-value">Discount offer: {{ ticket.flight.discountOffer.discountPercentage}}%</span>
+      <span class="form-value">Paying price: {{ ticket.price | currency }}</span>
+    </div>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" class="styled-button">Book Flight</button>
+      <button mat-raised-button color="warn" type="button" class="styled-button" (click)="goBack()">Go Back</button>
+    </div>
   </form>
 </div>

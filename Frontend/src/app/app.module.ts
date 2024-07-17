@@ -16,6 +16,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { TicketsComponent } from './menu-items/booking/tickets/tickets.component';
+import { MatTableModule } from '@angular/material/table';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -25,7 +30,8 @@ import { MatSelectModule } from '@angular/material/select';
     LoginComponent,
     CheckInComponent,
     UserProfileComponent,
-    BookingComponent
+    BookingComponent,
+    TicketsComponent
   ],
 
   imports: [
@@ -39,6 +45,10 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatSelectModule,
     MatButtonModule,
+    MatTableModule,
+    ReactiveFormsModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [
     provideAnimationsAsync()

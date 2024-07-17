@@ -1,0 +1,18 @@
+.mat-toolbar {
+    padding: 7px;
+    background-color: #673ab7;
+    display: flex;
+    align-items: center;
+    color: #fff;
+
+}
+.title-table{
+    background-color: #5a32a1;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    margin-bottom: 20px;
+}
+.search-bar-label{
+    margin-top: 20px;
+    border-radius: 20px;
+}

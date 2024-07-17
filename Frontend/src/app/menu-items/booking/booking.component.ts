@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FlightItem } from '../../app-logic/models/flight-item';
+import { TicketItem } from '../../app-logic/models/ticket-item';
+import { UserItem } from '../../app-logic/models/user-item';
+import { BookingListMockService } from '../../app-logic/booking-list-mock.service';
 
 @Component({
   selector: 'app-booking',
@@ -7,19 +11,27 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./booking.component.css']
 })
 export class BookingComponent implements OnInit {
-  ticket = {
-    ticketId: 123456,
-    flight: 'Flight XYZ123',
-    passenger: 'John Doe',
-    checkIn: 'Online',
-    luggage: true,
-    price: 199.99
-  };
+  ticket: TicketItem = new TicketItem();
+  flightItem!:FlightItem;
+  userItem!:UserItem;
+  flightId!:number;
+  userId!:number;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+
+  constructor(private route: ActivatedRoute, private router: Router,private bookingListMockService:BookingListMockService) {
+    this.route.params.subscribe((params)=>{
+      this.flightId=params['flightId'];
+      this.userId=params['userId'];
+    });
+  }
 
   ngOnInit(): void {
-    // Additional initialization if necessary
+    this.flightItem = this.bookingListMockService.getFlightItemById(this.flightId);
+    this.userItem = this.bookingListMockService.getUserItembyId(this.userId);
+    this.ticket.flight = this.flightItem; 
+    this.ticket.passager = this.userItem;
+    this.ticket.price= this.ticket.flight.flightCost - ( this.ticket.flight.flightCost *  this.ticket.flight.discountOffer.discountPercentage / 100)
+    this.ticket.checkIn=false;
   }
 
   onSubmit() {
@@ -29,6 +41,6 @@ export class BookingComponent implements OnInit {
 
   goBack() {
     // Navigate back to the previous page or homepage
-    this.router.navigate(['/']);
+    this.router.navigate(['/contact']);
   }
 }

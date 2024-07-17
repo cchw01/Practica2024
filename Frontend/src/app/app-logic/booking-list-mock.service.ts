@@ -38,28 +38,19 @@ export class BookingListMockService {
       maxCargo: 2000,
     }
   ];
+  
   airportsData: Array<AirportItem> = [
-    { 
-      airportId: 1,
-      airportName: 'AeroportA',
-      location: 'LocatiaA',
-    },
-    {
-      airportId: 2,
-      airportName: 'AeroportB',
-      location: 'LocatiaB',
-    },
-    {
-      airportId: 3,
-      airportName: 'AeroportC',
-      location: 'LocatiaC',
-    },
-    {
-      airportId: 4,
-      airportName: 'AeroportD',
-      location: 'LocatiaD',
-    },
+    { airportId: 1, airportName: 'Aeroport Alba Iulia', location: 'Alba Iulia' },
+    { airportId: 2, airportName: 'Aeroport Brasov', location: 'Brasov' },
+    { airportId: 3, airportName: 'Aeroport Constanta', location: 'Constanta' },
+    { airportId: 4, airportName: 'Aeroport Doicesti', location: 'Doicesti' },
+    { airportId: 5, airportName: 'Aeroport Eforie', location: 'Eforie' },
+    { airportId: 6, airportName: 'Aeroport Fagaras', location: 'Fagaras' },
+    { airportId: 7, airportName: 'Aeroport Galati', location: 'Galati' },
+    { airportId: 8, airportName: 'Aeroport Hunedoara', location: 'Hunedoara' },
+    { airportId: 9, airportName: 'Aeroport Iasi', location: 'Iasi' }
   ];
+  
   discountsData: Array<DiscountItem> = [
     {
       discountId: 1,
@@ -89,6 +80,7 @@ export class BookingListMockService {
       endDate: new Date('2024-12-31')
     }
   ];
+  
   flightsData: Array<FlightItem> = [
     {
       flightNumber: 1,
@@ -121,6 +113,7 @@ export class BookingListMockService {
       discountOffer: this.discountsData[2],
     }
   ];
+  
   usersData: Array<UserItem> = [
     {
       userId: 1,
@@ -147,6 +140,7 @@ export class BookingListMockService {
       ticketList: []
     }
   ];
+  
   ticketsData: Array<TicketItem> = [
     {
       tickedId: 1,
@@ -171,8 +165,130 @@ export class BookingListMockService {
       checkIn: false,
       luggage: true,
       price: 499
+    },
+    // 15 more tickets
+    {
+      tickedId: 4,
+      flight: this.flightsData[0],
+      passager: this.usersData[1],
+      checkIn: true,
+      luggage: false,
+      price: 269
+    },
+    {
+      tickedId: 5,
+      flight: this.flightsData[1],
+      passager: this.usersData[2],
+      checkIn: true,
+      luggage: true,
+      price: 359
+    },
+    {
+      tickedId: 6,
+      flight: this.flightsData[2],
+      passager: this.usersData[0],
+      checkIn: true,
+      luggage: false,
+      price: 449
+    },
+    {
+      tickedId: 7,
+      flight: this.flightsData[0],
+      passager: this.usersData[2],
+      checkIn: false,
+      luggage: true,
+      price: 289
+    },
+    {
+      tickedId: 8,
+      flight: this.flightsData[1],
+      passager: this.usersData[0],
+      checkIn: false,
+      luggage: false,
+      price: 379
+    },
+    {
+      tickedId: 9,
+      flight: this.flightsData[2],
+      passager: this.usersData[1],
+      checkIn: false,
+      luggage: true,
+      price: 489
+    },
+    {
+      tickedId: 10,
+      flight: this.flightsData[0],
+      passager: this.usersData[0],
+      checkIn: true,
+      luggage: false,
+      price: 279
+    },
+    {
+      tickedId: 11,
+      flight: this.flightsData[1],
+      passager: this.usersData[2],
+      checkIn: true,
+      luggage: true,
+      price: 369
+    },
+    {
+      tickedId: 12,
+      flight: this.flightsData[2],
+      passager: this.usersData[1],
+      checkIn: true,
+      luggage: false,
+      price: 479
+    },
+    {
+      tickedId: 13,
+      flight: this.flightsData[0],
+      passager: this.usersData[2],
+      checkIn: false,
+      luggage: true,
+      price: 299
+    },
+    {
+      tickedId: 14,
+      flight: this.flightsData[1],
+      passager: this.usersData[0],
+      checkIn: false,
+      luggage: false,
+      price: 399
+    },
+    {
+      tickedId: 15,
+      flight: this.flightsData[2],
+      passager: this.usersData[1],
+      checkIn: false,
+      luggage: true,
+      price: 499
+    },
+    {
+      tickedId: 16,
+      flight: this.flightsData[0],
+      passager: this.usersData[0],
+      checkIn: true,
+      luggage: false,
+      price: 269
+    },
+    {
+      tickedId: 17,
+      flight: this.flightsData[1],
+      passager: this.usersData[1],
+      checkIn: true,
+      luggage: true,
+      price: 359
+    },
+    {
+      tickedId: 18,
+      flight: this.flightsData[2],
+      passager: this.usersData[2],
+      checkIn: true,
+      luggage: false,
+      price: 449
     }
   ];
+  
   checkInsData: Array<CheckInItem> = [
     {
       checkInId: 1,
@@ -205,30 +321,37 @@ export class BookingListMockService {
 
   constructor() {
     // Linking tickets and check-ins to users
-    this.usersData[0].ticketList = [this.ticketsData[0]];
-    this.usersData[1].ticketList = [this.ticketsData[1]];
-
+    this.usersData[0].ticketList = [this.ticketsData[0], this.ticketsData[6], this.ticketsData[9], this.ticketsData[12], this.ticketsData[15]];
+    this.usersData[1].ticketList = [this.ticketsData[1], this.ticketsData[8], this.ticketsData[11], this.ticketsData[14], this.ticketsData[17]];
+    this.usersData[2].ticketList = [this.ticketsData[2], this.ticketsData[4], this.ticketsData[7], this.ticketsData[10], this.ticketsData[13]];
   }
 
-  getDataAircrafts(): Array<AircraftItem>{
+  getDataAircrafts(): Array<AircraftItem> {
     return this.aircraftsData;
   }
-  getDataAirports(): Array<AirportItem>{
+  getDataAirports(): Array<AirportItem> {
     return this.airportsData;
   }
-  getDataDiscounts(): Array<DiscountItem>{
-      return this.discountsData;
+  getDataDiscounts(): Array<DiscountItem> {
+    return this.discountsData;
   }  
-  getDataFlights(): Array<FlightItem>{
+  getDataFlights(): Array<FlightItem> {
     return this.flightsData;
   }
-  getDataUsers(): Array<UserItem>{
+  getDataUsers(): Array<UserItem> {
     return this.usersData;
   }
-  getDataTickets(): Array<TicketItem>{
+  getDataTickets(): Array<TicketItem> {
     return this.ticketsData;
   }
-  getDataCheckIn(): Array<CheckInItem>{
+  getDataCheckIn(): Array<CheckInItem> {
     return this.checkInsData;
   }
+  getFlightItemById(id: number): FlightItem{
+    return this.flightsData.filter((x) => x.flightNumber == id)[0];
+  }
+  getUserItembyId(id: number): UserItem{
+    return this.usersData.filter((x) => x.userId === id)[0];
+  }
+  
 }
