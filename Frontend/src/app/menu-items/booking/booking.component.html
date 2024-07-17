@@ -7,52 +7,44 @@
     <div class="form-group">
       <mat-form-field appearance="fill">
         <mat-label>Ticket ID</mat-label>
-        <input matInput [(ngModel)]="ticketId" name="ticketId" required>
+        <input matInput [(ngModel)]="ticket.ticketId" name="ticketId" readonly>
       </mat-form-field>
     </div>
     <div class="form-group">
-      
       <mat-form-field appearance="fill">
-        <div class="label-mat-form">
         <mat-label>Flight</mat-label>
-      </div>
-        <input matInput [(ngModel)]="flight" name="flight" required>
+        <input matInput [(ngModel)]="ticket.flight" name="flight" readonly>
       </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field appearance="fill">
-        <div class="label-mat-form">
         <mat-label>Passenger</mat-label>
-      </div>
-        <input matInput [(ngModel)]="passenger" name="passenger" required>
+        <input matInput [(ngModel)]="ticket.passenger" name="passenger" readonly>
       </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field appearance="fill">
-        <div class="label-mat-form">
         <mat-label>Check-In</mat-label>
-      </div>
-        <input matInput [(ngModel)]="checkIn" name="checkIn" required>
+        <input matInput [(ngModel)]="ticket.checkIn" name="checkIn" readonly>
       </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field appearance="fill">
         <mat-label>Luggage</mat-label>
-        <div class="label-mat-form">
-        <mat-select [(ngModel)]="luggage" name="luggage" required>
+        <mat-select [(ngModel)]="ticket.luggage" name="luggage" disabled>
           <mat-option [value]="true">Yes</mat-option>
           <mat-option [value]="false">No</mat-option>
         </mat-select>
-        </div>
       </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field appearance="fill">
         <mat-label>Price</mat-label>
-        <input matInput [(ngModel)]="price" name="price" required type="number">
+        <input matInput [(ngModel)]="ticket.price" name="price" readonly type="number">
       </mat-form-field>
     </div>
 
     <button mat-raised-button color="primary" type="submit" class="styled-button">Book Flight</button>
+    <button mat-raised-button color="warn" type="button" class="styled-button" (click)="goBack()">Go Back</button>
   </form>
 </div>

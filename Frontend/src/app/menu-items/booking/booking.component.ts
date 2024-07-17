@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-booking',
@@ -7,28 +7,28 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./booking.component.css']
 })
 export class BookingComponent implements OnInit {
-  ticketId!: number;
-  flight!: string; // Update this type as necessary
-  passenger!: string; // Update this type as necessary
-  checkIn!: string; // Update this type as necessary
-  luggage!: boolean;
-  price!: number;
+  ticket = {
+    ticketId: 123456,
+    flight: 'Flight XYZ123',
+    passenger: 'John Doe',
+    checkIn: 'Online',
+    luggage: true,
+    price: 199.99
+  };
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.ticketId = +(params.get('ticketId') ?? 0);
-      this.flight = params.get('flight') ?? '';
-      this.passenger = params.get('passenger') ?? '';
-      this.checkIn = params.get('checkIn') ?? '';
-      this.luggage = (params.get('luggage') === 'true');
-      this.price = +(params.get('price') ?? 0);
-    });
+    // Additional initialization if necessary
   }
 
   onSubmit() {
     // Handle the form submission
     alert('Booking confirmed!');
+  }
+
+  goBack() {
+    // Navigate back to the previous page or homepage
+    this.router.navigate(['/']);
   }
 }
