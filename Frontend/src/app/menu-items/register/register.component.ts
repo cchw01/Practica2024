@@ -22,9 +22,7 @@ export class RegisterComponent {
 
   onSubmit() {
     this.user = new UserItem(this.registerForm.value);
-    //this.item.id = this.inventoryListMockService.getLastId() + 1;
-    //this.inventoryListMockService.addItem(this.item);
-    //this.router.navigate(['/inventory']);
+   
   }
 
   public hasError = (controlName: string, errorName: string) => {
