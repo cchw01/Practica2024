@@ -1,21 +1,58 @@
 <mat-toolbar color="primary">
-    <span>Booking Page</span>
-  </mat-toolbar>
-  
-  <div class="container">
-    <h2>Book Your Flight</h2>
-    <form (ngSubmit)="onSubmit()">
+  <span class="app-title">Book Your Flight</span>
+</mat-toolbar>
+
+<div class="booking-container">
+  <form (ngSubmit)="onSubmit()" #bookingForm="ngForm">
+    <div class="form-group">
       <mat-form-field appearance="fill">
-        <mat-label>Flight ID</mat-label>
-        <input matInput placeholder="Flight ID" [(ngModel)]="flightId" name="flightId" disabled>
+        <mat-label>Ticket ID</mat-label>
+        <input matInput [(ngModel)]="ticketId" name="ticketId" required>
       </mat-form-field>
-  
+    </div>
+    <div class="form-group">
+      
       <mat-form-field appearance="fill">
-        <mat-label>User ID</mat-label>
-        <input matInput placeholder="User ID" [(ngModel)]="userId" name="userId" disabled>
+        <div class="label-mat-form">
+        <mat-label>Flight</mat-label>
+      </div>
+        <input matInput [(ngModel)]="flight" name="flight" required>
       </mat-form-field>
-  
-      <button mat-raised-button color="primary" type="submit">Confirm Booking</button>
-    </form>
-  </div>
-  
+    </div>
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <div class="label-mat-form">
+        <mat-label>Passenger</mat-label>
+      </div>
+        <input matInput [(ngModel)]="passenger" name="passenger" required>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <div class="label-mat-form">
+        <mat-label>Check-In</mat-label>
+      </div>
+        <input matInput [(ngModel)]="checkIn" name="checkIn" required>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Luggage</mat-label>
+        <div class="label-mat-form">
+        <mat-select [(ngModel)]="luggage" name="luggage" required>
+          <mat-option [value]="true">Yes</mat-option>
+          <mat-option [value]="false">No</mat-option>
+        </mat-select>
+        </div>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Price</mat-label>
+        <input matInput [(ngModel)]="price" name="price" required type="number">
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" type="submit" class="styled-button">Book Flight</button>
+  </form>
+</div>
