@@ -1,0 +1,43 @@
+<form [formGroup]="registerForm!" (ngSubmit)="onSubmit()" class="form-container">
+    <h1>Register</h1>
+    <mat-form-field appearance ="outline">
+        <mat-label>Full name:</mat-label>
+        <input
+          matInput
+          placeholder="Full name:"
+          formControlName="name"
+          type="text"
+          required
+        />
+        <mat-error *ngIf="hasError('name', 'required')">Full name is required!</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance ="outline">
+        <mat-label>Email:</mat-label>
+        <input
+          matInput
+          placeholder="E-mail address"
+          formControlName="email"
+          type="text"
+          required
+        />
+        <mat-error *ngIf="hasError('email', 'required')">E-mail is required!</mat-error>
+    </mat-form-field>
+    
+        <mat-label>Password:</mat-label>
+        <p-password 
+        formControlName="password" 
+        promptLabel="Choose a password"
+        weakLabel="Too simple" 
+        mediumLabel="Average complexity" 
+        strongLabel="Complex password" />
+
+        <mat-form-field>
+            <mat-label>User type</mat-label>
+            <mat-select formControlName="role" required>
+                <mat-option value="admin">Admin</mat-option>
+                <mat-option value="passenger">Passenger</mat-option>
+            </mat-select>
+          </mat-form-field>
+    Already have an account?<a routerLink="/login">Log-in here!</a>
+</form>
