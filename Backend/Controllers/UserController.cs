@@ -20,7 +20,6 @@ namespace Backend.Controllers
         {
             Console.WriteLine("S-a ajuns in getController");
             return Ok(userManager.GetUsers());
-
         }
 
         [HttpGet]
@@ -82,6 +81,30 @@ namespace Backend.Controllers
             {
                 return BadRequest($"The request is not valid.");
             }
+        }
+
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate([FromBody] User userObj)
+        {
+            if (userObj == null)
+                return BadRequest();
+            var user = userManager
+                .GetUsers()
+                .FirstOrDefault(
+                    (x) => x.EmailAddress == userObj.EmailAddress && x.Password == userObj.Password
+                );
+            if (user == null)
+                return NotFound(new { Message = "User not found" });
+            return Ok(new { Message = "Login success!" });
+        }
+
+        [HttpPost("register")]
+        public IActionResult RegisterUser([FromBody] User userObj)
+        {
+            if (userObj == null)
+                return BadRequest();
+            userManager.AddUser(userObj);
+            return Ok(new { Message = "User Added!" });
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using Backend.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection.Emit;
+using Backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.ApplicationDBContext
 {
@@ -18,8 +18,11 @@ namespace Backend.ApplicationDBContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Specify the connection string here
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AirlineCompanyDB;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(
+                @"Server=(localdb)\mssqllocaldb;Database=AirlineCompanyDB;Trusted_Connection=True;"
+            );
         }
+
         /*protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
   
@@ -69,58 +72,56 @@ namespace Backend.ApplicationDBContext
         {
             base.OnModelCreating(modelBuilder);
 
-
             // Configuring relationships
 
             /*-------------------------------------*/
 
-            modelBuilder.Entity<Flight>()
+            modelBuilder
+                .Entity<Flight>()
                 .HasOne(f => f.DepartingAirport)
                 .WithMany()
                 .HasForeignKey(f => f.DepartingAirportId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Flight>()
+            modelBuilder
+                .Entity<Flight>()
                 .HasOne(f => f.DestinationAirport)
                 .WithMany()
                 .HasForeignKey(f => f.DestinationAirportId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Ticket>()
+            modelBuilder
+                .Entity<Ticket>()
                 .HasOne(t => t.Passenger)
                 .WithMany()
                 .HasForeignKey(t => t.PassengerId);
 
-         
-            modelBuilder.Entity<Ticket>()
+            modelBuilder
+                .Entity<Ticket>()
                 .HasOne(t => t.Flight)
                 .WithMany()
                 .HasForeignKey(t => t.FlightId);
 
-            modelBuilder.Entity<Discounts>()
+            modelBuilder
+                .Entity<Discounts>()
                 .HasOne(d => d.Flight)
                 .WithMany()
                 .HasForeignKey(d => d.FlightId);
 
-            modelBuilder.Entity<CheckIn>()
+            modelBuilder
+                .Entity<CheckIn>()
                 .HasOne(c => c.Ticket)
                 .WithOne()
                 .HasForeignKey<CheckIn>(c => c.TicketId);
 
-
             /*-------------------------------------*/
 
-            modelBuilder.Entity<User>()
-           .HasMany(u => u.TicketList)
-           .WithOne(t => t.Passenger)
-           .HasForeignKey(t => t.PassengerId)
-           .OnDelete(DeleteBehavior.Cascade);
-
-
-
-
-
-
+            modelBuilder
+                .Entity<User>()
+                .HasMany(u => u.TicketList)
+                .WithOne(t => t.Passenger)
+                .HasForeignKey(t => t.PassengerId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
