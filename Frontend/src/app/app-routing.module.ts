@@ -5,6 +5,7 @@ import { ContactComponent } from './menu-items/contact/contact.component';
 import { LoginComponent } from './menu-items/login/login.component';
 import { CheckInComponent } from './menu-items/check-in/check-in.component';
 import { UserProfileComponent } from './menu-items/user-profile/user-profile.component';
+import { BookingComponent } from './menu-items/booking/booking.component';
 
 const routes: Routes = [
   {path: '', component: HomePageComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: 'check-in', component: CheckInComponent},
   {path: 'login', component: LoginComponent},
   {path: 'user', component: UserProfileComponent},
+  {path: 'booking', component: BookingComponent},
 ];
 
 @NgModule({

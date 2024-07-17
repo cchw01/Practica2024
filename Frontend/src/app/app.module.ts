@@ -9,7 +9,8 @@ import { LoginComponent } from './menu-items/login/login.component';
 import { CheckInComponent } from './menu-items/check-in/check-in.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import { UserProfileComponent } from './menu-items/user-profile/user-profile.component'
+import { UserProfileComponent } from './menu-items/user-profile/user-profile.component';
+import { BookingComponent } from './menu-items/booking/booking.component'
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { UserProfileComponent } from './menu-items/user-profile/user-profile.com
     ContactComponent,
     LoginComponent,
     CheckInComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    BookingComponent
   ],
   imports: [
     BrowserModule,
