@@ -1,5 +1,6 @@
 ﻿using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
+using Backend.DTOs;
 
 namespace Backend.Controllers
 {
@@ -7,34 +8,35 @@ namespace Backend.Controllers
     [ApiController]
     public class AircraftController : ControllerBase
     {
-        private readonly AircraftManager aircraftManager;
+        private readonly AircraftManager _aircraftManager;
         public AircraftController()
         {
-            aircraftManager = new AircraftManager();
+            _aircraftManager = new AircraftManager();
         }
 
         [HttpGet]
         public IActionResult GetAircrafts()
         {
-            return Ok(aircraftManager.GetAllAircrafts());
+            return Ok(_aircraftManager.GetAllAircrafts());
         }
-        [HttpGet]
-        [Route("{aircraftId}")]
+
+        [HttpGet("{aircraftId}")]
         public IActionResult GetAircraft(int aircraftId)
         {
-            var aircraft = aircraftManager.GetAircraft(aircraftId);
+            var aircraft = _aircraftManager.GetAircraft(aircraftId);
             if (aircraft != null)
             {
                 return Ok(aircraft);
             }
-            return NotFound($"can't found item with id:{aircraftId}");
+            return NotFound($"Aircraft with ID {aircraftId} not found.");
         }
+
         [HttpPost]
-        public IActionResult AddNewAircraft(Models.Aircraft item)
+        public IActionResult AddNewAircraft([FromBody] AircraftDto aircraftDto)
         {
             try
             {
-                aircraftManager.AddAircraft(item);
+                _aircraftManager.AddAircraft(aircraftDto);
                 return Created();
             }
             catch
@@ -42,29 +44,36 @@ namespace Backend.Controllers
                 return BadRequest("The request is not valid");
             }
         }
+
         [HttpPut]
-        public IActionResult UpdateAircraft(Models.Aircraft item)
+        public IActionResult UpdateAircraft([FromBody] AircraftDto aircraftDto)
         {
+            var existingAircraft = _aircraftManager.GetAircraft(aircraftDto.AircraftId);
+            if (existingAircraft == null)
+            {
+                return NotFound($"Aircraft with ID {aircraftDto.AircraftId} not found.");
+            }
+
             try
             {
-                aircraftManager.UpdateAircraft(item);
+                _aircraftManager.UpdateAircraft(aircraftDto);
                 return Ok();
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest("The request is not valid");
+                return BadRequest(ex.Message);
             }
         }
-        [HttpDelete]
-        [Route("{aircraftId}")]
+
+        [HttpDelete("{aircraftId}")]
         public IActionResult RemoveAircraft(int aircraftId)
         {
             try
             {
-                aircraftManager.RemoveItem(aircraftId);
-                return Ok();
+                _aircraftManager.RemoveItem(aircraftId);
+                return Ok(); 
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return NotFound(ex.Message);
             }
