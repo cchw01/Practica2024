@@ -1,0 +1,30 @@
+.form-container{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+mat-form-field{
+    margin-bottom: 10px;
+}
+
+:host ::ng-deep .p-password input {
+    margin-bottom: 40px;
+    width: 210px;
+    height: 40px;
+    }
+    
+    :host ::ng-deep .p-password-panel .p-password-meter .p-password-strength.weak {
+    background: #D32F2F;
+    }
+    
+    :host ::ng-deep .p-password-panel .p-password-meter .p-password-strength.medium {
+    background: #FBC02D;
+    }
+    
+    :host ::ng-deep .p-password-panel .p-password-meter .p-password-strength.strong {
+    background: #689F38;
+    }
+
+    
