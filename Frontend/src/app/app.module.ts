@@ -15,6 +15,9 @@ import { PasswordModule } from 'primeng/password';
 import { RegisterComponent } from './menu-items/register/register.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { FlightsComponent } from './menu-items/flights/flights.component';
+import { FlightComponent } from './menu-items/flights/flight/flight.component'
+
 
 @NgModule({
   declarations: [
@@ -25,6 +28,8 @@ import { MatSelectModule } from '@angular/material/select';
     CheckInComponent,
     UserProfileComponent,
     RegisterComponent,
+    FlightsComponent,
+    FlightComponent,
   ],
   imports: [
     BrowserModule,
