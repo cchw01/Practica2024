@@ -7,13 +7,14 @@ import { CheckInComponent } from './menu-items/check-in/check-in.component';
 import { UserProfileComponent } from './menu-items/user-profile/user-profile.component';
 import { BookingComponent } from './menu-items/booking/booking.component';
 
+
 const routes: Routes = [
   {path: '', component: HomePageComponent},
   {path: 'contact', component: ContactComponent},
   {path: 'check-in', component: CheckInComponent},
   {path: 'login', component: LoginComponent},
   {path: 'user', component: UserProfileComponent},
-  {path: 'booking', component: BookingComponent},
+  {path: 'booking/:flightId/:userId', component: BookingComponent},
 ];
 
 @NgModule({

@@ -1,1 +1,21 @@
-<p>booking works!</p>
+<mat-toolbar color="primary">
+    <span>Booking Page</span>
+  </mat-toolbar>
+  
+  <div class="container">
+    <h2>Book Your Flight</h2>
+    <form (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill">
+        <mat-label>Flight ID</mat-label>
+        <input matInput placeholder="Flight ID" [(ngModel)]="flightId" name="flightId" disabled>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>User ID</mat-label>
+        <input matInput placeholder="User ID" [(ngModel)]="userId" name="userId" disabled>
+      </mat-form-field>
+  
+      <button mat-raised-button color="primary" type="submit">Confirm Booking</button>
+    </form>
+  </div>
+  
