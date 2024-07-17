@@ -39,7 +39,7 @@ footer {
   background-color: #673ab7;
   padding: 1rem;
   text-align: center;
-  width: 100%;
+  width: auto;
   margin-top: auto; /* Push footer to the bottom */
 }
 
