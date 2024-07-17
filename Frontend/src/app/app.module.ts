@@ -9,7 +9,10 @@ import { LoginComponent } from './menu-items/login/login.component';
 import { CheckInComponent } from './menu-items/check-in/check-in.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { FlightsComponent } from './menu-items/flights/flights.component';
+import { FlightComponent } from './menu-items/flights/flight/flight.component'
 import { UserProfileComponent } from './menu-items/user-profile/user-profile.component'
+
 
 @NgModule({
   declarations: [
@@ -18,7 +21,11 @@ import { UserProfileComponent } from './menu-items/user-profile/user-profile.com
     ContactComponent,
     LoginComponent,
     CheckInComponent,
+    FlightsComponent,
+    FlightComponent,
     UserProfileComponent
+
+
   ],
   imports: [
     BrowserModule,
