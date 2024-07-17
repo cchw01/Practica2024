@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class intial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -173,58 +173,6 @@ namespace Backend.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "FlightTickets",
-                columns: table => new
-                {
-                    FlightId = table.Column<int>(type: "int", nullable: false),
-                    TicketId = table.Column<int>(type: "int", nullable: false),
-                    FlightTicketId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FlightTickets", x => new { x.FlightId, x.TicketId });
-                    table.ForeignKey(
-                        name: "FK_FlightTickets_Flights_FlightId",
-                        column: x => x.FlightId,
-                        principalTable: "Flights",
-                        principalColumn: "FlightNumber",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_FlightTickets_Tickets_TicketId",
-                        column: x => x.TicketId,
-                        principalTable: "Tickets",
-                        principalColumn: "TicketId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserTickets",
-                columns: table => new
-                {
-                    TicketId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    UserTicketId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserTickets", x => new { x.UserId, x.TicketId });
-                    table.ForeignKey(
-                        name: "FK_UserTickets_Tickets_TicketId",
-                        column: x => x.TicketId,
-                        principalTable: "Tickets",
-                        principalColumn: "TicketId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserTickets_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_CheckIns_TicketId",
                 table: "CheckIns",
@@ -252,12 +200,6 @@ namespace Backend.Migrations
                 column: "DestinationAirportId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FlightTickets_TicketId",
-                table: "FlightTickets",
-                column: "TicketId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Tickets_FlightId",
                 table: "Tickets",
                 column: "FlightId");
@@ -266,12 +208,6 @@ namespace Backend.Migrations
                 name: "IX_Tickets_UserId",
                 table: "Tickets",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserTickets_TicketId",
-                table: "UserTickets",
-                column: "TicketId",
-                unique: true);
         }
 
         /// <inheritdoc />
@@ -282,12 +218,6 @@ namespace Backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "Discounts");
-
-            migrationBuilder.DropTable(
-                name: "FlightTickets");
-
-            migrationBuilder.DropTable(
-                name: "UserTickets");
 
             migrationBuilder.DropTable(
                 name: "Tickets");

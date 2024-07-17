@@ -13,12 +13,12 @@ namespace Backend.Services
         }
         public List<Ticket> GetTickets()
         {
-            return ticketContext.Tickets.Include(a => a.Flight).Include(u => u.User).ToList();
+            return ticketContext.Tickets
+                .ToList();
         }
         public Ticket GetTicket(int ticketId)
         {
             return ticketContext.Tickets
-                .Include(a => a.Flight).Include(u => u.User)
                 .FirstOrDefault(x => x.TicketId == ticketId);
         }
         public void AddTicket(Ticket item)

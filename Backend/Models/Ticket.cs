@@ -9,10 +9,14 @@ namespace Backend.Models
         [Key]
         public int TicketId { get; set; }
         public int FlightId { get; set; }
-        public int UserId { get; set; }
+        [ForeignKey("FlightId")]
         public virtual Flight Flight { get; set; }
+        public int UserId { get; set; }
+        [ForeignKey("UserId")]
         public virtual User User { get; set; }
-        public bool CheckIn { get; set; }
+        public int? CheckInId { get; set; }
+        [ForeignKey("CheckInId")]
+        public virtual CheckIn CheckIn { get; set; }
         public bool Luggage { get; set; }
         public float Price { get; set; }
 
