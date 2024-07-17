@@ -1,4 +1,5 @@
-﻿using Backend.Models;
+﻿using Backend.DTOs;
+using Backend.Models;
 using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,6 @@ namespace Backend.Controllers
         [HttpGet]
         public IActionResult GetUsers()
         {
-            Console.WriteLine("S-a ajuns in getController");
             return Ok(userManager.GetUsers());
 
         }
@@ -34,7 +34,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddUser(User user)
+        public IActionResult AddUser(UserDto user)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace Backend.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateUser(User user)
+        public IActionResult UpdateUser(UserDto user)
         {
             try
             {

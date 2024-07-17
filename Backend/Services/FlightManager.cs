@@ -2,73 +2,59 @@
 using System.Xml.Serialization;
 using Backend.ApplicationDBContext;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using Backend.DTOs;
 
 namespace Backend.Services
 {
     public class FlightManager
     {
-        private readonly ApplicationDbContext flightContext;
+        private readonly ApplicationDbContext _context = new ApplicationDbContext();
+        private readonly IMapper _mapper;
 
         public FlightManager()
         {
-            flightContext = new ApplicationDbContext();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            _mapper = config.CreateMapper();
         }
-        public List<Flight> GetFlights()
+        public List<FlightDto> GetFlights()
         {
-            return flightContext.Flights
-                .Include(f => f.DepartingAirport)
-                .Include(f => f.DestinationAirport)
-                .Include(f => f.Aircraft)
-                .ToList();
-        }
-
-        public Flight GetFlight(int flightNumber)
-        {
-            return flightContext.Flights
-                .Include(f => f.DepartingAirport)
-                .Include(f => f.DestinationAirport)
-                .Include(f => f.Aircraft)
-                .FirstOrDefault(x => x.FlightNumber == flightNumber);
+            var flights = _context.Flights.ToList();
+            return _mapper.Map<List<FlightDto>>(flights);
         }
 
-        public void AddFlight(Flight flight)
+        public FlightDto GetFlight(int flightNumber)
         {
-            flight.DepartingAirport = null;
-            flight.DestinationAirport = null;
-            flight.Aircraft = null;
+            var flight = _context.Flights.FirstOrDefault(x => x.FlightNumber == flightNumber);
+            return _mapper.Map<FlightDto>(flight);
+        }
 
-            flightContext.Flights.Add(flight);
-            flightContext.SaveChanges();
+        public void AddFlight(FlightDto flight)
+        {
+            var newFlight = _mapper.Map<Flight>(flight);
+            _context.Flights.Add(newFlight);
+            _context.SaveChanges();
         }
 
         public void RemoveFlight(int flightNumber)
         {
-            var flight = flightContext.Flights.FirstOrDefault(x => x.FlightNumber == flightNumber);
+            var flight = _context.Flights.FirstOrDefault(x => x.FlightNumber == flightNumber);
             if (flight == null)
                 throw new ArgumentException("Flight does not exist");
-            flightContext.Flights.Remove(flight);
-            flightContext.SaveChanges();
+            _context.Flights.Remove(flight);
+            _context.SaveChanges();
         }
 
-        public void UpdateFlight(Flight flight)
+        public void UpdateFlight(FlightDto flight)
         {
-            var oldFlight = flightContext.Flights.FirstOrDefault(x => x.FlightNumber == flight.FlightNumber);
-            if (oldFlight == null)
+            var flightToUpdate = _context.Flights.FirstOrDefault(x => x.FlightNumber == flight.FlightNumber);
+            if (flightToUpdate == null)
                 throw new ArgumentException("Flight does not exist");
-
-            oldFlight.DepartingAirportId = flight.DepartingAirportId;
-            oldFlight.DestinationAirportId = flight.DestinationAirportId;
-            oldFlight.AircraftId = flight.AircraftId;
-            oldFlight.DepartingTime = flight.DepartingTime;
-            oldFlight.FlightTime = flight.FlightTime;
-            oldFlight.FlightCost = flight.FlightCost;
-
-            flightContext.Flights.Update(oldFlight);
-            flightContext.SaveChanges();
+            _mapper.Map(flight, flightToUpdate);
+            _context.SaveChanges();
         }
-
-
     }
-
-
 }
