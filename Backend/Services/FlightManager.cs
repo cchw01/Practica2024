@@ -22,13 +22,16 @@ namespace Backend.Services
         }
         public List<FlightDto> GetFlights()
         {
-            var flights = _context.Flights.ToList();
+            var flights = _context.Flights
+                .Include(f => f.Discount).ToList();
             return _mapper.Map<List<FlightDto>>(flights);
         }
 
         public FlightDto GetFlight(int flightNumber)
         {
-            var flight = _context.Flights.FirstOrDefault(x => x.FlightNumber == flightNumber);
+            var flight = _context.Flights
+                .Include(f => f.Discount)
+                .FirstOrDefault(x => x.FlightNumber == flightNumber);
             return _mapper.Map<FlightDto>(flight);
         }
 

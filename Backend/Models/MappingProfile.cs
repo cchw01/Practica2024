@@ -18,12 +18,16 @@ namespace Backend.Models
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<UserDto, User>()
                 .ForMember(dest => dest.UserId, opt => opt.Ignore());
-                
-            CreateMap<Flight, FlightDto>().ReverseMap();
+
+            CreateMap<Flight, FlightDto>()
+                .ForMember(dto => dto.DiscountId, conf => conf.MapFrom(ol => ol.Discount != null ? ol.Discount.DiscountId : (int?)null));
+
             CreateMap<FlightDto, Flight>()
                 .ForMember(dest => dest.FlightNumber, opt => opt.Ignore());
 
-            CreateMap<Ticket, TicketDto>().ReverseMap();
+            CreateMap<Ticket, TicketDto>()
+                .ForMember(dto => dto.CheckInId, conf => conf.MapFrom(ol => ol.CheckIn != null ? ol.CheckIn.CheckInId : (int?)null));
+
             CreateMap<TicketDto, Ticket>()
                 .ForMember(dest => dest.TicketId, opt => opt.Ignore());
 

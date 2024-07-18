@@ -20,12 +20,15 @@ namespace Backend.Services
         }
         public List<TicketDto> GetTickets()
         {
-            var tickets = _context.Tickets.ToList();
+            var tickets = _context.Tickets
+                .Include(t => t.CheckIn).ToList();
             return _mapper.Map<List<TicketDto>>(tickets);
         }
         public TicketDto GetTicket(int ticketId)
         {
-            var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == ticketId);
+            var ticket = _context.Tickets
+                .Include(t => t.CheckIn)
+                .FirstOrDefault(x => x.TicketId == ticketId);
             return _mapper.Map<TicketDto>(ticket);
         }
         public void AddTicket(TicketDto item)
