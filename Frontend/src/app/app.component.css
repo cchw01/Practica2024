@@ -48,11 +48,13 @@
 }
 
 footer {
+  position: relative;
   background-color: #673ab7;
   padding: 1rem;
   text-align: center;
-  width: auto;
-  margin-top: auto; /* Push footer to the bottom */
+  width: auto; 
+  bottom: 0;
+  z-index: 10;
 }
 
 .footer-content {

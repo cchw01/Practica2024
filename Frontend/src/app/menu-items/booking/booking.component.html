@@ -1,50 +1,70 @@
-<div class="title-table">
-  <mat-toolbar>
-    <span>Book Your Flight</span>
-    <button class="navigation-button" mat-button routerLink="/tickets">Tickets Table</button>
-  </mat-toolbar>
-</div>
-
-<div class="booking-container">
-  <form (ngSubmit)="onSubmit()" #bookingForm="ngForm">
-    <div class="form-group" *ngIf="ticket">
-      <label class="form-label">Flight to {{ticket.flight.destinationAirport.location}}</label>
-      <span class="form-value">Flight Number: {{ ticket.flight.flightNumber }}</span>
-      <span class="form-value">Departing from: {{ ticket.flight.departingAirport.airportName }}</span>
-      <span class="form-value">Departing on: {{ ticket.flight.departingTime | date: 'dd/MM/yyyy hh:mm a'}}</span>
-      <span class="form-value">Flying to: {{ ticket.flight.destinationAirport.airportName }}</span>
+<div class="container">
+  <h3 class="booking-page-title">BOOK YOUR FLIGHT</h3>
+  <h5 class="booking-page-description">The world's leading airlines offer top-notch service, ensuring<br> memorable travel experiences for passengers.</h5>
+  <div class="booking-page-container">
+    <div class="images-section">
+    <img src="../../../assets/images/airplane-booking.png" class="booking-page-image-top">
+    <img src="../../../assets/images/flight.png" class="booking-page-image-bottom">
     </div>
-
-    <!--<div class="form-group" *ngIf="ticket?.passager">-->
-    <div class="form-group" *ngIf="1">
-      <label class="form-label">Passenger</label>
-      <span class="form-value">{{ ticket.passager.name }}</span>
-      <span class="form-value">{{ ticket.passager.emailAddress }}</span>
+    <div class="booking-info-container">
+      <form (ngSubmit)="onSubmit()" #bookingForm="ngForm">
+        <div class="form-group flight-info" *ngIf="ticket">
+          <div class="flight-info-container">
+            <label class="form-label">Flight to {{ticket.flight.destinationAirport.location}}</label>
+            <span class="form-flight-number">Flight Number: #{{ ticket.flight.flightNumber }}</span>
+          </div>
+          <div class="form-values">
+            <div class="form-departure-section">
+              <span class="form-value">Departing from: <br> {{ ticket.flight.departingAirport.airportName }}</span>
+              <div class="form-line-container">
+                <hr class="dotted-line">
+                <i class="fas fa-plane form-airplane"></i>
+                <hr class="dotted-line">
+              </div>
+              <span class="form-value">Flying to: <br> {{ ticket.flight.destinationAirport.airportName }}</span>
+            </div>
+            <span class="form-value form-departing">Departing on: <br> {{ ticket.flight.departingTime | date: 'dd/MM/yyyy hh:mm a'}}</span>
+          </div>
+        </div>
+      
+        <!--<div class="form-group" *ngIf="ticket?.passager">-->
+        <div class="form-group passenger-info" *ngIf="1">
+          <label class="form-label">Passenger Information</label>
+          <div class="form-values">
+            <span class="form-value">{{ ticket.passager.name }}</span>
+            <span class="form-value">{{ ticket.passager.emailAddress }}</span>
+          </div>
+         </div>
+       
+        <div class="check-in-info">
+          <label class="form-label">Check-In Status</label>
+          <span class="form-value">{{ ticket.checkIn? 'Done' : 'Not done' }}</span>
+        </div>
+      
+        <div class="form-group luggage-info">
+          <label class="form-label">Luggage</label>
+          <mat-select class="form-value" [(ngModel)]="ticket.luggage" name="luggage">
+            <mat-option [value]="true">Yes</mat-option>
+            <mat-option [value]="false">No</mat-option>
+          </mat-select>
+        </div>
+      
+        <div class="form-group place-info">
+          <label class="form-label">Price</label>
+          <div class="form-values">
+            <div class="paying-info">
+              <span class="form-value">Initial price: {{ ticket.flight.flightCost| currency }}</span>
+              <span class="form-value">Discount offer: {{ ticket.flight.discountOffer.discountPercentage}}%</span>
+            </div>
+            <span class="final-price">Paying price: <b>{{ ticket.price | currency }}</b></span>
+          </div>
+        </div>
+      
+        <div class="form-actions">
+          <button mat-raised-button color="warn" type="button" class="styled-button" (click)="goBack()">Go Back</button>
+          <button mat-raised-button color="primary" type="submit" class="styled-button">Book Flight</button>
+        </div>
+      </form>
     </div>
-
-    <div class="form-group">
-      <label class="form-label">Check-In</label>
-      <span class="form-value">Status: {{ ticket.checkIn? 'Done' : 'Not done' }}</span>
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">Luggage</label>
-      <mat-select class="form-value" [(ngModel)]="ticket.luggage" name="luggage">
-        <mat-option [value]="true">Yes</mat-option>
-        <mat-option [value]="false">No</mat-option>
-      </mat-select>
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">Price</label>
-      <span class="form-value">Initial price: {{ ticket.flight.flightCost| currency }}</span>
-      <span class="form-value">Discount offer: {{ ticket.flight.discountOffer.discountPercentage}}%</span>
-      <span class="form-value">Paying price: {{ ticket.price | currency }}</span>
-    </div>
-
-    <div class="form-actions">
-      <button mat-raised-button color="primary" type="submit" class="styled-button">Book Flight</button>
-      <button mat-raised-button color="warn" type="button" class="styled-button" (click)="goBack()">Go Back</button>
-    </div>
-  </form>
+  </div>
 </div>
