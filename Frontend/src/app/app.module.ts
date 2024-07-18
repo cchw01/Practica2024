@@ -10,12 +10,22 @@ import { CheckInComponent } from './menu-items/check-in/check-in.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FlightsComponent } from './menu-items/flights/flights.component';
-import { FlightComponent } from './menu-items/flights/flight/flight.component'
+import { FlightComponent } from './menu-items/flights/flight/flight.component';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BookingComponent } from './menu-items/booking/booking.component';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { TicketsComponent } from './menu-items/booking/tickets/tickets.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 import { UserProfileComponent } from './menu-items/user-profile/user-profile.component';
+import { RegisterComponent } from './menu-items/register/register.component';
 import { DiscountPipe } from './app-logic/pipes/discountPrice.pipe';
-import { ArrivalTimePipe } from './app-logic/pipes/arrivalTime.pipe';
 import { FormatFlightTime } from './app-logic/pipes/formatFlightTime.pipe';
-import { MatIconModule } from '@angular/material/icon';
+import { ArrivalTimePipe } from './app-logic/pipes/arrivalTime.pipe';
 
 @NgModule({
   declarations: [
@@ -24,16 +34,18 @@ import { MatIconModule } from '@angular/material/icon';
     ContactComponent,
     LoginComponent,
     CheckInComponent,
+    UserProfileComponent,
+    RegisterComponent,
     FlightsComponent,
     FlightComponent,
+    UserProfileComponent,
+    BookingComponent,
+    TicketsComponent,
     DiscountPipe,
     ArrivalTimePipe,
     FormatFlightTime,
-    UserProfileComponent
-
-
   ],
-  imports: [BrowserModule, AppRoutingModule, MatToolbarModule, MatIconModule],
+  imports: [BrowserModule, AppRoutingModule, MatToolbarModule],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
