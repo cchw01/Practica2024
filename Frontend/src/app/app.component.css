@@ -1,3 +1,9 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .navigation-button {
     background-color: #fff;
     color: #000;
@@ -38,16 +44,15 @@
 }
  
 .spacer {
-    flex: 1;
+    flex: 1 1 auto;
 }
 
 footer {
   background-color: #673ab7;
   padding: 1rem;
   text-align: center;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+  width: auto;
+  margin-top: auto; /* Push footer to the bottom */
 }
 
 .footer-content {

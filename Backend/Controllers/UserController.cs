@@ -1,4 +1,5 @@
-﻿using Backend.Models;
+﻿using Backend.DTOs;
+using Backend.Models;
 using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,9 +19,7 @@ namespace Backend.Controllers
         [HttpGet]
         public IActionResult GetUsers()
         {
-            Console.WriteLine("S-a ajuns in getController");
             return Ok(userManager.GetUsers());
-
         }
 
         [HttpGet]
@@ -34,7 +33,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddUser(User user)
+        public IActionResult AddUser(UserDto user)
         {
             try
             {
@@ -48,7 +47,7 @@ namespace Backend.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateUser(User user)
+        public IActionResult UpdateUser(UserDto user)
         {
             try
             {
@@ -81,6 +80,42 @@ namespace Backend.Controllers
             catch
             {
                 return BadRequest($"The request is not valid.");
+            }
+        }
+
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LoginDto loginDto)
+        {
+            try
+            {
+                var user = userManager.Login(loginDto);
+                return Ok(user);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch
+            {
+                return StatusCode(500, "An internal error occured");
+            }
+        }
+
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] UserDto userDto)
+        {
+            try
+            {
+                var user = userManager.Register(userDto);
+                return Ok(user);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch
+            {
+                return StatusCode(500, "An internal server occured");
             }
         }
     }
