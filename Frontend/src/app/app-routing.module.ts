@@ -12,11 +12,11 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'check-in', component: CheckInComponent },
   { path: 'login', component: LoginComponent },
-  {path: 'user', component: UserProfileComponent},
+  { path: 'user', component: UserProfileComponent },
   { path: 'flights', component: FlightsComponent },
   // For wildcard route we could either redirect to the home page or to some NotFoundComponent
   { path: '**', redirectTo: '' },
-
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
