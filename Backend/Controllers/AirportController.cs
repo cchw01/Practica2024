@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Backend.Services;
+using Backend.DTOs;
 
 namespace Backend.Controllers
 {
@@ -36,12 +37,12 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddNewAirport(Airport airport)
+        public IActionResult AddNewAirport(AirportDto airport)
         {
             try
             {
                 airportItemManager.AddAirport(airport);
-                return Ok();
+                return Created();
             }
             catch (Exception ex)
             {
@@ -52,7 +53,7 @@ namespace Backend.Controllers
         }
 
         [HttpPut]
-        public IActionResult PutAirport(Airport airport)
+        public IActionResult PutAirport(AirportDto airport)
         {
             try
             {

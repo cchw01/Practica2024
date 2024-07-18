@@ -1,57 +1,71 @@
-﻿using Backend.ApplicationDBContext;
+﻿using AutoMapper;
+using Backend.ApplicationDBContext;
+using Backend.DTOs;
 using Backend.Models;
 
 namespace Backend.Services
 {
     public class CheckInManager
     {
-        private readonly ApplicationDbContext checkinContext;
-
+        private readonly ApplicationDbContext checkinContext=new ApplicationDbContext();
+        
+        private readonly IMapper _mapper;
         public CheckInManager() 
         {
-        checkinContext = new ApplicationDbContext(); 
+        
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            _mapper = config.CreateMapper();
         }
 
-        public List<CheckIn> GetCheckIns()
+        public List<CheckInDto> GetCheckIns()
         {
-            return checkinContext.CheckIns.ToList();
+            var checkins = checkinContext.CheckIns.ToList();
+            return _mapper.Map<List<CheckInDto>>(checkins);
         }
 
-        public CheckIn GetCheckIn(int checkinId)
+        public CheckInDto GetCheckIn(int checkinId)
         {
-            return checkinContext.CheckIns.FirstOrDefault(x => x.CheckInId == checkinId);
+            var checkin = checkinContext.CheckIns.FirstOrDefault(x => x.CheckInId == checkinId);
+            return _mapper.Map<CheckInDto>(checkin);
         }
 
-        public void AddCheckIn(CheckIn item)
+        public void AddCheckIn(CheckInDto item)
         {
-            checkinContext.CheckIns.Add(item);
+            var newCheckIn = _mapper.Map<CheckIn>(item);
+            checkinContext.CheckIns.Add(newCheckIn);
             checkinContext.SaveChanges();
         }
 
         public void RemoveCheckIn(int checkinId)
         {
-            var item = checkinContext.CheckIns.FirstOrDefault(x => x.CheckInId == checkinId);
-            if (item == null) { throw new ArgumentException("item deos not exist"); }
-            checkinContext.CheckIns.Remove(item);
-            checkinContext.SaveChanges();
+            var checkin = checkinContext.CheckIns.FirstOrDefault(x => x.CheckInId == checkinId);
+            if (checkin != null)
+            {
+                checkinContext.CheckIns.Remove(checkin);
+                checkinContext.SaveChanges();
+            }
+            else
+            {
+                throw new ArgumentException("CheckIn does not exist");
+            }
         }
+        
 
-        public void UpdateCheckIn(CheckIn item)
-        {
-            var oldItem = checkinContext.CheckIns.FirstOrDefault(x => x.CheckInId == item.CheckInId);
-            if (oldItem == null) throw new ArgumentException("item deos not exist");
-
-            oldItem.Ticket = item.Ticket;
-            oldItem.PassengerName = item.PassengerName;
-            oldItem.IdDocumentType = item.IdDocumentType;
-            oldItem.DocumentData = item.DocumentData;
-            oldItem.CheckInStatus = item.CheckInStatus;
-            oldItem.PassengerEmail = item.PassengerEmail;
-
-
-
-            checkinContext.CheckIns.Update(oldItem);
-            checkinContext.SaveChanges();
+        public void UpdateCheckIn(CheckInDto item)
+        { 
+            var checkin = checkinContext.CheckIns.FirstOrDefault(x => x.CheckInId == item.CheckInId);
+            if (checkin != null)
+            {
+                _mapper.Map(item, checkin);
+                checkinContext.SaveChanges();
+            }
+            else
+            {
+                throw new ArgumentException("CheckIn does not exist");
+            }
         }
 
     }

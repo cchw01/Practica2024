@@ -3,11 +3,17 @@
   <div class="overlay">
     <div class="form-group">
       <label for="departingAirport">Departing Airport:</label>
-      <input type="text" id="departingAirport" (input)="onInputChange($event, 'departingAirport')" required>
+      <select class="dropdown" id="departingAirport" (change)="onInputChange($event, 'departingAirport')" required>
+        
+        <option *ngFor="let airport of airports" [value]="airport.airportName">{{ airport.airportName }}</option>
+      </select>
     </div>
     <div class="form-group">
       <label for="destinationAirport">Destination Airport:</label>
-      <input type="text" id="destinationAirport" (input)="onInputChange($event, 'destinationAirport')" required>
+      <select class="dropdown" id="destinationAirport" (change)="onInputChange($event, 'destinationAirport')" required>
+        
+        <option *ngFor="let airport of airports" [value]="airport.airportName">{{ airport.airportName }}</option>
+      </select>
     </div>
     <div class="form-group">
       <label for="departingTime">Departure Time:</label>
@@ -23,4 +29,15 @@
     </div>
     <button (click)="onSubmit()">Submit</button>
   </div>
+
+  <!-- Container pentru discounturi -->
+  <div class="discounts-container">
+    
+    <div *ngFor="let discount of discounts" class="discount-item">
+      <h3>{{ discount.discountName }}</h3>
+      <p>{{ discount.discountDescription }}</p>
+      <p>Discount: {{ discount.discountPercentage }}%</p>
+    </div>
+  </div>
 </div>
+

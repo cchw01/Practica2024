@@ -12,6 +12,16 @@
   overflow: hidden;
 }
 
+@media (max-width: 550px) {
+  .flight-container {
+    width: 95%;
+  }
+
+  .flight-info {
+    padding: 0.75rem 1.85rem;
+  }
+}
+
 .flight-container::before {
   opacity: 0;
   content: "";
@@ -27,13 +37,34 @@
 }
 
 .flight-info {
-  min-width: 200px;
+  min-width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   flex: 3;
-  gap: 0.8rem;
   padding: 1.25rem 1.85rem;
+  position: relative;
+}
+
+.admin-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: absolute;
+  right: 0;
+  top:0;
+  padding: 0.5rem;
+}
+
+.icon-admin {
+  font-size: 1.45rem; 
+  color: #000000;
+  transition: color 300ms;
+}
+
+.icon-admin:hover,
+.icon-admin:focus {
+  color: #673ab7;
 }
 
 .flight-date {
@@ -45,7 +76,61 @@
   font-weight: 600;
 }
 
+.flight-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flight-departure {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.75rem;
+}
+
+.flight-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.flight-arrival {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 0.75rem;
+}
+
+.flight-duration {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 3rem;
+}
+
+.flight-icon {
+  min-height: 50px;
+  min-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(90deg);
+  font-size: 3rem;
+}
+
+.flight-duration-time {
+  font-size: 0.9rem;
+  color: #999999;
+}
+
 .flight-airport {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 0.9rem;
   color: #999999;
 }
@@ -127,4 +212,8 @@
 
 .discount {
   color: #673ab7;
+}
+
+.margin-top {
+  margin-top: 0.9rem;
 }
