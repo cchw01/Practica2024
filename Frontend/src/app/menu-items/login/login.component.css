@@ -1,4 +1,11 @@
-
+.container {
+  position: absolute;
+  width: 100%;
+  align-items: center;
+  place-self: center;
+  vertical-align: middle;
+  top: 10%;
+}
 
 .form-container {
   display: flex;
