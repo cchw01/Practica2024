@@ -1,1 +1,61 @@
-<p>check-in works!</p>
+<h1>Ready to check-in?</h1>
+
+<div class="header" (click)="toggleContent()">Online Check-in</div>
+<div class="content" [ngClass]="{'show': isContentVisible}">
+  <div class="info-form-container">
+    <div class="info-container">
+      <p>To reduce costs and keep our fares cheap, we offer free online check-in options. Online check-in is available from <strong>30 days up to 3 hours</strong> before the scheduled departure time if you have <strong>purchased a seat</strong> during your booking.</p>
+      <p>In case you have not purchased any seats with your booking, check-in will become available <strong>only 24 hours</strong> before departure.</p>
+      <ul>
+        <li><a href="#">Check in online</a></li>
+        <li>Print your boarding card</li>
+        <li class="highlight">Present the printed boarding card at the gate with your travel documents no later than 30 minutes before the scheduled departure time</li>
+        <li>If you hold non-EU travel documents, you need to present yourself at the check-in counter to have your documentation checked and your boarding card stamped</li>
+        <li>If you have baggage to drop off, go to the baggage drop desk no later than 40 minutes prior to departure or according to the local rules as indicated in the below "CHECK-IN TIMES" section.</li>
+      </ul>
+      <div class="note">
+        <p><strong>Note:</strong> If you are travelling within the Schengen area you don't need to fill in the travel document details during the online check-in procedure, since you are not required to provide such details.</p>
+      </div>
+      <p>During the online check-in process you might be requested to provide visa details on certain routes. If no visa is required for your destination, just fill in the field with xxxxx characters.</p>
+      <p>Children under 14 need to be accompanied and checked in online by a passenger older than 16.</p>
+      <p>You can <a href="#">change your reservation</a> (except for the flight and the name) or purchase additional services even after the online check-in.</p>
+    </div>
+
+    <div class="form-container">
+      <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline">
+          <mat-label>First Name:</mat-label>
+          <input matInput placeholder="First name" formControlName="firstName" type="text" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Last Name:</mat-label>
+          <input matInput placeholder="Last name" formControlName="lastName" type="text" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email:</mat-label>
+          <input matInput placeholder="Email" formControlName="email" type="text" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Telefon:</mat-label>
+          <input matInput placeholder="Telefon" formControlName="telefon" type="text" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Ticket Number</mat-label>
+          <input matInput placeholder="Ticket Number" formControlName="ticketNumber" type="text" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Flight Number</mat-label>
+          <input matInput placeholder="Flight Number" formControlName="flightNumber" type="text" required />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
