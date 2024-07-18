@@ -8,9 +8,14 @@ import { ContactComponent } from './menu-items/contact/contact.component';
 import { LoginComponent } from './menu-items/login/login.component';
 import { CheckInComponent } from './menu-items/check-in/check-in.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { FlightsComponent } from './menu-items/flights/flights.component';
-import { FlightComponent } from './menu-items/flights/flight/flight.component'
+import { FlightComponent } from './menu-items/flights/flight/flight.component';
+import { DiscountPipe } from './app-logic/pipes/discountPrice.pipe';
+import { ArrivalTimePipe } from './app-logic/pipes/arrivalTime.pipe';
+
+import { MatIconModule } from '@angular/material/icon';
+import { FormatFlightTime } from './app-logic/pipes/formatFlightTime.pipe';
 
 @NgModule({
   declarations: [
@@ -20,16 +25,13 @@ import { FlightComponent } from './menu-items/flights/flight/flight.component'
     LoginComponent,
     CheckInComponent,
     FlightsComponent,
-    FlightComponent
+    FlightComponent,
+    DiscountPipe,
+    ArrivalTimePipe,
+    FormatFlightTime
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    MatToolbarModule
-  ],
-  providers: [
-    provideAnimationsAsync()
-  ],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, AppRoutingModule, MatToolbarModule, MatIconModule],
+  providers: [provideAnimationsAsync()],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
