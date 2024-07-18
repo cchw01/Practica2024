@@ -1,3 +1,10 @@
+.log-in-container{
+  position: absolute;
+  width: 100%;
+  align-items: center;
+  place-self: center;
+  margin-top: 60px;
+}
 
 .form-container {
   display: flex;

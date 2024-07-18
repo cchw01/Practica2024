@@ -24,7 +24,7 @@
     margin-top: 10px;
     opacity: 0.9;
     box-shadow:  3px 3px 10px 2px rgba(73, 73, 73, 0.5);
-    position: absolute;
+    position: fixed;
     z-index: 1000;
     width: 98%;
 }
