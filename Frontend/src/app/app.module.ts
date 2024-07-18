@@ -40,6 +40,10 @@ import { MatSortModule } from '@angular/material/sort';
     RegisterComponent,
     FlightsComponent,
     FlightComponent,
+    BookingComponent,
+    TicketsComponent,
+
+
   ],
   imports: [
      BrowserModule,
@@ -50,11 +54,9 @@ import { MatSortModule } from '@angular/material/sort';
     ReactiveFormsModule,
     MatSelectModule,
     BrowserAnimationsModule,
-    BookingComponent,
     FormsModule,
     MatButtonModule,
     MatFormFieldModule,
-    TicketsComponent,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
