@@ -2,7 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserItem } from '../models/user-item';
-import { createHash } from 'crypto';
+
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,6 @@ export class UserService {
   apiUrl = 'https://localhost:5198/api/Airport';
 
   userData: Array<UserItem> = [];
-
-  bcrypt = require('bcrypt');
-  saltRounds = 10;
-  myPlaintextPassword = 's0//P4$$w0rD';
-  someOtherPlaintextPassword = 'not_bacon';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -70,8 +66,6 @@ export class UserService {
   }
 
   hashPassword(password: string): string {
-    const hash = createHash('sha256'); // or any other algorithm like 'sha512', 'md5', etc.
-    hash.update(password);
-    return hash.digest('hex'); // or 'base64' if you prefer
+    return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
   }
 }

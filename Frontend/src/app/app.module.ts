@@ -36,6 +36,8 @@ import { ArrivalTimePipe } from './app-logic/pipes/arrivalTime.pipe';
 import { DiscountPipe } from './app-logic/pipes/discountPrice.pipe';
 import { FormatFlightTime } from './app-logic/pipes/formatFlightTime.pipe';
 
+import { provideHttpClient } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,7 +76,7 @@ import { FormatFlightTime } from './app-logic/pipes/formatFlightTime.pipe';
     MatIconModule,
     MatProgressBarModule,
   ],
-  providers: [provideAnimationsAsync()],
+  providers: [provideAnimationsAsync(), provideHttpClient()],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
