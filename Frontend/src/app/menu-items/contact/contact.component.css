@@ -1,3 +1,12 @@
+.contact-page{
+  position: absolute;
+  width: 100%;
+  align-items: center;
+  place-self: center;
+  vertical-align: middle;
+  top: 30%;
+}
+
 .contact-info {
     background: linear-gradient(135deg, #d4a1ff 0%, #e4caff 100%);
     border: 2px solid #a980ff;
@@ -8,6 +17,7 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     margin: 40px auto;
     transition: transform 0.3s ease;
+   
   }
   
   .contact-info:hover {

@@ -1,3 +1,11 @@
+.container {
+  position: absolute;
+  width: 100%;
+  align-items: center;
+  place-self: center;
+  vertical-align: middle;
+  top: 10%;
+}
 
 .form-container {
   display: flex;
@@ -9,7 +17,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
   max-width: 300px; 
-  margin: 50px auto; 
+  margin: 50px auto;
 }
 
 mat-form-field {
