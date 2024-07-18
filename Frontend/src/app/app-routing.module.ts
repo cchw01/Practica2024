@@ -11,6 +11,10 @@ import { HomePageComponent } from './menu-items/home-page/home-page.component';
 import { LoginComponent } from './menu-items/login/login.component';
 import { RegisterComponent } from './menu-items/register/register.component';
 import { UserProfileComponent } from './menu-items/user-profile/user-profile.component';
+
+import { FlightsComponent } from './menu-items/flights/flights.component';
+import { AircraftComponent } from './menu-items/aircraft-list/aircraft-list.component';
+
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'contact', component: ContactComponent },
@@ -20,6 +24,12 @@ const routes: Routes = [
   { path: 'user', component: UserProfileComponent },
   { path: 'flights', component: FlightsComponent },
 
+  { path : 'aircraft', component: AircraftComponent},
+  // For wildcard route we could either redirect to the home page or to some NotFoundComponent
+  { path: '**', redirectTo: '' },];
+
+
+
   { path: 'admin', component: AdminComponent },
   { path: 'admin/discount', component: DiscountAdminComponent },
   { path: 'booking/:flightId/:userId', component: BookingComponent },
@@ -27,6 +37,7 @@ const routes: Routes = [
   // For wildcard route we could either redirect to the home page or to some NotFoundComponent
   { path: '**', redirectTo: '' },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
