@@ -1,4 +1,27 @@
-<div >
-    <img  src="../../../assets/images/background-image.jpg" alt="background image"/>
+<div class="container">
+  <img src="../../../assets/images/background-image.jpg" alt="background image" />
+  <div class="overlay">
+    <div class="form-group">
+      <label for="departingAirport">Departing Airport:</label>
+      <input type="text" id="departingAirport" (input)="onInputChange($event, 'departingAirport')" required>
+    </div>
+    <div class="form-group">
+      <label for="destinationAirport">Destination Airport:</label>
+      <input type="text" id="destinationAirport" (input)="onInputChange($event, 'destinationAirport')" required>
+    </div>
+    <div class="form-group">
+      <label for="departingTime">Departure Time:</label>
+      <input type="date" id="departingTime" (input)="onInputChange($event, 'departingTime')" required>
+    </div>
+    <div class="form-group">
+      <label for="returnTime">Return Date:</label>
+      <input type="date" id="returnTime" (input)="onInputChange($event, 'returnTime')">
+    </div>
+    <div class="form-group">
+      <label for="passengers">Passengers:</label>
+      <input type="number" id="passengers" (input)="onInputChange($event, 'passengers')" min="1" required>
+    </div>
+    <button (click)="onSubmit()">Submit</button>
+  </div>
 </div>
-  
+

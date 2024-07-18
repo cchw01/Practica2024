@@ -38,6 +38,7 @@ export class BookingListMockService {
       maxCargo: 2000,
     }
   ];
+
   
   airportsData: Array<AirportItem> = [
     { airportId: 1, airportName: 'Aeroport Alba Iulia', location: 'Alba Iulia' },
@@ -51,6 +52,8 @@ export class BookingListMockService {
     { airportId: 9, airportName: 'Aeroport Iasi', location: 'Iasi' }
   ];
   
+
+
   discountsData: Array<DiscountItem> = [
     {
       discountId: 1,
@@ -80,7 +83,7 @@ export class BookingListMockService {
       endDate: new Date('2024-12-31')
     }
   ];
-  
+
   flightsData: Array<FlightItem> = [
     {
       flightNumber: 1,
@@ -113,7 +116,7 @@ export class BookingListMockService {
       discountOffer: this.discountsData[2],
     }
   ];
-  
+
   usersData: Array<UserItem> = [
     {
       userId: 1,
@@ -140,7 +143,7 @@ export class BookingListMockService {
       ticketList: []
     }
   ];
-  
+
   ticketsData: Array<TicketItem> = [
     {
       tickedId: 1,
@@ -289,6 +292,7 @@ export class BookingListMockService {
     }
   ];
   
+
   checkInsData: Array<CheckInItem> = [
     {
       checkInId: 1,
@@ -353,5 +357,4 @@ export class BookingListMockService {
   getUserItembyId(id: number): UserItem{
     return this.usersData.filter((x) => x.userId === id)[0];
   }
-  
 }

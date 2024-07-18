@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './menu-items/home-page/home-page.component';
@@ -10,17 +10,24 @@ import { CheckInComponent } from './menu-items/check-in/check-in.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { UserProfileComponent } from './menu-items/user-profile/user-profile.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PasswordModule } from 'primeng/password';
+import { RegisterComponent } from './menu-items/register/register.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { FlightsComponent } from './menu-items/flights/flights.component';
+import { FlightComponent } from './menu-items/flights/flight/flight.component'
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BookingComponent } from './menu-items/booking/booking.component'
 import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
 import { TicketsComponent } from './menu-items/booking/tickets/tickets.component';
 import { MatTableModule } from '@angular/material/table';
-import { ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+
 
 @NgModule({
   declarations: [
@@ -30,29 +37,31 @@ import { MatSortModule } from '@angular/material/sort';
     LoginComponent,
     CheckInComponent,
     UserProfileComponent,
-    BookingComponent,
-    TicketsComponent
+    RegisterComponent,
+    FlightsComponent,
+    FlightComponent,
   ],
-
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
+     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    MatFormFieldModule,
     MatToolbarModule,
     MatInputModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatTableModule,
+    PasswordModule,
     ReactiveFormsModule,
+    MatSelectModule,
+    BrowserAnimationsModule,
+    BookingComponent,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    TicketsComponent,
+    MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    
   ],
-  providers: [
-    provideAnimationsAsync()
-  ],
-  bootstrap: [AppComponent]
+  providers: [provideAnimationsAsync()],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
+
