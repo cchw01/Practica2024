@@ -1,56 +1,59 @@
+using AutoMapper;
 using Backend.ApplicationDBContext;
-
+using Backend.DTOs;
 using Backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services
 {
     public class DiscountManager
     {
-        private readonly ApplicationDbContext discountContext;
+        private readonly ApplicationDbContext discountContext = new ApplicationDbContext();
+        private readonly IMapper _mapper;
 
         public DiscountManager()
         {
-            discountContext = new ApplicationDbContext();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            _mapper = config.CreateMapper();
         }
 
-        public List<Discounts> GetDiscounts()
-        {
-            return discountContext.Discounts.ToList();
+        public List<DiscountDto> GetDiscounts()
+        { 
+            var discounts = discountContext.Discounts.ToList();
+            return _mapper.Map<List<DiscountDto>>(discounts);
         }
 
-        public Discounts GetDiscount(int discountId)
+        public DiscountDto GetDiscount(int discountId)
         {
-            return discountContext.Discounts.FirstOrDefault(x => x.DiscountId == discountId);
+            var discount = discountContext.Discounts.FirstOrDefault(a => a.DiscountId == discountId);
+            return _mapper.Map<DiscountDto>(discount);
         }
 
-        public void AddDiscount(Discounts item)
+        public void AddDiscount(DiscountDto item)
         {
-            discountContext.Discounts.Add(item);
+            var newItem = _mapper.Map<Discount>(item);
+            discountContext.Discounts.Add(newItem);
             discountContext.SaveChanges();
         }
 
         public void RemoveDiscount(int discountId)
         {
             var item = discountContext.Discounts.FirstOrDefault(x => x.DiscountId == discountId);
-            if (item == null) { throw new ArgumentException("Item does not exist"); }
+            if (item == null) throw new ArgumentException("Item does not exist");
+
             discountContext.Discounts.Remove(item);
             discountContext.SaveChanges();
         }
 
-        public void UpdateDiscount(Discounts item)
+        public void UpdateDiscount(DiscountDto item)
         {
-            var oldItem = discountContext.Discounts.FirstOrDefault(x => x.DiscountId == item.DiscountId);
-            if (oldItem == null) throw new ArgumentException("Item does not exist");
+            var discount = discountContext.Discounts.FirstOrDefault(x => x.DiscountId == item.DiscountId);
+            if (discount == null) throw new ArgumentException("Item does not exist");
 
-            oldItem.DiscountName = item.DiscountName;
-            oldItem.DiscountDescription = item.DiscountDescription;
-            oldItem.Flight = item.Flight;
-            oldItem.DiscountPercentage = item.DiscountPercentage;
-            oldItem.StartDate = item.StartDate;
-            oldItem.EndDate = item.EndDate;
-
-
-            discountContext.Discounts.Update(oldItem);
+            _mapper.Map(item, discount);
             discountContext.SaveChanges();
         }
     }

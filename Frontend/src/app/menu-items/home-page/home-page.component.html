@@ -1,4 +1,43 @@
-<div >
-    <img  src="../../../assets/images/background-image.jpg" alt="background image"/>
+<div class="container">
+  <img src="../../../assets/images/background-image.jpg" alt="background image" />
+  <div class="overlay">
+    <div class="form-group">
+      <label for="departingAirport">Departing Airport:</label>
+      <select class="dropdown" id="departingAirport" (change)="onInputChange($event, 'departingAirport')" required>
+        
+        <option *ngFor="let airport of airports" [value]="airport.airportName">{{ airport.airportName }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="destinationAirport">Destination Airport:</label>
+      <select class="dropdown" id="destinationAirport" (change)="onInputChange($event, 'destinationAirport')" required>
+        
+        <option *ngFor="let airport of airports" [value]="airport.airportName">{{ airport.airportName }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="departingTime">Departure Time:</label>
+      <input type="date" id="departingTime" (input)="onInputChange($event, 'departingTime')" required>
+    </div>
+    <div class="form-group">
+      <label for="returnTime">Return Date:</label>
+      <input type="date" id="returnTime" (input)="onInputChange($event, 'returnTime')">
+    </div>
+    <div class="form-group">
+      <label for="passengers">Passengers:</label>
+      <input type="number" id="passengers" (input)="onInputChange($event, 'passengers')" min="1" required>
+    </div>
+    <button (click)="onSubmit()">Submit</button>
   </div>
-  
+
+  <!-- Container pentru discounturi -->
+  <div class="discounts-container">
+    
+    <div *ngFor="let discount of discounts" class="discount-item">
+      <h3>{{ discount.discountName }}</h3>
+      <p>{{ discount.discountDescription }}</p>
+      <p>Discount: {{ discount.discountPercentage }}%</p>
+    </div>
+  </div>
+</div>
+

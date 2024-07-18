@@ -1,65 +1,61 @@
-﻿using Backend.ApplicationDBContext;
+﻿using AutoMapper;
+using Backend.ApplicationDBContext;
+using Backend.DTOs;
 using Backend.Models;
 
 namespace Backend.Services
 {
     public class UserManager
     {
-        private readonly ApplicationDbContext applicationDBContext;
+        private readonly ApplicationDbContext _context = new ApplicationDbContext();
+        private readonly IMapper _mapper;
 
-        // Constructor to initialize context later
         public UserManager()
         {
-            applicationDBContext = new ApplicationDbContext();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            _mapper = config.CreateMapper();
         }
 
-        // Get all users
-        public List<User> GetUsers()
+        public List<UserDto> GetUsers()
         {
-            Console.WriteLine("S-a ajuns in manager");
-            return applicationDBContext.Users.ToList();
+            var users = _context.Users.ToList();
+            return _mapper.Map<List<UserDto>>(users);
         }
 
-        // Get user by id
-        public User GetUser(int id)
+        public UserDto GetUser(int id)
         {
-            return applicationDBContext.Users.FirstOrDefault(x => x.UserId == id);
+            var user = _context.Users.FirstOrDefault(x => x.UserId == id);
+            return _mapper.Map<UserDto>(user);
         }
 
-        // Add user
-
-        public void AddUser(User user)
+        public void AddUser(UserDto userDto)
         {
-            applicationDBContext.Users.Add(user);
-            applicationDBContext.SaveChanges();
+            var user = _mapper.Map<User>(userDto);
+            _context.Users.Add(user);
+            _context.SaveChanges();
         }
 
-        // Remove user
         public void RemoveUser(int id)
         {
-            var user = applicationDBContext.Users.FirstOrDefault(x => x.UserId == id);
+            var user = _context.Users.FirstOrDefault(x => x.UserId == id);
             if (user == null)
                 throw new ArgumentException("User doesn't exist.");
 
-            applicationDBContext.Remove(user);
-            applicationDBContext.SaveChanges();
+            _context.Users.Remove(user);
+            _context.SaveChanges();
         }
 
-        // Update user
-        public void UpdateUser(User user)
+        public void UpdateUser(UserDto userDto)
         {
-            var oldUser = applicationDBContext.Users.FirstOrDefault(x => x.UserId == user.UserId);
-            if (oldUser == null)
+            var user = _context.Users.FirstOrDefault(x => x.UserId == userDto.UserId);
+            if (user == null)
                 throw new ArgumentException("User doesn't exist.");
 
-            oldUser.Name = user.Name;
-            oldUser.EmailAddress = user.EmailAddress;
-            oldUser.Password = user.Password;
-            oldUser.Role = user.Role;
-            oldUser.TicketList = user.TicketList;
-
-            applicationDBContext.Users.Update(oldUser);
-            applicationDBContext.SaveChanges();
+            _mapper.Map(userDto, user);
+            _context.SaveChanges();
         }
     }
 }

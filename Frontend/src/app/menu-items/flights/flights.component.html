@@ -1,6 +1,5 @@
 <div class="flights-container">
-    <app-flight></app-flight>
-    <app-flight></app-flight>
-    <app-flight></app-flight>
-    <app-flight></app-flight>
+  @for(flightItem of flights; track flightItem.flightNumber) {
+  <app-flight [flightItem]="flightItem"></app-flight>
+  }
 </div>

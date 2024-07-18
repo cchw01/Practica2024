@@ -7,6 +7,7 @@ namespace Backend.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
+        public int AircraftId { get; set; }
         public string RegistrationNumber { get; set; }
         public string Maker { get; set; }
         public string Model { get; set; }

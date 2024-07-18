@@ -1,51 +1,63 @@
 ﻿using Backend.Models;
 using System.Xml.Serialization;
 using Backend.ApplicationDBContext;
+using AutoMapper;
+using Backend.DTOs;
 namespace Backend.Services
 {
     public class AirportManager
     {
-        private readonly ApplicationDbContext airportContext;
+        private readonly ApplicationDbContext _context = new ApplicationDbContext();
+        private readonly IMapper _mapper;
         public AirportManager()
         {
-            airportContext = new ApplicationDbContext();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            _mapper = config.CreateMapper();
         }
-        public List<Airport> GetAirports()
+        public List<AirportDto> GetAirports()
         {
-            return airportContext.Airports.ToList();
+            var airports = _context.Airports.ToList();
+            return _mapper.Map<List<AirportDto>>(airports);
         }
-        public Airport GetAirport(int id)
+        public AirportDto GetAirport(int id)
         {
-            return airportContext.Airports.FirstOrDefault(x => x.AirportId == id);
+            var airport = _context.Airports.FirstOrDefault(a => a.AirportId == id);
+            return _mapper.Map<AirportDto>(airport);
         }
-        public void AddAirport(Airport airport)
+        public void AddAirport(AirportDto airport)
         {
-            airportContext.Airports.Add(airport);
-            airportContext.SaveChanges();
+            var newAirport = _mapper.Map<Airport>(airport);
+            _context.Airports.Add(newAirport);
+            _context.SaveChanges();
         }
         public void RemoveAirport(int id)
         {
-            var airport = airportContext.Airports.FirstOrDefault(x => x.AirportId == id);
-            if (airport == null)
+            var airport = _context.Airports.FirstOrDefault(x => x.AirportId == id);
+            if (airport != null)
+            {
+                _context.Airports.Remove(airport);
+                _context.SaveChanges();
+            }
+            else
             {
                 throw new ArgumentException("Airport does not exist");
             }
-            airportContext.Airports.Remove(airport);
-            airportContext.SaveChanges();
         }
-        public void UpdateAirport(Airport airport)
+        public void UpdateAirport(AirportDto airportDto)
         {
-            var oldAirport = airportContext.Airports.FirstOrDefault(x => x.AirportId == airport.AirportId);
-            if (oldAirport == null)
+            var airport = _context.Airports.FirstOrDefault(x => x.AirportId == airportDto.AirportId);
+            if (airport != null)
+            {
+                _mapper.Map(airportDto, airport);
+                _context.SaveChanges();
+            }
+            else
             {
                 throw new ArgumentException("Airport does not exist");
             }
-            oldAirport.AirportName = airport.AirportName;
-            oldAirport.Location = airport.Location;
-
-            airportContext.Airports.Update(oldAirport);
-            airportContext.SaveChanges();
         }
-
     }
 }
