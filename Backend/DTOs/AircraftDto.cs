@@ -1,12 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace Backend.Models
+﻿namespace Backend.DTOs
 {
-    public class Aircraft
+    public class AircraftDto
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
         public int AircraftId { get; set; }
         public string RegistrationNumber { get; set; }
         public string Maker { get; set; }
@@ -15,4 +10,5 @@ namespace Backend.Models
         public int AutonomyInHours { get; set; }
         public double MaxCargo { get; set; }
     }
+
 }

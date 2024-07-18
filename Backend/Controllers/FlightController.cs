@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Backend.Services;
+using Backend.DTOs;
 
 namespace Backend.Controllers
 {
@@ -36,7 +37,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddNewFlightCourse(Flight flight)
+        public IActionResult AddNewFlightCourse(FlightDto flight)
         {
             try
             {
@@ -50,7 +51,7 @@ namespace Backend.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateFlightCourse(Flight flight)
+        public IActionResult UpdateFlightCourse(FlightDto flight)
         {
             try
             {

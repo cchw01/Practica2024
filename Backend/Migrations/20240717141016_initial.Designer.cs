@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240716101732_initial")]
+    [Migration("20240717141016_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -27,9 +27,11 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.Aircraft", b =>
                 {
-                    b.Property<string>("RegistrationNumber")
+                    b.Property<int>("AircraftId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AircraftId"));
 
                     b.Property<int>("AutonomyInHours")
                         .HasColumnType("int");
@@ -48,7 +50,11 @@ namespace Backend.Migrations
                     b.Property<int>("NumberOfSeats")
                         .HasColumnType("int");
 
-                    b.HasKey("RegistrationNumber");
+                    b.Property<string>("RegistrationNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AircraftId");
 
                     b.ToTable("Aircrafts");
                 });
@@ -111,7 +117,7 @@ namespace Backend.Migrations
                     b.ToTable("CheckIns");
                 });
 
-            modelBuilder.Entity("Backend.Models.Discounts", b =>
+            modelBuilder.Entity("Backend.Models.Discount", b =>
                 {
                     b.Property<int>("DiscountId")
                         .ValueGeneratedOnAdd()
@@ -141,7 +147,8 @@ namespace Backend.Migrations
 
                     b.HasKey("DiscountId");
 
-                    b.HasIndex("FlightId");
+                    b.HasIndex("FlightId")
+                        .IsUnique();
 
                     b.ToTable("Discounts");
                 });
@@ -154,29 +161,23 @@ namespace Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TicketId"));
 
-                    b.Property<bool>("CheckIn")
-                        .HasColumnType("bit");
-
                     b.Property<int>("FlightId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Luggage")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PassengerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PassengerUserId")
-                        .HasColumnType("int");
-
                     b.Property<float>("Price")
                         .HasColumnType("real");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("TicketId");
 
                     b.HasIndex("FlightId");
 
-                    b.HasIndex("PassengerId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Tickets");
                 });
@@ -193,9 +194,6 @@ namespace Backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FlightNumber")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -210,8 +208,6 @@ namespace Backend.Migrations
 
                     b.HasKey("UserId");
 
-                    b.HasIndex("FlightNumber");
-
                     b.ToTable("Users");
                 });
 
@@ -223,6 +219,9 @@ namespace Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FlightNumber"));
 
+                    b.Property<int>("AircraftId")
+                        .HasColumnType("int");
+
                     b.Property<int>("DepartingAirportId")
                         .HasColumnType("int");
 
@@ -232,9 +231,6 @@ namespace Backend.Migrations
                     b.Property<int>("DestinationAirportId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DiscountOffer")
-                        .HasColumnType("int");
-
                     b.Property<int>("FlightCost")
                         .HasColumnType("int");
 
@@ -242,6 +238,8 @@ namespace Backend.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("FlightNumber");
+
+                    b.HasIndex("AircraftId");
 
                     b.HasIndex("DepartingAirportId");
 
@@ -253,7 +251,7 @@ namespace Backend.Migrations
             modelBuilder.Entity("Backend.Models.CheckIn", b =>
                 {
                     b.HasOne("Backend.Models.Ticket", "Ticket")
-                        .WithOne()
+                        .WithOne("CheckIn")
                         .HasForeignKey("Backend.Models.CheckIn", "TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -261,11 +259,11 @@ namespace Backend.Migrations
                     b.Navigation("Ticket");
                 });
 
-            modelBuilder.Entity("Backend.Models.Discounts", b =>
+            modelBuilder.Entity("Backend.Models.Discount", b =>
                 {
                     b.HasOne("Flight", "Flight")
-                        .WithMany()
-                        .HasForeignKey("FlightId")
+                        .WithOne("Discount")
+                        .HasForeignKey("Backend.Models.Discount", "FlightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -275,31 +273,30 @@ namespace Backend.Migrations
             modelBuilder.Entity("Backend.Models.Ticket", b =>
                 {
                     b.HasOne("Flight", "Flight")
-                        .WithMany()
+                        .WithMany("PassengerList")
                         .HasForeignKey("FlightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Backend.Models.User", "Passenger")
+                    b.HasOne("Backend.Models.User", "User")
                         .WithMany("TicketList")
-                        .HasForeignKey("PassengerId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Flight");
 
-                    b.Navigation("Passenger");
-                });
-
-            modelBuilder.Entity("Backend.Models.User", b =>
-                {
-                    b.HasOne("Flight", null)
-                        .WithMany("PassengerList")
-                        .HasForeignKey("FlightNumber");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Flight", b =>
                 {
+                    b.HasOne("Backend.Models.Aircraft", "Aircraft")
+                        .WithMany()
+                        .HasForeignKey("AircraftId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Backend.Models.Airport", "DepartingAirport")
                         .WithMany()
                         .HasForeignKey("DepartingAirportId")
@@ -312,9 +309,17 @@ namespace Backend.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("Aircraft");
+
                     b.Navigation("DepartingAirport");
 
                     b.Navigation("DestinationAirport");
+                });
+
+            modelBuilder.Entity("Backend.Models.Ticket", b =>
+                {
+                    b.Navigation("CheckIn")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Backend.Models.User", b =>
@@ -324,6 +329,9 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Flight", b =>
                 {
+                    b.Navigation("Discount")
+                        .IsRequired();
+
                     b.Navigation("PassengerList");
                 });
 #pragma warning restore 612, 618
