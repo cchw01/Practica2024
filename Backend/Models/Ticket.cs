@@ -8,9 +8,11 @@ namespace Backend.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int TicketId { get; set; }
+        public int FlightId { get; set; }
+        public int PassengerId { get; set; }
         public virtual Flight Flight { get; set; }
         public virtual User Passenger { get; set; }
-        public virtual CheckIn CheckIn { get; set; }
+        public bool CheckIn { get; set; }
         public bool Luggage { get; set; }
         public float Price { get; set; }
 

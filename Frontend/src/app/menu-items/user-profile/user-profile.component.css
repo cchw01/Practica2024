@@ -1,0 +1,54 @@
+
+  
+  .user-info {
+    margin: 10px 0;
+  }
+
+  .info-title {
+    display: block; 
+    font-weight: bold;
+    margin-bottom: 5px; 
+  }
+  
+  .info-content {
+    display: block; 
+  }
+  
+  .edit-btn {
+    padding: 10px 20px;
+    background-color: #5313e9;
+
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .edit-btn:hover {
+    background-color: #765af1;
+  }
+
+  .button-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%; 
+    margin-top: 20px;
+  }
+
+  :host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh; 
+  }
+  
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    max-width: 1200px; 
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    border-radius: 8px; 
+  }
