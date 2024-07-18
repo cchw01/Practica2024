@@ -1,3 +1,4 @@
+using Backend.DTOs;
 using Backend.Models;
 using Backend.Services;
 using Microsoft.AspNetCore.Http;
@@ -35,7 +36,7 @@ namespace Backend.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult AddNewDiscount(Discount item)
+		public IActionResult AddNewDiscount(DiscountDto item)
 		{
 			try
 			{
@@ -49,7 +50,7 @@ namespace Backend.Controllers
 		}
 
 		[HttpPut]
-		public IActionResult UpdateDiscount(Discount item)
+		public IActionResult UpdateDiscount(DiscountDto item)
 		{
 			try
 			{
