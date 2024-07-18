@@ -1,4 +1,5 @@
 
+using Backend.DTOs;
 using Backend.Models;
 using Backend.Services;
 using Microsoft.AspNetCore.Http;
@@ -33,7 +34,7 @@ namespace Backend.Controllers
 			return NotFound($"can't found item with id:{ticketId}");
 		}
 		[HttpPost]
-		public IActionResult AddNewTicket(Ticket item)
+		public IActionResult AddNewTicket(TicketDto item)
 		{
 			try
 			{
@@ -46,7 +47,7 @@ namespace Backend.Controllers
 			}
 		}
 		[HttpPut]
-		public IActionResult UpdateTicket(Ticket item)
+		public IActionResult UpdateTicket(TicketDto item)
 		{
 			try
 			{

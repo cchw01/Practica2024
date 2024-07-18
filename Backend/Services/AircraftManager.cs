@@ -1,44 +1,50 @@
-﻿using Backend.ApplicationDBContext;
+﻿using AutoMapper;
+using Backend.ApplicationDBContext;
+using Backend.DTOs;
 using Backend.Models;
 
 namespace Backend.Services
 {
     public class AircraftManager
     {
-        private readonly ApplicationDbContext aircraftContext;
+        private readonly ApplicationDbContext _context = new ApplicationDbContext();
+        private readonly IMapper _mapper;
+
         public AircraftManager()
         {
-            aircraftContext = new ApplicationDbContext();
-        }
-
-        public List<Aircraft> GetAllAircrafts()
-        {
-            return aircraftContext.Aircrafts.ToList();
-        }
-        public Aircraft GetAircraft(string registrationNumber)
-        {
-            return aircraftContext.Aircrafts.FirstOrDefault(x => x.RegistrationNumber == registrationNumber);
-        }
-
-        public void AddAircraft(Aircraft aircraft)
-        {
-            aircraftContext.Aircrafts.Add(aircraft);
-            aircraftContext.SaveChanges();
-        }
-
-        public void UpdateAircraft(Aircraft aircraft)
-        {
-            var existingAircraft = aircraftContext.Aircrafts.FirstOrDefault(x => x.RegistrationNumber == aircraft.RegistrationNumber);
-            if(existingAircraft!=null)
+            var config = new MapperConfiguration(cfg =>
             {
-                existingAircraft.Maker = aircraft.Maker;
-                existingAircraft.Model = aircraft.Model;
-                existingAircraft.NumberOfSeats = aircraft.NumberOfSeats;
-                existingAircraft.AutonomyInHours = aircraft.AutonomyInHours;
-                existingAircraft.MaxCargo = aircraft.MaxCargo;
+                cfg.AddProfile(new MappingProfile());
+            });
+            _mapper = config.CreateMapper();
+        }
 
-                aircraftContext.Aircrafts.Update(existingAircraft);
-                aircraftContext.SaveChanges();
+        public List<AircraftDto> GetAllAircrafts()
+        {
+            var aircrafts = _context.Aircrafts.ToList();
+            return _mapper.Map<List<AircraftDto>>(aircrafts);
+        }
+
+        public AircraftDto GetAircraft(int aircraftId)
+        {
+            var aircraft = _context.Aircrafts.FirstOrDefault(a => a.AircraftId == aircraftId);
+            return _mapper.Map<AircraftDto>(aircraft);
+        }
+
+        public void AddAircraft(AircraftDto aircraftDto)
+        {
+            var aircraft = _mapper.Map<Aircraft>(aircraftDto);
+            _context.Aircrafts.Add(aircraft);
+            _context.SaveChanges();
+        }
+
+        public void UpdateAircraft(AircraftDto aircraftDto)
+        {
+            var aircraft = _context.Aircrafts.FirstOrDefault(a => a.AircraftId == aircraftDto.AircraftId);
+            if (aircraft != null)
+            {
+                _mapper.Map(aircraftDto, aircraft);
+                _context.SaveChanges();
             }
             else
             {
@@ -46,16 +52,17 @@ namespace Backend.Services
             }
         }
 
-        public void RemoveItem(string registrationNumber)
+        public void RemoveItem(int aircraftId)
         {
-            var aircraft = aircraftContext.Aircrafts.FirstOrDefault(x => x.RegistrationNumber == registrationNumber);
-            if (aircraft == null)
+            var aircraft = _context.Aircrafts.FirstOrDefault(a => a.AircraftId == aircraftId);
+            if (aircraft != null)
+            {
+                _context.Aircrafts.Remove(aircraft);
+                _context.SaveChanges();
+            }
+            else
             {
                 throw new Exception("Aircraft not found");
-            } else
-            {
-                aircraftContext.Aircrafts.Remove(aircraft);
-                aircraftContext.SaveChanges();
             }
         }
     }

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 namespace Backend.Models
 {
-    public class Discounts
+    public class Discount
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]

@@ -1,4 +1,5 @@
-﻿using Backend.Models;
+﻿using Backend.DTOs;
+using Backend.Models;
 using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,7 +38,7 @@ namespace Backend.Controllers
             }
 
         [HttpPost]
-        public IActionResult AddNewTicket(CheckIn item)
+        public IActionResult AddNewTicket(CheckInDto item)
         {
             try
             {
@@ -51,7 +52,7 @@ namespace Backend.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateCheckIn(CheckIn item)
+        public IActionResult UpdateCheckIn(CheckInDto item)
         {
             try
             {

@@ -14,7 +14,7 @@ namespace Backend.Models
         public string Role { get; set; }
         public string EmailAddress { get; set; }
         public string Password { get; set; }
-        [ForeignKey("TicketId")]
-        public virtual List<Ticket> TicketList { get; set; }
+        public virtual ICollection<Ticket> TicketList { get; set; }
+
     }
 }

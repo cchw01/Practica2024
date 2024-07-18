@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './menu-items/home-page/home-page.component';
@@ -16,6 +15,8 @@ import { RegisterComponent } from './menu-items/register/register.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FlightsComponent } from './menu-items/flights/flights.component';
+import { BookingComponent } from './menu-items/booking/booking.component'
+import { TicketsComponent } from './menu-items/booking/tickets/tickets.component';
 import { FlightComponent } from './menu-items/flights/flight/flight.component';
 import { AdminComponent } from './menu-items/admin/admin.component';
 import { DiscountAdminComponent } from './menu-items/admin/discount-admin/discount-admin.component'
@@ -34,6 +35,8 @@ import { DiscountAdminComponent } from './menu-items/admin/discount-admin/discou
     FlightComponent,
     AdminComponent,
     DiscountAdminComponent,
+    BookingComponent,
+    TicketsComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,3 +51,4 @@ import { DiscountAdminComponent } from './menu-items/admin/discount-admin/discou
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
