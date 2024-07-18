@@ -33,6 +33,8 @@ import { FormatFlightTime } from './app-logic/pipes/formatFlightTime.pipe';
 import { AdminComponent } from './menu-items/admin/admin.component';
 import { DiscountAdminComponent } from './menu-items/admin/discount-admin/discount-admin.component';
 import { MatIconModule } from '@angular/material/icon';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 
 @NgModule({
   declarations: [
@@ -70,6 +72,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
+    MatProgressBarModule
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
