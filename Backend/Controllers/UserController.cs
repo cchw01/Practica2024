@@ -20,7 +20,6 @@ namespace Backend.Controllers
         public IActionResult GetUsers()
         {
             return Ok(userManager.GetUsers());
-
         }
 
         [HttpGet]
@@ -81,6 +80,42 @@ namespace Backend.Controllers
             catch
             {
                 return BadRequest($"The request is not valid.");
+            }
+        }
+
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LoginDto loginDto)
+        {
+            try
+            {
+                var user = userManager.Login(loginDto);
+                return Ok(user);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch
+            {
+                return StatusCode(500, "An internal error occured");
+            }
+        }
+
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] UserDto userDto)
+        {
+            try
+            {
+                var user = userManager.Register(userDto);
+                return Ok(user);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch
+            {
+                return StatusCode(500, "An internal server occured");
             }
         }
     }

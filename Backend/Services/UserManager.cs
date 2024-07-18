@@ -2,6 +2,7 @@
 using Backend.ApplicationDBContext;
 using Backend.DTOs;
 using Backend.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Backend.Services
 {
@@ -56,6 +57,31 @@ namespace Backend.Services
 
             _mapper.Map(userDto, user);
             _context.SaveChanges();
+        }
+
+        public UserDto Login(LoginDto loginDto)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.EmailAddress == loginDto.EmailAddress);
+            if (user == null)
+            {
+                throw new ArgumentException("User does not exist");
+            }
+            if (user.Password != loginDto.Password)
+            {
+                throw new ArgumentException("Incorrect password");
+            }
+            return _mapper.Map<UserDto>(user);
+        }
+
+        public UserDto Register(UserDto userDto)
+        {
+            if (_context.Users.Any(u => u.EmailAddress == userDto.EmailAddress))
+                throw new ArgumentException("A user with the same email address already exists");
+
+            var user = _mapper.Map<User>(userDto);
+            _context.Users.Add(user);
+            _context.SaveChanges();
+            return _mapper.Map<UserDto>(user);
         }
     }
 }
