@@ -83,28 +83,40 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody] User userObj)
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LoginDto loginDto)
         {
-            if (userObj == null)
-                return BadRequest();
-            var user = userManager
-                .GetUsers()
-                .FirstOrDefault(
-                    (x) => x.EmailAddress == userObj.EmailAddress && x.Password == userObj.Password
-                );
-            if (user == null)
-                return NotFound(new { Message = "User not found" });
-            return Ok(new { Message = "Login success!" });
+            try
+            {
+                var user = userManager.Login(loginDto);
+                return Ok(user);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch
+            {
+                return StatusCode(500, "An internal error occured");
+            }
         }
 
         [HttpPost("register")]
-        public IActionResult RegisterUser([FromBody] User userObj)
+        public IActionResult Register([FromBody] UserDto userDto)
         {
-            if (userObj == null)
-                return BadRequest();
-            userManager.AddUser(userObj);
-            return Ok(new { Message = "User Added!" });
+            try
+            {
+                var user = userManager.Register(userDto);
+                return Ok(user);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch
+            {
+                return StatusCode(500, "An internal server occured");
+            }
         }
     }
 }
