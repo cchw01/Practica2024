@@ -11,7 +11,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { FlightsComponent } from './menu-items/flights/flights.component';
 import { FlightComponent } from './menu-items/flights/flight/flight.component'
-import { UserProfileComponent } from './menu-items/user-profile/user-profile.component'
+import { UserProfileComponent } from './menu-items/user-profile/user-profile.component';
+import { AircraftComponent } from './menu-items/aircraft-list/aircraft-list.component';
+import { MatTableModule } from '@angular/material/table';
 
 
 @NgModule({
@@ -23,14 +25,16 @@ import { UserProfileComponent } from './menu-items/user-profile/user-profile.com
     CheckInComponent,
     FlightsComponent,
     FlightComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    AircraftComponent
 
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTableModule
   ],
   providers: [
     provideAnimationsAsync()

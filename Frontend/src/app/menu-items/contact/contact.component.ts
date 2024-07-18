@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ContactData } from '../../app-logic/contact-data';
-import { ContactProviderService } from '../../app-logic/contact-provider.component';
+import { ContactProviderService } from '../../app-logic/services/contact-provider.component';
 
 @Component({
   selector: 'app-contact',

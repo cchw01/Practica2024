@@ -6,6 +6,7 @@ import { LoginComponent } from './menu-items/login/login.component';
 import { CheckInComponent } from './menu-items/check-in/check-in.component';
 import { UserProfileComponent } from './menu-items/user-profile/user-profile.component';
 import { FlightsComponent } from './menu-items/flights/flights.component';
+import { AircraftComponent } from './menu-items/aircraft-list/aircraft-list.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -14,8 +15,9 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {path: 'user', component: UserProfileComponent},
   { path: 'flights', component: FlightsComponent },
+  { path : 'aircraft', component: AircraftComponent},
   // For wildcard route we could either redirect to the home page or to some NotFoundComponent
-  { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: '' },];
 
 
 @NgModule({
