@@ -16,7 +16,9 @@ import { RegisterComponent } from './menu-items/register/register.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FlightsComponent } from './menu-items/flights/flights.component';
-import { FlightComponent } from './menu-items/flights/flight/flight.component'
+import { FlightComponent } from './menu-items/flights/flight/flight.component';
+import { AdminComponent } from './menu-items/admin/admin.component';
+import { DiscountAdminComponent } from './menu-items/admin/discount-admin/discount-admin.component'
 
 
 @NgModule({
@@ -30,6 +32,8 @@ import { FlightComponent } from './menu-items/flights/flight/flight.component'
     RegisterComponent,
     FlightsComponent,
     FlightComponent,
+    AdminComponent,
+    DiscountAdminComponent,
   ],
   imports: [
     BrowserModule,

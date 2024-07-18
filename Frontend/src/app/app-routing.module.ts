@@ -7,6 +7,8 @@ import { CheckInComponent } from './menu-items/check-in/check-in.component';
 import { UserProfileComponent } from './menu-items/user-profile/user-profile.component';
 import { RegisterComponent } from './menu-items/register/register.component';
 import { FlightsComponent } from './menu-items/flights/flights.component';
+import { AdminComponent } from './menu-items/admin/admin.component';
+import { DiscountAdminComponent } from './menu-items/admin/discount-admin/discount-admin.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -16,6 +18,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'user', component: UserProfileComponent },
   { path: 'flights', component: FlightsComponent },
+  {path:'admin', component: AdminComponent},
+  {path: 'admin/discount', component: DiscountAdminComponent},
   // For wildcard route we could either redirect to the home page or to some NotFoundComponent
   { path: '**', redirectTo: '' },
 ];
