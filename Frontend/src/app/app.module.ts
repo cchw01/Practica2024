@@ -27,6 +27,8 @@ import { TicketsComponent } from './menu-items/booking/tickets/tickets.component
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 
 
 @NgModule({
@@ -60,6 +62,7 @@ import { MatSortModule } from '@angular/material/sort';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatProgressBarModule
     
   ],
   providers: [provideAnimationsAsync()],
