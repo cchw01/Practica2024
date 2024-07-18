@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './menu-items/home-page/home-page.component';
@@ -7,6 +8,8 @@ import { CheckInComponent } from './menu-items/check-in/check-in.component';
 import { UserProfileComponent } from './menu-items/user-profile/user-profile.component';
 import { RegisterComponent } from './menu-items/register/register.component';
 import { FlightsComponent } from './menu-items/flights/flights.component';
+import { BookingComponent } from './menu-items/booking/booking.component';
+import { TicketsComponent } from './menu-items/booking/tickets/tickets.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -16,6 +19,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'user', component: UserProfileComponent },
   { path: 'flights', component: FlightsComponent },
+  {path: 'booking/:flightId/:userId', component: BookingComponent},
+  {path: 'tickets', component: TicketsComponent},
   // For wildcard route we could either redirect to the home page or to some NotFoundComponent
   { path: '**', redirectTo: '' },
 ];

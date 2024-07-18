@@ -18,6 +18,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { FlightsComponent } from './menu-items/flights/flights.component';
 import { FlightComponent } from './menu-items/flights/flight/flight.component'
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BookingComponent } from './menu-items/booking/booking.component'
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { TicketsComponent } from './menu-items/booking/tickets/tickets.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+
 
 @NgModule({
   declarations: [
@@ -32,15 +42,26 @@ import { FlightComponent } from './menu-items/flights/flight/flight.component'
     FlightComponent,
   ],
   imports: [
-    BrowserModule,
+     BrowserModule,
     AppRoutingModule,
     MatToolbarModule,
     MatInputModule,
     PasswordModule,
     ReactiveFormsModule,
     MatSelectModule,
+    BrowserAnimationsModule,
+    BookingComponent,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    TicketsComponent,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
