@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css'], // Corectat de la 'styleUrl'
+  styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent implements OnInit {
   formData: { [key: string]: any } = {
@@ -19,9 +19,10 @@ export class HomePageComponent implements OnInit {
     passengers: 1,
   };
 
-  
+  description: string = 'Example description'; // Aceasta va fi descrierea ta
   airports: Array<AirportItem> = [];
   discounts: Array<DiscountItem> = [];
+  currentSlide: number = 0;
 
   constructor(
     private airportListMockService: AirportListMockService,
@@ -43,5 +44,18 @@ export class HomePageComponent implements OnInit {
     // Redirecționare către pagina de booking
     this.router.navigate(['/flights'], {});
   }
-  
+
+  getTransform(): string {
+    return `translateX(-${this.currentSlide * 33.33}%)`;
+  }
+
+  prevSlide() {
+    this.currentSlide =
+      this.currentSlide > 0 ? this.currentSlide - 1 : this.discounts.length - 3;
+  }
+
+  nextSlide() {
+    this.currentSlide =
+      this.currentSlide < this.discounts.length - 3 ? this.currentSlide + 1 : 0;
+  }
 }

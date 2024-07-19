@@ -39,6 +39,16 @@ export class DiscountListMockService {
       startDate: new Date('2024-01-01'),
       endDate: new Date('2024-12-31'),
     },
+
+    {
+      discountId: 4,
+      flights: [],
+      discountPercentage: 10,
+      discountName: 'Summer Sale',
+      discountDescription: '10% off on all summer flights',
+      startDate: new Date('2024-06-01'),
+      endDate: new Date('2024-08-31'),
+    },
   ];
 
   constructor() {}
