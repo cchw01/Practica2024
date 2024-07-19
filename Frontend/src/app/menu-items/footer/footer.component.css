@@ -1,0 +1,15 @@
+.footer-content{
+  background-color: #673ab7;
+  padding: 1rem;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  width: auto; 
+  height: 40px;
+  position: relative;
+  
+}
+
+.copyright-text{
+  margin-top: 15px;
+}

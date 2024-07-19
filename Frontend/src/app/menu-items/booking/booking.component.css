@@ -5,6 +5,7 @@
   place-self: center;
   vertical-align: middle;
   top: 15%;
+  min-width: 100%;
 }
 
 .booking-page-title{
@@ -218,4 +219,19 @@
 
 .navigation-button:hover {
   background-color: #f1f1f1;
+}
+
+.reveal{
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 1s ease;
+}
+
+.reveal.active{
+  transform: translateY(0);
+  opacity: 1;
+}
+
+app-footer{
+  top: 100%;
 }
