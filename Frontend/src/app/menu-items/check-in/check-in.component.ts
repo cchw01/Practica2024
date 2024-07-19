@@ -1,30 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material/table';
-import { CheckInItem } from '../../app-logic/models/checkin-item';
-import { BookingListMockService } from '../../app-logic/booking-list-mock.service';
 
 @Component({
   selector: 'app-check-in',
   templateUrl: './check-in.component.html',
   styleUrls: ['./check-in.component.css']
 })
-export class CheckInComponent implements OnInit {
+export class CheckInComponent {
   isContentVisible = false;
   progress = 0;
   form: FormGroup;
-  checkin!: MatTableDataSource<CheckInItem>;
-  displayedColumns: string[] = [
-    'checkInId',
-    'ticket',
-    'passengerName',
-    'idDocumentType',
-    'documentData',
-    'checkInStatus',
-    'passengerEmail',
-  ];
-  
-  constructor(private fb: FormBuilder, private bookingListMockService: BookingListMockService) {
+
+  constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -37,11 +24,6 @@ export class CheckInComponent implements OnInit {
     this.form.valueChanges.subscribe(() => {
       this.updateProgress();
     });
-  }
-  ngOnInit(): void {
-    this.checkin = new MatTableDataSource<CheckInItem>(
-      this.bookingListMockService.getDataCheckIn()
-    );
   }
 
   toggleContent() {
