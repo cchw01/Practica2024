@@ -59,5 +59,20 @@ namespace Backend.Services
             _mapper.Map(flight, flightToUpdate);
             _context.SaveChanges();
         }
+        public List<UserDto> GetPassengersByFlight(int flightNumber)
+        {
+            var flight = _context.Flights
+                .Include(f => f.PassengerList)
+                    .ThenInclude(t => t.User)
+                .FirstOrDefault(f => f.FlightNumber == flightNumber);
+
+            if (flight == null)
+            {
+                throw new ArgumentException("Flight does not exist");
+            }
+
+            var users = flight.PassengerList.Select(t => t.User).ToList();
+            return _mapper.Map<List<UserDto>>(users);
+        }
     }
 }
