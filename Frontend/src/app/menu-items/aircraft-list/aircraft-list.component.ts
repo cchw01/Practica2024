@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { DataSource, SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit, ViewChild, viewChild } from '@angular/core';
-import { AircraftsListMockServices } from '../../app-logic/services/aircrafts-list-mock.services';
+import { AircraftsListMockServices } from '../../app-logic/services/aircrafts-service';
 import { AircraftItem } from '../../app-logic/models/aircraft-item';
 
 

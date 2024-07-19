@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AirportItem } from './models/airport-item';
+import { AirportItem } from '../models/airport-item';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +38,7 @@ export class AirportListMockService {
     },
   ];
   constructor(private httpclient:HttpClient) {}
-  getDataAirports():Observable< Array<AirportItem>> {
+  getDataAirports():Observable<Array<AirportItem>> {
     return this.httpclient.get<Array<AirportItem>>(this.apiUrl);
   }
 
@@ -73,7 +73,7 @@ export class AirportListMockService {
 
   getItemById(id: number):Observable<AirportItem> {
     return this.httpclient.get<AirportItem>(this.apiUrl+"/getbyid/"+ id);
-    //return this.inventoryData.filter((x) => x.id == id)[0];
+    
 
 
 
