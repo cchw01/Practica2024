@@ -3,23 +3,24 @@ import { AirportListMockService } from '../../app-logic/airport-list-mock.servic
 import { AirportItem } from '../../app-logic/models/airport-item';
 import { DiscountListMockService } from '../../app-logic/discount-list-mock.service';
 import { DiscountItem } from '../../app-logic/models/discount-item';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrl: './home-page.component.css',
+  styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent implements OnInit {
   formData: { [key: string]: any } = {
-    departingairport: '',
+    departingAirport: '',
     destinationAirport: '',
     departingTime: '',
     returnTime: '',
     passengers: 1,
   };
 
-  airports: Array<AirportItem> = [];
-  discounts: Array<DiscountItem> = [];
+  airports: AirportItem[] = [];
+  discounts: DiscountItem[] = [];
 
   constructor(
     private airportListMockService: AirportListMockService,
@@ -39,7 +40,7 @@ export class HomePageComponent implements OnInit {
   }
 
   onSubmit() {
-    // Logica pentru submit
+    // Logic for submit
     console.log(this.formData);
   }
 }

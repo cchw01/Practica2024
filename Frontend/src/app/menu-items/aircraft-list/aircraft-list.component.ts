@@ -35,11 +35,11 @@ selection = new SelectionModel<Element>(true, []);
 constructor(private aircraftListMockServices: AircraftsListMockServices) {}
 
   ngOnInit(): void {
-    this.aircraft = new MatTableDataSource<AircraftItem>(
-      this.aircraftListMockServices.getData()
-    );
-    this.aircraft.paginator = this.paginator;
-    this.aircraft.sort = this.sort;
+    this.aircraftListMockServices.getData().subscribe((data: AircraftItem[]) => {
+      this.aircraft = new MatTableDataSource<AircraftItem>(data);
+      this.aircraft.paginator = this.paginator;
+      this.aircraft.sort = this.sort;
+    });
   }
 
   masterToggle() {
