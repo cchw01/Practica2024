@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from '../../app-logic/services/user.service';
+import { UserItem } from '../../app-logic/models/user-item';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,9 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   loginForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(private formBuilder: FormBuilder, 
+    private userService: UserService,
+    private router: Router) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -21,22 +25,32 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
-
-      if (email === 'test@example.com' && password === 'password') {
-  
-        //this.authService.login({ email });
-        this.router.navigate(['']);
-      } else {
-
-        alert('Invalid email or password');
-      }
+      this.userService.login(email, password).subscribe({
+        next: (user) => {
+          this.storeUserData(user);
+          this.router.navigate(['']); 
+        },
+        error: (error) => {
+          console.error('Login failed:', error);
+          alert('Invalid email or password');
+        }
+      });
+    } else {
+      alert('Please enter valid email and password');
     }
   }
+
+  storeUserData(user: UserItem): void {
+    const { password, ...userDetails } = user;  
+    localStorage.setItem('userData', JSON.stringify(userDetails));
+  }
+  
 
   public hasError = (controlName: string, errorName: string) => {
     if (this.loginForm != undefined)
       return this.loginForm.controls[controlName].hasError(errorName);
     return false;
   };
-
 }
+
+
