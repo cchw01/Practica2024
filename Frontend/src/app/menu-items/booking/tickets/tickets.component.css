@@ -1,18 +1,52 @@
-.mat-toolbar {
-    padding: 7px;
-    background-color: #673ab7;
-    display: flex;
-    align-items: center;
-    color: #fff;
 
+.tickets-page{
+    margin: 30px;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.title-table{
-    background-color: #5a32a1;
-    padding-top: 1px;
-    padding-bottom: 1px;
+
+.search-bar{
+    margin-bottom: 60px;
+    margin-top: 30px;
+    width: 100%;
+    align-items: center;
+}
+
+.search-bar-field{
+    border-radius: 30px;
+    height: 30px;
+    width: 300px;
+    text-align: start;
+    left: 50%;
     margin-bottom: 20px;
 }
+
 .search-bar-label{
     margin-top: 20px;
     border-radius: 20px;
 }
+
+.tickets-table{
+    margin: 10px;
+    background-color: white;
+    width: 900px;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px; 
+    border-radius: 30px;
+  }
+
+  .table-column{
+    width: 200px;
+    justify-content: center;
+  }
+
+
+
+

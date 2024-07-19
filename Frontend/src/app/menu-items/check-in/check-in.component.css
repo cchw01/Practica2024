@@ -4,6 +4,14 @@ body {
     background-color: #f4f4f4;
     padding: 20px;
   }
+
+  .check-in-page{
+    margin-top: 80px;
+  }
+
+  app-footer{
+    top: 100%;
+  }
   
   .header {
     background-color: #007bff;

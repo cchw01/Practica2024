@@ -1,31 +1,27 @@
-<div class="title-table">
-    <mat-toolbar>
-      <span>Table Of Tickets</span>
-    </mat-toolbar>
-  </div>
-  
-  <div>
+<div class="tickets-page">
+  <div class="search-container">
     <form>
-      <mat-form-field class="search-bar-field">
-        <div>
-          <mat-label class="search-bar-label">Search</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. John Doe" [formControl]="filterControl">
-        </div>
+      <mat-form-field class="search-bar-field" appearance="outline">
+        <mat-label class="search-bar-label">Search</mat-label>
+        <button mat-icon-button matSuffix>
+          <mat-icon>search</mat-icon>
+        </button>
+        <input matInput (keyup)="applyFilter($event)" [formControl]="filterControl">
       </mat-form-field>
     </form>
   </div>
   
-  <table mat-table [dataSource]="filteredTicketsItems" matSort class="mat-elevation-z8">
+  <table mat-table [dataSource]="filteredTicketsItems" matSort class="mat-elevation-z8 tickets-table">
     <!-- Ticked Id Column -->
     <ng-container matColumnDef="tickedId">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Ticked Id</th>
-      <td mat-cell *matCellDef="let element">{{ element.tickedId }}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column">Ticked Id</th>
+      <td mat-cell *matCellDef="let element" class="small-column">{{ element.tickedId }}</td>
     </ng-container>
   
     <!-- Flight Number Column -->
     <ng-container matColumnDef="flight.flightNumber">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Flight Number</th>
-      <td mat-cell *matCellDef="let element">{{ element.flight.flightNumber }}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header >Flight Number</th>
+      <td mat-cell *matCellDef="let element" >{{ element.flight.flightNumber }}</td>
     </ng-container>
   
     <!-- Departing Airport Column -->
@@ -43,7 +39,7 @@
     <!-- Departing Time Column -->
     <ng-container matColumnDef="flight.departingTime">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Departing Time</th>
-      <td mat-cell *matCellDef="let element">{{ element.flight.departingTime }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.flight.departingTime | date: 'short' }}</td>
     </ng-container>
   
     <!-- Flight Time Column -->
@@ -51,11 +47,11 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Flight Time</th>
       <td mat-cell *matCellDef="let element">{{ element.flight.flightTime }} hours</td>
     </ng-container>
-  
+
     <!-- Flight Cost Column -->
     <ng-container matColumnDef="flight.flightCost">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Flight Cost</th>
-      <td mat-cell *matCellDef="let element">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-column">Flight Cost</th>
+      <td mat-cell *matCellDef="let element" class="table-column">
         Original: {{ element.flight.flightCost | currency }}<br>
         Discount: {{ element.flight.discountOffer.discountPercentage }}%<br>
         New Price: {{
@@ -78,7 +74,7 @@
     <!-- Check In Column -->
     <ng-container matColumnDef="checkIn">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>CheckIn</th>
-      <td mat-cell *matCellDef="let element">{{ element.checkIn ? 'Done.' : 'Not done.' }}</td>
+      <td mat-cell *matCellDef="let element" class="check-in-status">{{ element.checkIn ? 'Done.' : 'Not done.' }}</td>
     </ng-container>
   
     <!-- Luggage Column -->
@@ -91,4 +87,6 @@
     <tr mat-row *matRowDef="let row; columns: ticketsColumns"></tr>
   </table>
   <mat-paginator [pageSizeOptions]="[99,3, 6, 9, 12, 15, 21]" [pageSize]="" showFirstLastButtons></mat-paginator>
+
+</div>
   

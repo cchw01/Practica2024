@@ -55,4 +55,8 @@
       width: 140px;
     }
   }
+
+  app-footer{
+    top: 100%;
+  }
   
