@@ -21,6 +21,7 @@ import { AircraftComponent } from './menu-items/aircraft-list/aircraft-list.comp
 import { AdminComponent } from './menu-items/admin/admin.component';
 import { DiscountAdminComponent } from './menu-items/admin/discount-admin/discount-admin.component';
 
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -37,6 +38,7 @@ import { DiscountPipe } from './app-logic/pipes/discountPrice.pipe';
 import { FormatFlightTime } from './app-logic/pipes/formatFlightTime.pipe';
 
 import { provideHttpClient } from '@angular/common/http';
+import { AddDiscountComponent } from './menu-items/admin/discount-admin/add-discount/add-discount.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,7 @@ import { provideHttpClient } from '@angular/common/http';
     DiscountPipe,
     ArrivalTimePipe,
     FormatFlightTime,
+    AddDiscountComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +68,7 @@ import { provideHttpClient } from '@angular/common/http';
     MatInputModule,
     PasswordModule,
     ReactiveFormsModule,
+    MatCheckboxModule,
     MatSelectModule,
     BrowserAnimationsModule,
     FormsModule,

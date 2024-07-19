@@ -1,1 +1,80 @@
-<p>discount-admin works!</p>
+<div>
+  <button class="navigation-button" mat-button routerLink="/admin/discount/create">Add item</button>
+
+  <table
+    mat-table
+    matSort
+    [dataSource]="discountData"
+    class="mat-elevation-z8"
+  >
+  <td>
+
+  </td>
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          (change)="$event ? masterToggle() : null"
+          [checked]="isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+        ></mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox
+          (change)="selection.toggle(row)"
+          [checked]="selection.isSelected(row)"
+        ></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="discountId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <td mat-cell *matCellDef="let element">{{ element.discountId }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="discountName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>discountName</th>
+      <td mat-cell *matCellDef="let element">{{ element.discountName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="discountDescription">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>discountDescription</th>
+      <td mat-cell *matCellDef="let element">{{ element.discountDescription }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="flightId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>flightId</th>
+      <td mat-cell *matCellDef="let element">{{ element.flightId }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="discountPercentage">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>discountPercentage</th>
+      <td mat-cell *matCellDef="let element">{{ element.discountPercentage }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="startDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        startDate
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.startDate | date }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="endDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>endDate</th>
+      <td mat-cell *matCellDef="let element">{{ element.endDate | date }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let element">
+        <a routerLink="admin/discount/create/{{ element.id }}">Edit</a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="discountColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: discountColumns"></tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[3, 6, 9]"
+    showFirstLastButtons=""
+  ></mat-paginator>
+</div>

@@ -13,6 +13,7 @@ import { DiscountAdminComponent } from './menu-items/admin/discount-admin/discou
 import { BookingComponent } from './menu-items/booking/booking.component';
 import { TicketsComponent } from './menu-items/booking/tickets/tickets.component';
 import { RegisterComponent } from './menu-items/register/register.component';
+import { AddDiscountComponent } from './menu-items/admin/discount-admin/add-discount/add-discount.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'booking/:flightId/:userId', component: BookingComponent },
   { path: 'tickets', component: TicketsComponent },
   { path: 'register', component: RegisterComponent },
+  {path: 'admin/discount/create', component: AddDiscountComponent},
   { path: '**', redirectTo: '' },
 ];
 
