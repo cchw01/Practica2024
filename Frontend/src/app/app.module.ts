@@ -20,7 +20,7 @@ import { UserProfileComponent } from './menu-items/user-profile/user-profile.com
 import { AircraftComponent } from './menu-items/aircraft-list/aircraft-list.component';
 import { AdminComponent } from './menu-items/admin/admin.component';
 import { DiscountAdminComponent } from './menu-items/admin/discount-admin/discount-admin.component';
-
+import { HttpClient,HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -75,6 +75,7 @@ import { provideHttpClient } from '@angular/common/http';
     MatSortModule,
     MatIconModule,
     MatProgressBarModule,
+    HttpClientModule
   ],
   providers: [provideAnimationsAsync(), provideHttpClient()],
   bootstrap: [AppComponent],

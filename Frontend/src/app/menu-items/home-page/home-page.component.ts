@@ -27,7 +27,9 @@ export class HomePageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.airports = this.airportListMockService.getDataAirports();
+    this.airportListMockService.getDataAirports().subscribe((data) => {
+      this.airports = data;
+    });
     this.discounts = this.discountListMockService.getDataDiscounts();
   }
 
