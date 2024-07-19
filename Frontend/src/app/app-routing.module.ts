@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePageComponent } from './menu-items/home-page/home-page.component';
-import { ContactComponent } from './menu-items/contact/contact.component';
-import { LoginComponent } from './menu-items/login/login.component';
-import { CheckInComponent } from './menu-items/check-in/check-in.component';
-import { FlightsComponent } from './menu-items/flights/flights.component';
-import { FlightComponent } from './menu-items/flights/flight/flight.component';
-import { UserProfileComponent } from './menu-items/user-profile/user-profile.component';
-import { AircraftComponent } from './menu-items/aircraft-list/aircraft-list.component';
 import { AdminComponent } from './menu-items/admin/admin.component';
 import { DiscountAdminComponent } from './menu-items/admin/discount-admin/discount-admin.component';
+import { AircraftComponent } from './menu-items/aircraft-list/aircraft-list.component';
 import { BookingComponent } from './menu-items/booking/booking.component';
 import { TicketsComponent } from './menu-items/booking/tickets/tickets.component';
+import { CheckInComponent } from './menu-items/check-in/check-in.component';
+import { ContactComponent } from './menu-items/contact/contact.component';
+import { FlightComponent } from './menu-items/flights/flight/flight.component';
+import { FlightsComponent } from './menu-items/flights/flights.component';
+import { HomePageComponent } from './menu-items/home-page/home-page.component';
+import { LoginComponent } from './menu-items/login/login.component';
 import { RegisterComponent } from './menu-items/register/register.component';
+import { UserProfileComponent } from './menu-items/user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },

@@ -1,4 +1,5 @@
 export class AircraftItem {
+  aircraftId!: number;
   registrationNumber!: string;
   maker!: string;
   model!: string;

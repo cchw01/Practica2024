@@ -21,6 +21,7 @@ export class FlightsService {
       departingTime: new Date('2024-08-01T09:20:30Z'),
       flightTime: 370, // in minutes
       aircraft: {
+        aircraftId:1,
         registrationNumber: 'N12345',
         maker: 'Boeing',
         model: '747',
@@ -54,6 +55,7 @@ export class FlightsService {
       departingTime: new Date('2024-08-01T13:00:00Z'),
       flightTime: 75, // in minutes
       aircraft: {
+        aircraftId:2,
         registrationNumber: 'G-ABCD',
         maker: 'Airbus',
         model: 'A320',
@@ -87,6 +89,7 @@ export class FlightsService {
       departingTime: new Date('2024-08-01T22:00:00Z'),
       flightTime: 600, // in minutes
       aircraft: {
+        aircraftId:3,
         registrationNumber: 'JA7890',
         maker: 'Boeing',
         model: '777',

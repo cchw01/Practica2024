@@ -6,14 +6,20 @@ import { DiscountItem } from './models/discount-item';
 import { UserItem } from './models/user-item';
 import { TicketItem } from './models/ticket-item';
 import { CheckInItem, IdDocumentType } from './models/checkin-item';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookingListMockService {
+  httpclient!: HttpClient;
+  apiUrlAircrafts = "http://localhost:5198/api/Aircraft";
+  aircraftsDatas: Observable<Array<AircraftItem>>=this.httpclient.get<Array<AircraftItem>>(this.apiUrlAircrafts);
 
   aircraftsData: Array<AircraftItem> = [
     {
+      aircraftId:1,
       registrationNumber: 'BC23YON',
       maker: 'MakerA',
       model: 'ModelX',
@@ -22,6 +28,7 @@ export class BookingListMockService {
       maxCargo: 1000,
     },
     {
+      aircraftId:2,
       registrationNumber: 'DE45ZPM',
       maker: 'MakerB',
       model: 'ModelY',
@@ -30,6 +37,7 @@ export class BookingListMockService {
       maxCargo: 1500,
     },
     {
+      aircraftId:3,
       registrationNumber: 'FG67QRS',
       maker: 'MakerC',
       model: 'ModelZ',
@@ -111,7 +119,7 @@ export class BookingListMockService {
       destinationAirport: this.airportsData[3],
       departingTime: new Date('2024-07-23T12:00:00'),
       flightTime: 4,
-      aircraft: this.aircraftsData[2],
+      aircraft: this.aircraftsData[2], // aici se va modifica dupa ce toate serviciile se completeaza .
       flightCost: 499,
       discountOffer: this.discountsData[2],
     }
