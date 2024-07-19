@@ -1,0 +1,6 @@
+<div class="flights-container">
+  @for(flightItem of flights; track flightItem.flightNumber) {
+  <app-flight [flightItem]="flightItem"></app-flight>
+  }
+  <app-footer></app-footer>
+</div>

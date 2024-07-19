@@ -1,21 +1,17 @@
-<mat-toolbar>
-  <span class="app-title">Watery Airline</span>
-  <span class="spacer"></span>
-  <button class="navigation-button" mat-button routerLink="/">Home</button>
-  <button class="navigation-button" mat-button routerLink="/login">Log In</button>
-  <button class="navigation-button" mat-button routerLink="/check-in">Check In</button>
-  <button class="navigation-button" mat-button routerLink="/contact">Contact</button>
-</mat-toolbar>
+<div class="content-wrapper">
+  <mat-toolbar>
+    <span class="app-title">Watery Airline.</span>
+    <span class="spacer"></span>
+    <button class="navigation-button" mat-button routerLink="/">Home</button>
+    <button class="navigation-button" mat-button routerLink="/login">Log In</button>
+    <button class="navigation-button" mat-button routerLink="/flights">Flights</button>
+    <button class="navigation-button" mat-button routerLink="/check-in">Check In</button>
+    <button class="navigation-button" mat-button routerLink="/user">My Profile</button>
+    <button class="navigation-button" mat-button routerLink="/contact">Contact</button>
+    <button class="navigation-button" mat-button routerLink="/aircraft">Aircrafts</button>
+    <button class="navigation-button" mat-button routerLink="/admin">Admin</button>
+    <button class="navigation-button" mat-button routerLink="/booking/1/1">Book Flight</button>
+  </mat-toolbar>
 
-<footer>
-  <div class="footer-content">
-    <p class="copyright-text">&copy; 2024 Watery Airlines. All rights reserved.</p>
-    <nav>
-      <!-- <a href="/about">About Us</a>
-      <a href="/contact">Contact</a>
-      <a href="/privacy">Privacy Policy</a> -->
-    </nav>
-  </div>
-</footer>
-
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</div>

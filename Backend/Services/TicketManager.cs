@@ -1,49 +1,55 @@
-using Backend.Context;
+using AutoMapper;
+using Backend.ApplicationDBContext;
+using Backend.DTOs;
 using Backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services
 {
     public class TicketManager
     {
-        private readonly ApplicationDbContext ticketContext;
+        private readonly ApplicationDbContext _context = new ApplicationDbContext();
+        private readonly IMapper _mapper;
         public TicketManager()
         {
-            ticketContext = new ApplicationDbContext();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            _mapper = config.CreateMapper();
         }
-        public List<Ticket> GetTickets()
+        public List<TicketDto> GetTickets()
         {
-            return ticketContext.Tickets.ToList();
+            var tickets = _context.Tickets
+                .Include(t => t.CheckIn).ToList();
+            return _mapper.Map<List<TicketDto>>(tickets);
         }
-        public Ticket GetTicket(int ticketId)
+        public TicketDto GetTicket(int ticketId)
         {
-            return ticketContext.Tickets.FirstOrDefault(x => x.TicketId == ticketId);
+            var ticket = _context.Tickets
+                .Include(t => t.CheckIn)
+                .FirstOrDefault(x => x.TicketId == ticketId);
+            return _mapper.Map<TicketDto>(ticket);
         }
-        public void AddTicket(Ticket item)
+        public void AddTicket(TicketDto item)
         {
-            ticketContext.Tickets.Add(item);
-            ticketContext.SaveChanges();
+            var ticket = _mapper.Map<Ticket>(item);
+            _context.Tickets.Add(ticket);
+            _context.SaveChanges();
         }
         public void RemoveTicket(int ticketId)
         {
-            var item = ticketContext.Tickets.FirstOrDefault(x => x.TicketId == ticketId);
+            var item = _context.Tickets.FirstOrDefault(x => x.TicketId == ticketId);
             if (item == null) { throw new ArgumentException("item deos not exist"); }
-            ticketContext.Tickets.Remove(item);
-            ticketContext.SaveChanges();
+            _context.Tickets.Remove(item);
+            _context.SaveChanges();
         }
-        public void UpdateTicket(Ticket item)
+        public void UpdateTicket(TicketDto item)
         {
-            var oldItem = ticketContext.Tickets.FirstOrDefault(x => x.TicketId == item.TicketId);
-            if (oldItem == null) throw new ArgumentException("item deos not exist");
-
-            oldItem.Flight = item.Flight;
-            oldItem.Passenger = item.Passenger;
-            oldItem.CheckIn = item.CheckIn;
-            oldItem.Luggage = item.Luggage;
-            oldItem.Price = item.Price;
-
-
-            ticketContext.Tickets.Update(oldItem);
-            ticketContext.SaveChanges();
+            var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == item.TicketId);
+            if (ticket == null) { throw new ArgumentException("item deos not exist"); }
+            _mapper.Map(item, ticket);
+            _context.SaveChanges();
         }
 
     }

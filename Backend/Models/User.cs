@@ -9,10 +9,12 @@ namespace Backend.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int UserId { get; set; }
+        
         public string Name { get; set; }
         public string Role { get; set; }
         public string EmailAddress { get; set; }
         public string Password { get; set; }
-        public virtual List<Ticket> TicketList { get; set; }
+        public virtual ICollection<Ticket> TicketList { get; set; }
+
     }
 }

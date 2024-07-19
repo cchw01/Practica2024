@@ -1,0 +1,219 @@
+.flight-container {
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  margin-inline: auto;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 550px) {
+  .flight-container {
+    width: 95%;
+  }
+
+  .flight-info {
+    padding: 0.75rem 1.85rem;
+  }
+}
+
+.flight-container::before {
+  opacity: 0;
+  content: "";
+  width: 20px;
+  height: 100%;
+  position: absolute;
+  background-color: #673ab7;
+  transition: all 300ms;
+}
+
+.flight-container:hover::before {
+  opacity: 1;
+}
+
+.flight-info {
+  min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 3;
+  padding: 1.25rem 1.85rem;
+  position: relative;
+}
+
+.admin-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: absolute;
+  right: 0;
+  top:0;
+  padding: 0.5rem;
+}
+
+.icon-admin {
+  font-size: 1.45rem; 
+  color: #000000;
+  transition: color 300ms;
+}
+
+.icon-admin:hover,
+.icon-admin:focus {
+  color: #673ab7;
+}
+
+.flight-date {
+  font-size: 1.125rem;
+}
+
+.flight-time {
+  font-size: 2.375rem;
+  font-weight: 600;
+}
+
+.flight-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flight-departure {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.75rem;
+}
+
+.flight-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.flight-arrival {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 0.75rem;
+}
+
+.flight-duration {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 3rem;
+}
+
+.flight-icon {
+  min-height: 50px;
+  min-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(90deg);
+  font-size: 3rem;
+}
+
+.flight-duration-time {
+  font-size: 0.9rem;
+  color: #999999;
+}
+
+.flight-airport {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #999999;
+}
+
+.flight-number {
+  margin-top: 0.3rem;
+}
+
+.flight-prices {
+  display: flex;
+  flex: 1;
+}
+
+.price-wrapper {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-width: 250px;
+  border-left: 1px solid #e5e5e5;
+}
+
+.normal-price {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding-block: 1rem;
+}
+
+.price-type {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.discount-price {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding-block: 1rem;
+}
+
+.btn,
+.btn:visited {
+  background: none;
+  border: 2px solid #e5e5e5;
+  border-radius: 3px;
+  padding: 0.5rem 2.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 300ms;
+  margin-top: 0.9rem;
+}
+
+.btn:hover,
+.btn:active,
+.btn:focus {
+  background-color: #f2f2f2;
+  color: #673ab7;
+}
+
+/* Utility */
+
+.flex {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.discount {
+  color: #673ab7;
+}
+
+.margin-top {
+  margin-top: 0.9rem;
+}

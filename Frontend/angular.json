@@ -35,11 +35,11 @@
               "src/assets",
               {
                 "glob": "**/*",
-                "input": "public",
-                "output": "/assets/"
+                "input": "public"
               }
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -96,11 +96,11 @@
               "src/assets",
               {
                 "glob": "**/*",
-                "input": "public",
-                "output": "/assets/"
+                "input": "public"
               }
             ],
             "styles": [
+              "angular/material/prebuilt-theme/azure-blue.css",
               "src/styles.css"
             ],
             "scripts": []

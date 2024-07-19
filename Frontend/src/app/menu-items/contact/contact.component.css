@@ -1,0 +1,58 @@
+.contact-page{
+  position: absolute;
+  width: 100%;
+  align-items: center;
+  place-self: center;
+  vertical-align: middle;
+  top: 30%;
+}
+
+.contact-info {
+    background: linear-gradient(135deg, #d4a1ff 0%, #e4caff 100%);
+    border: 2px solid #a980ff;
+    border-radius: 15px;
+    padding: 20px 30px;
+    max-width: 500px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    margin: 40px auto;
+    transition: transform 0.3s ease;
+   
+  }
+  
+  .contact-info:hover {
+    transform: scale(1.05);
+  }
+  
+  .contact-info b {
+    display: inline-block;
+    width: 160px;
+    font-weight: bold;
+    color: #fff;
+    font-size: 1.1em;
+  }
+  
+  .contact-info i {
+    color: #f0f0f0;
+    font-style: normal;
+  }
+  
+  .contact-info br {
+    margin-bottom: 12px;
+  }
+  
+  .contact-info i::before {
+    content: ": ";
+  }
+  
+  @media (max-width: 600px) {
+    .contact-info {
+      padding: 15px 20px;
+      max-width: 100%;
+    }
+  
+    .contact-info b {
+      width: 140px;
+    }
+  }
+  

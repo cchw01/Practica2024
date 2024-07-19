@@ -1,1 +1,39 @@
-<p>login works!</p>
+<div class="container">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-container">
+    <h1>Login</h1>
+    
+    <mat-form-field appearance="outline">
+      <mat-label>Email:</mat-label>
+      <input
+        matInput
+        placeholder="E-mail address"
+        formControlName="email"
+        type="text"
+        required
+      />
+      <mat-error *ngIf="hasError('email', 'required')">E-mail is required!</mat-error>
+      <mat-error *ngIf="hasError('email', 'email')">Enter a valid email!</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline">
+      <mat-label>Password:</mat-label>
+      <input
+        matInput
+        placeholder="Password"
+        formControlName="password"
+        type="password"
+        required
+      />
+      <mat-error *ngIf="hasError('password', 'required')">Password is required!</mat-error>
+    </mat-form-field>
+    
+    <button mat-raised-button color="primary" type="submit">Login</button>
+    
+    
+      Don't have an account? <a routerLink="/register">Register here!</a>
+   
+  </form>
+
+  <app-footer></app-footer>
+</div>
+
