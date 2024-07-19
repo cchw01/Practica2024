@@ -3,12 +3,18 @@ import { AirportListMockService } from '../../app-logic/airport-list-mock.servic
 import { AirportItem } from '../../app-logic/models/airport-item';
 import { DiscountListMockService } from '../../app-logic/discount-list-mock.service';
 import { DiscountItem } from '../../app-logic/models/discount-item';
+
 import { Observable } from 'rxjs';
+
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
+
   styleUrls: ['./home-page.component.css'],
+
 })
 export class HomePageComponent implements OnInit {
   formData: { [key: string]: any } = {
@@ -19,12 +25,17 @@ export class HomePageComponent implements OnInit {
     passengers: 1,
   };
 
+
   airports: AirportItem[] = [];
   discounts: DiscountItem[] = [];
 
+  
+
+
   constructor(
     private airportListMockService: AirportListMockService,
-    private discountListMockService: DiscountListMockService
+    private discountListMockService: DiscountListMockService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -40,7 +51,13 @@ export class HomePageComponent implements OnInit {
   }
 
   onSubmit() {
+
     // Logic for submit
     console.log(this.formData);
+
+    // Redirecționare către pagina de booking
+    this.router.navigate(['/flights'], {});
+
   }
+  
 }

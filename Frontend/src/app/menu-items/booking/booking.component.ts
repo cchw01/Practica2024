@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlightItem } from '../../app-logic/models/flight-item';
 import { TicketItem } from '../../app-logic/models/ticket-item';
@@ -17,6 +17,10 @@ export class BookingComponent implements OnInit {
   flightId!:number;
   userId!:number;
 
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(event: Event): void {
+    this.reveal();
+  }
 
   constructor(private route: ActivatedRoute, private router: Router,private bookingListMockService:BookingListMockService) {
     this.route.params.subscribe((params)=>{
@@ -43,4 +47,19 @@ export class BookingComponent implements OnInit {
     // Navigate back to the previous page or homepage
     this.router.navigate(['/contact']);
   }
+
+  reveal(): void {
+    const reveals = document.querySelectorAll('.reveal');
+    for (let i = 0; i < reveals.length; i++) {
+      const windowHeight = window.innerHeight;
+      const revealTop = reveals[i].getBoundingClientRect().top;
+      const revealPoint = 200;
+      if (revealTop < windowHeight - revealPoint) {
+        reveals[i].classList.add('active');
+      } else {
+        reveals[i].classList.remove('active');
+      }
+    }
+  }
+  
 }

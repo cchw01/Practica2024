@@ -35,6 +35,20 @@ namespace Backend.Controllers
 
             return NotFound($"Can't find flight course with id: {flightNumber}");
         }
+        [HttpGet("{flightNumber}/passengers")]
+        public ActionResult<List<UserDto>> GetPassengers(int flightNumber)
+        {
+            try
+            {
+                var passengers = flightManager.GetPassengersByFlight(flightNumber);
+                return Ok(passengers);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
 
         [HttpPost]
         public IActionResult AddNewFlightCourse(FlightDto flight)

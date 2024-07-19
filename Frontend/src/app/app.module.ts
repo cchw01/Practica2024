@@ -35,6 +35,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { ArrivalTimePipe } from './app-logic/pipes/arrivalTime.pipe';
 import { DiscountPipe } from './app-logic/pipes/discountPrice.pipe';
 import { FormatFlightTime } from './app-logic/pipes/formatFlightTime.pipe';
+import { FooterComponent } from './menu-items/footer/footer.component';
 
 import { provideHttpClient } from '@angular/common/http';
 
@@ -57,6 +58,7 @@ import { provideHttpClient } from '@angular/common/http';
     DiscountPipe,
     ArrivalTimePipe,
     FormatFlightTime,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

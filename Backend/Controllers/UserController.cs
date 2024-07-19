@@ -32,6 +32,24 @@ namespace Backend.Controllers
             return NotFound($"User with id " + id + " was not found.");
         }
 
+        [HttpGet("{id}/tickets")]
+        public IActionResult GetUserTickets(int id)
+        {
+            try
+            {
+                var tickets = userManager.GetUserTickets(id);
+                return Ok(tickets);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpPost]
         public IActionResult AddUser(UserDto user)
         {
