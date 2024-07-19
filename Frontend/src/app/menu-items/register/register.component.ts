@@ -20,7 +20,7 @@ export class RegisterComponent {
   ) {
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
-      email: ['', Validators.minLength(10) && Validators.email],
+      emailAddress: ['', Validators.minLength(10) && Validators.email],
       password: [''],
       role: ['', Validators.required],
     });
@@ -29,11 +29,18 @@ export class RegisterComponent {
   onSubmit() {
     if (this.registerForm.valid) {
       this.user = new UserItem(this.registerForm.value);
-      const hashedPassword = this.userService.hashPassword(this.user.password);
-      this.user.password = hashedPassword;
-
-      this.userService.addUser(this.user);
-      this.router.navigate(['/' + this.user.userId]);
+      this.userService.register(this.user).subscribe({
+        next: (registeredUser) => {
+          console.log('User registered:', registeredUser);
+          this.router.navigate(['/']);
+        },
+        error: (error) => {
+          console.error('Registration failed:', error);
+          alert('Registration failed. Please try again.');
+        }
+      });
+    } else {
+      alert('Please fill in the form correctly.');
     }
   }
 

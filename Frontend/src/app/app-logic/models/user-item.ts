@@ -6,7 +6,7 @@ export class UserItem {
   role!: string;
   emailAddress!: string;
   password!: string;
-  ticketList!: TicketItem[];
+  ticketList?: TicketItem[];
 
   constructor(user?: Partial<UserItem>) {
     Object.assign(this, user);
