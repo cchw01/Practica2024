@@ -3,6 +3,7 @@ using Backend.ApplicationDBContext;
 using Backend.DTOs;
 using Backend.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services
 {
@@ -31,6 +32,17 @@ namespace Backend.Services
             var user = _context.Users.FirstOrDefault(x => x.UserId == id);
             return _mapper.Map<UserDto>(user);
         }
+
+        public List<TicketDto> GetUserTickets(int userId)
+        {
+            var user = _context.Users.Include(u => u.TicketList)
+                                     .FirstOrDefault(u => u.UserId == userId);
+            if (user == null)
+                throw new ArgumentException("User does not exist");
+
+            return _mapper.Map<List<TicketDto>>(user.TicketList);
+        }
+
 
         public void AddUser(UserDto userDto)
         {
