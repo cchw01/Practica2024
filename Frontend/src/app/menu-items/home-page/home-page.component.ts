@@ -26,10 +26,14 @@ export class HomePageComponent implements OnInit {
   };
 
 
+  description: string = 'Example description'; // Aceasta va fi descrierea ta
+ 
+  currentSlide: number = 0;
   airports: AirportItem[] = [];
   discounts: DiscountItem[] = [];
 
   
+
 
 
   constructor(
@@ -59,5 +63,18 @@ export class HomePageComponent implements OnInit {
     this.router.navigate(['/flights'], {});
 
   }
-  
+
+  getTransform(): string {
+    return `translateX(-${this.currentSlide * 33.33}%)`;
+  }
+
+  prevSlide() {
+    this.currentSlide =
+      this.currentSlide > 0 ? this.currentSlide - 1 : this.discounts.length - 3;
+  }
+
+  nextSlide() {
+    this.currentSlide =
+      this.currentSlide < this.discounts.length - 3 ? this.currentSlide + 1 : 0;
+  }
 }
