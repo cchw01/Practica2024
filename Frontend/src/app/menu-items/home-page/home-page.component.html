@@ -27,6 +27,7 @@
       <label for="passengers">Passengers:</label>
       <input type="number" id="passengers" (input)="onInputChange($event, 'passengers')" min="1" required>
     </div>
+
     <button (click)="onSubmit()">Submit</button>
   </div>
 
@@ -37,6 +38,10 @@
       <h3>{{ discount.discountName }}</h3>
       <p>{{ discount.discountDescription }}</p>
       <p>Discount: {{ discount.discountPercentage }}%</p>
+      <img style="height: 200px" [src]="discount.discountDescription.includes('summer') ? '../../../assets/images/summer.jpg' : 
+      discount.discountDescription.includes('winter') ? '../../../assets/images/winter.jpg' : 
+      discount.discountDescription.includes('early bookings') ? '../../../assets/images/early-bookings.jpg' : 
+      '../../../assets/images/default.jpg'">
     </div>
   </div>
 </div>
