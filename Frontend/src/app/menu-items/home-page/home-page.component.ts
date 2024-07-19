@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AirportListMockService } from '../../app-logic/airport-list-mock.service';
+import { AirportListMockService } from '../../app-logic/services/airport-service';
 import { AirportItem } from '../../app-logic/models/airport-item';
 import { DiscountListMockService } from '../../app-logic/discount-list-mock.service';
 import { DiscountItem } from '../../app-logic/models/discount-item';

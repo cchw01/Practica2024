@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AirportListMockService } from './airport-list-mock.service';
+import { AirportListMockService } from './airport-service';
 
 describe('AirportListMockService', () => {
   let service: AirportListMockService;
