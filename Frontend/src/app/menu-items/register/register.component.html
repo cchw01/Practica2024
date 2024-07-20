@@ -1,16 +1,16 @@
 <div class="container">
-<form [formGroup]="registerForm!" (ngSubmit)="onSubmit()" class="form-container">
+  <form [formGroup]="registerForm!" (ngSubmit)="onSubmit()" class="form-container">
     <h1>Register</h1>
-    <mat-form-field appearance ="outline">
-        <mat-label>Full name:</mat-label>
-        <input
-          matInput
-          placeholder="Full name:"
-          formControlName="name"
-          type="text"
-          required
-        />
-        <mat-error *ngIf="hasError('name', 'required')">Full name is required!</mat-error>
+    <mat-form-field appearance="outline">
+      <mat-label>Full name:</mat-label>
+      <input
+        matInput
+        placeholder="Full name"
+        formControlName="name"
+        type="text"
+        required
+      />
+      <mat-error *ngIf="hasError('name', 'required')">Full name is required!</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance ="outline">
@@ -24,25 +24,30 @@
         />
         <mat-error *ngIf="hasError('emailAddress', 'required')">E-mail is required!</mat-error>
     </mat-form-field>
-    
-        <mat-label>Password:</mat-label>
-        <p-password 
-        formControlName="password" 
-        promptLabel="Choose a password"
-        weakLabel="Too simple" 
-        mediumLabel="Average complexity" 
-        strongLabel="Complex password" />
 
-        <mat-form-field>
-            <mat-label>User type</mat-label>
-            <mat-select formControlName="role" required>
-                <mat-option value="admin">Admin</mat-option>
-                <mat-option value="passenger">Passenger</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <button mat-raised-button color="primary" type="submit">Register</button>
+    <mat-label>Password:</mat-label>
+    <p-password 
+      formControlName="password" 
+      promptLabel="Choose a password"
+      weakLabel="Too simple" 
+      mediumLabel="Average complexity" 
+      strongLabel="Complex password"
+    ></p-password>
 
-    Already have an account?<a routerLink="/login">Log-in here!</a>
-</form>
-<app-footer></app-footer>
+    <mat-form-field appearance="outline">
+      <mat-label>User type</mat-label>
+      <mat-select formControlName="role" required>
+        <mat-option value="admin">Admin</mat-option>
+        <mat-option value="passenger">Passenger</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" class="register_button">Register</button>
+
+    <p>Already have an account? <a routerLink="/login" class="navigate-link">Log-in here!</a></p>
+  </form>
+
+  <div class = "airplane_animation">
+    <img src="../../../assets/images/airplane_draw.png" class ="airplane_image">
+  </div>
 </div>

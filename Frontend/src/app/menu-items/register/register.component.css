@@ -1,70 +1,95 @@
-.container{
-  position: absolute;
-  width: 100%;
+.container {
+  display: flex;
+  justify-content: center;
   align-items: center;
-  place-self: center;
-  vertical-align: middle;
+  width: 100%;
+  position: absolute;
   top: 10%;
 }
 
-.form-container{
-    display: flex;
-  align-items: center;
-  justify-content: center;
+.form-container {
+  display: flex;
   flex-direction: column;
-  background-color: #f9f9f9;  
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
-  max-width: 400px; 
-  margin: 50px auto;
+  align-items: center;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  margin: 50px;
+  padding: 20px;
+  margin-top: -50px;
+  margin-left: 600px;
 }
 
-mat-form-field{
-    margin-bottom: 10px;
+mat-form-field {
+  margin-bottom: 10px;
 }
 
 :host ::ng-deep .p-password input {
-    margin-bottom: 40px;
-    width: 210px;
-    height: 40px;
-    }
-    
-    :host ::ng-deep .p-password-panel .p-password-meter .p-password-strength.weak {
-    background: #D32F2F;
-    }
-    
-    :host ::ng-deep .p-password-panel .p-password-meter .p-password-strength.medium {
-    background: #FBC02D;
-    }
-    
-    :host ::ng-deep .p-password-panel .p-password-meter .p-password-strength.strong {
-    background: #689F38;
-    }
+  margin-bottom: 40px;
+  width: 210px;
+  height: 40px;
+}
 
-    button {
-        width: 30%;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        background-color: #007bff; 
-        color: white;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s ease; 
-      }
-      
-      button:hover {
-        background-color: #0056b3; 
-      }
-      
-      .navigate-link {
-        color: #007bff;
-        text-decoration: underline;
-        cursor: pointer;
-        margin-top: 20px;
-      }
-      
-      .navigate-link:hover {
-        color: #0056b3; 
-      }
+:host ::ng-deep .p-password-panel .p-password-meter .p-password-strength.weak {
+  background: #D32F2F;
+}
 
-    
+:host ::ng-deep .p-password-panel .p-password-meter .p-password-strength.medium {
+  background: #FBC02D;
+}
+
+:host ::ng-deep .p-password-panel .p-password-meter .p-password-strength.strong {
+  background: #689F38;
+}
+
+.register_button {
+  width: 30%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register_button:hover {
+  background-color: #0056b3;
+}
+
+.navigate-link {
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.navigate-link:hover {
+  color: #0056b3;
+}
+
+.airplane_image {
+  --s: 700px; /* the image size */
+  width: var(--s);
+  height: var(--s); /* better than aspect-ratio in case the image has a height attribute */
+  box-sizing: border-box;
+  transition: .5s;
+  padding-right: var(--s);
+  margin-left: -150px;
+  margin-top: 50px;
+} 
+
+.airplane_image.animate {
+  padding-right: 0px;
+  transition: padding-right 0.5s ease;
+}
+
+
+.airplane_animation {
+  min-height: 100px;
+  display: grid;
+  place-content: center;
+  grid-auto-flow: column;
+}
+
