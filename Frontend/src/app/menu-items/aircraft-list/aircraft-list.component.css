@@ -8,7 +8,7 @@
   font-size: 18px;
   text-align: left;
   background-color: #f9f9ff;
-  border: 2px solid #d1c4e9;
+  border: 2px solid #1072a0;
   border-radius: 12px;
   padding: 15px;
   margin-top: 100px;
@@ -26,7 +26,7 @@ th, td {
 }
 
 th {
-  background: #550bd5; /* Dark Purple */
+  background: #0a4c6b;
   color: #000000;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -35,18 +35,18 @@ th {
 }
 
 tr {
-  background-color: #ede7f6;
+  background-color: #94abc5;
   border-radius: 10px;
   transition: background-color 0.3s ease;
 }
 
 tr:hover {
-  background-color: #d1c4e9;
+  background-color: #66818d;
   cursor: pointer;
 }
 
 td {
-  border-bottom: 1px solid #d1c4e9;
+  border-bottom: 1px solid #85abbd;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -54,11 +54,11 @@ td {
 }
 
 th:first-child, td:first-child {
-  border-left: 5px solid #5d00ff;
+  border-left: 5px solid #0a4c6b;
 }
 
 th:last-child, td:last-child {
-  border-right: 5px solid #5d00ff;
+  border-right: 5px solid #0a4c6b;
 }
 
 th, td {
