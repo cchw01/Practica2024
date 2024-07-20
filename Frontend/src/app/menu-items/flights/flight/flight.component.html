@@ -92,7 +92,7 @@
     <div class="price-wrapper">
       <div class="discount-price">
         <div class="price-type">Discount Price</div>
-        <div class="price discount">
+        <div class="price discount" *ngIf="flightItem.discountOffer">
           {{
             flightItem.flightCost
               | discount : flightItem.discountOffer.discountPercentage
