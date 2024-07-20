@@ -12,7 +12,7 @@ import { FlightItem } from '../models/flight-item';
 import { TicketDto } from '../DTOs/ticket-dto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   private apiUrl = 'http://localhost:5198/api/User';
@@ -20,15 +20,15 @@ export class UserService {
   constructor(private httpClient: HttpClient) {}
 
   getUsers(): Observable<UserItem[]> {
-    return this.httpClient.get<UserDto[]>(this.apiUrl).pipe(
-      map(usersDto => usersDto.map(dto => new UserItem(dto)))
-    );
+    return this.httpClient
+      .get<UserDto[]>(this.apiUrl)
+      .pipe(map((usersDto) => usersDto.map((dto) => new UserItem(dto))));
   }
 
   getUserById(id: number): Observable<UserItem> {
-    return this.httpClient.get<UserDto>(`${this.apiUrl}/${id}`).pipe(
-      map(dto => new UserItem(dto))
-    );
+    return this.httpClient
+      .get<UserDto>(`${this.apiUrl}/${id}`)
+      .pipe(map((dto) => new UserItem(dto)));
   }
 
   addUser(user: UserItem) {
@@ -38,7 +38,7 @@ export class UserService {
       name: user.name,
       role: user.role,
       emailAddress: user.emailAddress,
-      password: hashedPassword
+      password: hashedPassword,
     };
     return this.httpClient.post<UserDto>(this.apiUrl, userDto);
   }
@@ -50,9 +50,12 @@ export class UserService {
       name: user.name,
       role: user.role,
       emailAddress: user.emailAddress,
-      password: hashedPassword
+      password: hashedPassword,
     };
-    return this.httpClient.put<UserDto>(`${this.apiUrl}/${user.userId}`, userDto);
+    return this.httpClient.put<UserDto>(
+      `${this.apiUrl}/${user.userId}`,
+      userDto
+    );
   }
 
   deleteUser(id: number): Observable<void> {
@@ -60,19 +63,26 @@ export class UserService {
   }
 
   getUserTickets(userId: number): Observable<TicketItem[]> {
-    return this.httpClient.get<TicketDto[]>(`${this.apiUrl}/${userId}/tickets`).pipe(
-      map(ticketsDto => ticketsDto.map(ticketDto => new TicketItem({
-        tickedId: ticketDto.ticketId,
-        flightId: ticketDto.flightId,
-        userId: ticketDto.userId,
-        checkInId: ticketDto.checkInId,
-        luggage: ticketDto.luggage,
-        price: ticketDto.price,
-        flight: new FlightItem(),  
-        passager: new UserItem(), 
-        checkIn: ticketDto.checkInId !== undefined  
-      })))
-    );
+    return this.httpClient
+      .get<TicketDto[]>(`${this.apiUrl}/${userId}/tickets`)
+      .pipe(
+        map((ticketsDto) =>
+          ticketsDto.map(
+            (ticketDto) =>
+              new TicketItem({
+                tickedId: ticketDto.ticketId,
+                flightId: ticketDto.flightId,
+                userId: ticketDto.userId,
+                checkInId: ticketDto.checkInId,
+                luggage: ticketDto.luggage,
+                price: ticketDto.price,
+                flight: new FlightItem(),
+                passager: new UserItem(),
+                checkIn: ticketDto.checkInId !== undefined,
+              })
+          )
+        )
+      );
   }
 
   register(user: UserItem) {
@@ -82,17 +92,20 @@ export class UserService {
       name: user.name,
       role: user.role,
       emailAddress: user.emailAddress,
-      password: hashedPassword
+      password: hashedPassword,
     };
     return this.httpClient.post<UserDto>(`${this.apiUrl}/register`, userDto);
-}
+  }
 
   login(email: string, password: string): Observable<UserItem> {
     const hashedPassword = this.hashPassword(password);
-    const loginDto : LoginDto = { emailAddress: email, password: hashedPassword };
-    return this.httpClient.post<UserDto>(`${this.apiUrl}/login`, loginDto).pipe(
-      map(dto => new UserItem(dto))
-    );
+    const loginDto: LoginDto = {
+      emailAddress: email,
+      password: hashedPassword,
+    };
+    return this.httpClient
+      .post<UserDto>(`${this.apiUrl}/login`, loginDto)
+      .pipe(map((dto) => new UserItem(dto)));
   }
 
   hashPassword(password: string): string {

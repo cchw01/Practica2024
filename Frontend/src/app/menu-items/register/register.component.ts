@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserItem } from '../../app-logic/models/user-item';
 import { UserService } from '../../app-logic/services/user.service';
@@ -16,6 +16,7 @@ export class RegisterComponent {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private el: ElementRef,
     private router: Router
   ) {
     this.registerForm = this.formBuilder.group({
@@ -23,6 +24,20 @@ export class RegisterComponent {
       emailAddress: ['', Validators.minLength(10) && Validators.email],
       password: [''],
       role: ['', Validators.required],
+    });
+  }
+
+  ngOnInit() {
+    const button = this.el.nativeElement.querySelector('.register_button');
+    const airplaneImage =
+      this.el.nativeElement.querySelector('.airplane_image');
+
+    button.addEventListener('mouseenter', () => {
+      airplaneImage.classList.add('animate');
+    });
+
+    button.addEventListener('mouseleave', () => {
+      airplaneImage.classList.remove('animate');
     });
   }
 
