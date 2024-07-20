@@ -1,17 +1,53 @@
 <div class="content-wrapper">
-  <mat-toolbar>
-    <span class="app-title">Watery Airline.</span>
+  <div id="navigation-bar">
+    <img src="../assets/images/watery_logo.png" id="watery_logo">
     <span class="spacer"></span>
-    <button class="navigation-button" mat-button routerLink="/">Home</button>
-    <button class="navigation-button" mat-button routerLink="/login">Log In</button>
-    <button class="navigation-button" mat-button routerLink="/flights">Flights</button>
-    <button class="navigation-button" mat-button routerLink="/check-in">Check In</button>
-    <button class="navigation-button" mat-button routerLink="/user">My Profile</button>
-    <button class="navigation-button" mat-button routerLink="/contact">Contact</button>
-    <button class="navigation-button" mat-button routerLink="/aircraft">Aircrafts</button>
-    <button class="navigation-button" mat-button routerLink="/admin">Admin</button>
-    <button class="navigation-button" mat-button routerLink="/booking/1/1">Book Flight</button>
-  </mat-toolbar>
-
+    <div>
+      <div>
+          <a routerLink="/">Home</a>
+      </div>
+    </div>
+    <div>
+      <div>
+          <a routerLink="/login">Log In</a>
+      </div>
+    </div>
+    <div>
+      <div>
+          <a routerLink="/flights">Flights</a>
+      </div>
+    </div>
+    <div>
+      <div>
+          <a routerLink="/check-in">Check In</a>
+      </div>
+    </div>
+    <div>
+      <div>
+          <a  routerLink="/user">My Profile</a>
+      </div>
+    </div>
+    <div>
+      <div>
+          <a  routerLink="/contact">Contact</a>
+      </div>
+    </div>
+    <div>
+      <div>
+          <a  routerLink="/aircraft">Aircrafts</a>
+      </div>
+    </div>
+    <div>
+      <div>
+          <a  routerLink="/admin">Admin</a>
+      </div>
+    </div>
+    <div>
+      <div>
+          <a  routerLink="/booking/1/1">Book Flight</a>
+      </div>
+    </div>
+  </div>
+  
   <router-outlet></router-outlet>
 </div>

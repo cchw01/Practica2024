@@ -6,53 +6,62 @@
   margin: 0;
 }
 
+#watery_logo{
+  width: 200px;
+  height: 70px;
+}
+
+#navigation-bar {
+	position: fixed;
+	left:0;
+	top:0;
+	width: 100%;
+	height: 70px;
+	background-color: #0a4c6b;
+	display: flex;
+       align-items: center;
+    z-index: 99;
+}
+
+#navigation-bar div {
+	height: 60px;
+	padding-left: 10px;
+	padding-right: 10px;
+	display: flex;
+       align-items: center;
+	font-family: 'FrizQuadrataRegular';
+}
+
+#navigation-bar div div {
+	height: 20px;
+	border-radius: 5px;
+	padding-top: 1px;
+	padding-bottom: 3px;
+	font-family: 'FrizQuadrataRegular';
+}
+
+a{
+		text-decoration: none;
+    font-weight: bold;
+		color: white;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+#navigation-bar div:hover {
+	border-bottom: 5px solid #b1922d;
+}
+
+#navigation-bar div:hover div {
+	background-color: black;
+	margin-bottom: -7px;
+	border-bottom: black;
+}
+
+
 .content-wrapper {
   display: flex;
   flex-direction: column ;
   flex-grow: 1;
-}
-
-.navigation-button {
-    background-color: #fff;
-    color: #000;
-    border: none;
-    padding: 8px;
-    border-radius: 40px;
-    cursor: pointer;
-    margin-left: 10px;
-    width: 90px;
-    height: 30px;
-    box-shadow: rgba(183, 2, 228, 0.2) 0 -25px 18px -14px inset,rgba(161, 17, 228, 0.15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(146, 44, 187, 0.15) 0 8px 16px,rgba(170, 19, 207, 0.15) 0 16px 32px;
-    text-decoration: none;
-    font-size: 15px;
-  }
- 
-.navigation-button:hover {
-    background-color: #f1f1f1;
-    
-}
- 
-.mat-toolbar {
-    background-color: #673ab7;
-    display: flex;
-    align-items: center;
-    border-radius: 40px;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 10px;
-    opacity: 0.9;
-    box-shadow:  3px 3px 10px 2px rgba(73, 73, 73, 0.5);
-    position: fixed;
-    z-index: 1000;
-    width: 99%;
-}
- 
-.app-title {
-    color: #fff;
-    flex: 1;
-    font-family: "Pacifico", cursive;
-    font-weight: 300;
-    font-style: normal;
 }
  
 .spacer {
