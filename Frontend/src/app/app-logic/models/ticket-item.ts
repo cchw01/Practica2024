@@ -6,6 +6,9 @@ export class TicketItem {
   tickedId!: number;
   flight!: FlightItem;
   passager!: UserItem;
+  flightId?: number; 
+  userId?: number; 
+  checkInId?: number;
   checkIn!: boolean;
   luggage!: boolean;
   price!: number;
