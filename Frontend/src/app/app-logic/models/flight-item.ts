@@ -10,7 +10,7 @@ export class FlightItem {
   flightTime!: number;
   aircraft!: AircraftItem;
   flightCost!: number;
-  discountOffer!: DiscountItem;
+  discountOffer?: DiscountItem;
 
   constructor(flight?: Partial<FlightItem>) {
     Object.assign(this, flight);

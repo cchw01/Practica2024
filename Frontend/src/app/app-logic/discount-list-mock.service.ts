@@ -14,7 +14,7 @@ export class DiscountListMockService {
   discountsData: Array<DiscountItem> = [
     {
       discountId: 1,
-      flights: [],
+      flightId: 0,
       discountPercentage: 10,
       discountName: 'Summer Sale',
       discountDescription: '10% off on all summer flights',
@@ -23,7 +23,7 @@ export class DiscountListMockService {
     },
     {
       discountId: 2,
-      flights: [],
+      flightId: 0,
       discountPercentage: 15,
       discountName: 'Winter Wonderland',
       discountDescription: '15% off on all winter flights',
@@ -32,7 +32,7 @@ export class DiscountListMockService {
     },
     {
       discountId: 3,
-      flights: [],
+      flightId: 0,
       discountPercentage: 20,
       discountName: 'Early Bird',
       discountDescription: '20% off on early bookings',
@@ -42,7 +42,7 @@ export class DiscountListMockService {
 
     {
       discountId: 4,
-      flights: [],
+      flightId: 0,
       discountPercentage: 10,
       discountName: 'Summer Sale',
       discountDescription: '10% off on all summer flights',

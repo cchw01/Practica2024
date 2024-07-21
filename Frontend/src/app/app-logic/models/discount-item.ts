@@ -2,7 +2,7 @@ import { FlightItem } from './flight-item';
 
 export class DiscountItem {
   discountId!: number;
-  flights!: FlightItem[];
+  flightId!: number;
   discountPercentage!: number;
   discountName!: string;
   discountDescription!: string;

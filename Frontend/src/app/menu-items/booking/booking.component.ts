@@ -8,34 +8,48 @@ import { BookingListMockService } from '../../app-logic/booking-list-mock.servic
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
-  styleUrls: ['./booking.component.css']
+  styleUrls: ['./booking.component.css'],
 })
 export class BookingComponent implements OnInit {
   ticket: TicketItem = new TicketItem();
-  flightItem!:FlightItem;
-  userItem!:UserItem;
-  flightId!:number;
-  userId!:number;
+  flightItem!: FlightItem;
+  userItem!: UserItem;
+  flightId!: number;
+  userId!: number;
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(event: Event): void {
     this.reveal();
   }
 
-  constructor(private route: ActivatedRoute, private router: Router,private bookingListMockService:BookingListMockService) {
-    this.route.params.subscribe((params)=>{
-      this.flightId=params['flightId'];
-      this.userId=params['userId'];
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private bookingListMockService: BookingListMockService
+  ) {
+    this.route.params.subscribe((params) => {
+      this.flightId = params['flightId'];
+      this.userId = params['userId'];
     });
   }
 
   ngOnInit(): void {
-    this.flightItem = this.bookingListMockService.getFlightItemById(this.flightId);
+    this.flightItem = this.bookingListMockService.getFlightItemById(
+      this.flightId
+    );
     this.userItem = this.bookingListMockService.getUserItembyId(this.userId);
-    this.ticket.flight = this.flightItem; 
+    this.ticket.flight = this.flightItem;
     this.ticket.passager = this.userItem;
-    this.ticket.price= this.ticket.flight.flightCost - ( this.ticket.flight.flightCost *  this.ticket.flight.discountOffer.discountPercentage / 100)
-    this.ticket.checkIn=false;
+    if (this.ticket.flight.discountOffer) {
+      this.ticket.price =
+        this.ticket.flight.flightCost -
+        (this.ticket.flight.flightCost *
+          this.ticket.flight.discountOffer.discountPercentage) /
+          100;
+    } else {
+      this.ticket.price = this.ticket.flight.flightCost; // No discount applied
+    }
+    this.ticket.checkIn = false;
   }
 
   onSubmit() {
@@ -61,5 +75,4 @@ export class BookingComponent implements OnInit {
       }
     }
   }
-  
 }

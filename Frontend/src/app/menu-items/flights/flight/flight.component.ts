@@ -6,7 +6,20 @@ import { FlightItem } from '../../../app-logic/models/flight-item';
   templateUrl: './flight.component.html',
   styleUrl: './flight.component.css',
 })
-export class FlightComponent{
+export class FlightComponent {
   @Input() flightItem!: FlightItem;
-  
+  get discountedPrice(): number {
+    if (
+      this.flightItem.discountOffer &&
+      this.flightItem.discountOffer.discountPercentage
+    ) {
+      return (
+        this.flightItem.flightCost -
+        (this.flightItem.flightCost *
+          this.flightItem.discountOffer.discountPercentage) /
+          100
+      );
+    }
+    return this.flightItem.flightCost; // Return original price if no discount
+  }
 }
