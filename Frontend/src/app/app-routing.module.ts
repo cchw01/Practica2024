@@ -14,6 +14,10 @@ import { LoginComponent } from './menu-items/login/login.component';
 import { RegisterComponent } from './menu-items/register/register.component';
 import { UserProfileComponent } from './menu-items/user-profile/user-profile.component';
 import { AddDiscountComponent } from './menu-items/admin/discount-admin/add-discount/add-discount.component';
+import { AircraftAdminComponent } from './menu-items/admin/aircraft-admin/aircraft-admin.component';
+import { AddAircraftComponent } from './menu-items/admin/aircraft-admin/add-aircraft/add-aircraft.component';
+
+
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -31,6 +35,9 @@ const routes: Routes = [
   { path: 'booking/:flightId/:userId', component: BookingComponent },
   { path: 'tickets', component: TicketsComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'admin/aircraft',component: AircraftAdminComponent},
+  {path: 'admin/aircraft/create', component: AddAircraftComponent},
+  {path: 'admin/aircraft/create/:id', component: AddAircraftComponent},
   { path: '**', redirectTo: '' },
 ];
 
