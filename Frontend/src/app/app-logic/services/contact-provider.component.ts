@@ -6,10 +6,11 @@ import { ContactData } from "../contact-data";
   export class ContactProviderService {
     providedData = <ContactData>{
       info: 'Watery  Airline',
-      address: 'Str. Turnului nr. 5',
-      openDays: 'Luni - Vineri',
+      address: 'Str. Turnului nr. 5, 500152, Brasov, Romania',
+      openDays: 'Monday - Friday',
       timeSlot: '9:00 - 17:00',
-      phone: '0742232412',
+      phone: '0744 223 241',
+      email: 'contact@wateryairline.com'
     };
   
     constructor() {}

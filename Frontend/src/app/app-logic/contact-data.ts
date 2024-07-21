@@ -4,5 +4,6 @@ export interface ContactData {
     openDays: string;
     timeSlot: string;
     address: string;
+    email: string;
   }
   

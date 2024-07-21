@@ -1,11 +1,21 @@
 <div class="contact-page">
-<div class="contact-info">
-    <b>Deposit information:</b><i>{{ contactData.info }}</i><br />
-    <b>Address:</b><i>{{ contactData.address }}</i><br />
-    <b>Open Days:</b><i>{{ contactData.openDays }}</i><br />
-    <b>Time Slot:</b><i>{{ contactData.timeSlot }}</i><br />
-    <b>Phone:</b><i>{{ contactData.phone }}</i><br />
+  <div class="contact-container">
+    <div class="contact-info">
+      <h1>Contact Us</h1>
+      <div class="contact-data">
+        <p><span class="left-label">Company Name: </span>{{ contactData.info }}</p>   
+        <p><span class="left-label">Address: </span>{{ contactData.address }}</p>
+        <p><span class="left-label">Open Days: </span>{{ contactData.openDays }}</p>
+        <p><span class="left-label">Time Slot: </span>{{ contactData.timeSlot }}</p>
+        <p><span class="left-label">Phone: </span>{{ contactData.phone }}</p>
+        <p><span class="left-label">Email: </span>{{ contactData.email }}</p>
+        </div> 
+        <h1>Our Location</h1> 
+        <div class="map-container" style="width: 100%"><iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=400&amp;hl=en&amp;q=Str.%20Turnului%20nr.%205,%20500152,%20Brasov,%20Romania+(Watery%20Airlines)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/">gps tracker sport</a></iframe></div>
+    </div>
+    <div class="contact-image">
+        <img src="../../../assets/images/contact-background.jpg">
+    </div>
   </div>
-<app-footer></app-footer>   
+  <app-footer></app-footer>
 </div>
- 
