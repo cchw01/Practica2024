@@ -13,6 +13,7 @@ import { HomePageComponent } from './menu-items/home-page/home-page.component';
 import { LoginComponent } from './menu-items/login/login.component';
 import { RegisterComponent } from './menu-items/register/register.component';
 import { UserProfileComponent } from './menu-items/user-profile/user-profile.component';
+import { AddDiscountComponent } from './menu-items/admin/discount-admin/add-discount/add-discount.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -25,6 +26,8 @@ const routes: Routes = [
   { path: 'aircraft', component: AircraftComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'admin/discount', component: DiscountAdminComponent },
+  { path: 'admin/discount/create', component: AddDiscountComponent },
+  { path: 'admin/discount/create/:id', component: AddDiscountComponent},
   { path: 'booking/:flightId/:userId', component: BookingComponent },
   { path: 'tickets', component: TicketsComponent },
   { path: 'register', component: RegisterComponent },
