@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FlightItem } from '../models/flight-item';
+import { HttpClient } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
+import { FlightDto } from '../DTOs/flight-dto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FlightsService {
+  apiUrl = 'http://localhost:5198/api/Flight';
   flightMockData: FlightItem[] = [
     {
       flightNumber: 1001,
@@ -21,7 +25,7 @@ export class FlightsService {
       departingTime: new Date('2024-08-01T09:20:30Z'),
       flightTime: 370, // in minutes
       aircraft: {
-        aircraftId:1,
+        aircraftId: 1,
         registrationNumber: 'N12345',
         maker: 'Boeing',
         model: '747',
@@ -55,7 +59,7 @@ export class FlightsService {
       departingTime: new Date('2024-08-01T13:00:00Z'),
       flightTime: 75, // in minutes
       aircraft: {
-        aircraftId:2,
+        aircraftId: 2,
         registrationNumber: 'G-ABCD',
         maker: 'Airbus',
         model: 'A320',
@@ -89,7 +93,7 @@ export class FlightsService {
       departingTime: new Date('2024-08-01T22:00:00Z'),
       flightTime: 600, // in minutes
       aircraft: {
-        aircraftId:3,
+        aircraftId: 3,
         registrationNumber: 'JA7890',
         maker: 'Boeing',
         model: '777',
@@ -110,19 +114,53 @@ export class FlightsService {
     },
   ];
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  
-  getFlightsData(): FlightItem[] {
-    return this.flightMockData;
+  getFlights(): Observable<FlightItem[]> {
+    return this.http
+      .get<FlightItem[]>(this.apiUrl)
+      .pipe(map((flightsDto) => flightsDto.map((dto) => new FlightItem(dto))));
   }
-  
-  // createFlight() {}
-  
-  // getFlightById(id: number): FlightItem {}
 
-  // updateFlight(newItem: FlightItem, id: number): void {}
+  getFlightById(id: number): Observable<FlightItem> {
+    return this.http
+      .get<FlightItem>(`${this.apiUrl}/${id}`)
+      .pipe(map((dto) => new FlightItem(dto)));
+  }
 
-  // deleteFlight(id: number): void {}
+  getFlightPassengers(flight: FlightItem) {
+    return this.http.get(`${this.apiUrl}/${flight.flightNumber}/passengers`);
+  }
 
+  addFlight(flight: FlightItem) {
+    const flightDto = {
+      flightNumber: flight.flightNumber,
+      departingAirportId: flight.departingAirport,
+      destinationAirportId: flight.destinationAirport,
+      aircraftId: flight.aircraft.aircraftId,
+      departingTime: flight.departingTime,
+      flightTime: flight.flightTime,
+      flightCost: flight.flightCost,
+      discountId: flight.discountOffer.discountId,
+    };
+    this.http.post<FlightDto>(this.apiUrl, flightDto);
+  }
+
+  updateFlight(flight: FlightItem) {
+    const flightDto = {
+      flightNumber: flight.flightNumber,
+      departingAirportId: flight.departingAirport,
+      destinationAirportId: flight.destinationAirport,
+      aircraftId: flight.aircraft.aircraftId,
+      departingTime: flight.departingTime,
+      flightTime: flight.flightTime,
+      flightCost: flight.flightCost,
+      discountId: flight.discountOffer.discountId,
+    };
+    return this.http.put(this.apiUrl, flightDto);
+  }
+
+  deleteFlight(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

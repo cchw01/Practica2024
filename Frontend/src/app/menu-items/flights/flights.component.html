@@ -1,6 +1,10 @@
 <div class="flights-container">
-  @for(flightItem of flights; track flightItem.flightNumber) {
+  @if(isFetching) {
+  <p>Flights are loading...</p>
+  } @else { @if(loadedFlights.length < 1) {
+  <p>No flights available !</p>
+  } @else { @for(flightItem of loadedFlights; track flightItem.flightNumber) {
   <app-flight [flightItem]="flightItem"></app-flight>
-  }
+  } } }
   <app-footer></app-footer>
 </div>

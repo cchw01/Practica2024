@@ -5,19 +5,19 @@ import { FlightItem } from '../../app-logic/models/flight-item';
 @Component({
   selector: 'app-flights',
   templateUrl: './flights.component.html',
-  styleUrl: './flights.component.css'
+  styleUrl: './flights.component.css',
 })
 export class FlightsComponent implements OnInit {
-  flights!: FlightItem[];
+  loadedFlights: FlightItem[] = [];
+  isFetching = false;
 
-  constructor(flightsService : FlightsService) {
-    this.flights = flightsService.getFlightsData();
-  }
+  constructor(private flightsService: FlightsService) {}
 
   ngOnInit() {
-    console.table(this.flights);
+    this.isFetching = true;
+    this.flightsService.getFlights().subscribe((flights) => {
+      this.isFetching = false;
+      this.loadedFlights = flights;
+    });
   }
-
-  
-
 }
