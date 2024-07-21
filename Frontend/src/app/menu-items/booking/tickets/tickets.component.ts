@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TicketItem } from '../../../app-logic/models/ticket-item';
-import { BookingListMockService } from '../../../app-logic/booking-list-mock.service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { TicketService } from '../../../app-logic/services/ticket.service';
 
 @Component({
   selector: 'app-tickets',
@@ -33,10 +33,13 @@ export class TicketsComponent implements OnInit {
     'checkIn',
     'luggage',
   ]
-  constructor(private bookingListMockService:BookingListMockService){}
+  constructor(private ticketService: TicketService,){}
   ngOnInit(): void {
-    this.ticketsItems = this.bookingListMockService.getDataTickets();
-    this.filteredTicketsItems.data = this.ticketsItems;
+    this.ticketService.getTickets().subscribe(tickets=> {
+      this.ticketsItems=tickets;
+      this.filteredTicketsItems.data = this.ticketsItems;
+    });
+    
     this.filterControl.valueChanges.subscribe(value => {
       this.filteredTicketsItems.filter = value.trim().toLowerCase();
     });
@@ -44,7 +47,7 @@ export class TicketsComponent implements OnInit {
     this.filteredTicketsItems.filterPredicate = (data: TicketItem, filter: string) => {
       const searchTerms = filter.split(' ');
       return searchTerms.every(term => 
-        data.tickedId.toString().includes(term) ||
+        data.ticketId.toString().includes(term) ||
         data.flight.flightNumber.toString().includes(term) ||
         data.flight.departingAirport.airportName.toLowerCase().includes(term) ||
         data.flight.destinationAirport.airportName.toLowerCase().includes(term) ||

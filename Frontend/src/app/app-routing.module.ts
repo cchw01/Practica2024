@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent },
   { path: 'admin/discount', component: DiscountAdminComponent },
   { path: 'booking/:flightId/:userId', component: BookingComponent },
-  { path: 'tickets', component: TicketsComponent },
+  { path: 'admin/tickets', component: TicketsComponent },
   { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: '' },
 ];
