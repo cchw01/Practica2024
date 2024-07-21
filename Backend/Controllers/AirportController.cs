@@ -23,8 +23,7 @@ namespace Backend.Controllers
             return Ok(airportItemManager.GetAirports());
         }
 
-        [HttpGet]
-        [Route("id")]
+        [HttpGet("{id}")]
         public IActionResult GetAirport(int id)
         {
             var airportItem = airportItemManager.GetAirport(id);
@@ -71,8 +70,7 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpDelete]
-        [Route("{id}")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteAirport(int id)
         {
             try
