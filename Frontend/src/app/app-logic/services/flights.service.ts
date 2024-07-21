@@ -1,128 +1,228 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, forkJoin, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { FlightDto } from '../DTOs/flight-dto';
+import { AircraftDto } from '../DTOs/aircraft-dto';
+import { AirportDto } from '../DTOs/airport-dto';
+import { UserDto } from '../DTOs/user-dto';
+import { DiscountDto } from '../DTOs/discount-dto';
 import { FlightItem } from '../models/flight-item';
+import { AirportItem } from '../models/airport-item';
+import { AircraftItem } from '../models/aircraft-item';
+import { DiscountItem } from '../models/discount-item';
+import { UserItem } from '../models/user-item';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FlightsService {
-  flightMockData: FlightItem[] = [
-    {
-      flightNumber: 1001,
-      departingAirport: {
-        airportId: 1,
-        airportName: 'John F. Kennedy International Airport',
-        location: 'New York, USA',
-      },
-      destinationAirport: {
-        airportId: 2,
-        airportName: 'Los Angeles International Airport',
-        location: 'Los Angeles, USA',
-      },
-      departingTime: new Date('2024-08-01T09:20:30Z'),
-      flightTime: 370, // in minutes
-      aircraft: {
-        aircraftId:1,
-        registrationNumber: 'N12345',
-        maker: 'Boeing',
-        model: '747',
-        numberOfSeats: 416,
-        autonomyInHours: 14,
-        maxCargo: 112760, // in kg
-      },
-      flightCost: 350,
-      discountOffer: {
-        discountId: 1,
-        flights: [], // This will be populated later to avoid circular reference
-        discountPercentage: 20,
-        discountName: 'SUMMER20',
-        discountDescription: 'Summer Discount 20%',
-        startDate: new Date('2024-06-01T00:00:00Z'),
-        endDate: new Date('2024-08-31T23:59:59Z'),
-      },
-    },
-    {
-      flightNumber: 1002,
-      departingAirport: {
-        airportId: 3,
-        airportName: 'Heathrow Airport',
-        location: 'London, UK',
-      },
-      destinationAirport: {
-        airportId: 4,
-        airportName: 'Charles de Gaulle Airport',
-        location: 'Paris, France',
-      },
-      departingTime: new Date('2024-08-01T13:00:00Z'),
-      flightTime: 75, // in minutes
-      aircraft: {
-        aircraftId:2,
-        registrationNumber: 'G-ABCD',
-        maker: 'Airbus',
-        model: 'A320',
-        numberOfSeats: 180,
-        autonomyInHours: 6,
-        maxCargo: 16000, // in kg
-      },
-      flightCost: 150,
-      discountOffer: {
-        discountId: 2,
-        flights: [], // This will be populated later to avoid circular reference
-        discountPercentage: 10,
-        discountName: 'EURO10',
-        discountDescription: 'Europe Travel Discount 10%',
-        startDate: new Date('2024-07-01T00:00:00Z'),
-        endDate: new Date('2024-09-30T23:59:59Z'),
-      },
-    },
-    {
-      flightNumber: 1003,
-      departingAirport: {
-        airportId: 5,
-        airportName: 'Narita International Airport',
-        location: 'Tokyo, Japan',
-      },
-      destinationAirport: {
-        airportId: 6,
-        airportName: 'Sydney Kingsford Smith Airport',
-        location: 'Sydney, Australia',
-      },
-      departingTime: new Date('2024-08-01T22:00:00Z'),
-      flightTime: 600, // in minutes
-      aircraft: {
-        aircraftId:3,
-        registrationNumber: 'JA7890',
-        maker: 'Boeing',
-        model: '777',
-        numberOfSeats: 396,
-        autonomyInHours: 16,
-        maxCargo: 156000, // in kg
-      },
-      flightCost: 750,
-      discountOffer: {
-        discountId: 3,
-        flights: [], // This will be populated later to avoid circular reference
-        discountPercentage: 15,
-        discountName: 'AUSSIE15',
-        discountDescription: 'Australian Adventure Discount 15%',
-        startDate: new Date('2024-05-01T00:00:00Z'),
-        endDate: new Date('2024-08-31T23:59:59Z'),
-      },
-    },
-  ];
+export class FlightService {
+  private apiUrl = 'http://localhost:5198/api'; // Schimbă cu endpoint-ul tău real
+  private aircraftUrl = 'http://localhost:5198/api/Aircraft';
+  private airportUrl = 'http://localhost:5198/api/Airport';
+  private flightUrl = 'http://localhost:5198/api/Flight';
+  private discountUrl = 'http://localhost:5198/api/Discount';
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  
-  getFlightsData(): FlightItem[] {
-    return this.flightMockData;
+  // Helper functions for mapping DTOs to Items
+  private mapAircraftDtoToAircraftItem(dto: AircraftDto): AircraftItem {
+    return new AircraftItem({
+      aircraftId: dto.aircraftId,
+      registrationNumber: dto.registrationNumber,
+      maker: dto.maker,
+      model: dto.model,
+      numberOfSeats: dto.numberOfSeats,
+      autonomyInHours: dto.autonomyInHours,
+      maxCargo: dto.maxCargo,
+    });
   }
-  
-  // createFlight() {}
-  
-  // getFlightById(id: number): FlightItem {}
 
-  // updateFlight(newItem: FlightItem, id: number): void {}
+  private mapAirportDtoToAirportItem(dto: AirportDto): AirportItem {
+    return new AirportItem({
+      airportId: dto.airportId,
+      airportName: dto.airportName,
+      location: dto.location,
+    });
+  }
 
-  // deleteFlight(id: number): void {}
+  private mapDiscountDtoToDiscountItem(dto: DiscountDto): DiscountItem {
+    return new DiscountItem({
+      discountId: dto.discountId,
+      flightId: dto.flightId,
+      discountPercentage: dto.discountPercentage,
+      discountName: dto.discountName,
+      discountDescription: dto.discountDescription,
+      startDate: new Date(dto.startDate),
+      endDate: new Date(dto.endDate),
+    });
+  }
 
+  getFlights(): Observable<FlightItem[]> {
+    return this.http.get<FlightDto[]>(`${this.apiUrl}/Flight`).pipe(
+      switchMap((flightDtos) => {
+        if (flightDtos.length === 0) return of([]);
+        return forkJoin(
+          flightDtos.map((flightDto) =>
+            forkJoin({
+              airportDep: this.http
+                .get<AirportDto>(
+                  `${this.airportUrl}/${flightDto.departingAirportId}`
+                )
+                .pipe(map(this.mapAirportDtoToAirportItem)),
+              airportDest: this.http
+                .get<AirportDto>(
+                  `${this.airportUrl}/${flightDto.destinationAirportId}`
+                )
+                .pipe(map(this.mapAirportDtoToAirportItem)),
+              aircraft: this.http
+                .get<AircraftDto>(
+                  `${this.apiUrl}/Aircraft/${flightDto.aircraftId}`
+                )
+                .pipe(map(this.mapAircraftDtoToAircraftItem)),
+              discount: flightDto.discountId
+                ? this.http
+                    .get<DiscountDto>(
+                      `${this.apiUrl}/Discount/${flightDto.discountId}`
+                    )
+                    .pipe(map(this.mapDiscountDtoToDiscountItem))
+                : of(null),
+            }).pipe(
+              map(
+                ({ airportDep, airportDest, aircraft, discount }) =>
+                  new FlightItem({
+                    ...flightDto,
+                    departingAirport: airportDep,
+                    destinationAirport: airportDest,
+                    aircraft: aircraft,
+                    flightTime: this.calculateFlightTime(
+                      flightDto.departingTime,
+                      flightDto.flightTime
+                    ),
+                    discountOffer: discount ?? undefined,
+                  })
+              )
+            )
+          )
+        );
+      })
+    );
+  }
+
+  getFlight(flightNumber: number): Observable<FlightItem> {
+    return this.http
+      .get<FlightDto>(`${this.apiUrl}/Flight/${flightNumber}`)
+      .pipe(
+        switchMap((flightDto) => {
+          const airportDep = this.http
+            .get<AirportDto>(
+              `${this.apiUrl}/Airport/${flightDto.departingAirportId}`
+            )
+            .pipe(map(this.mapAirportDtoToAirportItem));
+          const airportDest = this.http
+            .get<AirportDto>(
+              `${this.apiUrl}/Airport/${flightDto.destinationAirportId}`
+            )
+            .pipe(map(this.mapAirportDtoToAirportItem));
+          const aircraft = this.http
+            .get<AircraftDto>(`${this.apiUrl}/Aircraft/${flightDto.aircraftId}`)
+            .pipe(map(this.mapAircraftDtoToAircraftItem));
+          const discount = flightDto.discountId
+            ? this.http
+                .get<DiscountDto>(
+                  `${this.apiUrl}/Discount/${flightDto.discountId}`
+                )
+                .pipe(map(this.mapDiscountDtoToDiscountItem))
+            : of(null);
+
+          return forkJoin({ airportDep, airportDest, aircraft, discount }).pipe(
+            map(
+              ({ airportDep, airportDest, aircraft, discount }) =>
+                new FlightItem({
+                  ...flightDto,
+                  departingAirport: airportDep,
+                  destinationAirport: airportDest,
+                  aircraft: aircraft,
+                  flightTime: this.calculateFlightTime(
+                    flightDto.departingTime,
+                    flightDto.flightTime
+                  ),
+                  discountOffer: discount ?? undefined,
+                })
+            )
+          );
+        })
+      );
+  }
+
+  addFlight(flight: FlightItem): Observable<FlightItem> {
+    const flightDto: FlightDto = {
+      flightNumber: flight.flightNumber,
+      departingAirportId: flight.departingAirport.airportId,
+      destinationAirportId: flight.destinationAirport.airportId,
+      aircraftId: flight.aircraft.aircraftId,
+      departingTime: flight.departingTime,
+      flightTime: this.convertToFlightTime(flight.flightTime),
+      flightCost: flight.flightCost,
+      discountId: flight.discountOffer?.discountId,
+    };
+
+    return this.http
+      .post<FlightDto>(`${this.apiUrl}/Flight`, flightDto)
+      .pipe(
+        switchMap((returnedFlightDto) =>
+          this.getFlight(returnedFlightDto.flightNumber)
+        )
+      );
+  }
+
+  updateFlight(flight: FlightItem): Observable<FlightItem> {
+    const flightDto: FlightDto = {
+      flightNumber: flight.flightNumber,
+      departingAirportId: flight.departingAirport.airportId,
+      destinationAirportId: flight.destinationAirport.airportId,
+      aircraftId: flight.aircraft.aircraftId,
+      departingTime: flight.departingTime,
+      flightTime: this.convertToFlightTime(flight.flightTime),
+      flightCost: flight.flightCost,
+      discountId: flight.discountOffer?.discountId,
+    };
+
+    return this.http
+      .put<FlightDto>(`${this.apiUrl}/Flight/${flight.flightNumber}`, flightDto)
+      .pipe(switchMap(() => this.getFlight(flight.flightNumber)));
+  }
+
+  deleteFlight(flightNumber: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/Flight/${flightNumber}`);
+  }
+
+  getFlightPassengers(flightNumber: number): Observable<UserItem[]> {
+    return this.http
+      .get<UserDto[]>(`${this.apiUrl}/Flight/${flightNumber}/passengers`)
+      .pipe(
+        map((userDtos) =>
+          userDtos.map(
+            (userDto) =>
+              new UserItem({
+                userId: userDto.userId,
+                name: userDto.name,
+                role: userDto.role,
+                emailAddress: userDto.emailAddress,
+                password: userDto.password,
+              })
+          )
+        )
+      );
+  }
+
+  private calculateFlightTime(departingTime: Date, arrivingTime: Date): number {
+    const diffInMs =
+      new Date(arrivingTime).getTime() - new Date(departingTime).getTime();
+    return diffInMs / (1000 * 60);
+  }
+
+  private convertToFlightTime(flightTime: number): Date {
+    return new Date(flightTime * 60 * 1000);
+  }
 }

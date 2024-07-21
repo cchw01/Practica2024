@@ -93,10 +93,7 @@
       <div class="discount-price">
         <div class="price-type">Discount Price</div>
         <div class="price discount">
-          {{
-            flightItem.flightCost
-              | discount : flightItem.discountOffer.discountPercentage
-          }}$
+        {{ discountedPrice }}$
         </div>
         <button type="button" class="btn">Select</button>
       </div>

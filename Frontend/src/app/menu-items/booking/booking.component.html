@@ -54,7 +54,12 @@
           <div class="form-values">
             <div class="paying-info">
               <span class="form-value">Initial price: {{ ticket.flight.flightCost| currency }}</span>
-              <span class="form-value">Discount offer: {{ ticket.flight.discountOffer.discountPercentage}}%</span>
+              <span class="form-value" *ngIf="ticket.flight.discountOffer">
+                Discount offer: {{ ticket.flight.discountOffer.discountPercentage }}%
+              </span>
+              <span class="form-value" *ngIf="!ticket.flight.discountOffer">
+                Discount offer: None
+              </span>
             </div>
             <span class="final-price">Paying price: <b>{{ ticket.price | currency }}</b></span>
           </div>
