@@ -1,0 +1,45 @@
+<h1>{{ aircraftId ? 'Edit aircraft with id ' + aircraftId : 'Add aircraft' }}</h1>
+
+<form [formGroup]="addAircraftForm" (ngSubmit)="onSubmit()" class="form-container">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Registration Number:</mat-label>
+    <input matInput placeholder="Registration Number" formControlName="registrationNumber" type="text" required />
+    <mat-error *ngIf="hasError('registrationNumber', 'required')">Registration Number is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Maker:</mat-label>
+    <input matInput placeholder="Maker" formControlName="Maker" type="text" required/>
+    <mat-error *ngIf="hasError('Maker', 'required')">Maker is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Model:</mat-label>
+    <input matInput placeholder="Model" formControlName="Model" type="text" required />
+    <mat-error *ngIf="hasError('Model', 'required')">Model is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Number of Seats:</mat-label>
+    <input matInput placeholder="Number of Seats" formControlName="numberOfSeats" type="number" required />
+    <mat-error *ngIf="hasError('numberOfSeats', 'required')">Number of Seats is required</mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field appearance="outline">
+    <mat-label>Autonomy in Hours:</mat-label>
+    <input matInput placeholder="Autonomy In Hours" formControlName="autonomyInHours" type="text" required />
+    <mat-error *ngIf="hasError('autonomyInHours', 'required')">autonomyInHours is required</mat-error>
+  </mat-form-field>
+  
+  <mat-form-field appearance="outline">
+    <mat-label>Maximum Cargo:</mat-label>
+    <input matInput placeholder="Maximum Cargo" formControlName="maxCargo" type="number" required />
+    <mat-error *ngIf="hasError('maxCargo', 'required')">Maximum Cargo is required</mat-error>
+  </mat-form-field>
+
+  
+  
+  <button mat-button type="submit" [disabled]="!addAircraftForm.valid">Submit</button>
+</form>

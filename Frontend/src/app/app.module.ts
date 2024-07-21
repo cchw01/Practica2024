@@ -41,6 +41,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { provideHttpClient } from '@angular/common/http';
 import { AddDiscountComponent } from './menu-items/admin/discount-admin/add-discount/add-discount.component';
+import { AircraftAdminComponent } from './menu-items/admin/aircraft-admin/aircraft-admin.component';
+import { AddAircraftComponent } from './menu-items/admin/aircraft-admin/add-aircraft/add-aircraft.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,8 @@ import { AddDiscountComponent } from './menu-items/admin/discount-admin/add-disc
     FormatFlightTime,
     FooterComponent,
     AddDiscountComponent,
+    AircraftAdminComponent,
+    AddAircraftComponent,
   ],
   imports: [
     BrowserModule,
