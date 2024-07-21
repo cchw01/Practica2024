@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { DiscountItem } from '../models/discount-item';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DiscountDto } from '../DTOs/discount-dto';
 
 @Injectable({
   providedIn: 'root'

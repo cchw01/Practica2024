@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DiscountDto } from '../../../../app-logic/DTOs/discount-dto';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DiscountItem } from '../../../../app-logic/models/discount-item';
 import { DiscountService } from '../../../../app-logic/services/discount.service';
