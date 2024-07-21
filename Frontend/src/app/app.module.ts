@@ -22,6 +22,7 @@ import { AdminComponent } from './menu-items/admin/admin.component';
 import { DiscountAdminComponent } from './menu-items/admin/discount-admin/discount-admin.component';
 import { HttpClient,HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -36,8 +37,10 @@ import { ArrivalTimePipe } from './app-logic/pipes/arrivalTime.pipe';
 import { DiscountPipe } from './app-logic/pipes/discountPrice.pipe';
 import { FormatFlightTime } from './app-logic/pipes/formatFlightTime.pipe';
 import { FooterComponent } from './menu-items/footer/footer.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { provideHttpClient } from '@angular/common/http';
+import { AddDiscountComponent } from './menu-items/admin/discount-admin/add-discount/add-discount.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +62,7 @@ import { provideHttpClient } from '@angular/common/http';
     ArrivalTimePipe,
     FormatFlightTime,
     FooterComponent,
+    AddDiscountComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,10 +77,13 @@ import { provideHttpClient } from '@angular/common/http';
     MatButtonModule,
     MatFormFieldModule,
     MatTableModule,
+    MatAutocompleteModule,
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
+    MatButtonModule,
     MatProgressBarModule,
+    MatCheckboxModule,
     HttpClientModule
   ],
   providers: [provideAnimationsAsync(), provideHttpClient()],

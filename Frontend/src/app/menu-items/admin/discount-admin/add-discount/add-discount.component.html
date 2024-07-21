@@ -1,0 +1,50 @@
+<h1>{{ discountId ? 'Edit discount with id ' + discountId : 'Add discount' }}</h1>
+<form [formGroup]="addDiscountForm" (ngSubmit)="onSubmit()" class="form-container">
+  <mat-form-field appearance="outline">
+    <mat-label>Discount Name:</mat-label>
+    <input matInput placeholder="Discount Name" formControlName="discountName" type="text" required />
+    <mat-error *ngIf="hasError('discountName', 'required')">Discount Name is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Discount Description:</mat-label>
+    <textarea matInput placeholder="Discount Description" formControlName="discountDescription" required></textarea>
+    <mat-error *ngIf="hasError('discountDescription', 'required')">Discount Description is required</mat-error>
+    <mat-error *ngIf="hasError('discountDescription', 'maxlength')">Description cannot exceed 100 characters</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Flight Number:</mat-label>
+    <input matInput placeholder="Enter or select flight number" formControlName="flightId" [matAutocomplete]="auto" required />
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let flight of (flights$ | async)" [value]="flight.flightNumber">
+        {{ flight.flightNumber }}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="hasError('flightId', 'required')">Flight is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Discount Percentage:</mat-label>
+    <input matInput placeholder="Discount Percentage" formControlName="discountPercentage" type="number" required />
+    <mat-error *ngIf="hasError('discountPercentage', 'required')">Discount Percentage is required</mat-error>
+    <mat-error *ngIf="hasError('discountPercentage', 'min')">Discount Percentage must be at least 1</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Start Date:</mat-label>
+    <input matInput placeholder="Start Date" formControlName="startDate" type="date" required />
+    <mat-error *ngIf="hasError('startDate', 'required')">Start Date is required</mat-error>
+    <mat-error *ngIf="hasError('startDate', 'pastDate')">Start Date cannot be in the past</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>End Date:</mat-label>
+    <input matInput placeholder="End Date" formControlName="endDate" type="date" required />
+    <mat-error *ngIf="hasError('endDate', 'required')">End Date is required</mat-error>
+    <mat-error *ngIf="hasError('endDate', 'pastDate')">End Date cannot be in the past</mat-error>
+    <mat-error *ngIf="hasError('endDate', 'dateRange')">End Date must be after Start Date</mat-error>
+  </mat-form-field>
+
+  <button mat-button type="submit" [disabled]="!addDiscountForm.valid">Submit</button>
+</form>
