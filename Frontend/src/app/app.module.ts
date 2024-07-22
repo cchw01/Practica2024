@@ -54,9 +54,6 @@ import { AddCheckInComponent } from './menu-items/admin/check-in-admin/add-check
 import { QrCodeModule } from 'ng-qrcode';
 
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
