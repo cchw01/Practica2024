@@ -84,7 +84,13 @@ namespace Backend.Controllers
 			}
 
 		}
+        [HttpGet("search")]
+        public IActionResult SearchTickets([FromQuery] int departingAirportId, [FromQuery] int destinationAirportId, [FromQuery] DateTime departureDate, [FromQuery] DateTime returnDate)
+        {
+            var tickets = ticketManager.GetTicketsBySearchCriteria(departingAirportId, destinationAirportId, departureDate, returnDate);
+            return Ok(tickets);
+        }
 
 
-	}
+    }
 }
