@@ -1,0 +1,60 @@
+
+<h2>Manage CheckIn's</h2>
+<div class="table-container">
+  <button class="navigation-button" mat-button routerLink="/admin/check-in/create">Add new checkIn</button>
+
+  <table mat-table [dataSource]="checkInItems" class="mat-elevation-z8">
+    <!-- ID Check In Column -->
+    <ng-container matColumnDef="checkInId">
+      <th mat-header-cell *matHeaderCellDef>ID Check In</th>
+      <td mat-cell *matCellDef="let element">{{ element.checkInId }}</td>
+    </ng-container>
+
+    <!-- Ticket Column -->
+    <ng-container matColumnDef="ticket">
+      <th mat-header-cell *matHeaderCellDef>Ticket</th>
+      <td mat-cell *matCellDef="let element">{{ element.ticketId }}</td>
+    </ng-container>
+
+    <!-- Passenger Name Column -->
+    <ng-container matColumnDef="passengerName">
+      <th mat-header-cell *matHeaderCellDef>Nume Pasager</th>
+      <td mat-cell *matCellDef="let element">{{ element.passengerName }}</td>
+    </ng-container>
+
+   <ng-container matColumnDef="idDocumentType">
+      <th mat-header-cell *matHeaderCellDef>Tip Document</th>
+      <td mat-cell *matCellDef="let element">{{ getDocumentTypeLabel(element.idDocumentType) }}</td>
+    </ng-container>
+
+    <!-- Document Data Column -->
+    <ng-container matColumnDef="documentData">
+      <th mat-header-cell *matHeaderCellDef>Date Document</th>
+      <td mat-cell *matCellDef="let element">{{ element.documentData }}</td>
+    </ng-container>
+
+    <!-- Check In Status Column -->
+    <ng-container matColumnDef="checkInStatus">
+      <th mat-header-cell *matHeaderCellDef>Status CheckIn</th>
+      <td mat-cell *matCellDef="let element">{{ element.checkInStatus }}</td>
+    </ng-container>
+
+    <!-- Passenger Email Column -->
+    <ng-container matColumnDef="passengerEmail">
+      <th mat-header-cell *matHeaderCellDef>Email Pasager</th>
+      <td mat-cell *matCellDef="let element">{{ element.passengerEmail }}</td>
+    </ng-container>
+    
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button [routerLink]="['/admin/check-in/create', element.checkInId]">Edit</button>
+        <br />
+        <button mat-button (click)="deleteCheckIn(element.checkInId)">Delete</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="checkinColumns"></tr>
+    <tr mat-row *matRowDef="let element; columns: checkinColumns"></tr>
+  </table>
+</div>

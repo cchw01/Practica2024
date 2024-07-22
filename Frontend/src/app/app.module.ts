@@ -43,6 +43,13 @@ import { provideHttpClient } from '@angular/common/http';
 import { AddDiscountComponent } from './menu-items/admin/discount-admin/add-discount/add-discount.component';
 import { AircraftAdminComponent } from './menu-items/admin/aircraft-admin/aircraft-admin.component';
 import { AddAircraftComponent } from './menu-items/admin/aircraft-admin/add-aircraft/add-aircraft.component';
+import { CheckInAdminComponent } from './menu-items/admin/check-in-admin/check-in-admin.component';
+import { AddCheckInComponent } from './menu-items/admin/check-in-admin/add-checkIn/add-check-in/add-check-in.component';
+
+import { QrCodeModule } from 'ng-qrcode';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+
+
 
 @NgModule({
   declarations: [
@@ -67,6 +74,9 @@ import { AddAircraftComponent } from './menu-items/admin/aircraft-admin/add-airc
     AddDiscountComponent,
     AircraftAdminComponent,
     AddAircraftComponent,
+    CheckInAdminComponent,
+    AddCheckInComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -88,7 +98,10 @@ import { AddAircraftComponent } from './menu-items/admin/aircraft-admin/add-airc
     MatButtonModule,
     MatProgressBarModule,
     MatCheckboxModule,
-    HttpClientModule
+    HttpClientModule,
+    QrCodeModule,
+  
+
   ],
   providers: [provideAnimationsAsync(), provideHttpClient()],
   bootstrap: [AppComponent],

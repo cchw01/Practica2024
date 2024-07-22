@@ -2,13 +2,13 @@ import { FlightItem } from './flight-item';
 import { UserItem } from './user-item';
 
 export class TicketItem {
-  ticketId!: number; //corecteat din tickedId in ticketId
-  flightId?: number;
+  tickedId!: number;
   flight!: FlightItem;
-  userId?: number; 
   passager!: UserItem;
+  flightId?: number; 
+  userId?: number; 
   checkInId?: number;
-  checkIn?: boolean;
+  checkIn!: boolean;
   luggage!: boolean;
   price!: number;
 

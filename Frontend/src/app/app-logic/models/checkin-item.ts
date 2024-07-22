@@ -1,4 +1,3 @@
-import { TicketItem } from './ticket-item';
 export enum IdDocumentType {
   IdentityCard,
   Passport,
@@ -7,7 +6,7 @@ export enum IdDocumentType {
 
 export class CheckInItem {
   checkInId!: number;
-  ticket!: TicketItem;
+  ticketId!: number;
   passengerName!: string;
   idDocumentType!: IdDocumentType;
   documentData!: string;
