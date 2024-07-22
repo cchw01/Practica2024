@@ -1,69 +1,147 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { TicketItem } from '../models/ticket-item';
-import { UserItem } from '../models/user-item';
 import { FlightItem } from '../models/flight-item';
+import { TicketDto } from '../DTOs/ticket-dto';
+import { FlightService } from './flights.service';
+import { UserService } from './user.service';
+import { UserItem } from '../models/user-item';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TicketService {
-apiUrl = "http://localhost:5198/api/Ticket"
-apiUrlF = "http://localhost:5198/api/Flight"
-apiUrlU = "http://localhost:5198/api/User"
+private apiUrl = 'http://localhost:5198/api';
+private ticletUrl = "http://localhost:5198/api/Ticket"
 
-  constructor(private httpclient:HttpClient) { }
+
+  constructor(private http:HttpClient,private flightService:FlightService,private userService:UserService) {}
   
-  getTickets():Observable< Array<TicketItem>> {
-    var ticketList:Array<TicketItem> = new Array;
-    return this.httpclient.get<Array<TicketItem>>(this.apiUrl);
-  }
-
-  addTicket(item: TicketItem): void {
-    var result;
-    this.httpclient.post<TicketItem>(this.apiUrl, item).subscribe(data=>{
-      result = data;
-      console.log(result);
+  private mapFlight(item:FlightItem):FlightItem{
+    return new FlightItem({
+      
+      flightNumber: item.flightNumber,
+      departingAirport: item.departingAirport,
+      destinationAirport: item.destinationAirport,
+      departingTime: item.departingTime,
+      flightTime: item.flightTime,
+      aircraft: item.aircraft,
+      flightCost: item.flightCost,
+      discountOffer: item.discountOffer ?? undefined
     });
   }
+  private mapUser(item:UserItem):UserItem{
+    return new UserItem({
+      userId: item.userId,
+      name: item.name,
+      role: item.role,
+      emailAddress: item.emailAddress,
+      password: item.password,
+      ticketList: item.ticketList ?? undefined
+    })
+  }
 
-  getTicketId(id:number):Observable< TicketItem> {
-    return this.httpclient.get(this.apiUrl + "/" + id) as Observable<TicketItem>;
-   }
+  getTickets(): Observable<TicketItem[]>{
+    return this.http.get<TicketDto[]>(`${this.apiUrl}/Ticket`).pipe(
+      switchMap((ticketDtos)=>{
+        if(ticketDtos.length===0) return of([]);
+        return forkJoin(
+          ticketDtos.map((ticketDto)=>
+            forkJoin({
+              flightT: this.flightService.getFlight(
+                ticketDto.flightId
+              ).pipe(map(this.mapFlight)),
+             passagerT: this.userService.getUserById(
+              ticketDto.userId
+             ).pipe(map(this.mapUser)),
+            //  checkInT: ticketDto.checkInId
+            //  ? this.http
+            //       .get<CheckInDto>(
+            //          `${this.apiUrl}/CheckIn/${ticketDto.checkInId}`
+            //       )
+            //       .pipe(map(this.mapCheckInDtoToCheckInItem))
+            //   : of(null),
+            }).pipe(
+              map(
+                ({ flightT, passagerT}) =>
+                  new TicketItem({
+                    ...ticketDto,
+                    flight: flightT,
+                    passenger: passagerT,
+               })
+            )
+          )
+        )
+        );
+      })
+    );
+  }
 
-   updateTicket(item: TicketItem) : void {
-    var result;
-    this.httpclient.put<TicketItem>(this.apiUrl, item).subscribe(data=>{
-      result = data;
-      console.log(result);
-    });}
+  getTicket(ticketId:number):Observable<TicketItem>{
+    return this.http
+      .get<TicketDto>(`${this.apiUrl}/Ticket/${ticketId}`)
+      .pipe(
+        switchMap((ticketDto)=>{
+          const flightT = this.flightService.getFlight(ticketDto.flightId)
+          .pipe(map(this.mapFlight));
+          const passagerT = this.userService.getUserById(ticketDto.userId)
+          .pipe(map(this.mapUser));
+          return forkJoin({flightT,passagerT}).pipe(
+            map(
+              ({flightT,passagerT})=>
+                new TicketItem({
+                  ...ticketDto,
+                  flight: flightT,
+                  passenger: passagerT
+                })
+            )
+          )
+        })
+      )
 
-    deleteTicket(id: number) :void
-    {
-      var result;
-        this.httpclient.delete<TicketItem>(this.apiUrl+ "/" + id).subscribe(data=>{
-          result = data;
-          console.log(result);
-        });
+  }
+
+
+
+
+
+
+  addTicket(ticket:TicketDto): Observable<TicketItem>{
+    const ticketDto: TicketDto = {
+      ticketId: ticket.ticketId,
+      flightId: ticket.flightId,
+      userId: ticket.userId,
+      checkInId: ticket.checkInId ?? undefined,
+      luggage: ticket.luggage,
+      price: ticket.price
     }
-    
-   
-    getDataUsers():Observable< Array<UserItem>> {
-      var usersList:Array<UserItem> = new Array;
-      return this.httpclient.get<Array<UserItem>>(this.apiUrlU);
+    return this.http
+    .post<TicketDto>(`${this.apiUrl}/Ticket`, ticketDto)
+    .pipe(
+      switchMap((returnedTicketDto)=>
+        this.getTicket(returnedTicketDto.ticketId)
+      )
+    );
+  }
+
+  updateTicket(ticket:TicketDto): Observable<TicketItem>{
+    const ticketDto: TicketDto = {
+      ticketId: ticket.ticketId,
+      flightId: ticket.flightId,
+      userId: ticket.userId,
+      checkInId: ticket.checkInId ?? undefined,
+      luggage: ticket.luggage,
+      price: ticket.price
     }
+    return this.http
+    .put<TicketDto>(`${this.apiUrl}/Ticket/${ticket.ticketId}`, ticketDto)
+      .pipe(switchMap(() => this.getTicket(ticket.ticketId)));
+  }
+
+  deleteTicket(ticketId:number): Observable<any>{
+    return this.http.delete(`${this.apiUrl}/Ticket/${ticketId}`);
+  }
 
 
-    getDataFlights():Observable< Array<FlightItem>> {
-      var fligtList:Array<FlightItem> = new Array;
-      return this.httpclient.get<Array<FlightItem>>(this.apiUrlF);
-    }
-
-    getFlightId(id:number):Observable< FlightItem> {
-      return this.httpclient.get(this.apiUrlF + "/" + id) as Observable<FlightItem>;
-     }
-     getUserId(id:number):Observable< UserItem> {
-      return this.httpclient.get(this.apiUrlU + "/" + id) as Observable<UserItem>;
-     }
-} 
+}

@@ -42,14 +42,14 @@ export class TicketsComponent implements OnInit {
     this.filteredTicketsItems.filterPredicate = (data: TicketItem, filter: string) => {
       const searchTerms = filter.split(' ');
       return searchTerms.every(term => 
-        data.tickedId.toString().includes(term) ||
+        data.ticketId.toString().includes(term) ||
         data.flight.flightNumber.toString().includes(term) ||
         data.flight.departingAirport.airportName.toLowerCase().includes(term) ||
         data.flight.destinationAirport.airportName.toLowerCase().includes(term) ||
         new Date(data.flight.departingTime).toLocaleString().toLowerCase().includes(term) ||
         data.flight.flightTime.toString().includes(term) ||
-        data.passager.name.toLowerCase().includes(term) ||
-        data.passager.emailAddress.toLowerCase().includes(term)
+        data.passenger.name.toLowerCase().includes(term) ||
+        data.passenger.emailAddress.toLowerCase().includes(term)
       );
     };
   }
