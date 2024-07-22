@@ -60,8 +60,8 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="discountColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: discountColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="aircraftColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: aircraftColumns"></tr>
   </table>
   <mat-paginator [pageSizeOptions]="[3, 6, 10]" showFirstLastButtons></mat-paginator>
 </div>

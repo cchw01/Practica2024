@@ -20,7 +20,7 @@ import { UserProfileComponent } from './menu-items/user-profile/user-profile.com
 import { AircraftComponent } from './menu-items/aircraft-list/aircraft-list.component';
 import { AdminComponent } from './menu-items/admin/admin.component';
 import { DiscountAdminComponent } from './menu-items/admin/discount-admin/discount-admin.component';
-import { HttpClient,HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -32,7 +32,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
 import { ArrivalTimePipe } from './app-logic/pipes/arrivalTime.pipe';
 import { DiscountPipe } from './app-logic/pipes/discountPrice.pipe';
 import { FormatFlightTime } from './app-logic/pipes/formatFlightTime.pipe';
@@ -43,11 +42,16 @@ import { provideHttpClient } from '@angular/common/http';
 import { AddDiscountComponent } from './menu-items/admin/discount-admin/add-discount/add-discount.component';
 import { AircraftAdminComponent } from './menu-items/admin/aircraft-admin/aircraft-admin.component';
 import { AddAircraftComponent } from './menu-items/admin/aircraft-admin/add-aircraft/add-aircraft.component';
+import { FlightsAdminComponent } from './menu-items/admin/flights-admin/flights-admin.component';
+import { AddFlightComponent } from './menu-items/admin/flights-admin/add-flight/add-flight.component';
+
+import { AirportAdminComponent } from './menu-items/admin/airport-admin/airport-admin.component';
+import { AddAirportComponent } from './menu-items/admin/airport-admin/add-airport/add-airport.component';
+
 import { CheckInAdminComponent } from './menu-items/admin/check-in-admin/check-in-admin.component';
 import { AddCheckInComponent } from './menu-items/admin/check-in-admin/add-checkIn/add-check-in/add-check-in.component';
 
 import { QrCodeModule } from 'ng-qrcode';
-
 
 
 @NgModule({
@@ -73,9 +77,19 @@ import { QrCodeModule } from 'ng-qrcode';
     AddDiscountComponent,
     AircraftAdminComponent,
     AddAircraftComponent,
+
+    FlightsAdminComponent,
+    AddFlightComponent,
+
+    AirportAdminComponent,
+    AddAirportComponent,
+
     CheckInAdminComponent,
     AddCheckInComponent,
     
+    
+
+
   ],
   imports: [
     BrowserModule,
@@ -98,8 +112,7 @@ import { QrCodeModule } from 'ng-qrcode';
     MatProgressBarModule,
     MatCheckboxModule,
     HttpClientModule,
-    QrCodeModule,
-  
+    QrCodeModule
 
   ],
   providers: [provideAnimationsAsync(), provideHttpClient()],

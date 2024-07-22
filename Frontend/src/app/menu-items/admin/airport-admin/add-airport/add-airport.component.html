@@ -1,0 +1,23 @@
+<h1>{{ airportId ? 'Edit airport with id ' + airportId : 'Add airport' }}</h1>
+
+<form [formGroup]="addAirportForm" (ngSubmit)="onSubmit()" class="form-container">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Location:</mat-label>
+    <input matInput placeholder="Location" formControlName="location" type="text" required />
+    <mat-error *ngIf="hasError('location', 'required')">Location is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Airport Name:</mat-label>
+    <input matInput placeholder="Airport Name" formControlName="airportName" type="text" required/>
+    <mat-error *ngIf="hasError('airportName', 'required')">Airport Name is required</mat-error>
+  </mat-form-field>
+
+
+
+
+  
+  
+  <button mat-button type="submit" [disabled]="!addAirportForm.valid">Submit</button>
+</form>
