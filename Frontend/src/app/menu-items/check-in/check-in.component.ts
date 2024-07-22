@@ -7,6 +7,10 @@ import {
 } from '../../app-logic/models/checkin-item';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CheckInService } from '../../app-logic/services/check-in.service';
+import { TicketItem } from '../../app-logic/models/ticket-item';
+
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-check-in',
@@ -28,7 +32,8 @@ export class CheckInComponent implements OnInit, AfterViewInit {
   qrData: string = '';
   showQR: boolean = false;
 
-
+  //ticket
+  ticketData!: TicketItem; 
 
   documentTypeOptions = [
     { value: IdDocumentType.IdentityCard, label: 'Identity Card' },
@@ -46,6 +51,8 @@ export class CheckInComponent implements OnInit, AfterViewInit {
     'passengerEmail',
     'action',
   ];
+
+  
 
   constructor(
     private fb: FormBuilder,
@@ -113,7 +120,6 @@ export class CheckInComponent implements OnInit, AfterViewInit {
     this.qrData = JSON.stringify(this.form.value);
   }
 
-
   getDocumentTypeLabel(idDocumentType: IdDocumentType): string {
     const option = this.documentTypeOptions.find(
       (opt) => opt.value === idDocumentType
@@ -122,30 +128,67 @@ export class CheckInComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
-    this.qrData = JSON.stringify(this.form.value)
-    this.showQR = true;
-    if (this.itemId == 0) {
-      this.item = new CheckInItem(this.form.value);
-      this.item.checkInStatus = true;
-      //this.item.id = this.inventoryListMockService.getLastId() + 1;
-      this.checkInService.addCheckIn(this.item).subscribe({
-        next: (checkIN) => {
-          console.log('CheckIn added:', checkIN);
-         // this.router.navigate(['/check-in']);
-        },
-        error: (error) => {
-          console.error('Registration failed:', error);
-          alert('Registration failed. Please try again.');
-        },
-      });
-    } else {
-      this.item.passengerName = this.form.value.passengerName;
-      this.item.idDocumentType = this.form.value.idDocumentType;
-      this.item.documentData = this.form.value.documentData;
-      this.item.passengerEmail = this.form.value.passengerEmail;
-      //this.checkInService.updateCheckIn(this.item);
-    }
-    //this.router.navigate(['/']);
+    // id-ul biletului din formular
+    const ticketId = this.form.value.ticketId;
+
+    //
+    this.checkInService.getTicketByIdNou(ticketId).subscribe({
+      next: (ticket) => {
+        this.ticketData = ticket;
+
+        //
+        this.qrData = JSON.stringify({
+          ...this.form.value,
+          ticketData: this.ticketData,
+        });
+        this.showQR = true;
+        if (this.itemId == 0) {
+          this.item = new CheckInItem(this.form.value);
+          this.item.checkInStatus = true;
+
+          this.checkInService.addCheckIn(this.item).subscribe({
+            next: (checkIN) => {
+              console.log('CheckIn added:', checkIN);
+              // this.router.navigate(['/check-in']);
+            },
+            error: (error) => {
+              console.error('Registration failed:', error);
+              alert('Registration failed. Please try again.');
+            },
+          });
+        } else {
+          this.item.passengerName = this.form.value.passengerName;
+          this.item.idDocumentType = this.form.value.idDocumentType;
+          this.item.documentData = this.form.value.documentData;
+          this.item.passengerEmail = this.form.value.passengerEmail;
+        }
+        //this.router.navigate(['/']);
+      },
+      error: (error) => {
+        console.error('Failed to get ticket data:', error);
+        alert('Failed to get ticket data. Please try again.');
+      },
+    });
   }
 
+  generatePDF() {
+    console.log('generatePDF called');
+    const data = document.getElementById('pdfContent');
+    console.log('PDF content element:', data);
+  
+    if (!data) {
+      console.error('Element with id "pdfContent" not found.');
+      return;
+    }
+  
+    html2canvas(data).then((canvas) => {
+      const imgWidth = 50;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const contentDataURL = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const position = 0;
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+      pdf.save('CheckInDetails.pdf');
+    });
+  }
 }

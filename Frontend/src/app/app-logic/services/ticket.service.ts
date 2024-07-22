@@ -63,6 +63,8 @@ private apiUrl = "http://localhost:5198/api/Ticket"
         )
       );
     }
+
+    
   
     addTicket(ticket: TicketItem): Observable<void> {
       const ticketDto: TicketDto = {
@@ -90,4 +92,6 @@ private apiUrl = "http://localhost:5198/api/Ticket"
     deleteTicket(ticketId: number): Observable<void> {
       return this.http.delete<void>(`${this.apiUrl}/${ticketId}`);
     }
+
+
 }
