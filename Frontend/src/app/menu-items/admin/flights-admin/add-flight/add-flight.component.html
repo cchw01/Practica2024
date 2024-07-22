@@ -1,0 +1,123 @@
+<h1>{{ flightId ? "Edit Flight with ID " + flightId : "Add Flight" }}</h1>
+
+<form
+  [formGroup]="addFlightForm"
+  (ngSubmit)="onSubmit()"
+  class="form-container"
+>
+  <mat-form-field appearance="outline">
+    <mat-label>Flight Number:</mat-label>
+    <input
+      matInput
+      placeholder="Flight Number"
+      formControlName="flightNumber"
+      type="text"
+      required
+    />
+    <mat-error *ngIf="hasError('flightNumber', 'required')"
+      >Flight Number is required</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Departing Airport ID:</mat-label>
+    <input
+      matInput
+      placeholder="Departing Airport ID"
+      formControlName="departingAirportId"
+      type="text"
+      required
+    />
+    <mat-error *ngIf="hasError('departingAirportId', 'required')"
+      >Departing Airport ID is required</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Destination Airport ID:</mat-label>
+    <input
+      matInput
+      placeholder="Destination Airport ID"
+      formControlName="destinationAirportId"
+      type="text"
+      required
+    />
+    <mat-error *ngIf="hasError('destinationAirportId', 'required')"
+      >Destination Airport ID is required</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Aircraft ID:</mat-label>
+    <input
+      matInput
+      placeholder="Aircraft ID"
+      formControlName="aircraftId"
+      type="text"
+      required
+    />
+    <mat-error *ngIf="hasError('aircraftId', 'required')"
+      >Aircraft ID is required</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Departing Time:</mat-label>
+    <input
+      matInput
+      placeholder="Departing Time"
+      formControlName="departingTime"
+      type="date"
+      required
+    />
+    <mat-error *ngIf="hasError('departingTime', 'required')"
+      >Departing Time is required</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Flight Time:</mat-label>
+    <input
+      matInput
+      placeholder="Flight Time"
+      formControlName="flightTime"
+      type="number"
+      required
+    />
+    <mat-error *ngIf="hasError('flightTime', 'required')"
+      >Flight Time is required</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Flight Cost:</mat-label>
+    <input
+      matInput
+      placeholder="Flight Cost"
+      formControlName="flightCost"
+      type="number"
+      required
+    />
+    <mat-error *ngIf="hasError('flightCost', 'required')"
+      >Flight Cost is required</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Discount ID:</mat-label>
+    <input
+      matInput
+      placeholder="Discount ID"
+      formControlName="discountId"
+      type="number"
+      required
+    />
+    <mat-error *ngIf="hasError('discountId', 'required')"
+      >Discount ID is required</mat-error
+    >
+  </mat-form-field>
+
+  <button mat-button type="submit" [disabled]="!addFlightForm.valid">
+    Submit
+  </button>
+</form>

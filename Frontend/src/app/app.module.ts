@@ -20,7 +20,7 @@ import { UserProfileComponent } from './menu-items/user-profile/user-profile.com
 import { AircraftComponent } from './menu-items/aircraft-list/aircraft-list.component';
 import { AdminComponent } from './menu-items/admin/admin.component';
 import { DiscountAdminComponent } from './menu-items/admin/discount-admin/discount-admin.component';
-import { HttpClient,HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -42,6 +42,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { AddDiscountComponent } from './menu-items/admin/discount-admin/add-discount/add-discount.component';
 import { AircraftAdminComponent } from './menu-items/admin/aircraft-admin/aircraft-admin.component';
 import { AddAircraftComponent } from './menu-items/admin/aircraft-admin/add-aircraft/add-aircraft.component';
+import { FlightsAdminComponent } from './menu-items/admin/flights-admin/flights-admin.component';
+import { AddFlightComponent } from './menu-items/admin/flights-admin/add-flight/add-flight.component';
 
 import { AirportAdminComponent } from './menu-items/admin/airport-admin/airport-admin.component';
 import { AddAirportComponent } from './menu-items/admin/airport-admin/add-airport/add-airport.component';
@@ -79,12 +81,16 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
     AircraftAdminComponent,
     AddAircraftComponent,
 
+    FlightsAdminComponent,
+    AddFlightComponent,
+
     AirportAdminComponent,
     AddAirportComponent,
 
     CheckInAdminComponent,
     AddCheckInComponent,
     
+
 
   ],
   imports: [
@@ -108,8 +114,6 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
     MatProgressBarModule,
     MatCheckboxModule,
     HttpClientModule,
-    QrCodeModule,
-  
 
   ],
   providers: [provideAnimationsAsync(), provideHttpClient()],

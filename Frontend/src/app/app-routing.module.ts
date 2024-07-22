@@ -17,9 +17,14 @@ import { CheckInAdminComponent } from './menu-items/admin/check-in-admin/check-i
 import { AddDiscountComponent } from './menu-items/admin/discount-admin/add-discount/add-discount.component';
 import { AircraftAdminComponent } from './menu-items/admin/aircraft-admin/aircraft-admin.component';
 import { AddAircraftComponent } from './menu-items/admin/aircraft-admin/add-aircraft/add-aircraft.component';
+
+import { FlightsAdminComponent } from './menu-items/admin/flights-admin/flights-admin.component';
+import { AddFlightComponent } from './menu-items/admin/flights-admin/add-flight/add-flight.component';
+
 import { AirportAdminComponent } from './menu-items/admin/airport-admin/airport-admin.component';
 import { AddAirportComponent } from './menu-items/admin/airport-admin/add-airport/add-airport.component';
 import { AddCheckInComponent } from './menu-items/admin/check-in-admin/add-checkIn/add-check-in/add-check-in.component';
+
 
 
 
@@ -37,10 +42,18 @@ const routes: Routes = [
   { path: 'admin/discount', component: DiscountAdminComponent },
   { path: 'admin/check-in', component: CheckInAdminComponent },
   { path: 'admin/discount/create', component: AddDiscountComponent },
-  { path: 'admin/discount/create/:id', component: AddDiscountComponent},
+  { path: 'admin/discount/create/:id', component: AddDiscountComponent },
   { path: 'booking/:flightId/:userId', component: BookingComponent },
   { path: 'tickets', component: TicketsComponent },
   { path: 'register', component: RegisterComponent },
+
+  { path: 'admin/aircraft', component: AircraftAdminComponent },
+  { path: 'admin/aircraft/create', component: AddAircraftComponent },
+  { path: 'admin/aircraft/create/:id', component: AddAircraftComponent },
+  { path: 'admin/flights', component: FlightsAdminComponent },
+  { path: 'admin/flights/create', component: AddFlightComponent },
+  { path: 'admin/flights/create/:id', component: AddFlightComponent },
+
   { path: 'admin/aircraft',component: AircraftAdminComponent},
   {path: 'admin/aircraft/create', component: AddAircraftComponent},
   {path: 'admin/aircraft/create/:id', component: AddAircraftComponent},
@@ -51,6 +64,7 @@ const routes: Routes = [
   {path: 'admin/check-in/create/:id', component: AddCheckInComponent},
 
 
+
   { path: '**', redirectTo: '' },
 ];
 
@@ -58,4 +72,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
