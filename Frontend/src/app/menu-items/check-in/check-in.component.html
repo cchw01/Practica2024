@@ -20,12 +20,7 @@
          <p>
           Don't have an account? Sign up for a free account and enjoy all benefits!
           <br><button mat-raised-button color="primary">Sign up!</button>
-        </p>
-        
-      <button mat-raised-button color="accent">
-        Check in with booking details
-      </button>
-      
+        </p>    
     </div>
   </div>
   <div class="imgWrapper">
@@ -33,7 +28,7 @@
   </div>
 </div>
 
-
+<p>Form status: {{ form.status }}</p>
 <div class="options">
   <h2>Possibilities for Check-IN</h2>
   <div class="header" (click)="toggleContent()">Online Check-in</div>
@@ -94,141 +89,43 @@
     </div>
 
     <div class="form-container">
-      <mat-progress-bar
-        mode="determinate"
-        [value]="progress"
-      ></mat-progress-bar>
+      <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline">
-          <mat-label>First Name:</mat-label>
-          <input
-            matInput
-            placeholder="First name"
-            formControlName="firstName"
-            type="text"
-            required
-          />
+          <mat-label>Ticket Nr:</mat-label>
+          <input matInput placeholder="Ticket" formControlName="ticketId" type="number" required />
         </mat-form-field>
-
+  
         <mat-form-field appearance="outline">
-          <mat-label>Last Name:</mat-label>
-          <input
-            matInput
-            placeholder="Last name"
-            formControlName="lastName"
-            type="text"
-            required
-          />
+          <mat-label>Passager Name:</mat-label>
+          <input matInput placeholder="Passager name" formControlName="passengerName" type="text" required />
         </mat-form-field>
-
+  
         <mat-form-field appearance="outline">
-          <mat-label>Email:</mat-label>
-          <input
-            matInput
-            placeholder="Email"
-            formControlName="email"
-            type="text"
-            required
-          />
+          <mat-label>Document Type:</mat-label>
+          <mat-select formControlName="idDocumentType" required>
+            <mat-option *ngFor="let option of documentTypeOptions" [value]="option.value">{{ option.label }}</mat-option>
+          </mat-select>
         </mat-form-field>
-
+  
         <mat-form-field appearance="outline">
-          <mat-label>Telefon:</mat-label>
-          <input
-            matInput
-            placeholder="Telefon"
-            formControlName="telefon"
-            type="text"
-            required
-          />
+          <mat-label>Date Document:</mat-label>
+          <input matInput placeholder="Document Date" formControlName="documentData" type="text" required />
         </mat-form-field>
-
+  
         <mat-form-field appearance="outline">
-          <mat-label>Ticket Number</mat-label>
-          <input
-            matInput
-            placeholder="Ticket Number"
-            formControlName="ticketNumber"
-            type="text"
-            required
-          />
+          <mat-label>Email Pasager</mat-label>
+          <input matInput placeholder="Email Pasager" formControlName="passengerEmail" type="text" required />
         </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Flight Number</mat-label>
-          <input
-            matInput
-            placeholder="Flight Number"
-            formControlName="flightNumber"
-            type="text"
-            required
-          />
-        </mat-form-field>
-
-        <button mat-raised-button color="primary" type="submit">Submit</button>
+  
+        <button  type="submit" [disabled]="!form.valid">Submit</button>
       </form>
     </div>
+    
   </div>
 </div>
 
 
 <div class="header">QR Check-In</div>
-
-
-
-
-
-
-
-
-
-<!--mock service section -->
-<h2>Mock Data</h2>
-<div class="table-container">
-  <table mat-table [dataSource]="checkin" class="mat-elevation-z8">
-    <!-- ID Check In Column -->
-    <ng-container matColumnDef="checkInId">
-      <th mat-header-cell *matHeaderCellDef>ID Check In</th>
-      <td mat-cell *matCellDef="let element">{{ element.checkInId }}</td>
-    </ng-container>
-
-    <!-- Ticket Column -->
-    <ng-container matColumnDef="ticket">
-      <th mat-header-cell *matHeaderCellDef>Ticket</th>
-      <td mat-cell *matCellDef="let element">{{ element.ticket.tickedId }}</td>
-    </ng-container>
-
-    <!-- Passenger Name Column -->
-    <ng-container matColumnDef="passengerName">
-      <th mat-header-cell *matHeaderCellDef>Nume Pasager</th>
-      <td mat-cell *matCellDef="let element">{{ element.passengerName }}</td>
-    </ng-container>
-
-    <!-- Document Type ID Column -->
-    <ng-container matColumnDef="idDocumentType">
-      <th mat-header-cell *matHeaderCellDef>Tip Document ID</th>
-      <td mat-cell *matCellDef="let element">{{ element.idDocumentType }}</td>
-    </ng-container>
-
-    <!-- Document Data Column -->
-    <ng-container matColumnDef="documentData">
-      <th mat-header-cell *matHeaderCellDef>Date Document</th>
-      <td mat-cell *matCellDef="let element">{{ element.documentData }}</td>
-    </ng-container>
-
-    <!-- Check In Status Column -->
-    <ng-container matColumnDef="checkInStatus">
-      <th mat-header-cell *matHeaderCellDef>Status CheckIn</th>
-      <td mat-cell *matCellDef="let element">{{ element.checkInStatus }}</td>
-    </ng-container>
-
-    <!-- Passenger Email Column -->
-    <ng-container matColumnDef="passengerEmail">
-      <th mat-header-cell *matHeaderCellDef>Email Pasager</th>
-      <td mat-cell *matCellDef="let element">{{ element.passengerEmail }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
+  <qr-code [value]="" size="400"></qr-code>
 </div>
