@@ -126,6 +126,41 @@
 </div>
 
 
-<div class="header">QR Check-In</div>
-  <qr-code [value]="" size="400"></qr-code>
+< <div class="header" (click)="toggleContent()">QR Check-In</div>
+<div class="content" [ngClass]="{ show: isContentVisible }">
+  <h1>Aici este Qr-ul.</h1>
+  <div *ngIf="showQR">
+    <div style="display: flex; align-items: center;">
+      <qr-code [value]="qrData" size="200"></qr-code>
+      <table style="margin-left: 20px;">
+        <tr>
+          <td><strong>Ticket Nr:</strong></td>
+          <td>{{ form.value.ticketId }}</td>
+        </tr>
+        <tr>
+          <td><strong>Passenger Name:</strong></td>
+          <td>{{ form.value.passengerName }}</td>
+        </tr>
+        <tr>
+          <td><strong>Document Type:</strong></td>
+          <td>{{ getDocumentTypeLabel(form.value.idDocumentType) }}</td>
+        </tr>
+        <tr>
+          <td><strong>Date Document:</strong></td>
+          <td>{{ form.value.documentData }}</td>
+        </tr>
+        <tr>
+          <td><strong>Email Pasager:</strong></td>
+          <td>{{ form.value.passengerEmail }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>
+</div>
+<p>
+  <strong>Note:</strong> If you are travelling within the Schengen area
+  you don't need to fill in the travel document details during the
+  online check-in procedure, since you are not required to provide such
+  details.
+</p>

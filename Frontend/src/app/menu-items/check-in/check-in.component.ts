@@ -24,6 +24,11 @@ export class CheckInComponent implements OnInit, AfterViewInit {
   item!: CheckInItem;
   itemId!: number;
 
+  //QR
+  qrData: string = '';
+  showQR: boolean = false;
+
+
 
   documentTypeOptions = [
     { value: IdDocumentType.IdentityCard, label: 'Identity Card' },
@@ -57,6 +62,7 @@ export class CheckInComponent implements OnInit, AfterViewInit {
 
     this.form.valueChanges.subscribe(() => {
       this.updateProgress();
+      this.updateQrData();
     });
   }
 
@@ -103,6 +109,11 @@ export class CheckInComponent implements OnInit, AfterViewInit {
     this.progress = (filledFields / totalFields) * 100;
   }
 
+  updateQrData() {
+    this.qrData = JSON.stringify(this.form.value);
+  }
+
+
   getDocumentTypeLabel(idDocumentType: IdDocumentType): string {
     const option = this.documentTypeOptions.find(
       (opt) => opt.value === idDocumentType
@@ -111,6 +122,8 @@ export class CheckInComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
+    this.qrData = JSON.stringify(this.form.value)
+    this.showQR = true;
     if (this.itemId == 0) {
       this.item = new CheckInItem(this.form.value);
       this.item.checkInStatus = true;
@@ -118,7 +131,7 @@ export class CheckInComponent implements OnInit, AfterViewInit {
       this.checkInService.addCheckIn(this.item).subscribe({
         next: (checkIN) => {
           console.log('CheckIn added:', checkIN);
-          this.router.navigate(['/admin/check-in']);
+         // this.router.navigate(['/check-in']);
         },
         error: (error) => {
           console.error('Registration failed:', error);
@@ -132,7 +145,7 @@ export class CheckInComponent implements OnInit, AfterViewInit {
       this.item.passengerEmail = this.form.value.passengerEmail;
       //this.checkInService.updateCheckIn(this.item);
     }
-    this.router.navigate(['/']);
+    //this.router.navigate(['/']);
   }
 
 }
