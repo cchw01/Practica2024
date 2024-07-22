@@ -1,6 +1,5 @@
 import { FlightItem } from './flight-item';
 import { UserItem } from './user-item';
-import { CheckInItem } from './checkin-item';
 
 export class TicketItem {
   ticketId!: number; //corecteat din tickedId in ticketId
