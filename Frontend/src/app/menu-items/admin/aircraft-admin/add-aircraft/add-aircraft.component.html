@@ -10,14 +10,14 @@
 
   <mat-form-field appearance="outline">
     <mat-label>Maker:</mat-label>
-    <input matInput placeholder="Maker" formControlName="Maker" type="text" required/>
-    <mat-error *ngIf="hasError('Maker', 'required')">Maker is required</mat-error>
+    <input matInput placeholder="Maker" formControlName="maker" type="text" required/>
+    <mat-error *ngIf="hasError('maker', 'required')">Maker is required</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>Model:</mat-label>
-    <input matInput placeholder="Model" formControlName="Model" type="text" required />
-    <mat-error *ngIf="hasError('Model', 'required')">Model is required</mat-error>
+    <input matInput placeholder="Model" formControlName="model" type="text" required />
+    <mat-error *ngIf="hasError('model', 'required')">Model is required</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
