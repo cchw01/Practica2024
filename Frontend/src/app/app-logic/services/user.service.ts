@@ -77,8 +77,7 @@ export class UserService {
                 luggage: ticketDto.luggage,
                 price: ticketDto.price,
                 flight: new FlightItem(),
-                passager: new UserItem(),
-                checkIn: ticketDto.checkInId !== undefined,
+                passenger: new UserItem(),
               })
           )
         )

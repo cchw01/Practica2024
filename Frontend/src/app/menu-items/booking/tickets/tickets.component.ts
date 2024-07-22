@@ -4,7 +4,6 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { TicketService } from '../../../app-logic/services/ticket.service';
 
 @Component({
   selector: 'app-tickets',
@@ -33,13 +32,9 @@ export class TicketsComponent implements OnInit {
     'checkIn',
     'luggage',
   ]
-  constructor(private ticketService: TicketService,){}
+  constructor(){}
   ngOnInit(): void {
-    this.ticketService.getTickets().subscribe(tickets=> {
-      this.ticketsItems=tickets;
-      this.filteredTicketsItems.data = this.ticketsItems;
-    });
-    
+    this.filteredTicketsItems.data = this.ticketsItems;
     this.filterControl.valueChanges.subscribe(value => {
       this.filteredTicketsItems.filter = value.trim().toLowerCase();
     });
@@ -53,8 +48,8 @@ export class TicketsComponent implements OnInit {
         data.flight.destinationAirport.airportName.toLowerCase().includes(term) ||
         new Date(data.flight.departingTime).toLocaleString().toLowerCase().includes(term) ||
         data.flight.flightTime.toString().includes(term) ||
-        data.passager.name.toLowerCase().includes(term) ||
-        data.passager.emailAddress.toLowerCase().includes(term)
+        data.passenger.name.toLowerCase().includes(term) ||
+        data.passenger.emailAddress.toLowerCase().includes(term)
       );
     };
   }

@@ -7,8 +7,6 @@ import { TicketDto } from '../DTOs/ticket-dto';
 import { FlightService } from './flights.service';
 import { UserService } from './user.service';
 import { UserItem } from '../models/user-item';
-import { CheckInDto } from '../DTOs/check-in-dto';
-import { CheckInItem } from '../models/checkin-item';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +14,7 @@ import { CheckInItem } from '../models/checkin-item';
 export class TicketService {
 private apiUrl = 'http://localhost:5198/api';
 private ticletUrl = "http://localhost:5198/api/Ticket"
+
 
   constructor(private http:HttpClient,private flightService:FlightService,private userService:UserService) {}
   
@@ -42,17 +41,6 @@ private ticletUrl = "http://localhost:5198/api/Ticket"
       ticketList: item.ticketList ?? undefined
     })
   }
-  // private mapCheckInDtoToCheckInItem(dto:CheckInDto):CheckInItem{
-  //   return new CheckInItem({
-  //     checkInId: dto.checkInId,
-  //     ticket: this.getTicket(dto.ticketId),
-  //     passengerName: dto.passengerName,
-  //     idDocumentType: dto.idDocumentType,
-  //     documentData: dto.documentData,
-  //     checkInStatus: dto.checkInStatus,
-  //     passengerEmail: dto.passengerEmail 
-  //   });
-  // }
 
   getTickets(): Observable<TicketItem[]>{
     return this.http.get<TicketDto[]>(`${this.apiUrl}/Ticket`).pipe(
@@ -80,7 +68,7 @@ private ticletUrl = "http://localhost:5198/api/Ticket"
                   new TicketItem({
                     ...ticketDto,
                     flight: flightT,
-                    passager: passagerT,
+                    passenger: passagerT,
                })
             )
           )
@@ -105,7 +93,7 @@ private ticletUrl = "http://localhost:5198/api/Ticket"
                 new TicketItem({
                   ...ticketDto,
                   flight: flightT,
-                  passager: passagerT
+                  passenger: passagerT
                 })
             )
           )
@@ -113,6 +101,11 @@ private ticletUrl = "http://localhost:5198/api/Ticket"
       )
 
   }
+
+
+
+
+
 
   addTicket(ticket:TicketDto): Observable<TicketItem>{
     const ticketDto: TicketDto = {
@@ -150,4 +143,5 @@ private ticletUrl = "http://localhost:5198/api/Ticket"
     return this.http.delete(`${this.apiUrl}/Ticket/${ticketId}`);
   }
 
-} 
+
+}

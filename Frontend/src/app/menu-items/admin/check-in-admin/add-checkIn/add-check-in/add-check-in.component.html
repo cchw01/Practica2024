@@ -1,0 +1,45 @@
+<p>add-check-in works!</p>
+<h1>{{ checkInId ? 'Edit checkIN with id ' + checkInId : 'Add checkin' }}</h1>
+<form [formGroup]="addCheckInForm" (ngSubmit)="onSubmit()" class="form-container">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Ticket Number:</mat-label>
+    <input matInput placeholder="Enter or select ticket number" formControlName="ticketId" [matAutocomplete]="auto" required />
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let ticket of (ticket$ | async)" [value]="ticket.ticketId">
+        {{ ticket.ticketId }}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="hasError('ticketId', 'required')">Ticket is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Passenger Name:</mat-label>
+    <input matInput placeholder="Passenger Name" formControlName="passengerName" type="text" required />
+    <mat-error *ngIf="hasError('passengerName', 'required')">Passenger Name is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Document Type:</mat-label>
+    <mat-select formControlName="idDocumentType" required>
+      <mat-option *ngFor="let option of documentTypeOptions" [value]="option.value">{{ option.label }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="hasError('idDocumentType', 'required')">Document Type is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Date Document:</mat-label>
+    <input matInput placeholder="Document Date" formControlName="documentData" type="text" required />
+    <mat-error *ngIf="hasError('documentData', 'required')">Document Date is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Email Passenger:</mat-label>
+    <input matInput placeholder="Email Passenger" formControlName="passengerEmail" type="email" required />
+    <mat-error *ngIf="hasError('passengerEmail', 'required')">Passenger Email is required</mat-error>
+  </mat-form-field>
+
+  <button mat-button type="submit" [disabled]="!addCheckInForm.valid">Submit</button>
+</form>
+
+<p>Form status: {{ addCheckInForm.status }}</p>

@@ -9,13 +9,11 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormControl, Validators, AbstractControl, FormGroup } from '@angular/forms';
 
-
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
 
   styleUrls: ['./home-page.component.css'],
-
 })
 export class HomePageComponent implements OnInit {
   minDate : Date;                   // minimum date a user can pick
@@ -30,16 +28,11 @@ export class HomePageComponent implements OnInit {
     passengers: 1,
   };
 
-
   description: string = 'Example description'; // Aceasta va fi descrierea ta
- 
+  errorMessage = '';
   currentSlide: number = 0;
   airports: AirportItem[] = [];
   discounts: DiscountItem[] = [];
-
-  
-
-
 
   constructor(
     private airportListMockService: AirportListMockService,
@@ -103,14 +96,26 @@ export class HomePageComponent implements OnInit {
       console.log('Form is invalid');
       return;
     }
-    // Logic for submit
     console.log(this.formData);
+    if (
+      this.formData['departingAirport'] === this.formData['destinationAirport']
+    ) {
+      this.errorMessage +=
+        'Departing airport and destination airport cannot be the same.';
+    }
+    if (
+      new Date(this.formData['departingTime']) >=
+      new Date(this.formData['returnTime'])
+    ) {
+      this.errorMessage += 'Departing time must be before return time.';
+    }
 
-    // Redirecționare către pagina de booking
-    this.router.navigate(['/flights'], {});
-
+    if (this.errorMessage == '') {
+      this.router.navigate(['/flights'], { queryParams: this.formData });
+    } else {
+      console.log(this.errorMessage);
+    }
   }
-
   getTransform(): string {
     return `translateX(-${this.currentSlide * 33.33}%)`;
   }

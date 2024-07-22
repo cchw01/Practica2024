@@ -24,13 +24,13 @@ export class AddAircraftComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {
     this.activatedRoute.params.subscribe((params) => {
-      this.aircraftId = params['id'] ? +params['id'] : 0;
+      this.aircraftId = params['aircraftId'] ? + params['aircraftId'] : 0;
     });
 
     this.addAircraftForm = this.formBuilder.group({
       registrationNumber: ['', Validators.required],
-      Maker: ['', [Validators.required, Validators.maxLength(100)]], 
-      Model: ['', Validators.required],
+      maker: ['', [Validators.required, Validators.maxLength(100)]], 
+      model: ['', Validators.required],
       numberOfSeats: ['', [Validators.required]],
       autonomyInHours: ['', [Validators.required]],
       maxCargo: ['', [Validators.required],]
@@ -45,16 +45,23 @@ export class AddAircraftComponent implements OnInit {
     const aircraftData = this.addAircraftForm.value;
     if (this.addAircraftForm.valid) 
       {
-      if (this.aircraftId) {
-        this.aircraftService.updateItem({ ...aircraftData, id: this.aircraftId });
+      if (this.aircraftId) 
+        {
+        const updatedAircraftData = 
+        {
+          ...aircraftData,
+          aircraftId: this.aircraftId
+        };
+        this.aircraftService.updateItem(updatedAircraftData);
+        this.router.navigate(['/admin/aircraft']);
         }
-      else {
+      else 
+      {
         this.aircraftService.addItem(aircraftData);
-        }
+        this.router.navigate(['/admin/aircraft']);
+      }
       }
     }
-    
-  
 
       hasError(controlName: string, errorName: string): boolean {
         return this.addAircraftForm.controls[controlName].hasError(errorName) ||

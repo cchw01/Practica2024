@@ -22,6 +22,7 @@
     "@angular/router": "^18.0.0",
     "bcryptjs": "^2.4.3",
     "crypto-js": "^4.2.0",
+    "ng-qrcode": "^18.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^17.18.4",
     "rxjs": "~7.8.0",
