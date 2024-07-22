@@ -70,7 +70,7 @@ export class UserService {
           ticketsDto.map(
             (ticketDto) =>
               new TicketItem({
-                tickedId: ticketDto.ticketId,
+                ticketId: ticketDto.ticketId,
                 flightId: ticketDto.flightId,
                 userId: ticketDto.userId,
                 checkInId: ticketDto.checkInId,

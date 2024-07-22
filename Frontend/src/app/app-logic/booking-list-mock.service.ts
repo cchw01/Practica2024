@@ -157,7 +157,7 @@ export class BookingListMockService {
 
   ticketsData: Array<TicketItem> = [
     {
-      tickedId: 1,
+      ticketId: 1,
       flight: this.flightsData[0],
       passager: this.usersData[0],
       checkIn: false,
@@ -165,7 +165,7 @@ export class BookingListMockService {
       price: 299,
     },
     {
-      tickedId: 2,
+      ticketId: 2,
       flight: this.flightsData[1],
       passager: this.usersData[1],
       checkIn: false,
@@ -173,7 +173,7 @@ export class BookingListMockService {
       price: 399,
     },
     {
-      tickedId: 3,
+      ticketId: 3,
       flight: this.flightsData[2],
       passager: this.usersData[2],
       checkIn: false,
@@ -182,7 +182,7 @@ export class BookingListMockService {
     },
     // 15 more tickets
     {
-      tickedId: 4,
+      ticketId: 4,
       flight: this.flightsData[0],
       passager: this.usersData[1],
       checkIn: true,
@@ -190,7 +190,7 @@ export class BookingListMockService {
       price: 269,
     },
     {
-      tickedId: 5,
+      ticketId: 5,
       flight: this.flightsData[1],
       passager: this.usersData[2],
       checkIn: true,
@@ -198,7 +198,7 @@ export class BookingListMockService {
       price: 359,
     },
     {
-      tickedId: 6,
+      ticketId: 6,
       flight: this.flightsData[2],
       passager: this.usersData[0],
       checkIn: true,
@@ -206,7 +206,7 @@ export class BookingListMockService {
       price: 449,
     },
     {
-      tickedId: 7,
+      ticketId: 7,
       flight: this.flightsData[0],
       passager: this.usersData[2],
       checkIn: false,
@@ -214,7 +214,7 @@ export class BookingListMockService {
       price: 289,
     },
     {
-      tickedId: 8,
+      ticketId: 8,
       flight: this.flightsData[1],
       passager: this.usersData[0],
       checkIn: false,
@@ -222,7 +222,7 @@ export class BookingListMockService {
       price: 379,
     },
     {
-      tickedId: 9,
+      ticketId: 9,
       flight: this.flightsData[2],
       passager: this.usersData[1],
       checkIn: false,
@@ -230,7 +230,7 @@ export class BookingListMockService {
       price: 489,
     },
     {
-      tickedId: 10,
+      ticketId: 10,
       flight: this.flightsData[0],
       passager: this.usersData[0],
       checkIn: true,
@@ -238,7 +238,7 @@ export class BookingListMockService {
       price: 279,
     },
     {
-      tickedId: 11,
+      ticketId: 11,
       flight: this.flightsData[1],
       passager: this.usersData[2],
       checkIn: true,
@@ -246,7 +246,7 @@ export class BookingListMockService {
       price: 369,
     },
     {
-      tickedId: 12,
+      ticketId: 12,
       flight: this.flightsData[2],
       passager: this.usersData[1],
       checkIn: true,
@@ -254,7 +254,7 @@ export class BookingListMockService {
       price: 479,
     },
     {
-      tickedId: 13,
+      ticketId: 13,
       flight: this.flightsData[0],
       passager: this.usersData[2],
       checkIn: false,
@@ -262,7 +262,7 @@ export class BookingListMockService {
       price: 299,
     },
     {
-      tickedId: 14,
+      ticketId: 14,
       flight: this.flightsData[1],
       passager: this.usersData[0],
       checkIn: false,
@@ -270,7 +270,7 @@ export class BookingListMockService {
       price: 399,
     },
     {
-      tickedId: 15,
+      ticketId: 15,
       flight: this.flightsData[2],
       passager: this.usersData[1],
       checkIn: false,
@@ -278,7 +278,7 @@ export class BookingListMockService {
       price: 499,
     },
     {
-      tickedId: 16,
+      ticketId: 16,
       flight: this.flightsData[0],
       passager: this.usersData[0],
       checkIn: true,
@@ -286,7 +286,7 @@ export class BookingListMockService {
       price: 269,
     },
     {
-      tickedId: 17,
+      ticketId: 17,
       flight: this.flightsData[1],
       passager: this.usersData[1],
       checkIn: true,
@@ -294,7 +294,7 @@ export class BookingListMockService {
       price: 359,
     },
     {
-      tickedId: 18,
+      ticketId: 18,
       flight: this.flightsData[2],
       passager: this.usersData[2],
       checkIn: true,

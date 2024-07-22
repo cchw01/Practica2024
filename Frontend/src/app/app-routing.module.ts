@@ -33,7 +33,7 @@ const routes: Routes = [
   { path: 'admin/discount/create', component: AddDiscountComponent },
   { path: 'admin/discount/create/:id', component: AddDiscountComponent},
   { path: 'booking/:flightId/:userId', component: BookingComponent },
-  { path: 'tickets', component: TicketsComponent },
+  { path: 'admin/tickets', component: TicketsComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'admin/aircraft',component: AircraftAdminComponent},
   {path: 'admin/aircraft/create', component: AddAircraftComponent},

@@ -3,19 +3,26 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FlightItem } from '../../app-logic/models/flight-item';
 import { TicketItem } from '../../app-logic/models/ticket-item';
 import { UserItem } from '../../app-logic/models/user-item';
-import { BookingListMockService } from '../../app-logic/booking-list-mock.service';
+import { TicketService } from '../../app-logic/services/ticket.service';
+import { FlightService } from '../../app-logic/services/flights.service';
+import { UserService } from '../../app-logic/services/user.service';
+import { DiscountPipe } from '../../app-logic/pipes/discountPrice.pipe';
 
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.css'],
+  providers: [DiscountPipe]
 })
 export class BookingComponent implements OnInit {
-  ticket: TicketItem = new TicketItem();
-  flightItem!: FlightItem;
-  userItem!: UserItem;
   flightId!: number;
   userId!: number;
+  formFlight!: FlightItem;
+  formUser!: UserItem;
+
+  formLuggage!: boolean;
+  ticket!: TicketItem;
+  formPrice!: number;
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(event: Event): void {
@@ -25,7 +32,10 @@ export class BookingComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private bookingListMockService: BookingListMockService
+    private ticketService: TicketService,
+    private flightService: FlightService,
+    private userService: UserService,
+    private discountPipe: DiscountPipe
   ) {
     this.route.params.subscribe((params) => {
       this.flightId = params['flightId'];
@@ -34,32 +44,55 @@ export class BookingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.flightItem = this.bookingListMockService.getFlightItemById(
-      this.flightId
+    this.flightService.getFlight(this.flightId).subscribe(
+      flightItem => {
+        this.formFlight = flightItem;
+        if (this.formFlight.discountOffer) {
+          this.formPrice = this.discountPipe.transform(this.formFlight.flightCost, this.formFlight.discountOffer.discountPercentage);
+        } else {
+          this.formPrice = this.formFlight.flightCost;
+        }
+      }
     );
-    this.userItem = this.bookingListMockService.getUserItembyId(this.userId);
-    this.ticket.flight = this.flightItem;
-    this.ticket.passager = this.userItem;
-    if (this.ticket.flight.discountOffer) {
-      this.ticket.price =
-        this.ticket.flight.flightCost -
-        (this.ticket.flight.flightCost *
-          this.ticket.flight.discountOffer.discountPercentage) /
-          100;
-    } else {
-      this.ticket.price = this.ticket.flight.flightCost; // No discount applied
-    }
-    this.ticket.checkIn = false;
+    this.userService.getUserById(this.userId).subscribe(
+      userItem => {
+        this.formUser = userItem;
+      }
+    );
   }
 
   onSubmit() {
-    // Handle the form submission
-    alert('Booking confirmed!');
+    if (
+      this.flightId &&
+      this.userId &&
+      this.formLuggage !== null &&
+      this.formLuggage !== undefined &&
+      typeof this.formPrice === 'number'
+    ) {
+      alert('Booking confirmed!');
+      const ticketDto = {
+        ticketId: 0, // Assuming new ticket, ID will be set by backend
+        flightId: this.flightId,
+        userId: this.userId,
+        checkInId: undefined,
+        luggage: this.formLuggage,
+        price: this.formPrice
+      };
+      this.ticketService.addTicket(ticketDto).subscribe(
+        newTicket => {
+          this.ticket = newTicket;
+        },
+        error => {
+          alert('Error booking ticket: ' + error.message);
+        }
+      );
+    } else {
+      alert('Please fill out all required fields correctly.');
+    }
   }
 
   goBack() {
-    // Navigate back to the previous page or homepage
-    this.router.navigate(['/contact']);
+    this.router.navigate(['']);
   }
 
   reveal(): void {
