@@ -79,14 +79,14 @@ export class BookingComponent implements OnInit {
         luggage: this.formLuggage,
         price: this.formPrice
       };
-      this.ticketService.addTicket(ticketDto).subscribe(
-        newTicket => {
-          this.ticket = newTicket;
-        },
-        error => {
-          alert('Error booking ticket: ' + error.message);
-        }
-      );
+      // this.ticketService.addTicket(ticketDto).subscribe(
+      //   newTicket => {
+      //     this.ticket = newTicket;
+      //   },
+      //   error => {
+      //     alert('Error booking ticket: ' + error.message);
+      //   }
+      // );
     } else {
       alert('Please fill out all required fields correctly.');
     }
