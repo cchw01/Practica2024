@@ -52,7 +52,7 @@ import { CheckInAdminComponent } from './menu-items/admin/check-in-admin/check-i
 import { AddCheckInComponent } from './menu-items/admin/check-in-admin/add-checkIn/add-check-in/add-check-in.component';
 
 import { QrCodeModule } from 'ng-qrcode';
-import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+
 
 
 
@@ -90,6 +90,7 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
     CheckInAdminComponent,
     AddCheckInComponent,
     
+    
 
 
   ],
@@ -114,6 +115,7 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
     MatProgressBarModule,
     MatCheckboxModule,
     HttpClientModule,
+    QrCodeModule
 
   ],
   providers: [provideAnimationsAsync(), provideHttpClient()],

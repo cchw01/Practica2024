@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TicketItem } from '../../../app-logic/models/ticket-item';
-import { BookingListMockService } from '../../../app-logic/booking-list-mock.service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
@@ -33,9 +32,8 @@ export class TicketsComponent implements OnInit {
     'checkIn',
     'luggage',
   ]
-  constructor(private bookingListMockService:BookingListMockService){}
+  constructor(){}
   ngOnInit(): void {
-    this.ticketsItems = this.bookingListMockService.getDataTickets();
     this.filteredTicketsItems.data = this.ticketsItems;
     this.filterControl.valueChanges.subscribe(value => {
       this.filteredTicketsItems.filter = value.trim().toLowerCase();
