@@ -1,27 +1,54 @@
 <div class="main-container">
-    <div id="userProfile" class="user-profile">
+  <form [formGroup]="userProfileForm" class="user-profile">
+    <div class="profile-header">
+      <div class="profile-info">
+        <h1 class="profile-name" *ngIf="!isEditing">{{ userProfileForm.get('userName')?.value }}</h1>
+        <div *ngIf="isEditing" class="input-group">
+          <label for="userName">User Name</label>
+          <input id="userName" type="text" formControlName="userName" class="profile-name-input">
+        </div>
+
+        <p class="profile-role" *ngIf="!isEditing">{{ userProfileForm.get('userRole')?.value }}</p>
+        <div *ngIf="isEditing" class="input-group">
+          <label for="userRole">User Role</label>
+          <select id="userRole" formControlName="userRole" class="profile-role-select">
+            <option value="Admin" [selected]="userProfileForm.get('userRole')?.value === 'Admin'">Admin</option>
+            <option value="Passenger" [selected]="userProfileForm.get('userRole')?.value === 'Passenger'">Passenger</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="profile-details">
       <div class="user-info">
         <span class="info-title">User ID:</span>
-        <span class="info-content">[UserID]</span>
-      </div>
-      <div class="user-info">
-        <span class="info-title">Name:</span>
-        <span class="info-content">[UserName]</span>
-      </div>
-      <div class="user-info">
-        <span class="info-title">Role:</span>
-        <span class="info-content">[UserRole]</span>
+        <span class="info-content" *ngIf="!isEditing">{{ userProfileForm.get('userId')?.value }}</span>
+        <div *ngIf="isEditing" class="input-group">
+          <input id="userId" type="text" formControlName="userId" class="user-id-input" readonly>
+        </div>
       </div>
       <div class="user-info">
         <span class="info-title">Email:</span>
-        <span class="info-content">[UserEmail]</span>
+        <span class="info-content" *ngIf="!isEditing">{{ userProfileForm.get('userEmail')?.value }}</span>
+        <div *ngIf="isEditing" class="input-group">
+          <input id="userEmail" type="text" formControlName="userEmail" class="user-email-input">
+        </div>        
       </div>
-      <div class="user-info">
-        <span class="info-title">Tickets:</span>
-        <span class="info-content">[UserTickets]</span>
-        <div class="button-wrapper">
-            <button id="editButton" class="edit-btn">Edit</button>
-          </div>
-
-  <app-footer></app-footer>
+      <!-- <div class="user-info">
+        <span class="info-title">Password:</span>
+        <span class="info-content" *ngIf="!isEditing">{{ userProfileForm.get('userPassword')?.value }}</span>
+        <div *ngIf="isEditing" class="input-group">
+          <input id="userPassword" type="text" formControlName="userPassword" class="user-password-input">
+        </div>        
+      </div> -->
+      <div class="button-wrapper">
+        <button id="editButton" class="edit-btn" *ngIf="!isEditing" (click)="toggleEdit()">Edit Profile</button>
+        <button id="saveButton" class="save-btn" *ngIf="isEditing" (click)="saveProfile()">Save</button>
+        <button id="cancelButton" class="save-btn" *ngIf="isEditing" (click)="toggleEdit()">Cancel</button>
+      </div>
+    </div>
+  </form>
+  <div id="userTickets" class="user-tickets">
+    <h2>Tickets</h2>
+    <p>{{ userProfileForm.get('userTickets')?.value }}</p>
   </div>
+</div>
