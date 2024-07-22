@@ -1,4 +1,14 @@
 <div class="container">
+  <div *ngIf="formFlight==null||formFlight==undefined">
+    <h3 class="booking-page-title">ERROR YOUR FLIGHT DOESN'T EXIST!</h3>
+    <h5 class="booking-page-description">It seems that's an error, the flight for this booking either don't exist or it has a problem. Please try to select another flight or comeback later. </h5>
+    <h5 class="booking-page-description">Thank you, dear customer!</h5>
+    <div class="images-section">
+      <img src="../../../assets/images/airplane-booking.png" class="booking-page-image-top">
+    </div>
+  </div>
+</div> 
+  <div *ngIf="formFlight">
   <h3 class="booking-page-title">BOOK YOUR FLIGHT</h3>
   <h5 class="booking-page-description">The world's leading airlines offer top-notch service, ensuring<br> memorable travel experiences for passengers.</h5>
   <div class="booking-page-container">
@@ -6,7 +16,7 @@
       <img src="../../../assets/images/airplane-booking.png" class="booking-page-image-top">
       <img src="../../../assets/images/flight.png" class="booking-page-image-bottom reveal">
     </div>
-    <div *ngIf="formFlight && formUser">
+   
     <div class="booking-info-container">
       <form (ngSubmit)="onSubmit()" #bookingForm="ngForm">
         <div class="form-group flight-info" >
@@ -72,7 +82,7 @@
         </div>
       </form>
     </div>
-  </div>
-  </div>  
+    </div>
+   
   <app-footer></app-footer>
 </div>
