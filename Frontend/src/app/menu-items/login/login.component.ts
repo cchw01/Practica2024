@@ -27,7 +27,7 @@ export class LoginComponent {
       const password = this.loginForm.value.password;
       this.userService.login(email, password).subscribe({
         next: (user) => {
-          this.storeUserData(user);
+          this.userService.storeUserData(user);
           this.router.navigate(['']); 
         },
         error: (error) => {
@@ -39,12 +39,6 @@ export class LoginComponent {
       alert('Please enter valid email and password');
     }
   }
-
-  storeUserData(user: UserItem): void {
-    const { password, ...userDetails } = user;  
-    localStorage.setItem('userData', JSON.stringify(userDetails));
-  }
-  
 
   public hasError = (controlName: string, errorName: string) => {
     if (this.loginForm != undefined)

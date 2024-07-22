@@ -19,15 +19,9 @@ export class BookingComponent implements OnInit {
   userId!: number;
   formFlight!: FlightItem;
   formUser!: UserItem;
-
-  formLuggage!: boolean;
+  formLuggage: boolean = false; 
   ticket!: TicketItem;
   formPrice!: number;
-
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll(event: Event): void {
-    this.reveal();
-  }
 
   constructor(
     private route: ActivatedRoute,
@@ -37,76 +31,63 @@ export class BookingComponent implements OnInit {
     private userService: UserService,
     private discountPipe: DiscountPipe
   ) {
-    this.route.params.subscribe((params) => {
+    this.route.params.subscribe(params => {
       this.flightId = params['flightId'];
-      this.userId = params['userId'];
     });
   }
 
   ngOnInit(): void {
-    this.flightService.getFlight(this.flightId).subscribe(
-      flightItem => {
-        this.formFlight = flightItem;
-        if (this.formFlight) {
-          this.formPrice = this.formFlight.flightCost;
-          if (this.formFlight.discountOffer) {
-            this.formPrice = this.discountPipe.transform(this.formFlight.flightCost, this.formFlight.discountOffer.discountPercentage);
-          }
-       
-      }
-      });
-    this.userService.getUserById(this.userId).subscribe(
-      userItem => {
-        this.formUser = userItem;
-      }
-    );
+    if(this.userService.isLoggedIn())
+    {
+      this.formUser = this.userService.getUserData()!;
+      this.flightService.getFlight(this.flightId).subscribe(
+        flightItem => {
+          this.formFlight = flightItem;
+          this.updatePrice(); 
+        }
+      );
+    }
+   else
+    {
+      this.router.navigate(['/login']);
+    }
   }
 
   onSubmit() {
-    if (
-      this.flightId &&
-      this.userId &&
-      this.formLuggage !== null &&
-      this.formLuggage !== undefined &&
-      typeof this.formPrice === 'number'
-    ) {
-      alert('Booking confirmed!');
-      const ticketDto = {
-        ticketId: 0, // Assuming new ticket, ID will be set by backend
-        flightId: this.flightId,
-        userId: this.userId,
-        checkInId: undefined,
+    if (this.formFlight && this.formUser) {
+      const newTicket = new TicketItem({
+        ticketId: 0,
+        flight: this.formFlight,
+        passenger: this.formUser,
         luggage: this.formLuggage,
         price: this.formPrice
-      };
-      this.ticketService.addTicket(ticketDto).subscribe(
-        newTicket => {
-          this.ticket = newTicket;
+      });
+      this.ticketService.addTicket(newTicket).subscribe({
+        next: (ticket) => {
+          console.log('Ticket booked:', ticket);
+          //alert('Booking successful!');
+          this.router.navigate(['/']);
         },
-        error => {
-          alert('Error booking ticket: ' + error.message);
+        error: (error) => {
+          console.error('Booking failed:', error);
+          alert('Booking failed. Please try again.');
         }
-      );
-    } else {
-      alert('Please fill out all required fields correctly.');
+      });
     }
   }
 
-  recalculatePrice(): void {
+  updatePrice(): void {
+    this.formPrice = this.formFlight.flightCost;
+    if (this.formFlight.discountOffer) {
+      this.formPrice = this.discountPipe.transform(this.formFlight.flightCost, this.formFlight.discountOffer.discountPercentage);
+    }
     if (this.formLuggage) {
-      this.formPrice += 50;
-    } else {
-      this.formPrice = this.formFlight.flightCost;
-      if (this.formFlight.discountOffer) {
-        this.formPrice = this.discountPipe.transform(this.formFlight.flightCost, this.formFlight.discountOffer.discountPercentage);
-      }
+      this.formPrice += 50; 
     }
   }
-    
-  
 
   goBack() {
-    this.router.navigate(['']);
+    this.router.navigate(['/']);
   }
 
   reveal(): void {

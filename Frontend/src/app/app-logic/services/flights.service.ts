@@ -17,7 +17,7 @@ import { UserItem } from '../models/user-item';
   providedIn: 'root',
 })
 export class FlightService {
-  private apiUrl = 'http://localhost:5198/api'; // Schimbă cu endpoint-ul tău real
+  private apiUrl = 'http://localhost:5198/api'; 
   private aircraftUrl = 'http://localhost:5198/api/Aircraft';
   private airportUrl = 'http://localhost:5198/api/Airport';
   private flightUrl = 'http://localhost:5198/api/Flight';

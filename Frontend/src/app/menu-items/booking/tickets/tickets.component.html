@@ -7,10 +7,8 @@
   <div>
     <form>
       <mat-form-field class="search-bar-field">
-        <div>
-          <mat-label class="search-bar-label">Search</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. John Doe" [formControl]="filterControl">
-        </div>
+      <mat-label class="search-bar-label">Search</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. John Doe" [formControl]="filterControl">
       </mat-form-field>
     </form>
   </div>

@@ -42,7 +42,7 @@ const routes: Routes = [
   { path: 'admin/discount', component: DiscountAdminComponent },
   { path: 'admin/discount/create', component: AddDiscountComponent },
   { path: 'admin/discount/create/:id', component: AddDiscountComponent },
-  { path: 'booking/:flightId/:userId', component: BookingComponent },
+  { path: 'booking/:flightId', component: BookingComponent },
   { path: 'tickets', component: TicketsComponent },
   { path: 'register', component: RegisterComponent },
 
