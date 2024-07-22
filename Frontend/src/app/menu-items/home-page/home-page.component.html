@@ -1,34 +1,68 @@
 <div class="container">
   <img src="../../../assets/images/background-image.jpg" alt="background image" />
   <div class="overlay">
-    <div class="form-group">
-      <label for="departingAirport">Departing Airport:</label>
-      <select class="dropdown" id="departingAirport" (change)="onInputChange($event, 'departingAirport')" required>
-        
-        <option *ngFor="let airport of airports" [value]="airport.airportName">{{ airport.airportName }}</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="destinationAirport">Destination Airport:</label>
-      <select class="dropdown" id="destinationAirport" (change)="onInputChange($event, 'destinationAirport')" required>
-        
-        <option *ngFor="let airport of airports" [value]="airport.airportName">{{ airport.airportName }}</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="departingTime">Departure Time:</label>
-      <input type="date" id="departingTime" (input)="onInputChange($event, 'departingTime')" required>
-    </div>
-    <div class="form-group">
-      <label for="returnTime">Return Date:</label>
-      <input type="date" id="returnTime" (input)="onInputChange($event, 'returnTime')">
-    </div>
-    <div class="form-group">
-      <label for="passengers">Passengers:</label>
-      <input type="number" id="passengers" (input)="onInputChange($event, 'passengers')" min="1" required>
-    </div>
+    <form [formGroup]="form">
+      <div class="form-container">
+        <!--Departing Airport selector-->
+        <mat-form-field appearance="outline" class="custom-form-field">
+          <mat-label>Departing Airport</mat-label>
+          <mat-select formControlName="departingAirport" required>
+            <mat-option *ngFor="let airport of airports" [value]="airport.airportName">
+              {{ airport.airportName }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('departingAirport')?.hasError('required')">
+            Departing Airport is required.
+          </mat-error>
+        </mat-form-field>
+      
+        <!--Destination Airport selector-->
+        <mat-form-field appearance="outline" class="custom-form-field">
+          <mat-label>Destination Airport</mat-label>
+          <mat-select formControlName="destinationAirport" required>
+            <mat-option *ngFor="let airport of airports" [value]="airport.airportName">
+              {{ airport.airportName }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('destinationAirport')?.hasError('required')">
+            Destination Airport is required.
+          </mat-error>
+        </mat-form-field>
+      
+         <!--Departing time selector-->
+        <mat-form-field appearance="outline" class="custom-form-field">
+          <mat-label>Departing Time</mat-label>
+          <input matInput [matDatepicker]="departingPicker" formControlName="departingTime" [matDatepickerFilter]="dateFilter">
+          <mat-datepicker-toggle matSuffix [for]="departingPicker"></mat-datepicker-toggle>
+          <mat-datepicker #departingPicker></mat-datepicker>
+          <mat-error *ngIf="form.get('departingTime')?.hasError('pastDate')">
+            Departing Time cannot be in the past.
+          </mat-error>
+        </mat-form-field>
+      
+        <!--Return time selector-->
+        <mat-form-field appearance="outline" class="custom-form-field">
+          <mat-label>Return Time</mat-label>
+          <input matInput [matDatepicker]="returnPicker" formControlName="returnTime" [matDatepickerFilter]="dateFilter">
+          <mat-datepicker-toggle matSuffix [for]="returnPicker"></mat-datepicker-toggle>
+          <mat-datepicker #returnPicker></mat-datepicker>
+          <mat-error *ngIf="form.get('returnTime')?.hasError('invalidReturnDate')">
+            Return Time must be after Departing Time.
+          </mat-error>
+          <mat-error *ngIf="form.get('returnTime')?.hasError('pastDate')">
+            Return Time cannot be in the past.
+          </mat-error>
+        </mat-form-field>
 
-    <button (click)="onSubmit()">Submit</button>
+        <!--Passengers selector-->
+        <mat-form-field appearance="outline" class="custom-form-field">
+          <mat-label>Passengers:</mat-label>
+          <input matInput type="number" formControlName="passengers" [disabled]="true">
+        </mat-form-field>
+      </div>
+    
+      <button type="submit" [disabled]="form.invalid" (click)="onSubmit()">Submit</button>
+    </form>
   </div>
 
   <!-- Container pentru discounturi -->

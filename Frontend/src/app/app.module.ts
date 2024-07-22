@@ -43,6 +43,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { AddDiscountComponent } from './menu-items/admin/discount-admin/add-discount/add-discount.component';
 import { AircraftAdminComponent } from './menu-items/admin/aircraft-admin/aircraft-admin.component';
 import { AddAircraftComponent } from './menu-items/admin/aircraft-admin/add-aircraft/add-aircraft.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -88,7 +90,9 @@ import { AddAircraftComponent } from './menu-items/admin/aircraft-admin/add-airc
     MatButtonModule,
     MatProgressBarModule,
     MatCheckboxModule,
-    HttpClientModule
+    HttpClientModule,
+    MatNativeDateModule,
+    MatDatepickerModule
   ],
   providers: [provideAnimationsAsync(), provideHttpClient()],
   bootstrap: [AppComponent],
