@@ -43,12 +43,15 @@
         <label class="error-message"></label>
         <div class="form-group luggage-info">
           <label class="form-label">Luggage</label>
-          <mat-select class="form-value"  [(ngModel)]="formLuggage" name="luggage" required>
+          <mat-select class="form-value"  [(ngModel)]="formLuggage" name="luggage" (selectionChange)="recalculatePrice()" required>
             <mat-option [value]="true">Yes</mat-option>
             <mat-option [value]="false">No</mat-option>
           </mat-select>
           <div *ngIf="formLuggage==null" class="error-message">
             Please select if you have luggage.
+          </div>
+          <div *ngIf="formLuggage==true" class="error-message">
+            Luggage fees +50eur.
           </div>
         </div>
       
@@ -59,7 +62,7 @@
               <span class="form-value">Initial price: {{ formFlight.flightCost| currency }}</span>
               <span class="form-value" *ngIf="formFlight.discountOffer">Discount offer: {{ formFlight.discountOffer.discountPercentage}}%</span>
             </div>
-            <span class="final-price">Paying price: <b>{{ formPrice| currency }}</b></span>
+            <span class="final-price" >Paying price: <b>{{ formPrice| currency }}</b></span>
           </div>
         </div>
       
