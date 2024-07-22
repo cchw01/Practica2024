@@ -4,6 +4,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { TicketService } from '../../../app-logic/services/ticket.service';
 
 @Component({
   selector: 'app-tickets',
@@ -32,8 +33,13 @@ export class TicketsComponent implements OnInit {
     'checkIn',
     'luggage',
   ]
-  constructor(){}
+  constructor(private ticketService:TicketService){}
+
   ngOnInit(): void {
+    this.ticketService.getTickets().subscribe(tickets => {
+      this.ticketsItems = tickets;
+      this.filteredTicketsItems.data = this.ticketsItems;
+    });
     this.filteredTicketsItems.data = this.ticketsItems;
     this.filterControl.valueChanges.subscribe(value => {
       this.filteredTicketsItems.filter = value.trim().toLowerCase();
