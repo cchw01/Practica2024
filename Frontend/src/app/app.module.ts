@@ -113,10 +113,10 @@ import { QrCodeModule } from 'ng-qrcode';
     MatProgressBarModule,
     MatCheckboxModule,
     HttpClientModule,
-    InputFlightSelectionFromHomePage
+   // InputFlightSelectionFromHomePage,
     MatNativeDateModule,
-    MatDatepickerModule
-    QrCodeModule
+    MatDatepickerModule,
+    QrCodeModule,
   ],
   providers: [provideAnimationsAsync(), provideHttpClient()],
   bootstrap: [AppComponent],
