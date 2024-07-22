@@ -31,14 +31,14 @@
         <div class="form-group passenger-info" *ngIf="1">
           <label class="form-label">Passenger Information</label>
           <div class="form-values">
-            <span class="form-value">{{ ticket.passager.name }}</span>
-            <span class="form-value">{{ ticket.passager.emailAddress }}</span>
+            <span class="form-value">{{ ticket.passenger.name }}</span>
+            <span class="form-value">{{ ticket.passenger.emailAddress }}</span>
           </div>
          </div>
        
         <div class="check-in-info">
           <label class="form-label">Check-In Status</label>
-          <span class="form-value">{{ ticket.checkIn? 'Done' : 'Not done' }}</span>
+          <span class="form-value">{{ ticket.checkInId? 'Done' : 'Not done' }}</span>
         </div>
       
         <div class="form-group luggage-info">
