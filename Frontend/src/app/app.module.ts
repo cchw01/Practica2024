@@ -42,6 +42,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { AddDiscountComponent } from './menu-items/admin/discount-admin/add-discount/add-discount.component';
 import { AircraftAdminComponent } from './menu-items/admin/aircraft-admin/aircraft-admin.component';
 import { AddAircraftComponent } from './menu-items/admin/aircraft-admin/add-aircraft/add-aircraft.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FlightsAdminComponent } from './menu-items/admin/flights-admin/flights-admin.component';
 import { AddFlightComponent } from './menu-items/admin/flights-admin/add-flight/add-flight.component';
 
@@ -52,7 +54,6 @@ import { CheckInAdminComponent } from './menu-items/admin/check-in-admin/check-i
 import { AddCheckInComponent } from './menu-items/admin/check-in-admin/add-checkIn/add-check-in/add-check-in.component';
 
 import { QrCodeModule } from 'ng-qrcode';
-
 
 @NgModule({
   declarations: [
@@ -112,8 +113,10 @@ import { QrCodeModule } from 'ng-qrcode';
     MatProgressBarModule,
     MatCheckboxModule,
     HttpClientModule,
+    InputFlightSelectionFromHomePage
+    MatNativeDateModule,
+    MatDatepickerModule
     QrCodeModule
-
   ],
   providers: [provideAnimationsAsync(), provideHttpClient()],
   bootstrap: [AppComponent],
