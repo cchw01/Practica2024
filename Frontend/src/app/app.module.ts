@@ -20,7 +20,7 @@ import { UserProfileComponent } from './menu-items/user-profile/user-profile.com
 import { AircraftComponent } from './menu-items/aircraft-list/aircraft-list.component';
 import { AdminComponent } from './menu-items/admin/admin.component';
 import { DiscountAdminComponent } from './menu-items/admin/discount-admin/discount-admin.component';
-import { HttpClient,HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -43,6 +43,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { AddDiscountComponent } from './menu-items/admin/discount-admin/add-discount/add-discount.component';
 import { AircraftAdminComponent } from './menu-items/admin/aircraft-admin/aircraft-admin.component';
 import { AddAircraftComponent } from './menu-items/admin/aircraft-admin/add-aircraft/add-aircraft.component';
+import { FlightsAdminComponent } from './menu-items/admin/flights-admin/flights-admin.component';
+import { AddFlightComponent } from './menu-items/admin/flights-admin/add-flight/add-flight.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,8 @@ import { AddAircraftComponent } from './menu-items/admin/aircraft-admin/add-airc
     AddDiscountComponent,
     AircraftAdminComponent,
     AddAircraftComponent,
+    FlightsAdminComponent,
+    AddFlightComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,7 +92,7 @@ import { AddAircraftComponent } from './menu-items/admin/aircraft-admin/add-airc
     MatButtonModule,
     MatProgressBarModule,
     MatCheckboxModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [provideAnimationsAsync(), provideHttpClient()],
   bootstrap: [AppComponent],

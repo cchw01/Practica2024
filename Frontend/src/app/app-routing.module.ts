@@ -16,8 +16,8 @@ import { UserProfileComponent } from './menu-items/user-profile/user-profile.com
 import { AddDiscountComponent } from './menu-items/admin/discount-admin/add-discount/add-discount.component';
 import { AircraftAdminComponent } from './menu-items/admin/aircraft-admin/aircraft-admin.component';
 import { AddAircraftComponent } from './menu-items/admin/aircraft-admin/add-aircraft/add-aircraft.component';
-
-
+import { FlightsAdminComponent } from './menu-items/admin/flights-admin/flights-admin.component';
+import { AddFlightComponent } from './menu-items/admin/flights-admin/add-flight/add-flight.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -31,13 +31,16 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent },
   { path: 'admin/discount', component: DiscountAdminComponent },
   { path: 'admin/discount/create', component: AddDiscountComponent },
-  { path: 'admin/discount/create/:id', component: AddDiscountComponent},
+  { path: 'admin/discount/create/:id', component: AddDiscountComponent },
   { path: 'booking/:flightId/:userId', component: BookingComponent },
   { path: 'admin/tickets', component: TicketsComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'admin/aircraft',component: AircraftAdminComponent},
-  {path: 'admin/aircraft/create', component: AddAircraftComponent},
-  {path: 'admin/aircraft/create/:id', component: AddAircraftComponent},
+  { path: 'admin/aircraft', component: AircraftAdminComponent },
+  { path: 'admin/aircraft/create', component: AddAircraftComponent },
+  { path: 'admin/aircraft/create/:id', component: AddAircraftComponent },
+  { path: 'admin/flights', component: FlightsAdminComponent },
+  { path: 'admin/flights/create', component: AddFlightComponent },
+  { path: 'admin/flights/create/:id', component: AddFlightComponent },
   { path: '**', redirectTo: '' },
 ];
 
@@ -45,4 +48,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
