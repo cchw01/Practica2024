@@ -1,23 +1,4 @@
 <div class="flight-container">
-  <div class="admin-actions">
-    <a href="#">
-      <mat-icon
-        aria-hidden="false"
-        aria-label="Close icon"
-        fontIcon="close"
-        class="icon-close icon-admin"
-      ></mat-icon>
-    </a>
-
-    <a href="#">
-      <mat-icon
-        aria-hidden="false"
-        aria-label="Edit icon"
-        fontIcon="settings"
-        class="icon-edit icon-admin"
-      ></mat-icon>
-    </a>
-  </div>
   <div class="flight-info">
     <div class="flex">
       <div class="flight-date">
@@ -86,15 +67,6 @@
       <div class="normal-price">
         <div class="price-type">Normal price</div>
         <div class="price">{{ flightItem.flightCost }}$</div>
-        <button type="button" class="btn">Select</button>
-      </div>
-    </div>
-    <div class="price-wrapper">
-      <div class="discount-price">
-        <div class="price-type">Discount Price</div>
-        <div class="price discount">
-        {{ discountedPrice }}$
-        </div>
         <button type="button" class="btn">Select</button>
       </div>
     </div>

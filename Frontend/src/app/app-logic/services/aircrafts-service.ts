@@ -21,10 +21,8 @@ export class AircraftsListMockServices {
   }
 
   updateItem(item: AircraftItem): void {
-    this.httpclient.put<AircraftItem>(`${this.apiUrl}/${item.aircraftId}`, item);
-    }
-  
-
+    this.httpclient.put<AircraftItem>(this.apiUrl, item).subscribe(data => { console.log("Updated Aircraft:",data)});
+  }
 
   deleteItem(id: number): Observable<AircraftItem> {
     return this.httpclient.delete<AircraftItem>(`${this.apiUrl}/${id}`);

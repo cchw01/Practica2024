@@ -47,13 +47,14 @@ export class BookingComponent implements OnInit {
     this.flightService.getFlight(this.flightId).subscribe(
       flightItem => {
         this.formFlight = flightItem;
-        if (this.formFlight.discountOffer) {
-          this.formPrice = this.discountPipe.transform(this.formFlight.flightCost, this.formFlight.discountOffer.discountPercentage);
-        } else {
+        if (this.formFlight) {
           this.formPrice = this.formFlight.flightCost;
-        }
+          if (this.formFlight.discountOffer) {
+            this.formPrice = this.discountPipe.transform(this.formFlight.flightCost, this.formFlight.discountOffer.discountPercentage);
+          }
+       
       }
-    );
+      });
     this.userService.getUserById(this.userId).subscribe(
       userItem => {
         this.formUser = userItem;
@@ -90,6 +91,19 @@ export class BookingComponent implements OnInit {
       alert('Please fill out all required fields correctly.');
     }
   }
+
+  recalculatePrice(): void {
+    if (this.formLuggage) {
+      this.formPrice += 50;
+    } else {
+      this.formPrice = this.formFlight.flightCost;
+      if (this.formFlight.discountOffer) {
+        this.formPrice = this.discountPipe.transform(this.formFlight.flightCost, this.formFlight.discountOffer.discountPercentage);
+      }
+    }
+  }
+    
+  
 
   goBack() {
     this.router.navigate(['']);

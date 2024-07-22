@@ -51,6 +51,17 @@ namespace Backend.Services
             _mapper.Map(item, ticket);
             _context.SaveChanges();
         }
-
+        public List<TicketDto> GetTicketsBySearchCriteria(int departingAirportId, int destinationAirportId, DateTime departureDate, DateTime returnDate)
+        {
+            var tickets = _context.Tickets
+                .Include(t => t.CheckIn)
+                .Include(t => t.Flight)
+                .Where(t => t.Flight.DepartingAirportId == departingAirportId &&
+                            t.Flight.DestinationAirportId == destinationAirportId &&
+                            t.Flight.DepartingTime.Date == departureDate.Date &&
+                            t.Flight.FlightTime.Date == returnDate.Date)
+                .ToList();
+            return _mapper.Map<List<TicketDto>>(tickets);
+        }
     }
 }

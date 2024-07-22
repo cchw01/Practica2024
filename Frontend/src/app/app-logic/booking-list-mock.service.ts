@@ -157,7 +157,7 @@ export class BookingListMockService {
 
   ticketsData: Array<TicketItem> = [
     {
-      ticketId: 1,
+      tickedId: 1,
       flight: this.flightsData[0],
       passager: this.usersData[0],
       checkIn: false,
@@ -165,7 +165,7 @@ export class BookingListMockService {
       price: 299,
     },
     {
-      ticketId: 2,
+      tickedId: 2,
       flight: this.flightsData[1],
       passager: this.usersData[1],
       checkIn: false,
@@ -173,7 +173,7 @@ export class BookingListMockService {
       price: 399,
     },
     {
-      ticketId: 3,
+      tickedId: 3,
       flight: this.flightsData[2],
       passager: this.usersData[2],
       checkIn: false,
@@ -182,7 +182,7 @@ export class BookingListMockService {
     },
     // 15 more tickets
     {
-      ticketId: 4,
+      tickedId: 4,
       flight: this.flightsData[0],
       passager: this.usersData[1],
       checkIn: true,
@@ -190,7 +190,7 @@ export class BookingListMockService {
       price: 269,
     },
     {
-      ticketId: 5,
+      tickedId: 5,
       flight: this.flightsData[1],
       passager: this.usersData[2],
       checkIn: true,
@@ -198,7 +198,7 @@ export class BookingListMockService {
       price: 359,
     },
     {
-      ticketId: 6,
+      tickedId: 6,
       flight: this.flightsData[2],
       passager: this.usersData[0],
       checkIn: true,
@@ -206,7 +206,7 @@ export class BookingListMockService {
       price: 449,
     },
     {
-      ticketId: 7,
+      tickedId: 7,
       flight: this.flightsData[0],
       passager: this.usersData[2],
       checkIn: false,
@@ -214,7 +214,7 @@ export class BookingListMockService {
       price: 289,
     },
     {
-      ticketId: 8,
+      tickedId: 8,
       flight: this.flightsData[1],
       passager: this.usersData[0],
       checkIn: false,
@@ -222,7 +222,7 @@ export class BookingListMockService {
       price: 379,
     },
     {
-      ticketId: 9,
+      tickedId: 9,
       flight: this.flightsData[2],
       passager: this.usersData[1],
       checkIn: false,
@@ -230,7 +230,7 @@ export class BookingListMockService {
       price: 489,
     },
     {
-      ticketId: 10,
+      tickedId: 10,
       flight: this.flightsData[0],
       passager: this.usersData[0],
       checkIn: true,
@@ -238,7 +238,7 @@ export class BookingListMockService {
       price: 279,
     },
     {
-      ticketId: 11,
+      tickedId: 11,
       flight: this.flightsData[1],
       passager: this.usersData[2],
       checkIn: true,
@@ -246,7 +246,7 @@ export class BookingListMockService {
       price: 369,
     },
     {
-      ticketId: 12,
+      tickedId: 12,
       flight: this.flightsData[2],
       passager: this.usersData[1],
       checkIn: true,
@@ -254,7 +254,7 @@ export class BookingListMockService {
       price: 479,
     },
     {
-      ticketId: 13,
+      tickedId: 13,
       flight: this.flightsData[0],
       passager: this.usersData[2],
       checkIn: false,
@@ -262,7 +262,7 @@ export class BookingListMockService {
       price: 299,
     },
     {
-      ticketId: 14,
+      tickedId: 14,
       flight: this.flightsData[1],
       passager: this.usersData[0],
       checkIn: false,
@@ -270,7 +270,7 @@ export class BookingListMockService {
       price: 399,
     },
     {
-      ticketId: 15,
+      tickedId: 15,
       flight: this.flightsData[2],
       passager: this.usersData[1],
       checkIn: false,
@@ -278,7 +278,7 @@ export class BookingListMockService {
       price: 499,
     },
     {
-      ticketId: 16,
+      tickedId: 16,
       flight: this.flightsData[0],
       passager: this.usersData[0],
       checkIn: true,
@@ -286,7 +286,7 @@ export class BookingListMockService {
       price: 269,
     },
     {
-      ticketId: 17,
+      tickedId: 17,
       flight: this.flightsData[1],
       passager: this.usersData[1],
       checkIn: true,
@@ -294,7 +294,7 @@ export class BookingListMockService {
       price: 359,
     },
     {
-      ticketId: 18,
+      tickedId: 18,
       flight: this.flightsData[2],
       passager: this.usersData[2],
       checkIn: true,
@@ -303,35 +303,6 @@ export class BookingListMockService {
     },
   ];
 
-  checkInsData: Array<CheckInItem> = [
-    {
-      checkInId: 1,
-      ticket: this.ticketsData[0],
-      passengerName: 'John Doe',
-      idDocumentType: IdDocumentType.Passport,
-      documentData: '123456789',
-      checkInStatus: true,
-      passengerEmail: 'john.doe@example.com',
-    },
-    {
-      checkInId: 2,
-      ticket: this.ticketsData[1],
-      passengerName: 'Jane Smith',
-      idDocumentType: IdDocumentType.IdentityCard,
-      documentData: '987654321',
-      checkInStatus: true,
-      passengerEmail: 'jane.smith@example.com',
-    },
-    {
-      checkInId: 3,
-      ticket: this.ticketsData[2],
-      passengerName: 'Alice Johnson',
-      idDocumentType: IdDocumentType.DriverLicense,
-      documentData: 'A1B2C3D4',
-      checkInStatus: true,
-      passengerEmail: 'alice.johnson@example.com',
-    },
-  ];
 
   constructor() {
     // Linking tickets and check-ins to users
@@ -376,9 +347,7 @@ export class BookingListMockService {
   getDataTickets(): Array<TicketItem> {
     return this.ticketsData;
   }
-  getDataCheckIn(): Array<CheckInItem> {
-    return this.checkInsData;
-  }
+
   getFlightItemById(id: number): FlightItem {
     return this.flightsData.filter((x) => x.flightNumber == id)[0];
   }
