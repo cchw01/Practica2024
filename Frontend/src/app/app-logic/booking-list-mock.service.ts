@@ -303,35 +303,6 @@ export class BookingListMockService {
     },
   ];
 
-  checkInsData: Array<CheckInItem> = [
-    {
-      checkInId: 1,
-      ticket: this.ticketsData[0],
-      passengerName: 'John Doe',
-      idDocumentType: IdDocumentType.Passport,
-      documentData: '123456789',
-      checkInStatus: true,
-      passengerEmail: 'john.doe@example.com',
-    },
-    {
-      checkInId: 2,
-      ticket: this.ticketsData[1],
-      passengerName: 'Jane Smith',
-      idDocumentType: IdDocumentType.IdentityCard,
-      documentData: '987654321',
-      checkInStatus: true,
-      passengerEmail: 'jane.smith@example.com',
-    },
-    {
-      checkInId: 3,
-      ticket: this.ticketsData[2],
-      passengerName: 'Alice Johnson',
-      idDocumentType: IdDocumentType.DriverLicense,
-      documentData: 'A1B2C3D4',
-      checkInStatus: true,
-      passengerEmail: 'alice.johnson@example.com',
-    },
-  ];
 
   constructor() {
     // Linking tickets and check-ins to users
@@ -376,9 +347,7 @@ export class BookingListMockService {
   getDataTickets(): Array<TicketItem> {
     return this.ticketsData;
   }
-  getDataCheckIn(): Array<CheckInItem> {
-    return this.checkInsData;
-  }
+
   getFlightItemById(id: number): FlightItem {
     return this.flightsData.filter((x) => x.flightNumber == id)[0];
   }

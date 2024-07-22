@@ -6,7 +6,7 @@ body {
 }
 
 .header {
-  background-color: #673ab7;
+  background-color: #0a4c6b;
   color: white;
   padding: 15px;
   cursor: pointer;
@@ -16,7 +16,7 @@ body {
 }
 
 .header:hover {
-  background-color: #673ab7;
+  background-color: #0a4c6b;
 }
 
 .content {
@@ -68,7 +68,7 @@ li {
 .highlight {
   background-color: #f0f8ff;
   padding: 10px;
-  border-left: 3px solid #673ab7;
+  border-left: 3px solid #0a4c6b;
 }
 
 .note {
@@ -135,21 +135,21 @@ button {
 
 .line {
   display: inline-block;
-  background: #673ab7;
+  background: #0a4c6b;
   width: 50px;
   height: 5px;
 }
 
 .text {
   font-size: 20px;
-  color: #673ab7;
+  color: #0a4c6b;
   font-weight: bold;
 }
 
 .row .contentWrapper h2 {
   font-size: 40px;
   font-weight: 700;
-  color: #673ab7;
+  color: #0a4c6b;
   padding-bottom: 5px;
 }
 
@@ -173,7 +173,7 @@ button {
 h2 {
   font-size: 40px;
   font-weight: 700;
-  color: #673ab7;
+  color: #0a4c6b;
 }
 
 .options {
