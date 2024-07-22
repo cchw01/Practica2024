@@ -15,7 +15,7 @@ import { AircraftDto } from '../../../app-logic/DTOs/aircraft-dto';
 })
 export class AircraftAdminComponent {
   aircraftData: MatTableDataSource<AircraftDto>;
-  discountColumns: string[] = [
+  aircraftColumns: string[] = [
     'select',
     'AircraftId',
     'registrationNumber',
@@ -27,7 +27,6 @@ export class AircraftAdminComponent {
     'edit',
     'delete'
   ];
-  selection = new SelectionModel<AircraftComponent>(true, []);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -56,11 +55,11 @@ export class AircraftAdminComponent {
     }
   }
 
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.aircraftData.data.length;
-    return numSelected === numRows;
-  }
+  // isAllSelected() {
+  //   const numSelected = this.selection.selected.length;
+  //   const numRows = this.aircraftData.data.length;
+  //   return numSelected === numRows;
+  // }
 
   
 }

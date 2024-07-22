@@ -43,6 +43,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { AddDiscountComponent } from './menu-items/admin/discount-admin/add-discount/add-discount.component';
 import { AircraftAdminComponent } from './menu-items/admin/aircraft-admin/aircraft-admin.component';
 import { AddAircraftComponent } from './menu-items/admin/aircraft-admin/add-aircraft/add-aircraft.component';
+import { AirportAdminComponent } from './menu-items/admin/airport-admin/airport-admin.component';
+import { AddAirportComponent } from './menu-items/admin/airport-admin/add-airport/add-airport.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,8 @@ import { AddAircraftComponent } from './menu-items/admin/aircraft-admin/add-airc
     AddDiscountComponent,
     AircraftAdminComponent,
     AddAircraftComponent,
+    AirportAdminComponent,
+    AddAirportComponent,
   ],
   imports: [
     BrowserModule,

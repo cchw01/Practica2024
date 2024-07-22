@@ -16,6 +16,8 @@ import { UserProfileComponent } from './menu-items/user-profile/user-profile.com
 import { AddDiscountComponent } from './menu-items/admin/discount-admin/add-discount/add-discount.component';
 import { AircraftAdminComponent } from './menu-items/admin/aircraft-admin/aircraft-admin.component';
 import { AddAircraftComponent } from './menu-items/admin/aircraft-admin/add-aircraft/add-aircraft.component';
+import { AirportAdminComponent } from './menu-items/admin/airport-admin/airport-admin.component';
+import { AddAirportComponent } from './menu-items/admin/airport-admin/add-airport/add-airport.component';
 
 
 
@@ -38,6 +40,9 @@ const routes: Routes = [
   { path: 'admin/aircraft',component: AircraftAdminComponent},
   {path: 'admin/aircraft/create', component: AddAircraftComponent},
   {path: 'admin/aircraft/create/:id', component: AddAircraftComponent},
+  {path: 'admin/airport', component: AirportAdminComponent},
+  {path: 'admin/airport/create', component:AddAirportComponent},
+  {path: 'admin/airport/create/:id', component:AddAirportComponent},
   { path: '**', redirectTo: '' },
 ];
 
