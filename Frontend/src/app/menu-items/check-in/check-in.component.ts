@@ -74,6 +74,10 @@ export class CheckInComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute
   ) {
+    // evidenta 
+    this.checkInService.getDataCheckIn().subscribe((data) => {
+      this.checkInItems = data; 
+    });
     this.form = this.fb.group({
       ticket: ['', Validators.required],
       passengerName: ['', Validators.required],
@@ -99,10 +103,7 @@ export class CheckInComponent implements OnInit, AfterViewInit {
 
 
 
-    // evidenta 
-    this.checkInService.getDataCheckIn().subscribe((data) => {
-      this.checkInItems = data; 
-    });
+    
 
     if (this.itemId != 0) {
       this.isEditing = true; // Set to true when editing
@@ -157,7 +158,7 @@ export class CheckInComponent implements OnInit, AfterViewInit {
     this.checkInService.getTicketByIdNou(ticketId).subscribe({
       next: (ticket) => {
         this.ticketData = ticket;
-  
+        this.checkInId=ticket.checkInId;
         this.qrData = JSON.stringify({
           ...this.form.value,
           ticketData: this.ticketData,
@@ -173,7 +174,6 @@ export class CheckInComponent implements OnInit, AfterViewInit {
             next: (checkIN) => {
               console.log('CheckIn added:', checkIN);
               this.checkInItems.push(checkIN);
-              this.cdr.detectChanges();
             },
             error: (error) => {
               console.error('Registration failed:', error);
