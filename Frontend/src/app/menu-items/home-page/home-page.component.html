@@ -6,7 +6,7 @@
         <!--Departing Airport selector-->
         <mat-form-field appearance="outline" class="custom-form-field">
           <mat-label>Departing Airport</mat-label>
-          <mat-select formControlName="departingAirport" required>
+          <mat-select formControlName="departingAirport" (selectionChange)="onInputChange($event, 'departingAirport')" required>
             <mat-option *ngFor="let airport of airports" [value]="airport.airportName">
               {{ airport.airportName }}
             </mat-option>
@@ -19,7 +19,7 @@
         <!--Destination Airport selector-->
         <mat-form-field appearance="outline" class="custom-form-field">
           <mat-label>Destination Airport</mat-label>
-          <mat-select formControlName="destinationAirport" required>
+          <mat-select formControlName="destinationAirport" (selectionChange)="onInputChange($event, 'destinationAirport')" required>
             <mat-option *ngFor="let airport of airports" [value]="airport.airportName">
               {{ airport.airportName }}
             </mat-option>
@@ -32,7 +32,7 @@
          <!--Departing time selector-->
         <mat-form-field appearance="outline" class="custom-form-field">
           <mat-label>Departing Time</mat-label>
-          <input matInput [matDatepicker]="departingPicker" formControlName="departingTime" [matDatepickerFilter]="dateFilter">
+          <input matInput [matDatepicker]="departingPicker" formControlName="departingTime" [matDatepickerFilter]="dateFilter" (dateChange)="onInputChange($event, 'departingTime')" required>
           <mat-datepicker-toggle matSuffix [for]="departingPicker"></mat-datepicker-toggle>
           <mat-datepicker #departingPicker></mat-datepicker>
           <mat-error *ngIf="form.get('departingTime')?.hasError('pastDate')">
@@ -40,7 +40,7 @@
           </mat-error>
         </mat-form-field>
       
-        <!--Return time selector-->
+        <!--Return time selector
         <mat-form-field appearance="outline" class="custom-form-field">
           <mat-label>Return Time</mat-label>
           <input matInput [matDatepicker]="returnPicker" formControlName="returnTime" [matDatepickerFilter]="dateFilter">
@@ -53,7 +53,13 @@
             Return Time cannot be in the past.
           </mat-error>
         </mat-form-field>
-      
+        -->
+
+        <!--Passengers selector-->
+        <mat-form-field appearance="outline" class="custom-form-field">
+          <mat-label>Passengers:</mat-label>
+          <input matInput type="number" formControlName="passengers" [disabled]="true">
+        </mat-form-field>
       </div>
     
       <button type="submit" [disabled]="form.invalid" (click)="onSubmit()">Search</button>

@@ -32,10 +32,11 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuardService] },
   { path: 'tickets', component: TicketsComponent, canActivate: [AuthGuardService] },
-  { path: 'check-in', component: CheckInComponent},
-  { path: 'flights', component: FlightsComponent},
-  { path: 'flights/:id', component: FlightComponent},
+  { path: 'check-in', component: CheckInComponent },
+  { path: 'flights', component: FlightsComponent },
+  { path: 'flights/:id', component: FlightComponent },
   { path: 'booking/:flightId', component: BookingComponent, canActivate: [AuthGuardService] },
+  { path: 'flights/:departingAirportId/:destinationAirportId/:departingTime', component: FlightsComponent },
 
   {
     path: 'admin',
@@ -60,13 +61,12 @@ const routes: Routes = [
       { path: 'tickets', component: TicketsComponent },
     ]
   },
-
+  
   { path: '**', redirectTo: '' },
 ];
 
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}
