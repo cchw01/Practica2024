@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TicketItem } from '../../../app-logic/models/ticket-item';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -9,41 +9,46 @@ import { TicketService } from '../../../app-logic/services/ticket.service';
 @Component({
   selector: 'app-tickets',
   templateUrl: './tickets.component.html',
-  styleUrls: ['./tickets.component.css']
+  styleUrl: './tickets.component.css'
 })
-export class TicketsComponent implements OnInit, AfterViewInit {
+export class TicketsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  ticketsItems: TicketItem[] = [];
+ ticketsItems: TicketItem[] = [];
+ 
   filteredTicketsItems = new MatTableDataSource<TicketItem>(this.ticketsItems);
   filterControl = new FormControl();
 
-  ticketsColumns: string[] = [
-    'ticketId',
-    'flightNumber',
-    'departingAirport',
-    'destinationAirport',
-    'departingTime',
-    'flightTime',
-    'flightCost',
-    'passenger',
+
+  ticketsColumns: string[]=[
+    'tickedId',
+    'flight.flightNumber',
+    'flight.departingAirport.airportName',
+    'flight.destinationAirport.airportName',
+    'flight.departingTime',
+    'flight.flightTime',
+    'flight.flightCost',
+    'passager',    
     'checkIn',
     'luggage',
-    'action'
-  ];
-
-  constructor(private ticketService: TicketService) {}
+    'delete'
+  ]
+  constructor(private ticketService:TicketService){}
 
   ngOnInit(): void {
-    this.loadTickets();
+    this.ticketService.getTickets().subscribe(tickets => {
+      this.ticketsItems = tickets;
+      this.filteredTicketsItems.data = this.ticketsItems;
+    });
+    this.filteredTicketsItems.data = this.ticketsItems;
     this.filterControl.valueChanges.subscribe(value => {
-      this.applyFilter();
+      this.filteredTicketsItems.filter = value.trim().toLowerCase();
     });
 
     this.filteredTicketsItems.filterPredicate = (data: TicketItem, filter: string) => {
       const searchTerms = filter.split(' ');
-      return searchTerms.every(term =>
+      return searchTerms.every(term => 
         data.ticketId.toString().includes(term) ||
         data.flight.flightNumber.toString().includes(term) ||
         data.flight.departingAirport.airportName.toLowerCase().includes(term) ||
@@ -60,24 +65,18 @@ export class TicketsComponent implements OnInit, AfterViewInit {
     this.filteredTicketsItems.paginator = this.paginator;
     this.filteredTicketsItems.sort = this.sort;
   }
-
-  applyFilter() {
-    const filterValue = this.filterControl.value || '';
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
     this.filteredTicketsItems.filter = filterValue.trim().toLowerCase();
   }
+
   deleteTicket(id: number) {
-    if (confirm('Are you sure you want to delete this ticket?')) {
-      this.ticketService.deleteTicket(id).subscribe(() => {
-        this.loadTickets();
-      });
-    }
-  }
-    loadTickets() {
-      this.ticketService.getTickets().subscribe(tickets => {
-        const now = new Date();
-        this.ticketsItems = tickets.filter(ticket => new Date(ticket.flight.departingTime) >= now);
+    if (confirm('Are you sure you want to delete this flight?')) {
+      this.ticketService.deleteTicket(id).subscribe(() => { 
+        this.ticketsItems = this.ticketsItems.filter(ticket => ticket.ticketId !== id);
         this.filteredTicketsItems.data = this.ticketsItems;
-      });
-    }
-  
+
+    });
+  }
+}
 }
