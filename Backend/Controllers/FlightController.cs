@@ -101,11 +101,11 @@ namespace Backend.Controllers
             }
         }
         [HttpGet("search")]
-        public IActionResult SearchFlights([FromQuery] int departingAirportId, [FromQuery] int destinationAirportId, [FromQuery] DateTime departureDate, [FromQuery] DateTime returnDate)
+        public IActionResult SearchFlights([FromQuery] int departingAirportId, [FromQuery] int destinationAirportId, [FromQuery] DateTime departureDate)
         {
             try
             {
-                var flights = flightManager.GetFlightsBySearchCriteria(departingAirportId, destinationAirportId, departureDate, returnDate);
+                var flights = flightManager.GetFlightsBySearchCriteria(departingAirportId, destinationAirportId, departureDate);
                 return Ok(flights);
             }
             catch
