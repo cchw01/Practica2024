@@ -74,9 +74,9 @@ button {
   background-color: #0a4c6b;
   color: white;
   cursor: pointer;
-  margin-top: 10px;
-  height: 50px;
-  width: 100px;
+  margin-top: 0;
+  height: 60px;
+  width: 150px;
   font-size: 20px;
 }
 
@@ -95,11 +95,12 @@ button:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90%;
+  
 }
 
 .carousel {
   position: relative;
- 
+  margin-bottom: 50px;
   overflow: hidden;
 }
 
@@ -182,12 +183,14 @@ button:hover {
 }
 
 .custom-form-field{
-  height: 100px;
+  height: 60px !important;
+  margin-right: 20px;
 }
 
 .form-container{
   display: flex;
   flex-wrap: wrap; 
+  flex-direction: row;
   gap: 30px;
 }
 
@@ -206,5 +209,15 @@ button:hover {
 }
 
 
+::ng-deep .mat-mdc-form-field-flex {
+  height: 60px !important;
+}
 
+::ng-deep .mdc-text-field__input {
+  margin-top: -10px !important;
+}
 
+.widget-title {
+  color: #0a4c6b;
+  font-weight: 600;
+}

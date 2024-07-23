@@ -88,7 +88,7 @@ export class HomePageComponent implements OnInit {
     console.log(`onInputChange called for ${field}`);
     const value = event.value;
     if (field == 'departingTime') {
-      const formattedDate = format(new Date(value), 'dd.MM.yyyy');
+      const formattedDate = format(new Date(value), 'dd-MM-yyyy');
       this.formData[field] = formattedDate;
     } else {
       this.formData[field] = value;
@@ -127,7 +127,6 @@ export class HomePageComponent implements OnInit {
         [
           `/flights/${departingAirport.airportId}/${destinationAirport.airportId}/${this.formData['departingTime']}`,
         ],
-        { queryParams: this.formData }
       );
     } else {
       console.log(this.errorMessage);
