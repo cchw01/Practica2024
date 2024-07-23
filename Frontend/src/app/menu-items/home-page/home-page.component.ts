@@ -5,7 +5,6 @@ import { DiscountListMockService } from '../../app-logic/discount-list-mock.serv
 import { DiscountItem } from '../../app-logic/models/discount-item';
 import { Router } from '@angular/router';
 import { format } from 'date-fns';
-import { ContentObserver } from '@angular/cdk/observers';
 import { FormControl, Validators, AbstractControl, FormGroup  } from '@angular/forms';
 import { DiscountImageGalleryService } from '../../app-logic/services/discount-image-gallery.service';
 
@@ -29,8 +28,9 @@ export class HomePageComponent implements OnInit {
 
   seasonDiscountImages: { [key: string]: string[] } = {};
   usedImages: { [key: string]: string[] } = {};
+  imageMapping: { [discountId: number]: string } = {};
 
-  description: string = 'Example description'; // Aceasta va fi descrierea ta
+  description: string = 'Example description'; 
   errorMessage = '';
   currentSlide: number = 0;
   airports: AirportItem[] = [];
@@ -50,29 +50,6 @@ export class HomePageComponent implements OnInit {
       //returnTime: new FormControl({ value: '', disabled: true }, [Validators.required, this.noPastDatesValidator.bind(this), this.returnDateAfterDepartingDateValidator.bind(this)]),
       passengers: new FormControl({ value: 1, disabled: true })
     });
-    /*
-    this.form.get('departingTime')?.valueChanges.subscribe(value => {
-      departingTime: new FormControl('', [
-        Validators.required,
-        this.noPastDatesValidator.bind(this),
-      ]),
-      returnTime: new FormControl({ value: '', disabled: true }, [
-        Validators.required,
-        this.noPastDatesValidator.bind(this),
-        this.returnDateAfterDepartingDateValidator.bind(this),
-      ]),
-    });
-
-    this.form.get('departingTime')?.valueChanges.subscribe((value) => {
-      const returnTimeControl = this.form.get('returnTime');
-      if (value) {
-        returnTimeControl?.enable();
-        this.form.get('returnTime')?.updateValueAndValidity();
-      } else {
-        returnTimeControl?.disable();
-      }
-    });
-    */
   }
 
   noPastDatesValidator(
@@ -105,27 +82,21 @@ export class HomePageComponent implements OnInit {
     return 'Winter'; 
   }
 
-  getImageForDiscount(discount: DiscountItem): string {
-    const season = this.getSeasonFromDate(new Date(discount.startDate)); 
-    const images = this.seasonDiscountImages[season];
-    if (!this.usedImages[season]) {
-        this.usedImages[season] = [];
-    }
-
-    let selectedImage: string;
-    while (true) {
+  initializeImageMapping() {
+    for (const discount of this.discounts) {
+      const season = this.getSeasonFromDate(new Date(discount.startDate));
+      const images = this.seasonDiscountImages[season];
+      let selectedImage: string;
+      while (true) {
         selectedImage = images[Math.floor(Math.random() * images.length)];
-        const imageIsUsed = this.usedImages[season].includes(selectedImage);
-        if (this.usedImages[season].length == this.seasonDiscountImages[season].length)
-          this.usedImages[season] = [];
-        if (!imageIsUsed) {
-            this.usedImages[season] = [...this.usedImages[season], selectedImage];
-            return selectedImage;
-            break;                                                
-        } 
+        if (!Object.values(this.imageMapping).includes(selectedImage)) {
+          this.imageMapping[discount.discountId] = selectedImage;
+          break;
+        }
       }
     }
-    
+    console.log('Image Mapping:', this.imageMapping);
+  }
 
   ngOnInit() {
     this.airportListMockService.getDataAirports().subscribe((data) => {
@@ -134,6 +105,7 @@ export class HomePageComponent implements OnInit {
     });
     this.discounts = this.discountListMockService.getDataDiscounts();
     this.seasonDiscountImages = this.discountImageGalleryService.getSeasonImages();
+    this.initializeImageMapping();
   }
 
   onInputChange(event: any, field: string) {
