@@ -216,6 +216,63 @@ export class FlightService {
       );
   }
 
+  getFlightsByCriteria(
+    departingAirportId: string,
+    destinationAirportId: string,
+    departureDate: string
+  ): Observable<FlightItem[]> {
+    return this.http.get<FlightDto[]>(
+      `${this.apiUrl}/Flight?departingAirportId=${departingAirportId}&destinationAirportId=${destinationAirportId}&departureDate=${departureDate}`
+    ).pipe(
+      switchMap((flightDtos) => {
+        if (flightDtos.length === 0) return of([]);
+        return forkJoin(
+          flightDtos.map((flightDto) =>
+            forkJoin({
+              airportDep: this.http
+                .get<AirportDto>(
+                  `${this.airportUrl}/${flightDto.departingAirportId}`
+                )
+                .pipe(map(this.mapAirportDtoToAirportItem)),
+              airportDest: this.http
+                .get<AirportDto>(
+                  `${this.airportUrl}/${flightDto.destinationAirportId}`
+                )
+                .pipe(map(this.mapAirportDtoToAirportItem)),
+              aircraft: this.http
+                .get<AircraftDto>(
+                  `${this.apiUrl}/Aircraft/${flightDto.aircraftId}`
+                )
+                .pipe(map(this.mapAircraftDtoToAircraftItem)),
+              discount: flightDto.discountId
+                ? this.http
+                    .get<DiscountDto>(
+                      `${this.apiUrl}/Discount/${flightDto.discountId}`
+                    )
+                    .pipe(map(this.mapDiscountDtoToDiscountItem))
+                : of(null),
+            }).pipe(
+              map(
+                ({ airportDep, airportDest, aircraft, discount }) =>
+                  new FlightItem({
+                    ...flightDto,
+                    departingAirport: airportDep,
+                    destinationAirport: airportDest,
+                    aircraft: aircraft,
+                    flightTime: this.calculateFlightTime(
+                      flightDto.departingTime,
+                      flightDto.flightTime
+                    ),
+                    discountOffer: discount ?? undefined,
+                  })
+              )
+            )
+          )
+        );
+      })
+    );
+  }
+
   private calculateFlightTime(departingTime: Date, arrivingTime: Date): number {
     const diffInMs =
       new Date(arrivingTime).getTime() - new Date(departingTime).getTime();

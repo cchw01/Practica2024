@@ -130,7 +130,7 @@ export class HomePageComponent implements OnInit {
     }
 
     if (this.errorMessage == '') {
-      this.router.navigate(['/flights'], { queryParams: this.formData });
+      this.router.navigate(['/flights/departingAirport/destinationAirport/departureDate'], { queryParams: this.formData });
     } else {
       console.log(this.errorMessage);
     }
