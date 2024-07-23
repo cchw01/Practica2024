@@ -40,7 +40,6 @@ export class AddFlightComponent {
       departingTime: ['', Validators.required],
       flightTime: ['', Validators.required],
       flightCost: ['', Validators.required],
-      discountId: ['', Validators.required],
     });
   }
 

@@ -55,7 +55,7 @@
       matInput
       placeholder="Departing Time"
       formControlName="departingTime"
-      type="date"
+      type="datetime-local"
       required
     />
     <mat-error *ngIf="hasError('departingTime', 'required')"
@@ -88,20 +88,6 @@
     />
     <mat-error *ngIf="hasError('flightCost', 'required')"
       >Flight Cost is required</mat-error
-    >
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Discount ID:</mat-label>
-    <input
-      matInput
-      placeholder="Discount ID"
-      formControlName="discountId"
-      type="number"
-      required
-    />
-    <mat-error *ngIf="hasError('discountId', 'required')"
-      >Discount ID is required</mat-error
     >
   </mat-form-field>
 

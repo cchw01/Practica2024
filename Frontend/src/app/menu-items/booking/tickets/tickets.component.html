@@ -55,11 +55,13 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Flight Cost</th>
     <td mat-cell *matCellDef="let element">
       Original: {{ element.flight.flightCost | currency }}<br>
-      Discount: {{ element.flight.discountOffer.discountPercentage }}%<br>
-      New Price: {{
-        (element.flight.flightCost - (element.flight.flightCost * element.flight.discountOffer.discountPercentage / 100))
-        | currency
-      }}<br>
+      <div *ngIf="element.flight.discountOffer">
+        Discount: {{ element.flight.discountOffer.discountPercentage }}%<br>
+        New Price: {{
+          (element.flight.flightCost - (element.flight.flightCost * element.flight.discountOffer.discountPercentage / 100))
+          | currency
+        }}<br>
+      </div>
       Price On Ticket: {{ element.price }}<br>
     </td>
   </ng-container>

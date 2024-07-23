@@ -62,7 +62,7 @@ export class BookingComponent implements OnInit {
         next: (ticket) => {
           console.log('Ticket booked:', ticket);
           //alert('Booking successful!');
-          this.router.navigate(['/']);
+          this.router.navigate(['/user-profile']);
         },
         error: (error) => {
           console.error('Booking failed:', error);
