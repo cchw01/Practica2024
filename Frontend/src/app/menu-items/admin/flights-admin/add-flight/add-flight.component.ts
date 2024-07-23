@@ -9,6 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { FlightService } from '../../../../app-logic/services/flights.service';
+import { FlightItem } from '../../../../app-logic/models/flight-item';
 
 @Component({
   selector: 'app-add-flight',
@@ -18,6 +19,7 @@ import { FlightService } from '../../../../app-logic/services/flights.service';
 export class AddFlightComponent {
   addFlightForm!: FormGroup;
   flightId!: number;
+  flights: FlightItem[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,18 +43,43 @@ export class AddFlightComponent {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.flightId) {
+      this.loadFlight(this.flightId);
+    }
+  }
+
+  loadFlight(flightNumber: number): void {
+    this.flightService.getFlight(flightNumber).subscribe((flight) => {
+      this.addFlightForm.patchValue({
+        flightNumber: flight.flightNumber,
+        departingAirportId: flight.departingAirport.airportId,
+        destinationAirportId: flight.destinationAirport.airportId,
+        aircraftId: flight.aircraft.aircraftId,
+        departingTime: flight.departingTime,
+        flightTime: flight.flightTime,
+        flightCost: flight.flightCost,
+        discountId: flight.discountOffer?.discountId,
+      });
+    });
+  }
 
   onSubmit(): void {
     const flightData = this.addFlightForm.value;
     if (this.addFlightForm.valid) {
       if (this.flightId) {
-        this.flightService.updateFlight({
-          ...flightData,
-          id: this.flightId,
-        });
+        this.flightService
+          .updateFlight({
+            ...flightData,
+            id: this.flightId,
+          })
+          .subscribe(() => {
+            this.router.navigate(['/admin/flights']);
+          });
       } else {
-        this.flightService.addFlight(flightData);
+        this.flightService.addFlight(flightData).subscribe(() => {
+          this.router.navigate(['/admin/flights']);
+        });
       }
     }
   }
