@@ -4,9 +4,17 @@ import { AirportItem } from '../../app-logic/models/airport-item';
 import { DiscountListMockService } from '../../app-logic/discount-list-mock.service';
 import { DiscountItem } from '../../app-logic/models/discount-item';
 import { Router } from '@angular/router';
+<<<<<<< HEAD
 import { format } from 'date-fns';
 import { ContentObserver } from '@angular/cdk/observers';
 import { FormControl, Validators, AbstractControl, FormGroup} from '@angular/forms';
+=======
+import { FormControl, Validators, AbstractControl, FormGroup } from '@angular/forms';
+import { format } from 'date-fns';
+import { ContentObserver } from '@angular/cdk/observers';
+import { FormControl, Validators, AbstractControl, FormGroup  } from '@angular/forms';
+
+>>>>>>> 59477b112a291cbd6b0891374d40aa8536ee16cf
 
 @Component({
   selector: 'app-home-page',
@@ -15,7 +23,10 @@ import { FormControl, Validators, AbstractControl, FormGroup} from '@angular/for
   styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent implements OnInit {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 59477b112a291cbd6b0891374d40aa8536ee16cf
   minDate : Date;                   // minimum date a user can pick
   form: FormGroup;                  // used to validate information picked
 
@@ -45,6 +56,7 @@ export class HomePageComponent implements OnInit {
       //returnTime: new FormControl({ value: '', disabled: true }, [Validators.required, this.noPastDatesValidator.bind(this), this.returnDateAfterDepartingDateValidator.bind(this)]),
       passengers: new FormControl({ value: 1, disabled: true })
     });
+<<<<<<< HEAD
 
     /*
     this.form.get('departingTime')?.valueChanges.subscribe(value => {
@@ -69,6 +81,8 @@ export class HomePageComponent implements OnInit {
       }
     });
     */
+=======
+>>>>>>> 59477b112a291cbd6b0891374d40aa8536ee16cf
   }
 
   noPastDatesValidator(
@@ -82,6 +96,7 @@ export class HomePageComponent implements OnInit {
     return null;
   }
 
+<<<<<<< HEAD
 /*
   returnDateAfterDepartingDateValidator(
     control: AbstractControl
@@ -99,6 +114,8 @@ export class HomePageComponent implements OnInit {
   }
   */
 
+=======
+>>>>>>> 59477b112a291cbd6b0891374d40aa8536ee16cf
   dateFilter = (date: Date | null): boolean => {
     return date ? date >= this.minDate : false;
   };

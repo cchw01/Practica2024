@@ -69,8 +69,7 @@ export class AddFlightComponent {
     const flightData = this.addFlightForm.value;
     if (this.addFlightForm.valid) {
       if (this.flightId) {
-        this.flightService
-          .updateFlight({
+        this.flightService.updateFlight({
             ...flightData,
             flightNumber: this.flightId,
           })

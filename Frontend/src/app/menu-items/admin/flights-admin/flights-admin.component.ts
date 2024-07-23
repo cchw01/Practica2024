@@ -37,7 +37,7 @@ export class FlightsAdminComponent {
     this.loadFlights();
   }
 
-  loadFlights() {
+  loadFlights() { 
     this.flightService.getFlights().subscribe((flights) => {
       this.flightsData.data = flights;
       this.flightsData.paginator = this.paginator;

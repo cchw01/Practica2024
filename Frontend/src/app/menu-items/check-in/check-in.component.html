@@ -31,9 +31,9 @@
 <div class="check-in-list">
   <h2>Check-ins effectuated</h2>
   <ul>
-    <li *ngFor="let checkIn of checkInItems">
-      {{ checkIn.ticketId }} - {{ checkIn.passengerName }} - {{ getDocumentTypeLabel(checkIn.idDocumentType) }} - {{ checkIn.documentData }} - {{ checkIn.passengerEmail }}
-      <button (click)="editCheckIn(checkIn)">Edit</button>
+    <li *ngFor="let element of checkInItems">
+      {{ element.ticketId }} - {{ element.passengerName }} - {{ getDocumentTypeLabel(element.idDocumentType) }} - {{ element.documentData }} - {{ element.passengerEmail }}
+      <button (click)="editCheckIn(element)">Edit</button>
     </li>
   </ul>
 </div>
