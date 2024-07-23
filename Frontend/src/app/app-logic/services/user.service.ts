@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -43,19 +43,20 @@ export class UserService {
     return this.httpClient.post<UserDto>(this.apiUrl, userDto);
   }
 
-  updateUser(user: UserItem): Observable<UserItem> {
-    const hashedPassword = this.hashPassword(user.password);
+  updateUser(user: UserItem): Observable<any> {
     const userDto = {
-      userId: 0,
+      userId: user.userId,
       name: user.name,
       role: user.role,
       emailAddress: user.emailAddress,
-      password: hashedPassword,
+      password: user.password || '', // Assuming password is optional for the update
     };
-    return this.httpClient.put<UserDto>(
-      `${this.apiUrl}/${user.userId}`,
-      userDto
-    );
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    return this.httpClient.put<any>(`${this.apiUrl}/${user.userId}`, userDto, { headers });
   }
 
   deleteUser(id: number): Observable<void> {

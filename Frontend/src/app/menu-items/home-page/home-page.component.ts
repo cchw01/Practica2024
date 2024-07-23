@@ -1,36 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { AirportListMockService } from '../../app-logic/services/airport-service';
 import { AirportItem } from '../../app-logic/models/airport-item';
-import { DiscountListMockService } from '../../app-logic/discount-list-mock.service';
+import { DiscountService } from '../../app-logic/services/discount.service';
 import { DiscountItem } from '../../app-logic/models/discount-item';
 import { Router } from '@angular/router';
 import { format } from 'date-fns';
 import { FormControl, Validators, AbstractControl, FormGroup  } from '@angular/forms';
 import { DiscountImageGalleryService } from '../../app-logic/services/discount-image-gallery.service';
 
-
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-
   styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent implements OnInit {
-  minDate : Date;                   // minimum date a user can pick
-  form: FormGroup;                  // used to validate information picked
-
+  minDate: Date;
+  form: FormGroup;
   formData: { [key: string]: any } = {
     departingAirport: '',
     destinationAirport: '',
     departingTime: '',
     returnTime: '',
   };
-
+  
   seasonDiscountImages: { [key: string]: string[] } = {};
   usedImages: { [key: string]: string[] } = {};
   imageMapping: { [discountId: number]: string } = {};
 
-  description: string = 'Example description'; 
+  description: string = 'Example description';
   errorMessage = '';
   currentSlide: number = 0;
   airports: AirportItem[] = [];
@@ -41,21 +38,24 @@ export class HomePageComponent implements OnInit {
     private discountListMockService: DiscountListMockService,
     private router: Router,
     private discountImageGalleryService: DiscountImageGalleryService
+    private discountService: DiscountService,
+    private router: Router
   ) {
     this.minDate = new Date();
     this.form = new FormGroup({
       departingAirport: new FormControl('', Validators.required),
       destinationAirport: new FormControl('', Validators.required),
-      departingTime: new FormControl('', [Validators.required, this.noPastDatesValidator.bind(this)]),
-      //returnTime: new FormControl({ value: '', disabled: true }, [Validators.required, this.noPastDatesValidator.bind(this), this.returnDateAfterDepartingDateValidator.bind(this)]),
-      passengers: new FormControl({ value: 1, disabled: true })
+      departingTime: new FormControl('', [
+        Validators.required,
+        this.noPastDatesValidator.bind(this),
+      ]),
+      passengers: new FormControl({ value: 1, disabled: true }),
     });
   }
 
   noPastDatesValidator(
     control: AbstractControl
   ): { [key: string]: boolean } | null {
-    //checks if the selected departingDate is in the past and returns an error object if true
     const currentDate = new Date();
     if (control.value && control.value < currentDate) {
       return { pastDate: true };
@@ -68,7 +68,9 @@ export class HomePageComponent implements OnInit {
   };
 
   getAirportByName(airportName: string): AirportItem | undefined {
-    const airport = this.airports.find(airport => airport.airportName === airportName);
+    const airport = this.airports.find(
+      (airport) => airport.airportName === airportName
+    );
     console.log(`Finding airport for ${airportName}:`, airport);
     return airport;
   }
@@ -101,7 +103,12 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
     this.airportListMockService.getDataAirports().subscribe((data) => {
       this.airports = data;
-      console.log('Airports:', this.airports); 
+      console.log('Airports:', this.airports);
+    });
+
+    this.discountService.getDiscounts().subscribe((data) => {
+      this.discounts = data;
+      console.log('Discounts:', this.discounts);
     });
     this.discounts = this.discountListMockService.getDataDiscounts();
     this.seasonDiscountImages = this.discountImageGalleryService.getSeasonImages();
@@ -113,18 +120,26 @@ export class HomePageComponent implements OnInit {
     const value = event.value;                             // get the date value from event.value
     if(field == "departingTime") {
       const formattedDate = format(new Date(value), 'dd.MM.yyyy');
+      const value = event.value;
+    if (field == 'departingTime') {
+      const formattedDate = format(new Date(value), 'dd-MM-yyyy');
       this.formData[field] = formattedDate;
-      //this.form.get(field)?.setValue(formattedDate);     // update the FormControl value
     } else {
       this.formData[field] = value;
     }
-    console.log(`Updated ${field}:`, this.formData[field]); 
+    console.log(`Updated ${field}:`, this.formData[field]);
   }
 
   onSubmit() {
-    const departingAirport = this.getAirportByName(this.formData['departingAirport']);
-    const destinationAirport = this.getAirportByName(this.formData['destinationAirport']);
-    console.log(`${departingAirport?.airportId}    ${destinationAirport?.airportId}`);
+    const departingAirport = this.getAirportByName(
+      this.formData['departingAirport']
+    );
+    const destinationAirport = this.getAirportByName(
+      this.formData['destinationAirport']
+    );
+    console.log(
+      `${departingAirport?.airportId}    ${destinationAirport?.airportId}`
+    );
 
     if (this.form.invalid) {
       console.log('Form is invalid');
@@ -138,11 +153,15 @@ export class HomePageComponent implements OnInit {
     }
     console.log(this.formData);
     if (departingAirport && destinationAirport) {
-      console.log("Going to the route:  " + `/flights/${departingAirport.airportId}/${destinationAirport.airportId}/${this.formData['departingTime']}`);
+      console.log(
+        'Going to the route:  ' +
+          `/flights/${departingAirport.airportId}/${destinationAirport.airportId}/${this.formData['departingTime']}`
+      );
       this.router.navigate(
         [
-           `/flights/${departingAirport.airportId}/${destinationAirport.airportId}/${this.formData['departingTime']}`
-        ], { queryParams: this.formData });
+          `/flights/${departingAirport.airportId}/${destinationAirport.airportId}/${this.formData['departingTime']}`,
+        ],
+      );
     } else {
       console.log(this.errorMessage);
     }

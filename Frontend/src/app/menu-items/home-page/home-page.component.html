@@ -1,8 +1,9 @@
 <div class="container">
   <img src="../../../assets/images/background-image.jpg" alt="background image" />
   <div class="overlay">
+    <h4 class="widget-title">BOOK YOUR FLIGHT NOW!</h4>
+    <div class="form-container">
     <form [formGroup]="form">
-      <div class="form-container">
         <!--Departing Airport selector-->
         <mat-form-field appearance="outline" class="custom-form-field">
           <mat-label>Departing Airport</mat-label>
@@ -60,10 +61,13 @@
           <mat-label>Passengers:</mat-label>
           <input matInput type="number" formControlName="passengers" [disabled]="true">
         </mat-form-field>
-      </div>
+      
     
-      <button type="submit" [disabled]="form.invalid" (click)="onSubmit()">Search</button>
+      <button type="submit" [disabled]="form.invalid" (click)="onSubmit()">
+        <mat-icon style="margin-bottom: -5px;">search</mat-icon>
+        Search</button>
     </form>
+  </div>
   </div>
 
   <!-- Container pentru discounturi -->
