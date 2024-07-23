@@ -225,4 +225,5 @@ export class FlightService {
   private convertToFlightTime(flightTime: number): Date {
     return new Date(flightTime * 60 * 1000);
   }
+  
 }

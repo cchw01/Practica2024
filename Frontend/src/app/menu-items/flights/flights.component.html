@@ -1,6 +1,7 @@
 <div class="flights-container">
-  @for(flightItem of flights; track flightItem.flightNumber) {
-  <app-flight [flightItem]="flightItem"></app-flight>
-  }
+  <ng-container *ngFor="let flightItem of flights; trackBy: trackByFlightNumber">
+    <app-flight [flightItem]="flightItem"></app-flight>
+    <div class="flight-pricing"></div>
+  </ng-container>
   <app-footer></app-footer>
 </div>
