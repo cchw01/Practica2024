@@ -73,7 +73,7 @@
       <div class="carousel-inner" [style.transform]="getTransform()">
         <div class="carousel-item" *ngFor="let discount of discounts; let i = index" [ngClass]="{'active': i === 0}">
           <div class="discount-item">
-            <img  style ="height:300px"[src]="getImageForDiscount(discount)" alt="Discount image">
+            <img  style ="height:300px" [src]="getImageForDiscount(discount)" alt="Discount image">
             <div class="carousel-caption">
               <h3>{{ discount.discountName }}</h3>
               <p>{{ discount.discountDescription }}</p>

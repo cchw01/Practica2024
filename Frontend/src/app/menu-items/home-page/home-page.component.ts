@@ -116,9 +116,12 @@ export class HomePageComponent implements OnInit {
     while (true) {
         selectedImage = images[Math.floor(Math.random() * images.length)];
         const imageIsUsed = this.usedImages[season].includes(selectedImage);
+        if (this.usedImages[season].length == this.seasonDiscountImages[season].length)
+          this.usedImages[season] = [];
         if (!imageIsUsed) {
             this.usedImages[season] = [...this.usedImages[season], selectedImage];
             return selectedImage;
+            break;                                                
         } 
       }
     }
