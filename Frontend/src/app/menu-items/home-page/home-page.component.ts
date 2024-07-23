@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { AirportListMockService } from '../../app-logic/services/airport-service';
 import { AirportItem } from '../../app-logic/models/airport-item';
+import { AircraftsListMockServices } from '../../app-logic/services/aircrafts-service';
 import { DiscountService } from '../../app-logic/services/discount.service';
 import { DiscountItem } from '../../app-logic/models/discount-item';
 import { Router } from '@angular/router';
 import { format } from 'date-fns';
 import { FormControl, Validators, AbstractControl, FormGroup  } from '@angular/forms';
 import { DiscountImageGalleryService } from '../../app-logic/services/discount-image-gallery.service';
+import { AirportListMockService } from '../../app-logic/services/airport-service';
 
 @Component({
   selector: 'app-home-page',
@@ -34,10 +35,8 @@ export class HomePageComponent implements OnInit {
   discounts: DiscountItem[] = [];
 
   constructor(
-    private airportListMockService: AirportListMockService,
-    private discountListMockService: DiscountListMockService,
-    private router: Router,
-    private discountImageGalleryService: DiscountImageGalleryService
+    private discountImageGalleryService: DiscountImageGalleryService,
+    private airportService : AirportListMockService,
     private discountService: DiscountService,
     private router: Router
   ) {
@@ -101,7 +100,7 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.airportListMockService.getDataAirports().subscribe((data) => {
+    this.airportService.getDataAirports().subscribe((data) => {
       this.airports = data;
       console.log('Airports:', this.airports);
     });
@@ -110,17 +109,17 @@ export class HomePageComponent implements OnInit {
       this.discounts = data;
       console.log('Discounts:', this.discounts);
     });
-    this.discounts = this.discountListMockService.getDataDiscounts();
-    this.seasonDiscountImages = this.discountImageGalleryService.getSeasonImages();
-    this.initializeImageMapping();
+    this.discountService.getDiscounts().subscribe((data) => {
+      this.discounts = data
+      this.seasonDiscountImages = this.discountImageGalleryService.getSeasonImages();
+      this.initializeImageMapping();
+      });
+    
   }
 
   onInputChange(event: any, field: string) {
     console.log(`onInputChange called for ${field}`);
     const value = event.value;                             // get the date value from event.value
-    if(field == "departingTime") {
-      const formattedDate = format(new Date(value), 'dd.MM.yyyy');
-      const value = event.value;
     if (field == 'departingTime') {
       const formattedDate = format(new Date(value), 'dd-MM-yyyy');
       this.formData[field] = formattedDate;
@@ -129,6 +128,7 @@ export class HomePageComponent implements OnInit {
     }
     console.log(`Updated ${field}:`, this.formData[field]);
   }
+  
 
   onSubmit() {
     const departingAirport = this.getAirportByName(

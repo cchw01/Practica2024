@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DiscountDto } from '../DTOs/discount-dto';
 import { FlightDto } from '../DTOs/flight-dto';
+import { DiscountItem } from '../models/discount-item';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +15,8 @@ export class DiscountService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getDiscounts(): Observable<Array<DiscountDto>> {
-    return this.httpClient.get<Array<DiscountDto>>(this.apiUrl);
+  getDiscounts(): Observable<Array<DiscountItem>> {
+    return this.httpClient.get<Array<DiscountItem>>(this.apiUrl);
   }
 
   addDiscount(discount: DiscountDto): Observable<DiscountDto> {
