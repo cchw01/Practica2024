@@ -51,6 +51,5 @@ namespace Backend.Services
             _mapper.Map(item, ticket);
             _context.SaveChanges();
         }
-
     }
 }

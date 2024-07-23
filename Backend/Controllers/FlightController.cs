@@ -100,5 +100,18 @@ namespace Backend.Controllers
                 return BadRequest("The request is not valid!");
             }
         }
+        [HttpGet("{departingAirportId}/{destinationAirportId}/{departureDate}")]
+        public IActionResult SearchFlights(int departingAirportId,int destinationAirportId,DateTime departureDate)
+        {
+            try
+            {
+                var flights = flightManager.GetFlightsBySearchCriteria(departingAirportId, destinationAirportId, departureDate);
+                return Ok(flights);
+            }
+            catch
+            {
+                return BadRequest("The request is not valid.");
+            }
+        }
     }
 }

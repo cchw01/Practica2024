@@ -28,12 +28,25 @@
   </div>
 </div>
 
+<div class="check-in-list">
+  <h2>Check-ins effectuated</h2>
+  <ul>
+    <li *ngFor="let element of checkInItems">
+      {{ element.ticketId }} - {{ element.passengerName }} - {{ getDocumentTypeLabel(element.idDocumentType) }} - {{ element.documentData }} - {{ element.passengerEmail }}
+      <button (click)="editCheckIn(element)">Edit</button>
+    </li>
+  </ul>
+</div>
+
+
+
+
 <p>Form status: {{ form.status }}</p>
 <div class="options">
   <h2>Possibilities for Check-IN</h2>
-  <div class="header" (click)="toggleContent()">Online Check-in</div>
+  <div class="header" (click)="toggleContent('online')">Online Check-in</div>
   
-<div class="content" [ngClass]="{ show: isContentVisible }">
+<div class="content" [ngClass]="{ show: isOnlineContentVisible }">
   <div class="info-form-container">
     <div class="info-container">
       <p>
@@ -93,7 +106,7 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline">
           <mat-label>Ticket Nr:</mat-label>
-          <input matInput placeholder="Ticket" formControlName="ticketId" type="number" required />
+          <input matInput placeholder="Ticket" formControlName="ticketId" type="number" required [readonly]="isEditing" />
         </mat-form-field>
   
         <mat-form-field appearance="outline">
@@ -121,11 +134,67 @@
         <button  type="submit" [disabled]="!form.valid">Submit</button>
       </form>
     </div>
-    
   </div>
 </div>
 
 
-<div class="header">QR Check-In</div>
-  <qr-code [value]="" size="400"></qr-code>
+<br>
+ <div class="header" (click)="toggleContent('qr')">QR Check-In</div>
+<div class="content" [ngClass]="{ show: isQRContentVisible }">
+  <h1>Aici este Qr-ul.</h1>
+  <div *ngIf="showQR">
+    <div style="display: flex; align-items: center;">
+      <qr-code [value]="qrData" size="200"></qr-code>
+      <button (click)="generatePDF()">Generate PDF</button>
+
+      <div id="pdfContent">
+      <table style="margin-left: 20px;">
+        <tr>
+          <td><strong>Ticket Nr:</strong></td>
+          <td>{{ form.value.ticketId }}</td>
+        </tr>
+        <tr>
+          <td><strong>Passenger Name:</strong></td>
+          <td>{{ form.value.passengerName }}</td>
+        </tr>
+        <tr>
+          <td><strong>Document Type:</strong></td>
+          <td>{{ getDocumentTypeLabel(form.value.idDocumentType) }}</td>
+        </tr>
+        <tr>
+          <td><strong>Date Document:</strong></td>
+          <td>{{ form.value.documentData }}</td>
+        </tr>
+        <tr>
+          <td><strong>Email Pasager:</strong></td>
+          <td>{{ form.value.passengerEmail }}</td>
+        </tr>
+        <tr>
+          <td><strong>Flight ID:</strong></td>
+          <td>{{ ticketData.flightId }}</td>
+        </tr>
+        <tr>
+          <td><strong>User ID:</strong></td>
+          <td>{{ ticketData.userId }}</td>
+        </tr>
+        <tr>
+          <td><strong>Luggage:</strong></td>
+          <td>{{ ticketData.luggage }}</td>
+        </tr>
+        <tr>
+          <td><strong>Price:</strong></td>
+          <td>{{ ticketData.price }}</td>
+        </tr>
+      </table>
+      </div>
+    </div>
+  </div>
 </div>
+
+</div>
+<p>
+  <strong>Note:</strong> If you are travelling within the Schengen area
+  you don't need to fill in the travel document details during the
+  online check-in procedure, since you are not required to provide such
+  details.
+</p>

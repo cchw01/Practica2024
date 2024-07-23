@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { forkJoin, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { CheckInDto } from '../DTOs/check-in-dto';
 import { CheckInItem } from '../models/checkin-item';
 import { TicketDto } from '../DTOs/ticket-dto';
+import { TicketItem } from '../models/ticket-item';
+import { FlightService } from './flights.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +17,7 @@ export class CheckInService {
   ticketApiUrl = "http://localhost:5198/api/Ticket"
 
 
-  constructor(private httpclient: HttpClient) {}
+  constructor(private httpclient: HttpClient, private flightService: FlightService, private userService: UserService) {}
 
   getDataCheckIn(): Observable<CheckInItem[]> {
     return this.httpclient.get<CheckInDto[]>(this.checkInapiUrl).pipe(
@@ -28,13 +31,32 @@ export class CheckInService {
     );
   }
 
+  getTicketByIdNou(ticketId: number): Observable<TicketItem> {
+    return this.httpclient.get<TicketDto>(`${this.ticketApiUrl}/${ticketId}`).pipe(
+      switchMap((ticketDto) =>
+        forkJoin({
+          flight: this.flightService.getFlight(ticketDto.flightId),
+          passenger: this.userService.getUserById(ticketDto.userId)
+        }).pipe(
+          map(({ flight, passenger }) =>
+            new TicketItem({
+              ...ticketDto,
+              flight: flight,
+              passenger: passenger
+            })
+          )
+        )
+      )
+    );
+  }
+
   addCheckIn(checkin: CheckInItem) {
     const checkInDto = this.mapCheckInItemToDto(checkin);
     return this.httpclient.post<CheckInDto>(this.checkInapiUrl, checkInDto);
   }
 
   updateCheckIn(checkin: CheckInDto): Observable<CheckInDto> {
-    const checkInDto = this.mapCheckInItemToDto(checkin);
+    const checkInDto = this.mapCheckInItemToDtoUpdate(checkin);
     return this.httpclient.put<CheckInDto>(this.checkInapiUrl, checkInDto);
   }
   
@@ -69,9 +91,23 @@ export class CheckInService {
     };
   }
 
+  
+  private mapCheckInItemToDtoUpdate(item: CheckInItem): CheckInDto {
+    return {
+      checkInId: item.checkInId,
+      ticketId: item.ticketId,
+      passengerName: item.passengerName,
+      idDocumentType: item.idDocumentType,
+      documentData: item.documentData,
+      checkInStatus: item.checkInStatus,
+      passengerEmail: item.passengerEmail
+    };
+  }
+
   getTickets(): Observable<Array<TicketDto>>{
     return this.httpclient.get<Array<TicketDto>>(this.ticketApiUrl);
 
   }
-}
 
+
+}

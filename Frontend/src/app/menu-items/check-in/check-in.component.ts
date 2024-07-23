@@ -7,6 +7,13 @@ import {
 } from '../../app-logic/models/checkin-item';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CheckInService } from '../../app-logic/services/check-in.service';
+import { TicketItem } from '../../app-logic/models/ticket-item';
+
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
+import { ChangeDetectorRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-check-in',
@@ -14,6 +21,9 @@ import { CheckInService } from '../../app-logic/services/check-in.service';
   styleUrls: ['./check-in.component.css'],
 })
 export class CheckInComponent implements OnInit, AfterViewInit {
+  isOnlineContentVisible = false;
+  isQRContentVisible = false;
+
   isContentVisible = false;
   progress = 0;
   checkInItems: any;
@@ -23,6 +33,19 @@ export class CheckInComponent implements OnInit, AfterViewInit {
   form: FormGroup;
   item!: CheckInItem;
   itemId!: number;
+
+  //QR
+  qrData: string = '';
+  showQR: boolean = false;
+
+  //ticket
+  ticketData!: TicketItem; 
+
+  checkInItemsP: CheckInItem[] = [];
+
+  isEditing: boolean = false;
+
+  checkInId!: number;
 
 
   documentTypeOptions = [
@@ -42,11 +65,19 @@ export class CheckInComponent implements OnInit, AfterViewInit {
     'action',
   ];
 
+  
+
   constructor(
     private fb: FormBuilder,
     private checkInService: CheckInService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private activatedRoute: ActivatedRoute
   ) {
+    // evidenta 
+    this.checkInService.getDataCheckIn().subscribe((data) => {
+      this.checkInItems = data; 
+    });
     this.form = this.fb.group({
       ticket: ['', Validators.required],
       passengerName: ['', Validators.required],
@@ -57,6 +88,11 @@ export class CheckInComponent implements OnInit, AfterViewInit {
 
     this.form.valueChanges.subscribe(() => {
       this.updateProgress();
+      this.updateQrData();
+    });
+
+    this.activatedRoute.params.subscribe((params) => {
+      this.checkInId = params['checkInId'] ? +params['checkInId'] : 0;
     });
   }
 
@@ -65,17 +101,18 @@ export class CheckInComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.itemId = 0;
 
-    this.checkInService.getDataCheckIn().subscribe((data) => {
-      this.checkInItems = new MatTableDataSource<CheckInItem>(data);
-    });
 
-    if (this.itemId != 0)
+
+    
+
+    if (this.itemId != 0) {
+      this.isEditing = true; // Set to true when editing
       this.checkInService.getCheckInById(this.itemId).subscribe((data) => {
         this.item = data;
         console.log(this.item);
         this.InitForm();
       });
-    else {
+    } else {
       this.item = new CheckInItem();
       this.InitForm();
     }
@@ -91,8 +128,9 @@ export class CheckInComponent implements OnInit, AfterViewInit {
     });
   }
 
-  toggleContent() {
-    this.isContentVisible = !this.isContentVisible;
+  toggleContent(contentType: string) {
+    this.isOnlineContentVisible = contentType === 'online' ? !this.isOnlineContentVisible : false;
+    this.isQRContentVisible = contentType === 'qr' ? !this.isQRContentVisible : false;
   }
 
   updateProgress() {
@@ -103,6 +141,10 @@ export class CheckInComponent implements OnInit, AfterViewInit {
     this.progress = (filledFields / totalFields) * 100;
   }
 
+  updateQrData() {
+    this.qrData = JSON.stringify(this.form.value);
+  }
+
   getDocumentTypeLabel(idDocumentType: IdDocumentType): string {
     const option = this.documentTypeOptions.find(
       (opt) => opt.value === idDocumentType
@@ -111,28 +153,94 @@ export class CheckInComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
-    if (this.itemId == 0) {
-      this.item = new CheckInItem(this.form.value);
-      this.item.checkInStatus = true;
-      //this.item.id = this.inventoryListMockService.getLastId() + 1;
-      this.checkInService.addCheckIn(this.item).subscribe({
-        next: (checkIN) => {
-          console.log('CheckIn added:', checkIN);
-          this.router.navigate(['/admin/check-in']);
-        },
-        error: (error) => {
-          console.error('Registration failed:', error);
-          alert('Registration failed. Please try again.');
-        },
-      });
-    } else {
-      this.item.passengerName = this.form.value.passengerName;
-      this.item.idDocumentType = this.form.value.idDocumentType;
-      this.item.documentData = this.form.value.documentData;
-      this.item.passengerEmail = this.form.value.passengerEmail;
-      //this.checkInService.updateCheckIn(this.item);
-    }
-    this.router.navigate(['/']);
+    const ticketId = this.form.value.ticketId;
+  
+    this.checkInService.getTicketByIdNou(ticketId).subscribe({
+      next: (ticket) => {
+        this.ticketData = ticket;
+        this.checkInId=ticket.checkInId;
+        this.qrData = JSON.stringify({
+          ...this.form.value,
+          ticketData: this.ticketData,
+        });
+        this.showQR = true;
+  
+        if (this.itemId == 0) {
+          // Adaugare nou check-in
+          this.item = new CheckInItem(this.form.value);
+          this.item.checkInStatus = true;
+  
+          this.checkInService.addCheckIn(this.item).subscribe({
+            next: (checkIN) => {
+              console.log('CheckIn added:', checkIN);
+              this.checkInItems.push(checkIN);
+            },
+            error: (error) => {
+              console.error('Registration failed:', error);
+              alert('Registration failed. Please try again.');
+            },
+          });
+        } else {
+          // Actualizare check-in existent
+          this.item = { ...this.item, ...this.form.value, checkInId: this.checkInId  };
+  
+          this.checkInService.updateCheckIn(this.item).subscribe({
+            next: (updatedCheckIn) => {
+              console.log('CheckIn updated:', updatedCheckIn);
+              const index = this.checkInItemsP.findIndex((ci: CheckInItem) => ci.checkInId === this.itemId);
+              if (index !== -1) {
+                this.checkInItemsP[index] = updatedCheckIn;
+                this.cdr.detectChanges();
+              }
+            },
+            error: (error) => {
+              console.error('Update failed:', error);
+              alert('Update failed. Please try again.');
+            },
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Failed to get ticket data:', error);
+        alert('Failed to get ticket data. Please try again.');
+      },
+    });
   }
 
+  generatePDF() {
+    console.log('generatePDF called');
+    const data = document.getElementById('pdfContent');
+    console.log('PDF content element:', data);
+  
+    if (!data) {
+      console.error('Element with id "pdfContent" not found.');
+      return;
+    }
+  
+    html2canvas(data).then((canvas) => {
+      const imgWidth = 50;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const contentDataURL = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const position = 0;
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+      pdf.save('CheckInDetails.pdf');
+    });
+  }
+
+  editCheckIn(checkIn: CheckInItem) {
+    this.itemId = checkIn.checkInId; 
+    this.isEditing = true; // Set to true when editing
+    this.form.patchValue({
+      ticketId: checkIn.ticketId,
+      passengerName: checkIn.passengerName,
+      idDocumentType: checkIn.idDocumentType,
+      documentData: checkIn.documentData,
+      passengerEmail: checkIn.passengerEmail,
+    });
+    this.showQR = false; // Ascundem QR-ul pentru edit
+  }
+
+  
+  
 }

@@ -147,9 +147,10 @@
 .price-wrapper {
   display: flex;
   flex: 1;
-  align-items: center;
-  justify-content: center;
+  align-items:center;
+  justify-content:center;
   min-width: 250px;
+  flex-direction: column;
   border-left: 1px solid #e5e5e5;
 }
 
@@ -162,6 +163,18 @@
   padding-block: 1rem;
 }
 
+.normal-price.discounted .price {
+  text-decoration: line-through;
+  color: red;
+}
+
+.discounted-price {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
 .price-type {
   font-size: 0.75rem;
   font-weight: 600;
@@ -170,15 +183,6 @@
 .price {
   font-size: 1.5rem;
   font-weight: 600;
-}
-
-.discount-price {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  padding-block: 1rem;
 }
 
 .btn,
@@ -201,6 +205,9 @@
   color: #673ab7;
 }
 
+.discount-dates{
+  font-weight: 500;
+}
 /* Utility */
 
 .flex {
@@ -208,10 +215,6 @@
   flex: 1;
   align-items: center;
   justify-content: space-between;
-}
-
-.discount {
-  color: #673ab7;
 }
 
 .margin-top {

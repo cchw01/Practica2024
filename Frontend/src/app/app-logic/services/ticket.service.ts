@@ -1,69 +1,97 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { TicketItem } from '../models/ticket-item';
-import { UserItem } from '../models/user-item';
 import { FlightItem } from '../models/flight-item';
+import { TicketDto } from '../DTOs/ticket-dto';
+import { FlightService } from './flights.service';
+import { UserService } from './user.service';
+import { UserItem } from '../models/user-item';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TicketService {
-apiUrl = "http://localhost:5198/api/Ticket"
-apiUrlF = "http://localhost:5198/api/Flight"
-apiUrlU = "http://localhost:5198/api/User"
+private apiUrl = "http://localhost:5198/api/Ticket"
 
-  constructor(private httpclient:HttpClient) { }
   
-  getTickets():Observable< Array<TicketItem>> {
-    var ticketList:Array<TicketItem> = new Array;
-    return this.httpclient.get<Array<TicketItem>>(this.apiUrl);
-  }
-
-  addTicket(item: TicketItem): void {
-    var result;
-    this.httpclient.post<TicketItem>(this.apiUrl, item).subscribe(data=>{
-      result = data;
-      console.log(result);
-    });
-  }
-
-  getTicketId(id:number):Observable< TicketItem> {
-    return this.httpclient.get(this.apiUrl + "/" + id) as Observable<TicketItem>;
-   }
-
-   updateTicket(item: TicketItem) : void {
-    var result;
-    this.httpclient.put<TicketItem>(this.apiUrl, item).subscribe(data=>{
-      result = data;
-      console.log(result);
-    });}
-
-    deleteTicket(id: number) :void
-    {
-      var result;
-        this.httpclient.delete<TicketItem>(this.apiUrl+ "/" + id).subscribe(data=>{
-          result = data;
-          console.log(result);
-        });
+    constructor(
+      private http: HttpClient,
+      private userService: UserService,
+      private flightService: FlightService
+    ) {}
+  
+    getTickets(): Observable<TicketItem[]> {
+      return this.http.get<TicketDto[]>(this.apiUrl).pipe(
+        switchMap((ticketDtos) => {
+          if (ticketDtos.length === 0) return [];
+          return forkJoin(
+            ticketDtos.map((ticketDto) =>
+              forkJoin({
+                flight: this.flightService.getFlight(ticketDto.flightId),
+                passenger: this.userService.getUserById(ticketDto.userId)
+              }).pipe(
+                map(({ flight, passenger }) =>
+                  new TicketItem({
+                    ...ticketDto,
+                    flight: flight,
+                    passenger: passenger
+                  })
+                )
+              )
+            )
+          );
+        })
+      );
     }
+  
+    getTicketById(ticketId: number): Observable<TicketItem> {
+      return this.http.get<TicketDto>(`${this.apiUrl}/${ticketId}`).pipe(
+        switchMap((ticketDto) =>
+          forkJoin({
+            flight: this.flightService.getFlight(ticketDto.flightId),
+            passenger: this.userService.getUserById(ticketDto.userId)
+          }).pipe(
+            map(({ flight, passenger }) =>
+              new TicketItem({
+                ...ticketDto,
+                flight: flight,
+                passenger: passenger
+              })
+            )
+          )
+        )
+      );
+    }
+
     
-   
-    getDataUsers():Observable< Array<UserItem>> {
-      var usersList:Array<UserItem> = new Array;
-      return this.httpclient.get<Array<UserItem>>(this.apiUrlU);
+  
+    addTicket(ticket: TicketItem): Observable<void> {
+      const ticketDto: TicketDto = {
+        ticketId: 0, 
+        flightId: ticket.flight.flightNumber,
+        userId: ticket.passenger.userId,
+        checkInId: ticket.checkInId,
+        luggage: ticket.luggage,
+        price: ticket.price
+      };
+      return this.http.post<void>(this.apiUrl, ticketDto);
+    }
+  
+    updateTicket(ticket: TicketItem): Observable<TicketItem> {
+      const ticketDto: TicketDto = {
+        ...ticket, 
+        flightId: ticket.flight.flightNumber,
+        userId: ticket.passenger.userId
+      };
+      return this.http.put<TicketDto>(`${this.apiUrl}`, ticketDto).pipe(
+        switchMap(() => this.getTicketById(ticket.ticketId))
+      );
+    }
+  
+    deleteTicket(ticketId: number): Observable<void> {
+      return this.http.delete<void>(`${this.apiUrl}/${ticketId}`);
     }
 
 
-    getDataFlights():Observable< Array<FlightItem>> {
-      var fligtList:Array<FlightItem> = new Array;
-      return this.httpclient.get<Array<FlightItem>>(this.apiUrlF);
-    }
-
-    getFlightId(id:number):Observable< FlightItem> {
-      return this.httpclient.get(this.apiUrlF + "/" + id) as Observable<FlightItem>;
-     }
-     getUserId(id:number):Observable< UserItem> {
-      return this.httpclient.get(this.apiUrlU + "/" + id) as Observable<UserItem>;
-     }
-} 
+}

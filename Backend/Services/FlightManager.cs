@@ -4,6 +4,7 @@ using Backend.ApplicationDBContext;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using Backend.DTOs;
+using System.Diagnostics.Metrics;
 
 namespace Backend.Services
 {
@@ -73,6 +74,17 @@ namespace Backend.Services
 
             var users = flight.PassengerList.Select(t => t.User).ToList();
             return _mapper.Map<List<UserDto>>(users);
+        }
+        public List<FlightDto> GetFlightsBySearchCriteria(int departingAirportId, int destinationAirportId, DateTime departureDate)
+        {
+            var flights = _context.Flights
+                .Include(f => f.Discount)
+                .Where(f => f.DepartingAirportId == departingAirportId &&
+                            f.DestinationAirportId == destinationAirportId &&
+                            f.DepartingTime.Date == departureDate.Date)
+                .ToList();
+
+            return _mapper.Map<List<FlightDto>>(flights);
         }
     }
 }

@@ -1,50 +1,78 @@
 <div class="content-wrapper">
   <div id="navigation-bar">
-    <img src="../assets/images/watery_logo.png" id="watery_logo">
+    <a routerLink="/"><img src="../assets/images/watery_logo.png" id="watery_logo"></a>
     <span class="spacer"></span>
-    <div>
+    <div class="nav_item">
       <div>
           <a routerLink="/">Home</a>
       </div>
     </div>
-    <div>
-      <div>
-          <a routerLink="/login">Log In</a>
-      </div>
-    </div>
-    <div>
+    <!--PASSAGER -->
+
+    <div *ngIf="!isAdmin" class="nav_item">
       <div>
           <a routerLink="/flights">Flights</a>
       </div>
     </div>
-    <div>
+    <div *ngIf="!isAdmin" class="nav_item">
       <div>
           <a routerLink="/check-in">Check In</a>
       </div>
     </div>
-    <div>
-      <div>
-          <a  routerLink="/user-profile">My Profile</a>
-      </div>
-    </div>
-    <div>
+    <div *ngIf="!isAdmin" class="nav_item">
       <div>
           <a  routerLink="/contact">Contact</a>
       </div>
     </div>
-    <div>
+    <div *ngIf="!isAdmin" class="nav_item">
       <div>
-          <a  routerLink="/aircraft">Aircrafts</a>
+
+          <a  routerLink="/user-profile">My Profile</a>
+
+          <a  routerLink="/booking/1">Book Flight</a>
+
       </div>
     </div>
-    <div>
+
+    <!-- ADMIN -->
+
+    <div *ngIf="isAdmin" class="nav_item">
       <div>
-          <a  routerLink="/admin">Admin</a>
+        <a routerLink="/admin/flights">Flights</a>
       </div>
     </div>
-    <div>
+    <div *ngIf="isAdmin" class="nav_item">
       <div>
-          <a  routerLink="/booking/1/1">Book Flight</a>
+        <a routerLink="/admin/discount">Discount</a>
+      </div>
+    </div>
+    <div *ngIf="isAdmin" class="nav_item">
+      <div>
+        <a routerLink="/admin/tickets">Tickets</a>
+      </div>
+    </div>
+    <div *ngIf="isAdmin" class="nav_item">
+      <div>
+
+        <a routerLink="/admin/aircraft">Aircraft</a>
+      </div>
+    </div>
+    <div *ngIf="isAdmin" class="nav_item">
+      <div>
+        <a routerLink="/admin/airport">Airport</a>
+      </div>
+    </div>
+
+    <!-- END ADMIN-->
+
+    <div id="current_user_card" (click)="toggleDropdown()">
+      <img src="../assets/images/user_profile.png">
+      <div id="user_dropdown" class="dropdown-content">
+        <div class="user-name">{{name}}</div>
+        <button *ngIf="isLogged" class="dropdown-button" (click)="goToProfile()" >My Profile</button>
+        <button *ngIf="isLogged" class="dropdown-button" (click)="logout()">Logout</button>
+        <button *ngIf="!isLogged" class="dropdown-button" (click)="login()" >Login/Register</button>
+
       </div>
     </div>
   </div>

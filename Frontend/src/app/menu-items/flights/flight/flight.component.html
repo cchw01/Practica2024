@@ -1,27 +1,8 @@
 <div class="flight-container">
-  <div class="admin-actions">
-    <a href="#">
-      <mat-icon
-        aria-hidden="false"
-        aria-label="Close icon"
-        fontIcon="close"
-        class="icon-close icon-admin"
-      ></mat-icon>
-    </a>
-
-    <a href="#">
-      <mat-icon
-        aria-hidden="false"
-        aria-label="Edit icon"
-        fontIcon="settings"
-        class="icon-edit icon-admin"
-      ></mat-icon>
-    </a>
-  </div>
   <div class="flight-info">
     <div class="flex">
       <div class="flight-date">
-        {{ flightItem.departingTime | date : "longDate" }}
+        {{ flightItem.departingTime | date: 'longDate' }}
       </div>
       <div class="airplane-type">
         {{ flightItem.aircraft.maker }} {{ flightItem.aircraft.model }}
@@ -31,26 +12,17 @@
     <div class="flight-details margin-top">
       <div class="flight-departure">
         <div class="flight-time">
-          {{ flightItem.departingTime | date : "HH:mm" }}
+          {{ flightItem.departingTime | date: 'HH:mm' }}
         </div>
         <div class="flight-airport">
-          <mat-icon
-            aria-hidden="false"
-            aria-label="Takeoff airplane icon"
-            fontIcon="flight_takeoff"
-          ></mat-icon>
+          <mat-icon aria-hidden="false" aria-label="Takeoff airplane icon" fontIcon="flight_takeoff"></mat-icon>
           {{ flightItem.departingAirport.location }}
         </div>
       </div>
 
       <div class="flight-icons">
         <div class="flight-duration">
-          <mat-icon
-            aria-hidden="false"
-            aria-label="Airplane icon"
-            fontIcon="flight"
-            class="flight-icon"
-          ></mat-icon>
+          <mat-icon aria-hidden="false" aria-label="Airplane icon" fontIcon="flight" class="flight-icon"></mat-icon>
         </div>
         <div class="flight-duration-time">
           {{ flightItem.flightTime | formatFlightTime }}
@@ -62,15 +34,11 @@
           {{
             flightItem.departingTime
               | arrival : flightItem.flightTime
-              | date : "HH:mm"
+              | date: 'HH:mm'
           }}
         </div>
         <div class="flight-airport">
-          <mat-icon
-            aria-hidden="false"
-            aria-label="Arriving airplane icon"
-            fontIcon="flight_land"
-          ></mat-icon>
+          <mat-icon aria-hidden="false" aria-label="Arriving airplane icon" fontIcon="flight_land"></mat-icon>
           {{ flightItem.destinationAirport.location }}
         </div>
       </div>
@@ -83,20 +51,20 @@
 
   <div class="flight-prices">
     <div class="price-wrapper">
-      <div class="normal-price">
+      <div class="normal-price" [class.discounted]="flightItem.discountOffer && isDiscountValid(flightItem.discountOffer)">
         <div class="price-type">Normal price</div>
-        <div class="price">{{ flightItem.flightCost }}$</div>
-        <button type="button" class="btn">Select</button>
+        <div class="price">{{ flightItem.flightCost | currency }}</div>
       </div>
-    </div>
-    <div class="price-wrapper">
-      <div class="discount-price">
-        <div class="price-type">Discount Price</div>
-        <div class="price discount">
-        {{ discountedPrice }}$
+      <div *ngIf="flightItem.discountOffer && isDiscountValid(flightItem.discountOffer)" class="discounted-price">
+        <div class="price-type">Discounted price</div>
+        <div class="price" >
+          {{ discountedPrice | currency }}
         </div>
-        <button type="button" class="btn">Select</button>
+        <div class="discount-dates">
+          Available until {{  flightItem.discountOffer.endDate | date: 'd MMMM, y' }}
+        </div>
       </div>
+      <button type="button" style="margin-bottom: 8px" class="btn">Select</button>
     </div>
   </div>
 </div>

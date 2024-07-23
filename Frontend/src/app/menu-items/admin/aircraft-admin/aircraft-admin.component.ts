@@ -1,21 +1,19 @@
-
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { AircraftComponent } from '../../aircraft-list/aircraft-list.component';
 import { AircraftsListMockServices } from '../../../app-logic/services/aircrafts-service';
 import { AircraftDto } from '../../../app-logic/DTOs/aircraft-dto';
 
 @Component({
   selector: 'app-aircraft-admin',
   templateUrl: './aircraft-admin.component.html',
-  styleUrl: './aircraft-admin.component.css'
+  styleUrl: './aircraft-admin.component.css',
 })
 export class AircraftAdminComponent {
   aircraftData: MatTableDataSource<AircraftDto>;
-  discountColumns: string[] = [
+  aircraftColumns: string[] = [
     'select',
     'AircraftId',
     'registrationNumber',
@@ -25,9 +23,8 @@ export class AircraftAdminComponent {
     'autonomyInHours',
     'maxCargo',
     'edit',
-    'delete'
+    'delete',
   ];
-  selection = new SelectionModel<AircraftComponent>(true, []);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -41,7 +38,7 @@ export class AircraftAdminComponent {
   }
 
   loadAircrafts() {
-    this.aircraftService.getData().subscribe(aircrafts => {
+    this.aircraftService.getData().subscribe((aircrafts) => {
       this.aircraftData.data = aircrafts;
       this.aircraftData.paginator = this.paginator;
       this.aircraftData.sort = this.sort;
@@ -56,11 +53,9 @@ export class AircraftAdminComponent {
     }
   }
 
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.aircraftData.data.length;
-    return numSelected === numRows;
-  }
-
-  
+  // isAllSelected() {
+  //   const numSelected = this.selection.selected.length;
+  //   const numRows = this.aircraftData.data.length;
+  //   return numSelected === numRows;
+  // }
 }

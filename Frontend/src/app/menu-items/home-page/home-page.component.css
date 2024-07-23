@@ -15,9 +15,9 @@
   top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 90%;
+  width: 84.5%;
   height: auto;
-  background-color: rgba(255, 255, 255, 0.218);
+  background-color: rgb(255, 255, 255);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -180,3 +180,31 @@ button:hover {
 .carousel-control-next {
   right: 0px; /* Adjusted to be outside the carousel items */
 }
+
+.custom-form-field{
+  height: 100px;
+}
+
+.form-container{
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 30px;
+}
+
+/*--------------------------------------------
+        mat-form-field-customization
+---------------------------------------------*/
+
+/* Mat Input Color On Focus*/
+::ng-deep .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
+  color:#0a4c6b;
+  font-size: 12px;
+}
+
+::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
+  color: #0a4c6b;
+}
+
+
+
+

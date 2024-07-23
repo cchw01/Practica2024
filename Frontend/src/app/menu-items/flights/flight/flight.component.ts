@@ -1,13 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FlightItem } from '../../../app-logic/models/flight-item';
+import { DiscountItem } from '../../../app-logic/models/discount-item';
 
 @Component({
   selector: 'app-flight',
   templateUrl: './flight.component.html',
-  styleUrl: './flight.component.css',
+  styleUrls: ['./flight.component.css'],
 })
 export class FlightComponent {
   @Input() flightItem!: FlightItem;
+
   get discountedPrice(): number {
     if (
       this.flightItem.discountOffer &&
@@ -21,5 +23,10 @@ export class FlightComponent {
       );
     }
     return this.flightItem.flightCost; // Return original price if no discount
+  }
+
+  isDiscountValid(discount: DiscountItem): boolean {
+    const currentDate = new Date();
+    return discount && currentDate >= discount.startDate && currentDate <= discount.endDate;
   }
 }
