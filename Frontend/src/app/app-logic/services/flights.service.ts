@@ -220,13 +220,7 @@ export class FlightService {
     return this.http
       .get<FlightDto[]>(
         `${this.apiUrl}/Flight/${departingAirportId}/${destinationAirportId}/${departureDate}`,
-        {
-          params: {
-            departingAirportId: departingAirportId.toString(),
-            destinationAirportId: destinationAirportId.toString(),
-            departureDate: departureDate.toISOString(),
-          },
-        }
+        
       )
       .pipe(
         switchMap((flightDtos) => {

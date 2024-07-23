@@ -121,7 +121,7 @@ export class HomePageComponent implements OnInit {
     console.log(`onInputChange called for ${field}`);
     const value = event.value;                             // get the date value from event.value
     if (field == 'departingTime') {
-      const formattedDate = format(new Date(value), 'dd-MM-yyyy');
+      const formattedDate = format(new Date(value), 'yyyy-MM-dd');
       this.formData[field] = formattedDate;
     } else {
       this.formData[field] = value;

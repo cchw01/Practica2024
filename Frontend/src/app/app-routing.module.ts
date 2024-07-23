@@ -32,47 +32,11 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuardService] },
   { path: 'tickets', component: TicketsComponent, canActivate: [AuthGuardService] },
-  { path: 'check-in', component: CheckInComponent },
-  { path: 'flights', component: FlightsComponent },
-  { path: 'flights/:id', component: FlightComponent },
-  { path: 'user-profile', component: UserProfileComponent },
-  { path: 'admin/discount', component: DiscountAdminComponent },
-  { path: 'admin/discount/create', component: AddDiscountComponent },
-  { path: 'admin/discount/create/:id', component: AddDiscountComponent },
-  { path: 'booking/:flightId', component: BookingComponent },
-  { path: 'tickets', component: TicketsComponent },
-  { path: 'register', component: RegisterComponent },
-
-  { path: 'admin/aircraft', component: AircraftAdminComponent },
-  { path: 'admin/aircraft/create', component: AddAircraftComponent },
-  { path: 'admin/aircraft/create/:id', component: AddAircraftComponent },
-  { path: 'admin/flights', component: FlightsAdminComponent },
-  { path: 'admin/flights/create', component: AddFlightComponent },
-  { path: 'admin/flights/create/:id', component: AddFlightComponent },
-  
-  {path: 'admin/airport', component: AirportAdminComponent},
-  {path: 'admin/airport/create', component:AddAirportComponent},
-  {path: 'admin/airport/create/:id', component:AddAirportComponent},
-
-  {path: 'admin/check-in', component: CheckInAdminComponent },
-  {path: 'admin/check-in/create', component: AddCheckInComponent},
-  {path: 'admin/check-in/create/:id', component: AddCheckInComponent},
-
-  {path: 'admin/tickets', component: TicketsComponent},
-  {path: 'flights/:departingAirportId/:destinationAirportId/:departingTime', component: FlightsComponent},
-
-  { path: 'admin/airport', component: AirportAdminComponent },
-  { path: 'admin/airport/create', component: AddAirportComponent },
-  { path: 'admin/airport/create/:id', component: AddAirportComponent },
-
-  { path: 'admin/check-in', component: CheckInAdminComponent },
-  { path: 'admin/check-in/create', component: AddCheckInComponent },
-  { path: 'admin/check-in/create/:id', component: AddCheckInComponent },
-
-  { path: 'admin/tickets', component: TicketsComponent },
-
-  { path: 'booking/:flightId', component: BookingComponent, canActivate: [AuthGuardService] },
+  { path: 'check-in', component: CheckInComponent},
+  { path: 'flights', component: FlightsComponent},
+  { path: 'flights/:id', component: FlightComponent},
   { path: 'flights/:departingAirportId/:destinationAirportId/:departingTime', component: FlightsComponent },
+  { path: 'booking/:flightId', component: BookingComponent, canActivate: [AuthGuardService] },
 
   {
     path: 'admin',
