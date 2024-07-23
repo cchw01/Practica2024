@@ -100,8 +100,8 @@ namespace Backend.Controllers
                 return BadRequest("The request is not valid!");
             }
         }
-        [HttpGet("search")]
-        public IActionResult SearchFlights([FromQuery] int departingAirportId, [FromQuery] int destinationAirportId, [FromQuery] DateTime departureDate)
+        [HttpGet("{departingAirportId}/{destinationAirportId}/{departureDate}")]
+        public IActionResult SearchFlights(int departingAirportId,int destinationAirportId,DateTime departureDate)
         {
             try
             {
