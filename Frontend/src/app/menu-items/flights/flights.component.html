@@ -1,6 +1,9 @@
 <div class="flights-container">
-  @for(flightItem of flights; track flightItem.flightNumber) {
-  <app-flight [flightItem]="flightItem"></app-flight>
-  }
+  <div class="container-wrap">
+    <div *ngFor="let flightItem of flights; trackBy: trackByFlightNumber">
+      <app-flight [flightItem]="flightItem"></app-flight>
+      <button (click)="bookFlight(flightItem.flightNumber)">Book Flight</button>
+    </div>
+  </div>
   <app-footer></app-footer>
 </div>

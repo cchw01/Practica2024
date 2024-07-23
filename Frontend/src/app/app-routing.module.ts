@@ -30,6 +30,10 @@ const routes: Routes = [
   { path: 'check-in', component: CheckInComponent },
   { path: 'flights', component: FlightsComponent },
   { path: 'flights/:id', component: FlightComponent },
+  {
+    path: 'flights/:departingAirportId/:destinationAirportId/:departureDate',
+    component: FlightsComponent,
+  },
   { path: 'user-profile', component: UserProfileComponent },
   { path: 'admin/discount', component: DiscountAdminComponent },
   { path: 'admin/discount/create', component: AddDiscountComponent },
