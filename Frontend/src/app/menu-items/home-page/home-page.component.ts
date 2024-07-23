@@ -4,7 +4,6 @@ import { AirportItem } from '../../app-logic/models/airport-item';
 import { DiscountListMockService } from '../../app-logic/discount-list-mock.service';
 import { DiscountItem } from '../../app-logic/models/discount-item';
 import { Router } from '@angular/router';
-import { FormControl, Validators, AbstractControl, FormGroup } from '@angular/forms';
 import { format } from 'date-fns';
 import { ContentObserver } from '@angular/cdk/observers';
 import { FormControl, Validators, AbstractControl, FormGroup  } from '@angular/forms';
