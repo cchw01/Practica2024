@@ -45,9 +45,25 @@ const routes: Routes = [
   { path: 'admin/flights/create', component: AddFlightComponent },
   { path: 'admin/flights/create/:id', component: AddFlightComponent },
 
+
+  { path: 'admin/aircraft',component: AircraftAdminComponent},
+  {path: 'admin/aircraft/create', component: AddAircraftComponent},
+  {path: 'admin/aircraft/create/:id', component: AddAircraftComponent},
+
+  {path: 'admin/airport', component: AirportAdminComponent},
+  {path: 'admin/airport/create', component:AddAirportComponent},
+  {path: 'admin/airport/create/:id', component:AddAirportComponent},
+
+  {path: 'admin/check-in', component: CheckInAdminComponent },
+  {path: 'admin/check-in/create', component: AddCheckInComponent},
+  {path: 'admin/check-in/create/:id', component: AddCheckInComponent},
+
+  {path: 'admin/tickets', component: TicketsComponent},
+  {path: 'flights/:departingAirportId/:destinationAirportId/:departingTime', component: FlightsComponent},
   { path: 'admin/airport', component: AirportAdminComponent },
   { path: 'admin/airport/create', component: AddAirportComponent },
   { path: 'admin/airport/create/:id', component: AddAirportComponent },
+
 
   { path: 'admin/check-in', component: CheckInAdminComponent },
   { path: 'admin/check-in/create', component: AddCheckInComponent },
