@@ -155,42 +155,35 @@ export class FlightService {
       );
   }
 
-  addFlight(flight: FlightItem): Observable<FlightItem> {
+  addFlight(flight: FlightItem): Observable<void> {
     const flightDto: FlightDto = {
-      flightNumber: flight.flightNumber,
-      departingAirportId: flight.departingAirport.airportId,
-      destinationAirportId: flight.destinationAirport.airportId,
-      aircraftId: flight.aircraft.aircraftId,
+      flightNumber: 0,
+      departingAirportId: flight.departingAirportId,
+      destinationAirportId: flight.destinationAirportId,
+      aircraftId: flight.aircraftId,
       departingTime: flight.departingTime,
       flightTime: this.convertToFlightTime(flight.flightTime),
       flightCost: flight.flightCost,
       discountId: flight.discountOffer?.discountId,
     };
-
-    return this.http
-      .post<FlightDto>(`${this.apiUrl}/Flight`, flightDto)
-      .pipe(
-        switchMap((returnedFlightDto) =>
-          this.getFlight(returnedFlightDto.flightNumber)
-        )
-      );
+    return this.http.post<void>(`${this.apiUrl}/Flight`, flightDto);
+      
   }
 
-  updateFlight(flight: FlightItem): Observable<FlightItem> {
+  updateFlight(flight: FlightItem): Observable<void> {
     const flightDto: FlightDto = {
       flightNumber: flight.flightNumber,
-      departingAirportId: flight.departingAirport.airportId,
-      destinationAirportId: flight.destinationAirport.airportId,
-      aircraftId: flight.aircraft.aircraftId,
+      departingAirportId: flight.departingAirportId,
+      destinationAirportId: flight.destinationAirportId,
+      aircraftId: flight.aircraftId,
       departingTime: flight.departingTime,
       flightTime: this.convertToFlightTime(flight.flightTime),
       flightCost: flight.flightCost,
       discountId: flight.discountOffer?.discountId,
     };
 
-    return this.http
-      .put<FlightDto>(`${this.apiUrl}/Flight/${flight.flightNumber}`, flightDto)
-      .pipe(switchMap(() => this.getFlight(flight.flightNumber)));
+    return this.http.put<void>(`${this.apiUrl}/Flight`, flightDto)
+
   }
 
   deleteFlight(flightNumber: number): Observable<any> {

@@ -11,6 +11,9 @@ export class FlightItem {
   aircraft!: AircraftItem;
   flightCost!: number;
   discountOffer?: DiscountItem;
+  departingAirportId!: number;
+  destinationAirportId!: number;
+  aircraftId!:number;
 
   constructor(flight?: Partial<FlightItem>) {
     Object.assign(this, flight);
