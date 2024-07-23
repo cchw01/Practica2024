@@ -6,7 +6,7 @@ import { DiscountDto } from '../DTOs/discount-dto';
 import { FlightDto } from '../DTOs/flight-dto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DiscountService {
   apiUrl = 'http://localhost:5198/api/Discount';
@@ -34,7 +34,9 @@ export class DiscountService {
 
   getLastId(): Observable<number> {
     return this.getDiscounts().pipe(
-      map((discounts: DiscountDto[]) => Math.max(0, ...discounts.map(d => d.discountId)))
+      map((discounts: DiscountDto[]) =>
+        Math.max(0, ...discounts.map((d) => d.discountId))
+      )
     );
   }
 
