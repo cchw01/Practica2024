@@ -7,6 +7,7 @@ import { UserItem } from './models/user-item';
 import { TicketItem } from './models/ticket-item';
 import { CheckInItem, IdDocumentType } from './models/checkin-item';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -46,6 +47,25 @@ export class DiscountListMockService {
       discountPercentage: 10,
       discountName: 'Summer Sale',
       discountDescription: '10% off on all summer flights',
+      startDate: new Date('2024-06-01'),
+      endDate: new Date('2024-08-31'),
+    },
+
+    {
+      discountId: 5,
+      flightId: 0,
+      discountPercentage: 10,
+      discountName: 'City Sale',
+      discountDescription: '10% off on all city flights',
+      startDate: new Date('2024-06-01'),
+      endDate: new Date('2024-08-31'),
+    },
+    {
+      discountId: 5,
+      flightId: 0,
+      discountPercentage: 10,
+      discountName: 'City Sale',
+      discountDescription: '10% off on all flights',
       startDate: new Date('2024-06-01'),
       endDate: new Date('2024-08-31'),
     },

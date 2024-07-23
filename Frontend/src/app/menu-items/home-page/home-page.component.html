@@ -74,8 +74,8 @@
           <div class="discount-item">
             <img  style ="height:300px"[src]="discount.discountDescription.includes('summer') ? '../../../assets/images/summer.jpg' : 
               discount.discountDescription.includes('winter') ? '../../../assets/images/winter.jpg' : 
-              discount.discountDescription.includes('early bookings') ? '../../../assets/images/early-bookings.jpg' : 
-              '../../../assets/images/default.jpg'" alt="Discount image">
+              discount.discountDescription.includes('early bookings') ? '../../../assets/images/early-bookings.jpg': discount.discountDescription.includes('city') ? '../../../assets/images/city.jpg' : 
+              '../../../assets/images/random1.png'" alt="Discount image">
             <div class="carousel-caption">
               <h3>{{ discount.discountName }}</h3>
               <p>{{ discount.discountDescription }}</p>
