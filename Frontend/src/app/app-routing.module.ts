@@ -66,6 +66,7 @@ const routes: Routes = [
   {path: 'admin/check-in/create/:id', component: AddCheckInComponent},
 
   {path: 'admin/tickets', component: TicketsComponent},
+  {path: 'flights/:departingAirportId/:destinationAirportId/:departingTime', component: FlightsComponent},
 
 
 

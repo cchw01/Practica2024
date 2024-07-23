@@ -54,6 +54,8 @@ import { CheckInAdminComponent } from './menu-items/admin/check-in-admin/check-i
 import { AddCheckInComponent } from './menu-items/admin/check-in-admin/add-checkIn/add-check-in/add-check-in.component';
 
 import { QrCodeModule } from 'ng-qrcode';
+import { format, parse } from 'date-fns';
+
 
 @NgModule({
   declarations: [
