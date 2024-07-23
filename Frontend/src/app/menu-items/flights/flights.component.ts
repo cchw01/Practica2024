@@ -23,4 +23,8 @@ export class FlightsComponent implements OnInit {
       }
     );
   }
+
+  trackByFlightNumber(index: number, flight: FlightItem): number {
+    return flight.flightNumber;
+  }
 }

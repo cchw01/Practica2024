@@ -7,19 +7,20 @@ import { TicketService } from '../../app-logic/services/ticket.service';
 import { FlightService } from '../../app-logic/services/flights.service';
 import { UserService } from '../../app-logic/services/user.service';
 import { DiscountPipe } from '../../app-logic/pipes/discountPrice.pipe';
+import { LocalStorageService } from '../../app-logic/services/local-storage.service';
 
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.css'],
-  providers: [DiscountPipe]
+  providers: [DiscountPipe],
 })
 export class BookingComponent implements OnInit {
   flightId!: number;
   userId!: number;
   formFlight!: FlightItem;
   formUser!: UserItem;
-  formLuggage: boolean = false; 
+  formLuggage: boolean = false;
   ticket!: TicketItem;
   formPrice!: number;
 
@@ -28,27 +29,22 @@ export class BookingComponent implements OnInit {
     private router: Router,
     private ticketService: TicketService,
     private flightService: FlightService,
-    private userService: UserService,
+    private localStorageService: LocalStorageService,
     private discountPipe: DiscountPipe
   ) {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.flightId = params['flightId'];
     });
   }
 
   ngOnInit(): void {
-    if(this.userService.isLoggedIn())
-    {
-      this.formUser = this.userService.getUserData()!;
-      this.flightService.getFlight(this.flightId).subscribe(
-        flightItem => {
-          this.formFlight = flightItem;
-          this.updatePrice(); 
-        }
-      );
-    }
-   else
-    {
+    if (this.localStorageService.isLoggedIn) {
+      this.formUser = this.localStorageService.userData;
+      this.flightService.getFlight(this.flightId).subscribe((flightItem) => {
+        this.formFlight = flightItem;
+        this.updatePrice();
+      });
+    } else {
       this.router.navigate(['/login']);
     }
   }
@@ -60,7 +56,7 @@ export class BookingComponent implements OnInit {
         flight: this.formFlight,
         passenger: this.formUser,
         luggage: this.formLuggage,
-        price: this.formPrice
+        price: this.formPrice,
       });
       this.ticketService.addTicket(newTicket).subscribe({
         next: (ticket) => {
@@ -71,7 +67,7 @@ export class BookingComponent implements OnInit {
         error: (error) => {
           console.error('Booking failed:', error);
           alert('Booking failed. Please try again.');
-        }
+        },
       });
     }
   }
@@ -79,10 +75,13 @@ export class BookingComponent implements OnInit {
   updatePrice(): void {
     this.formPrice = this.formFlight.flightCost;
     if (this.formFlight.discountOffer) {
-      this.formPrice = this.discountPipe.transform(this.formFlight.flightCost, this.formFlight.discountOffer.discountPercentage);
+      this.formPrice = this.discountPipe.transform(
+        this.formFlight.flightCost,
+        this.formFlight.discountOffer.discountPercentage
+      );
     }
     if (this.formLuggage) {
-      this.formPrice += 50; 
+      this.formPrice += 50;
     }
   }
 

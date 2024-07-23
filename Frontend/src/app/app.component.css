@@ -23,7 +23,7 @@
     z-index: 99;
 }
 
-#navigation-bar div {
+.nav_item {
 	height: 60px;
 	padding-left: 10px;
 	padding-right: 10px;
@@ -32,7 +32,7 @@
 	font-family: 'FrizQuadrataRegular';
 }
 
-#navigation-bar div div {
+.nav_item div {
 	height: 20px;
 	border-radius: 5px;
 	padding-top: 1px;
@@ -47,15 +47,68 @@ a{
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
-#navigation-bar div:hover {
+.nav_item:hover {
 	border-bottom: 5px solid #b1922d;
 }
 
-#navigation-bar div:hover div {
+.nav_item:hover div {
 	background-color: black;
 	margin-bottom: -7px;
 	border-bottom: black;
 }
+
+#current_user_card{
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+	padding:2px;
+	margin-right: 20px
+}
+
+#current_user_card img{
+	width:100px;
+}
+
+#current_user_card:hover{
+	border-radius: 20px;
+	border: 2px solid white ;
+	cursor:pointer;
+	padding:0px;
+	
+}
+
+#user_dropdown {
+	display: none;
+	position: absolute;
+	top: 70px; /* Adjust as necessary */
+	background-color: white;
+	color: black;
+	min-width: 150px;
+	max-width: fit-content;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+	flex-direction: column;
+	align-items: flex-start;
+  }
+  
+  #user_dropdown .user-name {
+	padding: 10px;
+	font-weight: bold;
+  }
+  
+  .dropdown-button {
+	padding: 10px;
+	width: 100%;
+	text-align: left;
+	border: none;
+	background: none;
+	cursor: pointer;
+  }
+  
+  .dropdown-button:hover {
+	background-color: #ddd;
+  }
+
 
 
 .content-wrapper {
