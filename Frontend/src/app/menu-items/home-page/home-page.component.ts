@@ -4,17 +4,11 @@ import { AirportItem } from '../../app-logic/models/airport-item';
 import { DiscountListMockService } from '../../app-logic/discount-list-mock.service';
 import { DiscountItem } from '../../app-logic/models/discount-item';
 import { Router } from '@angular/router';
-<<<<<<< HEAD
-import { format } from 'date-fns';
-import { ContentObserver } from '@angular/cdk/observers';
-import { FormControl, Validators, AbstractControl, FormGroup} from '@angular/forms';
-=======
-import { FormControl, Validators, AbstractControl, FormGroup } from '@angular/forms';
 import { format } from 'date-fns';
 import { ContentObserver } from '@angular/cdk/observers';
 import { FormControl, Validators, AbstractControl, FormGroup  } from '@angular/forms';
+import { DiscountImageGalleryService } from '../../app-logic/services/discount-image-gallery.service';
 
->>>>>>> 59477b112a291cbd6b0891374d40aa8536ee16cf
 
 @Component({
   selector: 'app-home-page',
@@ -23,10 +17,6 @@ import { FormControl, Validators, AbstractControl, FormGroup  } from '@angular/f
   styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent implements OnInit {
-<<<<<<< HEAD
-
-=======
->>>>>>> 59477b112a291cbd6b0891374d40aa8536ee16cf
   minDate : Date;                   // minimum date a user can pick
   form: FormGroup;                  // used to validate information picked
 
@@ -37,6 +27,8 @@ export class HomePageComponent implements OnInit {
     returnTime: '',
   };
 
+  seasonDiscountImages: { [key: string]: string[] } = {};
+
   description: string = 'Example description'; // Aceasta va fi descrierea ta
   errorMessage = '';
   currentSlide: number = 0;
@@ -46,7 +38,8 @@ export class HomePageComponent implements OnInit {
   constructor(
     private airportListMockService: AirportListMockService,
     private discountListMockService: DiscountListMockService,
-    private router: Router
+    private router: Router,
+    private discountImageGalleryService: DiscountImageGalleryService
   ) {
     this.minDate = new Date();
     this.form = new FormGroup({
@@ -56,8 +49,6 @@ export class HomePageComponent implements OnInit {
       //returnTime: new FormControl({ value: '', disabled: true }, [Validators.required, this.noPastDatesValidator.bind(this), this.returnDateAfterDepartingDateValidator.bind(this)]),
       passengers: new FormControl({ value: 1, disabled: true })
     });
-<<<<<<< HEAD
-
     /*
     this.form.get('departingTime')?.valueChanges.subscribe(value => {
       departingTime: new FormControl('', [
@@ -81,8 +72,6 @@ export class HomePageComponent implements OnInit {
       }
     });
     */
-=======
->>>>>>> 59477b112a291cbd6b0891374d40aa8536ee16cf
   }
 
   noPastDatesValidator(
@@ -96,26 +85,6 @@ export class HomePageComponent implements OnInit {
     return null;
   }
 
-<<<<<<< HEAD
-/*
-  returnDateAfterDepartingDateValidator(
-    control: AbstractControl
-  ): { [key: string]: boolean } | null {
-    //checks if the selected returningDate is before departingDate returns an error object if true
-    const departingDate = this.form.get('departingTime')?.value;
-    if (
-      control.value &&
-      departingDate &&
-      new Date(control.value) <= new Date(departingDate)
-    ) {
-      return { invalidReturnDate: true };
-    }
-    return null;
-  }
-  */
-
-=======
->>>>>>> 59477b112a291cbd6b0891374d40aa8536ee16cf
   dateFilter = (date: Date | null): boolean => {
     return date ? date >= this.minDate : false;
   };
@@ -125,6 +94,22 @@ export class HomePageComponent implements OnInit {
     console.log(`Finding airport for ${airportName}:`, airport);
     return airport;
   }
+
+  getSeasonFromDate(date: Date): string {
+    const month = date.getMonth(); // 0 = January, 11 = December
+    if (month >= 0 && month <= 1 || month === 11) return 'Winter';
+    if (month >= 2 && month <= 4) return 'Spring';
+    if (month >= 5 && month <= 7) return 'Summer';
+    if (month >= 8 && month <= 10) return 'Fall';
+    return 'Winter'; 
+  }
+
+  getImageForDiscount(discount: DiscountItem): string {
+    const season = this.getSeasonFromDate(new Date(discount.startDate)); 
+    const images = this.seasonDiscountImages[season];
+    return images[Math.floor(Math.random() * images.length)];
+  }
+
   
   ngOnInit() {
     this.airportListMockService.getDataAirports().subscribe((data) => {
@@ -132,11 +117,12 @@ export class HomePageComponent implements OnInit {
       console.log('Airports:', this.airports); 
     });
     this.discounts = this.discountListMockService.getDataDiscounts();
+    this.seasonDiscountImages = this.discountImageGalleryService.getSeasonImages();
   }
 
   onInputChange(event: any, field: string) {
     console.log(`onInputChange called for ${field}`);
-    const value = event.value;                           // get the date value from event.value
+    const value = event.value;                             // get the date value from event.value
     if(field == "departingTime") {
       const formattedDate = format(new Date(value), 'dd.MM.yyyy');
       this.formData[field] = formattedDate;
@@ -173,6 +159,7 @@ export class HomePageComponent implements OnInit {
       console.log(this.errorMessage);
     }
   }
+
   getTransform(): string {
     return `translateX(-${this.currentSlide * 33.33}%)`;
   }

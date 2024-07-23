@@ -35,7 +35,6 @@ const routes: Routes = [
   { path: 'check-in', component: CheckInComponent },
   { path: 'flights', component: FlightsComponent },
   { path: 'flights/:id', component: FlightComponent },
-<<<<<<< HEAD
   { path: 'user-profile', component: UserProfileComponent },
   { path: 'admin/discount', component: DiscountAdminComponent },
   { path: 'admin/discount/create', component: AddDiscountComponent },
@@ -71,10 +70,9 @@ const routes: Routes = [
   { path: 'admin/check-in/create/:id', component: AddCheckInComponent },
 
   { path: 'admin/tickets', component: TicketsComponent },
-=======
+
   { path: 'booking/:flightId', component: BookingComponent, canActivate: [AuthGuardService] },
   { path: 'flights/:departingAirportId/:destinationAirportId/:departingTime', component: FlightsComponent },
->>>>>>> 59477b112a291cbd6b0891374d40aa8536ee16cf
 
   {
     path: 'admin',

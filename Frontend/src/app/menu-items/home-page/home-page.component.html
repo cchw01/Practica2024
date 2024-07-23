@@ -53,23 +53,13 @@
             Return Time cannot be in the past.
           </mat-error>
         </mat-form-field>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 59477b112a291cbd6b0891374d40aa8536ee16cf
-        -->
+      -->
 
         <!--Passengers selector-->
         <mat-form-field appearance="outline" class="custom-form-field">
           <mat-label>Passengers:</mat-label>
           <input matInput type="number" formControlName="passengers" [disabled]="true">
         </mat-form-field>
-<<<<<<< HEAD
-=======
-      
->>>>>>> e0558ac544064a8bdffc2213d190ac4ec4d019dd
-=======
->>>>>>> 59477b112a291cbd6b0891374d40aa8536ee16cf
       </div>
     
       <button type="submit" [disabled]="form.invalid" (click)="onSubmit()">Search</button>
@@ -83,10 +73,7 @@
       <div class="carousel-inner" [style.transform]="getTransform()">
         <div class="carousel-item" *ngFor="let discount of discounts; let i = index" [ngClass]="{'active': i === 0}">
           <div class="discount-item">
-            <img  style ="height:300px"[src]="discount.discountDescription.includes('summer') ? '../../../assets/images/summer.jpg' : 
-              discount.discountDescription.includes('winter') ? '../../../assets/images/winter.jpg' : 
-              discount.discountDescription.includes('early bookings') ? '../../../assets/images/early-bookings.jpg' : 
-              '../../../assets/images/default.jpg'" alt="Discount image">
+            <img  style ="height:300px"[src]="getImageForDiscount(discount)" alt="Discount image">
             <div class="carousel-caption">
               <h3>{{ discount.discountName }}</h3>
               <p>{{ discount.discountDescription }}</p>
