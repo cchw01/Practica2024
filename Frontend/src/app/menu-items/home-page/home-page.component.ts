@@ -7,7 +7,12 @@ import { DiscountItem } from '../../app-logic/models/discount-item';
 import { Observable } from 'rxjs';
 
 import { Router } from '@angular/router';
-import { FormControl, Validators, AbstractControl, FormGroup } from '@angular/forms';
+import {
+  FormControl,
+  Validators,
+  AbstractControl,
+  FormGroup,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-home-page',
@@ -16,16 +21,14 @@ import { FormControl, Validators, AbstractControl, FormGroup } from '@angular/fo
   styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent implements OnInit {
-  minDate : Date;                   // minimum date a user can pick
-  form: FormGroup;    // used to validate information picked
-  
+  minDate: Date; // minimum date a user can pick
+  form: FormGroup; // used to validate information picked
 
   formData: { [key: string]: any } = {
     departingAirport: '',
     destinationAirport: '',
     departingTime: '',
     returnTime: '',
-    passengers: 1,
   };
 
   description: string = 'Example description'; // Aceasta va fi descrierea ta
@@ -43,12 +46,18 @@ export class HomePageComponent implements OnInit {
     this.form = new FormGroup({
       departingAirport: new FormControl('', Validators.required),
       destinationAirport: new FormControl('', Validators.required),
-      departingTime: new FormControl('', [Validators.required, this.noPastDatesValidator.bind(this)]),
-      returnTime: new FormControl({ value: '', disabled: true }, [Validators.required, this.noPastDatesValidator.bind(this), this.returnDateAfterDepartingDateValidator.bind(this)]),
-      passengers: new FormControl({ value: 1, disabled: true })
+      departingTime: new FormControl('', [
+        Validators.required,
+        this.noPastDatesValidator.bind(this),
+      ]),
+      returnTime: new FormControl({ value: '', disabled: true }, [
+        Validators.required,
+        this.noPastDatesValidator.bind(this),
+        this.returnDateAfterDepartingDateValidator.bind(this),
+      ]),
     });
 
-    this.form.get('departingTime')?.valueChanges.subscribe(value => {
+    this.form.get('departingTime')?.valueChanges.subscribe((value) => {
       const returnTimeControl = this.form.get('returnTime');
       if (value) {
         returnTimeControl?.enable();
@@ -59,25 +68,35 @@ export class HomePageComponent implements OnInit {
     });
   }
 
-  noPastDatesValidator(control: AbstractControl) : {[key: string] : boolean} | null { //checks if the selected departingDate is in the past and returns an error object if true
+  noPastDatesValidator(
+    control: AbstractControl
+  ): { [key: string]: boolean } | null {
+    //checks if the selected departingDate is in the past and returns an error object if true
     const currentDate = new Date();
-    if(control.value && control.value < currentDate) {
-      return { 'pastDate' : true}
+    if (control.value && control.value < currentDate) {
+      return { pastDate: true };
     }
     return null;
   }
 
-  returnDateAfterDepartingDateValidator(control: AbstractControl): {[key: string] : boolean} | null { //checks if the selected returningDate is before departingDate returns an error object if true
+  returnDateAfterDepartingDateValidator(
+    control: AbstractControl
+  ): { [key: string]: boolean } | null {
+    //checks if the selected returningDate is before departingDate returns an error object if true
     const departingDate = this.form.get('departingTime')?.value;
-    if (control.value && departingDate && new Date(control.value) <= new Date(departingDate)) {
-      return { 'invalidReturnDate': true };
+    if (
+      control.value &&
+      departingDate &&
+      new Date(control.value) <= new Date(departingDate)
+    ) {
+      return { invalidReturnDate: true };
     }
     return null;
   }
 
-  dateFilter = (date: Date | null) : boolean => {
+  dateFilter = (date: Date | null): boolean => {
     return date ? date >= this.minDate : false;
-  }
+  };
 
   ngOnInit() {
     this.airportListMockService.getDataAirports().subscribe((data) => {

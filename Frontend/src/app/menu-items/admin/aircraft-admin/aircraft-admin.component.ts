@@ -1,17 +1,15 @@
-
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { AircraftComponent } from '../../aircraft-list/aircraft-list.component';
 import { AircraftsListMockServices } from '../../../app-logic/services/aircrafts-service';
 import { AircraftDto } from '../../../app-logic/DTOs/aircraft-dto';
 
 @Component({
   selector: 'app-aircraft-admin',
   templateUrl: './aircraft-admin.component.html',
-  styleUrl: './aircraft-admin.component.css'
+  styleUrl: './aircraft-admin.component.css',
 })
 export class AircraftAdminComponent {
   aircraftData: MatTableDataSource<AircraftDto>;
@@ -25,7 +23,7 @@ export class AircraftAdminComponent {
     'autonomyInHours',
     'maxCargo',
     'edit',
-    'delete'
+    'delete',
   ];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -40,7 +38,7 @@ export class AircraftAdminComponent {
   }
 
   loadAircrafts() {
-    this.aircraftService.getData().subscribe(aircrafts => {
+    this.aircraftService.getData().subscribe((aircrafts) => {
       this.aircraftData.data = aircrafts;
       this.aircraftData.paginator = this.paginator;
       this.aircraftData.sort = this.sort;
@@ -60,6 +58,4 @@ export class AircraftAdminComponent {
   //   const numRows = this.aircraftData.data.length;
   //   return numSelected === numRows;
   // }
-
-  
 }

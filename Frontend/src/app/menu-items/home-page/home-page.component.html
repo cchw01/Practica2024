@@ -53,15 +53,10 @@
             Return Time cannot be in the past.
           </mat-error>
         </mat-form-field>
-
-        <!--Passengers selector-->
-        <mat-form-field appearance="outline" class="custom-form-field">
-          <mat-label>Passengers:</mat-label>
-          <input matInput type="number" formControlName="passengers" [disabled]="true">
-        </mat-form-field>
+      
       </div>
     
-      <button type="submit" [disabled]="form.invalid" (click)="onSubmit()">Submit</button>
+      <button type="submit" [disabled]="form.invalid" (click)="onSubmit()">Search</button>
     </form>
   </div>
 
