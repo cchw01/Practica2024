@@ -54,7 +54,7 @@
             Return Time cannot be in the past.
           </mat-error>
         </mat-form-field>
-        -->
+      -->
 
         <!--Passengers selector-->
         <mat-form-field appearance="outline" class="custom-form-field">
@@ -77,10 +77,7 @@
       <div class="carousel-inner" [style.transform]="getTransform()">
         <div class="carousel-item" *ngFor="let discount of discounts; let i = index" [ngClass]="{'active': i === 0}">
           <div class="discount-item">
-            <img  style ="height:300px"[src]="discount.discountDescription.includes('summer') ? '../../../assets/images/summer.jpg' : 
-              discount.discountDescription.includes('winter') ? '../../../assets/images/winter.jpg' : 
-              discount.discountDescription.includes('early bookings') ? '../../../assets/images/early-bookings.jpg' : 
-              '../../../assets/images/default.jpg'" alt="Discount image">
+            <img  style ="height:300px" [src]="imageMapping[discount.discountId]" alt="Discount image">
             <div class="carousel-caption">
               <h3>{{ discount.discountName }}</h3>
               <p>{{ discount.discountDescription }}</p>
