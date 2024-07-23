@@ -21,7 +21,6 @@ export class FlightsAdminComponent {
     'departingTime',
     'flightTime',
     'flightCost',
-    'discountId',
     'edit',
     'delete',
   ];
