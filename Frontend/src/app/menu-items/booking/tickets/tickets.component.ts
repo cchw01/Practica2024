@@ -30,17 +30,13 @@ export class TicketsComponent implements OnInit, AfterViewInit {
     'passenger',
     'checkIn',
     'luggage',
+    'action'
   ];
 
   constructor(private ticketService: TicketService) {}
 
   ngOnInit(): void {
-    this.ticketService.getTickets().subscribe(tickets => {
-      const now = new Date();
-      this.ticketsItems = tickets.filter(ticket => new Date(ticket.flight.departingTime) >= now);
-      this.filteredTicketsItems.data = this.ticketsItems;
-    });
-
+    this.loadTickets();
     this.filterControl.valueChanges.subscribe(value => {
       this.applyFilter();
     });
@@ -69,4 +65,19 @@ export class TicketsComponent implements OnInit, AfterViewInit {
     const filterValue = this.filterControl.value || '';
     this.filteredTicketsItems.filter = filterValue.trim().toLowerCase();
   }
+  deleteTicket(id: number) {
+    if (confirm('Are you sure you want to delete this ticket?')) {
+      this.ticketService.deleteTicket(id).subscribe(() => {
+        this.loadTickets();
+      });
+    }
+  }
+    loadTickets() {
+      this.ticketService.getTickets().subscribe(tickets => {
+        const now = new Date();
+        this.ticketsItems = tickets.filter(ticket => new Date(ticket.flight.departingTime) >= now);
+        this.filteredTicketsItems.data = this.ticketsItems;
+      });
+    }
+  
 }

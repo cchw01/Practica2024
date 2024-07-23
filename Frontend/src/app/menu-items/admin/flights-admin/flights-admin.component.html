@@ -16,25 +16,26 @@
 
     <ng-container matColumnDef="departingAirportId">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        Departing Airport ID
+        Departing Airport
       </th>
       <td mat-cell *matCellDef="let element">
-        {{ element.departingAirportId }}
+        {{ element.departingAirport.airportName }}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="destinationAirportId">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        Destination Airport ID
+        Destination Airport
+
       </th>
       <td mat-cell *matCellDef="let element">
-        {{ element.destinationAirportId }}
+        {{ element.destinationAirport.airportName }}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="aircraftId">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Aircraft ID</th>
-      <td mat-cell *matCellDef="let element">{{ element.aircraftId }}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Aircraft Type</th>
+      <td mat-cell *matCellDef="let element">{{ element.aircraft.maker + " " + element.aircraft.model }}</td>
     </ng-container>
 
     <ng-container matColumnDef="departingTime">
@@ -56,10 +57,7 @@
       <td mat-cell *matCellDef="let element">{{ element.flightCost }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="discountId">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Discount ID</th>
-      <td mat-cell *matCellDef="let element">{{ element.discountId }}</td>
-    </ng-container>
+
 
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef>Action</th>
