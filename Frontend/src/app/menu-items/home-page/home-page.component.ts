@@ -115,6 +115,13 @@ export class HomePageComponent implements OnInit {
       console.log('Form is invalid');
       return;
     }
+    this.formData = {
+      departingAirport: this.form.get('departingAirport')?.value,
+      destinationAirport: this.form.get('destinationAirport')?.value,
+      departingTime: this.form.get('departingTime')?.value,
+      returnTime: this.form.get('returnTime')?.value,
+    };
+    console.log(this.form);
     console.log(this.formData);
     if (
       this.formData['departingAirport'] === this.formData['destinationAirport']
@@ -130,7 +137,7 @@ export class HomePageComponent implements OnInit {
     }
 
     if (this.errorMessage == '') {
-      this.router.navigate(['/flights/departingAirport/destinationAirport/departureDate'], { queryParams: this.formData });
+      this.router.navigate(['/flights/:queryParams'], { queryParams: this.formData });
     } else {
       console.log(this.errorMessage);
     }

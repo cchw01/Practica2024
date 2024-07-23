@@ -41,6 +41,18 @@ export class FlightsComponent implements OnInit {
   }
 
   getFlights() {
+    // if(this.departingAirportId==(null||undefined)){
+    //   this.flightService.getFlights().subscribe(
+    //     (flights) => {
+    //       this.flights = flights;
+    //       console.table(this.flights);
+    //     },
+    //     (error) => {
+    //       console.error('Failed to load flights', error);
+    //     }
+    //   );
+    // }
+    // else
     this.flightService
       .searchFlights(this.departingAirportId, this.destinationAirportId, this.departureDate)
       .subscribe(
