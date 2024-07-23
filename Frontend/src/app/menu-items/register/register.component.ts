@@ -47,12 +47,15 @@ export class RegisterComponent {
       this.userService.register(this.user).subscribe({
         next: (registeredUser) => {
           console.log('User registered:', registeredUser);
-          this.router.navigate(['/']);
+          this.userService.storeUserData(this.user);
+          this.router.navigate([''], {
+            queryParams: { reload: new Date().getTime() },
+          });
         },
         error: (error) => {
           console.error('Registration failed:', error);
           alert('Registration failed. Please try again.');
-        }
+        },
       });
     } else {
       alert('Please fill in the form correctly.');

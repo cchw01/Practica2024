@@ -22,6 +22,8 @@
     "@angular/router": "^18.0.0",
     "bcryptjs": "^2.4.3",
     "crypto-js": "^4.2.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "ng-qrcode": "^18.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^17.18.4",

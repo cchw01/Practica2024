@@ -28,12 +28,25 @@
   </div>
 </div>
 
+<div class="check-in-list">
+  <h2>Check-ins effectuated</h2>
+  <ul>
+    <li *ngFor="let checkIn of checkInItems">
+      {{ checkIn.ticketId }} - {{ checkIn.passengerName }} - {{ getDocumentTypeLabel(checkIn.idDocumentType) }} - {{ checkIn.documentData }} - {{ checkIn.passengerEmail }}
+      <button (click)="editCheckIn(checkIn)">Edit</button>
+    </li>
+  </ul>
+</div>
+
+
+
+
 <p>Form status: {{ form.status }}</p>
 <div class="options">
   <h2>Possibilities for Check-IN</h2>
-  <div class="header" (click)="toggleContent()">Online Check-in</div>
+  <div class="header" (click)="toggleContent('online')">Online Check-in</div>
   
-<div class="content" [ngClass]="{ show: isContentVisible }">
+<div class="content" [ngClass]="{ show: isOnlineContentVisible }">
   <div class="info-form-container">
     <div class="info-container">
       <p>
@@ -93,7 +106,7 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline">
           <mat-label>Ticket Nr:</mat-label>
-          <input matInput placeholder="Ticket" formControlName="ticketId" type="number" required />
+          <input matInput placeholder="Ticket" formControlName="ticketId" type="number" required [readonly]="isEditing" />
         </mat-form-field>
   
         <mat-form-field appearance="outline">
@@ -121,14 +134,13 @@
         <button  type="submit" [disabled]="!form.valid">Submit</button>
       </form>
     </div>
-    
   </div>
 </div>
 
 
 <br>
- <div class="header" (click)="toggleContent()">QR Check-In</div>
-<div class="content" [ngClass]="{ show: isContentVisible }">
+ <div class="header" (click)="toggleContent('qr')">QR Check-In</div>
+<div class="content" [ngClass]="{ show: isQRContentVisible }">
   <h1>Aici este Qr-ul.</h1>
   <div *ngIf="showQR">
     <div style="display: flex; align-items: center;">

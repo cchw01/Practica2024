@@ -112,20 +112,7 @@ export class UserService {
   }
 
   storeUserData(user: UserItem): void {
-    const { password, ...userDetails } = user;  
+    const { password, ...userDetails } = user;
     localStorage.setItem('userData', JSON.stringify(userDetails));
-  }
-
-  getUserData(): UserItem | null {
-    const userData = localStorage.getItem('userData');
-    return userData ? JSON.parse(userData) as UserItem : null;
-  }
-
-  logout(): void {
-    localStorage.removeItem('userData');
-  }
-
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('userData');
   }
 }

@@ -5,19 +5,7 @@
   (ngSubmit)="onSubmit()"
   class="form-container"
 >
-  <mat-form-field appearance="outline">
-    <mat-label>Flight Number:</mat-label>
-    <input
-      matInput
-      placeholder="Flight Number"
-      formControlName="flightNumber"
-      type="text"
-      required
-    />
-    <mat-error *ngIf="hasError('flightNumber', 'required')"
-      >Flight Number is required</mat-error
-    >
-  </mat-form-field>
+  
 
   <mat-form-field appearance="outline">
     <mat-label>Departing Airport ID:</mat-label>

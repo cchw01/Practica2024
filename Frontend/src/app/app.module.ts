@@ -17,8 +17,6 @@ import { HomePageComponent } from './menu-items/home-page/home-page.component';
 import { LoginComponent } from './menu-items/login/login.component';
 import { RegisterComponent } from './menu-items/register/register.component';
 import { UserProfileComponent } from './menu-items/user-profile/user-profile.component';
-import { AircraftComponent } from './menu-items/aircraft-list/aircraft-list.component';
-import { AdminComponent } from './menu-items/admin/admin.component';
 import { DiscountAdminComponent } from './menu-items/admin/discount-admin/discount-admin.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
@@ -68,8 +66,6 @@ import { format, parse } from 'date-fns';
     RegisterComponent,
     FlightsComponent,
     FlightComponent,
-    AircraftComponent,
-    AdminComponent,
     DiscountAdminComponent,
     BookingComponent,
     TicketsComponent,
@@ -89,10 +85,6 @@ import { format, parse } from 'date-fns';
 
     CheckInAdminComponent,
     AddCheckInComponent,
-    
-    
-
-
   ],
   imports: [
     BrowserModule,
@@ -114,8 +106,7 @@ import { format, parse } from 'date-fns';
     MatButtonModule,
     MatProgressBarModule,
     MatCheckboxModule,
-    HttpClientModule,
-   // InputFlightSelectionFromHomePage,
+    HttpClientModule, // InputFlightSelectionFromHomePage,
     MatNativeDateModule,
     MatDatepickerModule,
     QrCodeModule,

@@ -63,8 +63,15 @@ export class AddDiscountComponent implements OnInit {
   
 
   private futureDateValidator(control: AbstractControl): ValidationErrors | null {
-    const date = new Date(control.value);
-    if (date < new Date()) {
+    const inputDate = new Date(control.value);
+    const currentDate = new Date();
+
+    // This sets the hours of current date and input date to 0, so admins are able to add discounts in the same day
+    // because if i wanted to add a discount today, the input date will always be past current date because seconds went by 
+    inputDate.setHours(0, 0, 0, 0);
+    currentDate.setHours(0, 0, 0, 0);
+
+    if (inputDate < currentDate) {
       return { pastDate: true };
     }
     return null;
