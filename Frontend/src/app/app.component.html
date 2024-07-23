@@ -49,6 +49,7 @@
     </div>
     <div *ngIf="isAdmin" class="nav_item">
       <div>
+
         <a routerLink="/admin/aircraft">Aircraft</a>
       </div>
     </div>
@@ -67,6 +68,7 @@
         <button *ngIf="isLogged" class="dropdown-button" (click)="goToProfile()" >My Profile</button>
         <button *ngIf="isLogged" class="dropdown-button" (click)="logout()">Logout</button>
         <button *ngIf="!isLogged" class="dropdown-button" (click)="login()" >Login/Register</button>
+
       </div>
     </div>
   </div>
