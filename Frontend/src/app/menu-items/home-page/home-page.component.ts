@@ -28,6 +28,7 @@ export class HomePageComponent implements OnInit {
   };
 
   seasonDiscountImages: { [key: string]: string[] } = {};
+  usedImages: { [key: string]: string[] } = {};
 
   description: string = 'Example description'; // Aceasta va fi descrierea ta
   errorMessage = '';
@@ -107,10 +108,22 @@ export class HomePageComponent implements OnInit {
   getImageForDiscount(discount: DiscountItem): string {
     const season = this.getSeasonFromDate(new Date(discount.startDate)); 
     const images = this.seasonDiscountImages[season];
-    return images[Math.floor(Math.random() * images.length)];
-  }
+    if (!this.usedImages[season]) {
+        this.usedImages[season] = [];
+    }
 
-  
+    let selectedImage: string;
+    while (true) {
+        selectedImage = images[Math.floor(Math.random() * images.length)];
+        const imageIsUsed = this.usedImages[season].includes(selectedImage);
+        if (!imageIsUsed) {
+            this.usedImages[season] = [...this.usedImages[season], selectedImage];
+            return selectedImage;
+        } 
+      }
+    }
+    
+
   ngOnInit() {
     this.airportListMockService.getDataAirports().subscribe((data) => {
       this.airports = data;
