@@ -174,12 +174,13 @@ export class FlightService {
   }
 
   updateFlight(flight: FlightItem): Observable<void> {
+    const departingTime = new Date(flight.departingTime);
     const flightDto: FlightDto = {
       flightNumber: flight.flightNumber,
       departingAirportId: flight.departingAirportId,
       destinationAirportId: flight.destinationAirportId,
       aircraftId: flight.aircraftId,
-      departingTime: flight.departingTime,
+      departingTime: departingTime,
       flightTime: this.convertToFlightTime(
         flight.departingTime,
         flight.flightTime
