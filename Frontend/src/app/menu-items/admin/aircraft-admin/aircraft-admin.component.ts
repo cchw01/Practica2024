@@ -23,7 +23,6 @@ export class AircraftAdminComponent {
     'autonomyInHours',
     'maxCargo',
     'edit',
-    'delete',
   ];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

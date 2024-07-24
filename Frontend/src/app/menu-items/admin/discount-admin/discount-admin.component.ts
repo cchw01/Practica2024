@@ -24,7 +24,6 @@ export class DiscountAdminComponent {
     'startDate',
     'endDate',
     'edit',
-    'delete'
   ];
   selection = new SelectionModel<DiscountDto>(true, []);
 

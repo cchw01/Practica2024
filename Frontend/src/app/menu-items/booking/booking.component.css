@@ -133,7 +133,7 @@
 
 .dotted-line {
   border: none;
-  border-top: 1px dotted #673ab7;
+  border-top: 1px dotted #0a4c6b;
   color: #fff;
   background-color: #fff;
   height: 1px;
@@ -148,7 +148,7 @@
   color: #000; 
   background: #fff; 
   padding: 0 10px; 
-  color: #673ab7;
+  color: #0a4c6b;
 }
 
 .form-departing{
@@ -174,7 +174,7 @@
 .final-price{
   text-align: center;
   font-size: 15px;
-  color: #5a32a1;
+  color: #0a4c6b;
   font-weight: 400;
 }
 
@@ -194,20 +194,21 @@
 }
 
 .styled-button {
-  background-color: #673ab7;
+  background-color: #0a4c6b!important;
   min-width: 100px;
   padding-top: 1px;
   padding-bottom: 1px;
   margin-bottom: 20px;
-  color:#fff;
+  color: #fff !important;
+  z-index: 0 !important;
 }
 .styled-button:hover{
-  background-color: #5a32a1;
+  background-color: #0a4c6b!important;
   transform: scale(1.1);
 }
 
 .navigation-button {
-  background-color: #fff;
+  background-color: #fff!important;
   color: #000;
   border: none;
   padding: 8px;

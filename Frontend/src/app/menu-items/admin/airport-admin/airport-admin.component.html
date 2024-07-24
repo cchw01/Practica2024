@@ -1,6 +1,13 @@
-<h1>Manage airports</h1>
-<div>
-  <button class="navigation-button" mat-button routerLink="/admin/airport/create">Add new airport</button>
+  <h1>Manage airports</h1>
+  <div>
+    <div class="add-container">
+      <button
+      class="add-button"
+      mat-raised-button
+      routerLink="/admin/airport/create"
+    ><mat-icon style="margin-left:2px; margin-right: 0;">add</mat-icon>Add new Airport
+    </button>
+    </div>
 
   <table mat-table matSort [dataSource]="airportData" class="mat-elevation-z8">
     <ng-container matColumnDef="select">
@@ -28,16 +35,16 @@
     </ng-container>
 
     <ng-container matColumnDef="edit">
-      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let element">
-        <a style="color: blue;" [routerLink]="['/admin/airport/create', element]">Edit</a>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="delete">
-      <th mat-header-cell *matHeaderCellDef>Action</th>
-      <td mat-cell *matCellDef="let element">
-        <a style="color: red" (click)="deleteAirport(element.airportId)">Delete</a>
+        <div class="action-buttons">
+        <button class="edit-button" [routerLink]="['/admin/airport/create', element]">
+          <mat-icon>edit</mat-icon>
+      </button>
+      <button class="delete-button" (click)="deleteAirport(element.airportId)">
+        <mat-icon>delete</mat-icon>
+    </button>
+  </div>
       </td>
     </ng-container>
 

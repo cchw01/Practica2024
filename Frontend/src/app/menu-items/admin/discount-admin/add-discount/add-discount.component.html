@@ -46,5 +46,5 @@
     <mat-error *ngIf="hasError('endDate', 'dateRange')">End Date must be after Start Date</mat-error>
   </mat-form-field>
 
-  <button mat-button type="submit" [disabled]="!addDiscountForm.valid">Submit</button>
+  <button mat-raised-button type="submit" [disabled]="!addDiscountForm.valid">Submit</button>
 </form>

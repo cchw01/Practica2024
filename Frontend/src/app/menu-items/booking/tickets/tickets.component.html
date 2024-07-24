@@ -91,9 +91,9 @@
   <ng-container matColumnDef="delete">
     <th mat-header-cell *matHeaderCellDef>Action</th>
     <td mat-cell *matCellDef="let element">
-      <a style="color: red; cursor: pointer;" (click)="deleteTicket(element.ticketId)"
-        >Delete</a
-      >
+      <button class="delete-button" (click)="deleteTicket(element.ticketId)">
+        <mat-icon>delete</mat-icon>
+    </button>
     </td>
   </ng-container>
 
