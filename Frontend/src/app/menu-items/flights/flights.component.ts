@@ -33,27 +33,46 @@ export class FlightsComponent implements OnInit {
 
     ngOnInit() {
       const currentDate = new Date();
-  
-      if (this.departingAirportId && this.destinationAirportId && this.departingTime) {
-        this.flightService
-          .searchFlights(this.departingAirportId, this.destinationAirportId, this.departingTime)
-          .subscribe(
-            (flights) => {
-              this.flights = flights.filter(flight => new Date(flight.departingTime) > currentDate);
-              console.table(this.flights);
-            },
-            (error) => {
-              console.error('Failed to load flights', error);
-            }
-          );
-      } else {
+      if(this.departingAirportId && this.destinationAirportId && this.departingTime) {
+        this.flightService.searchFlights(this.departingAirportId, this.destinationAirportId, this.departingTime).subscribe(
+          (flights) => {
+            this.flights = flights;
+            console.table(this.flights);
+            this.noFlightsAvailable = this.flights.length === 0;
+          },
+          (error) => {
+            console.error('Failed to load flights', error);
+            this.noFlightsAvailable = true;
+          }
+        );
+      }
+      else if(this.discountFlightId){
+        console.log('disountFlightId: ${this.discountFlightId}', this.discountFlightId);
+        this.flightService.getFlight(this.discountFlightId).subscribe(
+          (flight) => {
+            console.log(flight);
+            this.flights=[];
+            this.flights.push(flight);
+            console.table(this.flights);
+            this.noFlightsAvailable = this.flights.length === 0;
+          },
+          (error) => {
+            console.error('Failed to load flights', error);
+             this.noFlightsAvailable = true;
+          }
+        );
+      }
+      else
+      {
         this.flightService.getFlights().subscribe(
           (flights) => {
-            this.flights = flights.filter(flight => new Date(flight.departingTime) > currentDate);
+            this.flights = flights.filter(flight => new Date(flight.departingTime) > currentDate);;
+            this.noFlightsAvailable = this.flights.length === 0;
             console.table(this.flights);
           },
           (error) => {
             console.error('Failed to load flights', error);
+            this.noFlightsAvailable = true;
           }
         );
       }
