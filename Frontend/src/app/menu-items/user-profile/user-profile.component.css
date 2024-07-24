@@ -1,156 +1,126 @@
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
-
-.main-container {
+#container{
   display: flex;
-  justify-content: space-between; 
-  padding: 50px;
-  margin-top: 50px;
-  background-color: #f9f9f9;
+  flex-direction: column;
 }
 
-.user-profile {
+#title{
+  font-size: 38px;
+  font-weight: bold;
+  margin-top:100px;
+  align-self: center;
+}
+
+#user-profile{
+  display:flex;
+  flex-direction: row;
+  padding:15px;
+  width: 100%;
+}
+
+#user-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   max-width: 400px;
-  width: 100%;
-  border: 1px solid #ccc;
+  margin: 150px;
   padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
+  width: 300px;
+  border-radius: 15px;
 }
 
-.user-profile:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+mat-form-field {
+  margin-bottom: 10px;
+  font-size: 1.3em;
 }
 
-.user-tickets {
-  max-width: 400px; 
-  width: 100%;
-  border: 1px solid #ccc;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
+
+
+:host ::ng-deep .p-password input {
+  margin-bottom: 40px;
+  width: 210px;
+  height: 40px;
+  margin-bottom: 60px;
 }
 
-.user-tickets:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+:host ::ng-deep .p-password-panel .p-password-meter .p-password-strength.weak {
+  background: #D32F2F;
 }
 
-.profile-header {
-  margin-bottom: 20px;
+:host ::ng-deep .p-password-panel .p-password-meter .p-password-strength.medium {
+  background: #FBC02D;
 }
 
-.profile-info {
-  text-align: left;
+:host ::ng-deep .p-password-panel .p-password-meter .p-password-strength.strong {
+  background: #689F38;
 }
 
-.profile-name {
-  margin: 0;
-  font-size: 24px;
+
+.ticket-card {
+  width: 500px;
+  margin: 20px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.ticket-card mat-card-header {
+  background-color: #f5f5f5;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.ticket-card mat-card-title {
+  font-size: 1.5em;
   font-weight: bold;
 }
 
-.profile-role {
-  margin: 0;
-  color: #777;
+.ticket-card mat-card-subtitle {
+  font-size: 1.4em;
+  color: #888;
 }
 
-.profile-details .user-info {
+.ticket-card mat-card-content {
+  margin-top: 10px;
+  
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  position:absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  border: none;
+  background-color: white;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.carousel-control-prev {
+  left: -11%; /* Adjusted to be outside the carousel items */
+}
+
+.carousel-control-next {
+  right: -4%; /* Adjusted to be outside the carousel items */
+}
+
+.tickets-container {
+  position: absolute;
+  top: 55%;
+  left: 67%;
+  transform: translate(-50%, -50%);
+  width: 42%;
+  
+}
+
+.carousel {
+  position: relative;
+  margin-bottom: 50px;
+  overflow: hidden;
+}
+
+.carousel-inner {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.info-title {
-  font-weight: bold;
-}
-
-.button-wrapper {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.edit-btn {
-  padding: 10px 20px;
-  background-color: #0a4c6b;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s, box-shadow 0.3s;
-  margin-left: 20px;
-}
-
-.edit-btn:hover {
-  background-color: #1d84b4;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.save-btn {
-  padding: 10px 20px;
-  background-color: #0a4c6b;
-  color: #fff;
-  margin-left: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-.save-btn:hover {
-  background-color: #1d84b4;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.input-group {
-  margin-bottom: 10px;
-}
-
-.input-group label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.input-group input,
-.input-group select {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-}
-
-.profile-role-select {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 8px;
-  font-size: 14px;
-  appearance: none; 
-  -webkit-appearance: none; 
-  cursor: pointer;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.profile-role-select:focus {
-  border-color: #1c4e83;
-  box-shadow: 0 0 0 2px rgba(53, 83, 114, 0.25);
-}
-
-.user-tickets h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
+  transition: transform 0.5s ease;
 }
 

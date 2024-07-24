@@ -1,50 +1,90 @@
-<div class="main-container">
+<div id="container">
+<div id="title">YOUR PROFILE</div>
+<div id="user-profile">
+  <form [formGroup]="userForm" id="user-form">
+       <mat-form-field appearance="outline">
+        <mat-label>Full name:</mat-label>
+        <input
+        matInput
+        formControlName="name"
+        [readonly]="!isEditing"
+        type="text"
+        required
+      />
+      <mat-error *ngIf="hasError('name', 'required')">Full name is required!</mat-error>
+       </mat-form-field>
 
-  <form [formGroup]="userProfileForm" class="user-profile">
-    <div class="profile-header">
-      <div class="profile-info">
-        <h1 class="profile-name" *ngIf="!isEditing">{{ userProfileForm.get('userName')?.value }}</h1>
-        <div *ngIf="isEditing" class="input-group">
-          <label for="userName">User Name</label>
-          <input id="userName" type="text" formControlName="userName" class="profile-name-input">
-        </div>
+       <mat-form-field appearance="outline">
+        <mat-label>Role</mat-label>
+        <input
+        matInput
+        formControlName="role"
+        [readonly]="!isEditing"
+        type="text"
+        required
+      />
+      <mat-error *ngIf="hasError('role', 'required')">Full name is required!</mat-error>
+       </mat-form-field>
 
-        <p class="profile-role" *ngIf="!isEditing">{{ userProfileForm.get('userRole')?.value }}</p>
-        <div *ngIf="isEditing" class="input-group">
-          <label for="userRole">User Role</label>
-          <select id="userRole" formControlName="userRole" class="profile-role-select">
-            <option value="Admin" [selected]="userProfileForm.get('userRole')?.value === 'Admin'">Admin</option>
-            <option value="Passenger" [selected]="userProfileForm.get('userRole')?.value === 'Passenger'">Passenger</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="profile-details">
-      <div class="user-info">
-        <span class="info-title">User ID:</span>
-        <span class="info-content" *ngIf="!isEditing">{{ userProfileForm.get('userId')?.value }}</span>
-        <div *ngIf="isEditing" class="input-group">
-          <input id="userId" type="text" formControlName="userId" class="user-id-input" readonly>
-        </div>
-      </div>
-      <div class="user-info">
-        <span class="info-title">Email:</span>
-        <span class="info-content" *ngIf="!isEditing">{{ userProfileForm.get('userEmail')?.value }}</span>
-        <div *ngIf="isEditing" class="input-group">
-          <input id="userEmail" type="text" formControlName="userEmail" class="user-email-input">
-        </div>        
-      </div>
-     
-      <div class="button-wrapper">
-        <button id="editButton" class="edit-btn" *ngIf="!isEditing" (click)="toggleEdit()">Edit Profile</button>
-        <button id="saveButton" class="save-btn" *ngIf="isEditing" (click)="saveProfile()">Save</button>
-        <button id="cancelButton" class="save-btn" *ngIf="isEditing" (click)="toggleEdit()">Cancel</button>
-      </div>
-    </div>
+       <mat-form-field appearance="outline">
+        <mat-label>E-mail:</mat-label>
+        <input
+        matInput
+        formControlName="email"
+        [readonly]="!isEditing"
+        type="text"
+        required
+      />
+      <mat-error *ngIf="hasError('email', 'required')">Full name is required!</mat-error>
+       </mat-form-field>
+
+      <mat-label *ngIf="isEditing">Password:</mat-label>
+       <p-password 
+      formControlName="password" 
+      promptLabel="Change password? Type new password here"
+      weakLabel="Too simple" 
+      mediumLabel="Average complexity" 
+      strongLabel="Complex password"
+      *ngIf="isEditing"
+    ></p-password>
+      
+  <div class="button-wrapper">
+    <button mat-raised-button class="formButton" style="font-size: 1.3em;" *ngIf="!isEditing" (click)="toggleEdit()">Edit Profile</button>
+    <button mat-raised-button class="formButton" style="font-size: 1.3em;" *ngIf="isEditing"  (click)="saveProfile()">Save</button>
+    <button mat-raised-button class="formButton" style="font-size: 1.3em;" *ngIf="isEditing"  (click)="toggleEdit()">Cancel</button>
+  </div>
+
   </form>
-  <div id="userTickets" class="user-tickets">
-    <h2>Tickets</h2>
-    <p>{{ userProfileForm.get('userTickets')?.value }}</p>
+    <div class ="tickets-container" *ngIf="!userTickets" style="font-size: 2.5em;">No tickets.</div>
+    <div class="tickets-container" *ngIf="userTickets">
+      <div class="carousel">
+        
+        <div class="carousel-inner" [style.transform]="getTransform()">
+          <mat-card *ngFor="let ticket of userTickets" class="ticket-card">
+            <mat-card-header>
+              <mat-card-title>Ticket ID: {{ ticket.ticketId }}</mat-card-title>
+              <mat-card-subtitle>Flight ID: {{ ticket.flightId }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p><strong>From:</strong> {{ticket.flight.departingAirport.airportName}}</p>
+              <p><strong>To:</strong>{{ticket.flight.destinationAirport.airportName}}</p>
+              <p><strong>Passenger:</strong> {{ ticket.passenger.name }}</p>
+              <p><strong>Email:</strong> {{ ticket.passenger.emailAddress }}</p>
+              <p *ngIf="ticket.checkInId"><strong>Check-In ID:</strong> {{ ticket.checkInId }}</p>
+              <p><strong>Luggage:</strong> {{ ticket.luggage ? 'Yes' : 'No' }}</p>
+              <p><strong>Price:</strong> {{ ticket.price | currency }}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <br>
+       
+      </div>
+
+       <button style ="width:40px" class="carousel-control-prev" (click)="prevSlide()"><img style ="width:70px" src="../../../assets/images/left_arrow.png"></button>
+        <button  style ="width:40px" class="carousel-control-next" (click)="nextSlide()"><img style ="width:70px" src="../../../assets/images/right_arrow.png"></button> 
+
+    </div>
+
   </div>
 </div>
 

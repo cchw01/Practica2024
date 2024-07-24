@@ -37,6 +37,7 @@ namespace Backend.Services
         public List<TicketDto> GetUserTickets(int userId)
         {
             var user = _context.Users.Include(u => u.TicketList)
+                                       .ThenInclude(t => t.CheckIn)
                                      .FirstOrDefault(u => u.UserId == userId);
             if (user == null)
                 throw new ArgumentException("User does not exist");
