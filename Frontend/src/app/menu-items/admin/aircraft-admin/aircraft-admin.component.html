@@ -1,6 +1,6 @@
-<h1>Manage Aircrafts</h1>
+<h1>Manage aircrafts</h1>
 <div>
-  <button class="navigation-button" mat-button routerLink="/admin/aircraft/create">Add new Aircraft</button>
+  <button class="navigation-button" mat-button routerLink="/admin/aircraft/create">Add new aircraft</button>
 
   <table mat-table matSort [dataSource]="aircraftData" class="mat-elevation-z8">
     <ng-container matColumnDef="select">
@@ -18,7 +18,7 @@
     </ng-container>
 
     <ng-container matColumnDef="registrationNumber">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>registration Number</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Registration number</th>
       <td mat-cell *matCellDef="let element">{{ element.registrationNumber }}</td>
     </ng-container>
 
@@ -33,17 +33,17 @@
     </ng-container>
 
     <ng-container matColumnDef="numberOfSeats">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Number of Seats</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Number of seats</th>
       <td mat-cell *matCellDef="let element">{{ element.numberOfSeats }}</td>
     </ng-container>
 
     <ng-container matColumnDef="autonomyInHours">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Autonomy/Hours</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Autonomy in hours</th>
       <td mat-cell *matCellDef="let element">{{ element.autonomyInHours }}</td>
     </ng-container>
 
     <ng-container matColumnDef="maxCargo">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>MaximumCargo</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Maximum cargo</th>
       <td mat-cell *matCellDef="let element">{{ element.maxCargo }}</td>
     </ng-container>
 
