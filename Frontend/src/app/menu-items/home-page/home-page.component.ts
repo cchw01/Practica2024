@@ -180,4 +180,19 @@ export class HomePageComponent implements OnInit {
     this.currentSlide =
       this.currentSlide < this.discounts.length - 3 ? this.currentSlide + 1 : 0;
   }
+  openDiscountFlight(discountFlightId:number){
+    if (discountFlightId) {
+      console.log(
+        'Going to the route:  ' +
+          `/flights/discount-flight/${discountFlightId}`
+      );
+      this.router.navigate(
+        [
+          `/flights/discount-flight/${discountFlightId}`
+        ],
+      );
+    } else {
+      console.log(this.errorMessage);
+    }
+  }
 }
