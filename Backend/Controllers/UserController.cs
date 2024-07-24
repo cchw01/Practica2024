@@ -64,8 +64,8 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, [FromBody] UserDto user)
+        [HttpPut]
+        public IActionResult UpdateUser([FromBody] UserDto user)
         {
             try
             {
