@@ -58,16 +58,14 @@ export class UserService {
       name: user.name,
       role: user.role,
       emailAddress: user.emailAddress,
-      password: user.password || '', // Assuming password is optional for the update
+      password: user.password, // Assuming password is optional for the update
     };
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
 
-    return this.httpClient.put<any>(`${this.apiUrl}/${user.userId}`, userDto, {
-      headers,
-    });
+    return this.httpClient.put<any>(this.apiUrl, userDto, { headers });
   }
 
   deleteUser(id: number): Observable<void> {

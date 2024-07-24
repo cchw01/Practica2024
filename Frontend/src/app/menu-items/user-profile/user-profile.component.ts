@@ -29,7 +29,7 @@ export class UserProfileComponent implements OnInit {
       name: [{ value: '' }, [Validators.required]],
       role: [{ value: '' }, [Validators.required]],
       email: [{ value: '' }, [Validators.required]],
-      password: [{ value: '' }, [Validators.required]], // Include the password field
+      password: [{ value: '' }], // Include the password field
     });
   }
 
@@ -66,13 +66,17 @@ export class UserProfileComponent implements OnInit {
 
   saveProfile(): void {
     if (this.userForm.valid) {
+      this.userData = JSON.parse(localStorage.getItem('userData') || '{}');
       const updatedUserData = this.userForm.value;
+      let pw = '';
+      if (updatedUserData.password != '')
+        pw = this.userService.hashPassword(updatedUserData.password);
       const userItem: UserItem = {
-        userId: this.userData.id,
+        userId: this.userData.userId,
         name: updatedUserData.name,
         role: updatedUserData.role,
         emailAddress: updatedUserData.email,
-        password: this.userService.hashPassword(updatedUserData.password) || '', // Only include password if it is provided
+        password: pw,
       };
 
       console.log('Updating user with data:', userItem);
@@ -80,7 +84,7 @@ export class UserProfileComponent implements OnInit {
       this.userService.updateUser(userItem).subscribe({
         next: (updatedUser) => {
           console.log('User updated:', updatedUser);
-          localStorage.setItem('userData', JSON.stringify(updatedUser));
+          localStorage.setItem('userData', JSON.stringify(userItem));
           this.isEditing = false;
           alert('Profile updated successfully');
         },
@@ -89,6 +93,7 @@ export class UserProfileComponent implements OnInit {
           alert('Failed to update profile');
         },
       });
+      if (this.userForm.value.password != '') this.router.navigate(['/login']);
     }
   }
   public hasError = (controlName: string, errorName: string) => {
