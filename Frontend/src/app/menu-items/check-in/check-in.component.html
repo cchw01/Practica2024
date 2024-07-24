@@ -1,34 +1,4 @@
-<!-- <div class="row">
-  <div class="contentWrapper">
-    <div class="patrat">
-      <span class="textWrapper">
-        <span class="line"></span>
-        <span class="text">Get on board</span>
-      </span>
-      <h2>Ready to check-in?</h2>
-      <p>
-        You can check in any time from 30 hours before your flight's departure (24
-        hours for flights to or from the United States). Please select how you
-        would like to check in.
-      </p>
-      <ul>
-        <li>Check in, change, and rebook flights with ease</li>
-        <li>Get all your travel info in 1 convenient place</li>
-        <li>Store your details for safe and speedy bookings</li>
-      </ul>
-         <button mat-raised-button color="primary">Check in with my account</button>
-         <p>
-          Don't have an account? Sign up for a free account and enjoy all benefits!
-          <br><button mat-raised-button color="primary">Sign up!</button>
-        </p>    
-    </div>
-  </div>
-  <div class="imgWrapper">
-    <img src="../../../assets/images/cover.jpg" alt="Background Image" />
-  </div>
-</div> -->
-
-<div class="check-in-list">
+<div *ngIf="checkInItems.length > 0; else noCheckInItems" class="check-in-list">
   <h2>Check-ins effectuated</h2>
   <table>
     <thead>
@@ -38,16 +8,8 @@
         <th>Document Type</th>
         <th>Document Data</th>
         <th>Passenger Email</th>
-        <th>Flight Number</th>
-        <th>Departing Airport</th>
-        <th>Destination Airport</th>
-        <th>Aircraft</th>
-        <th>Departing Time</th>
-        <th>Flight Time</th>
-        <th>Flight Cost</th>
-        <th>QR Code</th>
-        <th>Actions</th>
-        <th>Discount</th>
+        <th>QrCode</th>
+        
 
       </tr>
     </thead>
@@ -58,13 +20,7 @@
         <td>{{ getDocumentTypeLabel(element.idDocumentType) }}</td>
         <td>{{ element.documentData }}</td>
         <td>{{ element.passengerEmail }}</td>
-        <td>{{ element.flightData?.flightNumber }}</td>
-        <td>{{ element.flightData?.departingAirportId }}</td>
-        <td>{{ element.flightData?.destinationAirportId }}</td>
-        <td>{{ element.flightData?.aircraftId }}</td>
-        <td>{{ element.flightData?.departingTime | date:'short' }}</td>
-        <td>{{ element.flightData?.flightTime | date:'short' }}</td>
-        <td>{{ element.flightData?.flight?.flightCost }}</td>
+        
 <!--         <td>{{ element.ticketData?.flight?.discountId }}</td> -->
         <td>
           <qr-code [value]="generateQrData(element)" size="100"></qr-code>
@@ -74,6 +30,11 @@
     </tbody>
   </table>
 </div>
+<ng-template #noCheckInItems>
+  <p>No check-in items found.</p>
+</ng-template>
+
+
 
 
 
@@ -189,7 +150,7 @@
 
       <div id="pdfContent">
       <table style="margin-left: 20px;">
-        <H3>tenmplate bilet</H3>
+        <H3>template bilet</H3>
         <tr>
           <td><strong>Ticket Nr:</strong></td>
           <td>{{ form.value.ticketId }}</td>

@@ -12,6 +12,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { FlightItem } from '../../app-logic/models/flight-item';
 import { FlightService } from '../../app-logic/services/flights.service';
+import { UserService } from '../../app-logic/services/user.service';
 
 
 
@@ -75,7 +76,8 @@ export class CheckInComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private checkInService: CheckInService,
     private flightService : FlightService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService
   ) {
     // evidenta 
     this.checkInService.getDataCheckIn().subscribe((data) => {
@@ -119,6 +121,14 @@ export class CheckInComponent implements OnInit, AfterViewInit {
       this.item = new CheckInItem();
       this.InitForm();
     }
+
+    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+    const userEmail = userData.emailAddress;
+
+    // Fetch and filter check-in items based on user's email
+    this.checkInService.getDataCheckIn().subscribe((data) => {
+    this.checkInItems = data.filter((item: CheckInItem) => item.passengerEmail === userEmail);
+  });
   }
 
   private InitForm() {
