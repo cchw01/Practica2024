@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 })
 export class FlightComponent {
   @Input() flightItem!: FlightItem;
-
   constructor(private router: Router) {}
 
   get discountedPrice(): number {
