@@ -188,7 +188,7 @@ export class HomePageComponent implements OnInit {
       );
       this.router.navigate(
         [
-          `/flights/discount-flight/${discountFlightId}`
+          `/flights/discounted-flight/${discountFlightId}`
         ],
       );
     } else {
