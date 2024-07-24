@@ -23,7 +23,7 @@
         type="text"
         required
       />
-      <mat-error *ngIf="hasError('role', 'required')">Full name is required!</mat-error>
+      <mat-error *ngIf="hasError('role', 'required')">Role is required!</mat-error>
        </mat-form-field>
 
        <mat-form-field appearance="outline">
@@ -35,7 +35,7 @@
         type="text"
         required
       />
-      <mat-error *ngIf="hasError('email', 'required')">Full name is required!</mat-error>
+      <mat-error *ngIf="hasError('email', 'required')">Email is required!</mat-error>
        </mat-form-field>
 
       <mat-label *ngIf="isEditing">Password:</mat-label>
@@ -55,8 +55,8 @@
   </div>
 
   </form>
-    <div class ="tickets-container" *ngIf="!userTickets" style="font-size: 2.5em;">No tickets.</div>
-    <div class="tickets-container" *ngIf="userTickets">
+    <div class ="tickets-container" *ngIf="userTickets.length==0" style="font-size: 2.5em;">No tickets.</div>
+    <div class="tickets-container" >
       <div class="carousel">
         
         <div class="carousel-inner" [style.transform]="getTransform()">
@@ -80,8 +80,8 @@
        
       </div>
 
-       <button style ="width:40px" class="carousel-control-prev" (click)="prevSlide()"><img style ="width:70px" src="../../../assets/images/left_arrow.png"></button>
-        <button  style ="width:40px" class="carousel-control-next" (click)="nextSlide()"><img style ="width:70px" src="../../../assets/images/right_arrow.png"></button> 
+      <button *ngIf="userTickets.length>0" style ="width:40px" class="carousel-control-prev"   (click)="prevSlide()"><img style ="width:70px" src="../../../assets/images/left_arrow.png"></button>
+      <button *ngIf="userTickets.length>0"  style ="width:40px" class="carousel-control-next"  (click)="nextSlide()"><img style ="width:70px" src="../../../assets/images/right_arrow.png"></button> 
 
     </div>
 
