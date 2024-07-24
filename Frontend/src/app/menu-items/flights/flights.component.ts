@@ -13,7 +13,9 @@ export class FlightsComponent implements OnInit {
   departingAirportId? : number;
   destinationAirportId? : number;
   departingTime? : Date;
+  noFlightsAvailable: boolean = false;
   discountFlightId?: number;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -34,9 +36,11 @@ export class FlightsComponent implements OnInit {
         (flights) => {
           this.flights = flights;
           console.table(this.flights);
+          this.noFlightsAvailable = this.flights.length === 0;
         },
         (error) => {
           console.error('Failed to load flights', error);
+          this.noFlightsAvailable = true;
         }
       );
     }
@@ -48,9 +52,11 @@ export class FlightsComponent implements OnInit {
           this.flights=[];
           this.flights.push(flight);
           console.table(this.flights);
+          this.noFlightsAvailable = this.flights.length === 0;
         },
         (error) => {
           console.error('Failed to load flights', error);
+           this.noFlightsAvailable = true;
         }
       );
     }
@@ -59,10 +65,12 @@ export class FlightsComponent implements OnInit {
       this.flightService.getFlights().subscribe(
         (flights) => {
           this.flights = flights;
+          this.noFlightsAvailable = this.flights.length === 0;
           console.table(this.flights);
         },
         (error) => {
           console.error('Failed to load flights', error);
+          this.noFlightsAvailable = true;
         }
       );
     }
