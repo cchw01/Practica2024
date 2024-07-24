@@ -13,6 +13,7 @@ import html2canvas from 'html2canvas';
 import { FlightItem } from '../../app-logic/models/flight-item';
 import { FlightService } from '../../app-logic/services/flights.service';
 import { UserService } from '../../app-logic/services/user.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 
@@ -22,6 +23,9 @@ import { UserService } from '../../app-logic/services/user.service';
   styleUrls: ['./check-in.component.css'],
 })
 export class CheckInComponent implements OnInit, AfterViewInit {
+deleteCheckIn(_t105: any) {
+throw new Error('Method not implemented.');
+}
   isOnlineContentVisible = false;
   isQRContentVisible = false;
 
@@ -52,6 +56,7 @@ export class CheckInComponent implements OnInit, AfterViewInit {
   checkInId!: number;
   flightId!: number;
 
+  length = 0;
 
   documentTypeOptions = [
     { value: IdDocumentType.IdentityCard, label: 'Identity Card' },
@@ -69,6 +74,9 @@ export class CheckInComponent implements OnInit, AfterViewInit {
     'passengerEmail',
     'action',
   ];
+
+  displayedColumns: string[] = ['ticketId', 'passengerName', 'idDocumentType', 'documentData', 'passengerEmail', 'qrCode', 'actions'];
+
 
   
 
@@ -106,7 +114,9 @@ export class CheckInComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.itemId = 0;
 
-
+    this.checkInService.getDataCheckIn().subscribe((data) => {
+      this.checkInItems = new MatTableDataSource<CheckInItem>(data);
+    });
 
     
 
@@ -160,9 +170,17 @@ export class CheckInComponent implements OnInit, AfterViewInit {
       documentData: element.documentData,
       passengerEmail: element.passengerEmail,
       
-      
     });
   }
+
+
+
+  generateQrDataTicketId(element: CheckInItem): string {
+    return JSON.stringify({
+      ticketId: element.ticketId
+    });
+  }
+
 
   getDocumentTypeLabel(idDocumentType: IdDocumentType): string {
     const option = this.documentTypeOptions.find(
@@ -189,9 +207,10 @@ export class CheckInComponent implements OnInit, AfterViewInit {
   
             // Update QR data to include both ticket and flight information
             this.qrData = JSON.stringify({
-              ...this.form.value,
-              ticketData: this.ticketData,
-              flightData: this.flightData,          // add flight data to qr
+               ...this.form.value,
+              //ticketData: this.ticketData,
+              //flightData: this.flightData,          // add flight data to qr
+              ticketId: this.ticketData.ticketId
             });
             this.showQR = true;
   
@@ -259,7 +278,7 @@ export class CheckInComponent implements OnInit, AfterViewInit {
     }
   
     html2canvas(data).then((canvas) => {
-      const imgWidth = 50;
+      const imgWidth = 150;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       const contentDataURL = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'mm', 'a4');
@@ -270,7 +289,7 @@ export class CheckInComponent implements OnInit, AfterViewInit {
   }
 
   editCheckIn(checkIn: CheckInItem) {
-    this.itemId = checkIn.checkInId; 
+    this.itemId = checkIn.checkInId;
     this.isEditing = true; // Set to true when editing
     this.form.patchValue({
       ticketId: checkIn.ticketId,
@@ -279,18 +298,58 @@ export class CheckInComponent implements OnInit, AfterViewInit {
       documentData: checkIn.documentData,
       passengerEmail: checkIn.passengerEmail,
     });
-
-    
+  
+    // Set QR data with the ticket ID
+    this.qrData = this.generateQrDataTicketId(checkIn);
+    this.showQR = true;
+  
     // Fetch related ticket data
-    this.checkInService.getTicketByIdNou(checkIn.ticketId).subscribe({
-      next: (ticket) => {
-        this.ticketData = ticket;
-        this.showQR = true; // Show QR and data
-      },
-      error: (error) => {
-        console.error('Failed to get ticket data:', error);
-        alert('Failed to get ticket data. Please try again.');
-      },
-    });
+    if (checkIn.ticketId !== undefined) {
+      this.checkInService.getTicketByIdNou(checkIn.ticketId).subscribe({
+        next: (ticket) => {
+          this.ticketData = ticket;
+  
+          if (this.ticketData.flightId !== undefined) {
+            // Fetch flight details
+            this.flightService.getFlight(this.ticketData.flightId).subscribe({
+              next: (flight) => {
+                this.flightData = flight;
+                this.ticketData.flight = this.flightData;
+                this.showQR = true; // Show QR and data
+  
+                // Patch form with flight details
+                this.form.patchValue({
+                  flight: {
+                    flightNumber: flight.flightNumber,
+                    departingAirport: flight.departingAirport.airportName,
+                    destinationAirport: flight.destinationAirport.airportName,
+                    aircraft: `${flight.aircraft.maker} ${flight.aircraft.model}`,
+                    departingTime: flight.departingTime,
+                    flightTime: flight.flightTime,
+                    flightCost: flight.flightCost,
+                    discount: flight.discountOffer?.discountPercentage,
+                  }
+                });
+              },
+              error: (error) => {
+                console.error('Failed to get flight data:', error);
+                alert('Failed to get flight data. Please try again.');
+              },
+            });
+          } else {
+            console.error('Flight ID is undefined');
+            alert('Flight ID is undefined. Please check the data.');
+          }
+        },
+        error: (error) => {
+          console.error('Failed to get ticket data:', error);
+          alert('Failed to get ticket data. Please try again.');
+        },
+      });
+    } else {
+      console.error('Ticket ID is undefined');
+      alert('Ticket ID is undefined. Please check the data.');
+    }
   }
-}
+}  
+
