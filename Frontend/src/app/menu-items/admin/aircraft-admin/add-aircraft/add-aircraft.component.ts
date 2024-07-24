@@ -39,6 +39,18 @@ export class AddAircraftComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.aircraftId !== 0) {
+      this.aircraftService.getItemById(this.aircraftId).subscribe((aircraft) => {
+        this.addAircraftForm.patchValue({
+          registrationNumber: aircraft.registrationNumber,
+          maker: aircraft.maker,
+          model: aircraft.model,
+          numberOfSeats: aircraft.numberOfSeats,
+          autonomyInHours: aircraft.autonomyInHours,
+          maxCargo: aircraft.maxCargo
+        });
+      });
+    }
   }
 
   onSubmit(): void {
