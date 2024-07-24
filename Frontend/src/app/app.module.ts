@@ -54,7 +54,12 @@ import { AddCheckInComponent } from './menu-items/admin/check-in-admin/add-check
 import { QrCodeModule } from 'ng-qrcode';
 import { format, parse } from 'date-fns';
 
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
 
+import { CarouselModule } from 'primeng/carousel';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -111,6 +116,11 @@ import { format, parse } from 'date-fns';
     MatNativeDateModule,
     MatDatepickerModule,
     QrCodeModule,
+    MatCardModule,
+    MatListModule,
+    CarouselModule,
+    CardModule,
+    ButtonModule,
   ],
   providers: [provideAnimationsAsync(), provideHttpClient()],
   bootstrap: [AppComponent],
