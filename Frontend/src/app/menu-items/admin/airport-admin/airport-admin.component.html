@@ -1,6 +1,6 @@
-<h1>Manage Airports</h1>
+<h1>Manage airports</h1>
 <div>
-  <button class="navigation-button" mat-button routerLink="/admin/airport/create">Add new Airport</button>
+  <button class="navigation-button" mat-button routerLink="/admin/airport/create">Add new airport</button>
 
   <table mat-table matSort [dataSource]="airportData" class="mat-elevation-z8">
     <ng-container matColumnDef="select">
@@ -23,19 +23,19 @@
     </ng-container>
 
     <ng-container matColumnDef="airportName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Airport Name</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Airport name</th>
       <td mat-cell *matCellDef="let element">{{ element.airportName }}</td>
     </ng-container>
 
     <ng-container matColumnDef="edit">
-      <th mat-header-cell *matHeaderCellDef>Action Edit</th>
+      <th mat-header-cell *matHeaderCellDef>Action</th>
       <td mat-cell *matCellDef="let element">
         <a style="color: blue;" [routerLink]="['/admin/airport/create', element]">Edit</a>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="delete">
-      <th mat-header-cell *matHeaderCellDef>Action Delete</th>
+      <th mat-header-cell *matHeaderCellDef>Action</th>
       <td mat-cell *matCellDef="let element">
         <a style="color: red" (click)="deleteAirport(element.airportId)">Delete</a>
       </td>
