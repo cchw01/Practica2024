@@ -71,7 +71,7 @@ export class TicketsComponent implements OnInit {
   }
 
   deleteTicket(id: number) {
-    if (confirm('Are you sure you want to delete this flight?')) {
+    if (confirm('Are you sure you want to delete this ticket?')) {
       this.ticketService.deleteTicket(id).subscribe(() => { 
         this.ticketsItems = this.ticketsItems.filter(ticket => ticket.ticketId !== id);
         this.filteredTicketsItems.data = this.ticketsItems;

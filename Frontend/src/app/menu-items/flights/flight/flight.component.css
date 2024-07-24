@@ -28,7 +28,7 @@
   width: 20px;
   height: 100%;
   position: absolute;
-  background-color: #673ab7;
+  background-color: #0a4c6b;
   transition: all 300ms;
 }
 
@@ -64,7 +64,7 @@
 
 .icon-admin:hover,
 .icon-admin:focus {
-  color: #673ab7;
+  color: #0a4c6b;
 }
 
 .flight-date {
@@ -165,7 +165,7 @@
 
 .normal-price.discounted .price {
   text-decoration: line-through;
-  color: red;
+  color: darkred;
 }
 
 .discounted-price {
@@ -202,7 +202,7 @@
 .btn:active,
 .btn:focus {
   background-color: #f2f2f2;
-  color: #673ab7;
+  color: #0a4c6b;
 }
 
 .discount-dates{

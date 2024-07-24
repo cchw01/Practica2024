@@ -44,30 +44,29 @@ mat-form-field {
 
 .register_button {
   width: 30%;
-  padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #007bff;
-  color: white;
+  background-color: #0a4c6b!important;
+  color: white !important;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .register_button:hover {
-  background-color: #0056b3;
+  background-color: #0a4c6b;
   color: white;
 }
 
 .navigate-link {
-  color: #007bff;
+  color: #0a4c6b;
   text-decoration: underline;
   cursor: pointer;
   margin-top: 20px;
 }
 
 .navigate-link:hover {
-  color: #0056b3;
+  color: #0a4c6b;
 }
 
 .airplane_image {

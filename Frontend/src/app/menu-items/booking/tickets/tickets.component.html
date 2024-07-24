@@ -1,9 +1,10 @@
-<div class="title-table">
+<!--<div class="title-table">
   <mat-toolbar>
     <span>Table Of Tickets</span>
   </mat-toolbar>
-</div>
+</div>-->
 
+<h1>Manage tickets</h1>
 <div>
   <form>
     <mat-form-field class="search-bar-field">
@@ -16,43 +17,43 @@
 <table mat-table [dataSource]="filteredTicketsItems" matSort class="mat-elevation-z8">
   <!-- Ticked Id Column -->
   <ng-container matColumnDef="tickedId">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Ticked Id</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
     <td mat-cell *matCellDef="let element">{{ element.ticketId }}</td>
   </ng-container>
 
   <!-- Flight Number Column -->
   <ng-container matColumnDef="flight.flightNumber">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Flight Number</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Flight number</th>
     <td mat-cell *matCellDef="let element">{{ element.flight.flightNumber }}</td>
   </ng-container>
 
   <!-- Departing Airport Column -->
   <ng-container matColumnDef="flight.departingAirport.airportName">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Departing Airport</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Departing airport</th>
     <td mat-cell *matCellDef="let element">{{ element.flight.departingAirport.airportName }}</td>
   </ng-container>
 
   <!-- Destination Airport Column -->
   <ng-container matColumnDef="flight.destinationAirport.airportName">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Destination Airport</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Destination airport</th>
     <td mat-cell *matCellDef="let element">{{ element.flight.destinationAirport.airportName }}</td>
   </ng-container>
 
   <!-- Departing Time Column -->
   <ng-container matColumnDef="flight.departingTime">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Departing Time</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Departing time</th>
     <td mat-cell *matCellDef="let element">{{ element.flight.departingTime }}</td>
   </ng-container>
 
   <!-- Flight Time Column -->
   <ng-container matColumnDef="flight.flightTime">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Flight Time</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Flight time</th>
     <td mat-cell *matCellDef="let element">{{ element.flight.flightTime }} hours</td>
   </ng-container>
 
   <!-- Flight Cost Column -->
   <ng-container matColumnDef="flight.flightCost">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Flight Cost</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Flight cost</th>
     <td mat-cell *matCellDef="let element">
       Original: {{ element.flight.flightCost | currency }}<br>
       <div *ngIf="element.flight.discountOffer">
@@ -90,9 +91,9 @@
   <ng-container matColumnDef="delete">
     <th mat-header-cell *matHeaderCellDef>Action</th>
     <td mat-cell *matCellDef="let element">
-      <a style="color: red; cursor: pointer;" (click)="deleteTicket(element.ticketId)"
-        >Delete</a
-      >
+      <button class="delete-button" (click)="deleteTicket(element.ticketId)">
+        <mat-icon>delete</mat-icon>
+    </button>
     </td>
   </ng-container>
 

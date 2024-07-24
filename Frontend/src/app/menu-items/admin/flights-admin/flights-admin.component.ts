@@ -22,7 +22,6 @@ export class FlightsAdminComponent {
     'flightTime',
     'flightCost',
     'edit',
-    'delete',
   ];
 
   selection = new SelectionModel<FlightItem>(true, []);

@@ -4,6 +4,7 @@ using Backend.DTOs;
 using Backend.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Backend.Services
 {
@@ -67,6 +68,9 @@ namespace Backend.Services
             var user = _context.Users.FirstOrDefault(x => x.UserId == userDto.UserId);
             if (user == null)
                 throw new ArgumentException("User doesn't exist.");
+
+            if (userDto.Password == null || userDto.Password.IsNullOrEmpty())
+                userDto.Password = user.Password;
 
             _mapper.Map(userDto, user);
             _context.SaveChanges();

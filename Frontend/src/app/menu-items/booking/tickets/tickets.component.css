@@ -1,18 +1,32 @@
-.mat-toolbar {
-    padding: 7px;
-    background-color: #673ab7;
-    display: flex;
-    align-items: center;
-    color: #fff;
-
-}
-.title-table{
-    background-color: #5a32a1;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    margin-bottom: 20px;
-}
 .search-bar-label{
     margin-top: 20px;
     border-radius: 20px;
+}
+div {
+  margin-top: 50px;
+}
+
+h1 {
+  margin-top: 100px;
+  font-size: 30px;
+  text-align: center;
+  font-weight: 500;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button.delete-button {
+  background-color: #f44336; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 7px;
+}
+
+button.delete-button:hover {
+  background-color: #e53935;
 }

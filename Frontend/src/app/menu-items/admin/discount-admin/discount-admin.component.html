@@ -1,6 +1,13 @@
 <h1>Manage discounts</h1>
 <div>
-  <button class="navigation-button" mat-button routerLink="/admin/discount/create">Add new discount</button>
+  <div class="add-container">
+    <button
+    class="add-button"
+    mat-raised-button
+    routerLink="/admin/discount/create"
+  ><mat-icon style="margin-left:2px; margin-right: 0;">add</mat-icon>Add new Discount
+  </button>
+  </div>
 
   <table mat-table matSort [dataSource]="discountData" class="mat-elevation-z8">
     <ng-container matColumnDef="select">
@@ -48,15 +55,16 @@
     </ng-container>
 
     <ng-container matColumnDef="edit">
-      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let element">
-        <a style="color: blue;" [routerLink]="['/admin/discount/create', element.discountId]">Edit</a>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="delete">
-      <th mat-header-cell *matHeaderCellDef>Action</th>
-      <td mat-cell *matCellDef="let element">
-        <a style="color: red" (click)="deleteDiscount(element.discountId)">Delete</a>
+        <div class="action-buttons">
+        <button class="edit-button" [routerLink]="['/admin/discount/create', element.discountId]">
+          <mat-icon>edit</mat-icon>
+      </button>
+      <button class="delete-button" (click)="deleteDiscount(element.discountId)">
+        <mat-icon>delete</mat-icon>
+    </button>
+  </div>
       </td>
     </ng-container>
 
