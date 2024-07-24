@@ -8,6 +8,7 @@ import { TicketDto } from '../DTOs/ticket-dto';
 import { TicketItem } from '../models/ticket-item';
 import { FlightService } from './flights.service';
 import { UserService } from './user.service';
+import { FlightDto } from '../DTOs/flight-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,20 @@ import { UserService } from './user.service';
 export class CheckInService {
   private checkInapiUrl = 'http://localhost:5198/api/CheckIn';
   ticketApiUrl = "http://localhost:5198/api/Ticket"
+  flightApiUrl = "http://localhost:5198/api/Flight"
 
 
   constructor(private httpclient: HttpClient, private flightService: FlightService, private userService: UserService) {}
 
+
+  //chestii de flight vedemd aca merg
+  getFlight(flightId: number): Observable<FlightDto> {
+    return this.httpclient.get<FlightDto>(`${this.flightApiUrl}/${flightId}`);
+  }
+
+  //
+
+  
   getDataCheckIn(): Observable<CheckInItem[]> {
     return this.httpclient.get<CheckInDto[]>(this.checkInapiUrl).pipe(
       map(checkInDtos => checkInDtos.map(dto => this.mapCheckInDtoToItem(dto)))
