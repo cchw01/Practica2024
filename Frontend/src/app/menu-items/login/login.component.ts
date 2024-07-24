@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../app-logic/services/user.service';
+import { LocalStorageService } from '../../app-logic/services/local-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private localservice: LocalStorageService,
     private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
@@ -28,10 +30,8 @@ export class LoginComponent {
       const password = this.loginForm.value.password;
       this.userService.login(email, password).subscribe({
         next: (user) => {
-          this.userService.storeUserData(user);
-          this.router.navigate([''], {
-            queryParams: { reload: new Date().getTime() },
-          });
+          this.localservice.storeUserData(user);
+          this.router.navigate(['']);
         },
         error: (error) => {
           console.error('Login failed:', error);
