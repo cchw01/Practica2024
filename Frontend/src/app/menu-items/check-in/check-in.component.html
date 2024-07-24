@@ -1,14 +1,46 @@
+
+<div class="row">
+  <div class="contentWrapper">
+    <div class="patrat">
+      <span class="textWrapper">
+        <span class="line"></span>
+        <span class="text">Get on board</span>
+      </span>
+      <h2>Ready to check-in?</h2>
+      <p>
+        You can check in any time from 30 hours before your flight's departure (24
+        hours for flights to or from the United States). Please select how you
+        would like to check in.
+      </p>
+      <ul>
+        <li>Check in, change, and rebook flights with ease</li>
+        <li>Get all your travel info in 1 convenient place</li>
+        <li>Store your details for safe and speedy bookings</li>
+      </ul>
+         <button mat-raised-button color="primary">Check in with my account</button>
+         <p>
+          Don't have an account? Sign up for a free account and enjoy all benefits!
+          <br><button mat-raised-button color="primary">Sign up!</button>
+        </p>    
+    </div>
+  </div>
+  <div class="imgWrapper">
+    <img src="../../../assets/images/cover.jpg" alt="Background Image" />
+  </div>
+</div> 
+
 <div *ngIf="checkInItems.length > 0; else noCheckInItems" class="check-in-list">
   <h2>Check-ins effectuated</h2>
   <table>
     <thead>
       <tr>
-        <th>Ticket ID</th>
+        <th>CheckIn ID</th>
         <th>Passenger Name</th>
         <th>Document Type</th>
         <th>Document Data</th>
         <th>Passenger Email</th>
         <th>QrCode</th>
+        <th>Actions</th>
         
 
       </tr>
@@ -19,13 +51,16 @@
         <td>{{ element.passengerName }}</td>
         <td>{{ getDocumentTypeLabel(element.idDocumentType) }}</td>
         <td>{{ element.documentData }}</td>
-        <td>{{ element.passengerEmail }}</td>
-        
-<!--         <td>{{ element.ticketData?.flight?.discountId }}</td> -->
+        <td>{{ element.passengerEmail }}</td>        
         <td>
           <qr-code [value]="generateQrData(element)" size="100"></qr-code>
         </td>
-        <td><button (click)="editCheckIn(element)">Edit</button></td>
+        <td>
+          <button (click)="editCheckIn(element)">Edit</button>
+          <br>
+          <button (click)="editCheckIn(element)">Delete</button>
+        </td>
+        
       </tr>
     </tbody>
   </table>
@@ -145,11 +180,13 @@
   <h1>Aici este Qr-ul.</h1>
   <div *ngIf="showQR">
     <div style="display: flex; align-items: center;">
-      <qr-code [value]="qrData" size="200"></qr-code>
+      <qr-code [value]="qrData" size="100"></qr-code>
       <button (click)="generatePDF()">Generate PDF</button>
 
+<!--       continut pdf -->
       <div id="pdfContent">
       <table style="margin-left: 20px;">
+ 
         <H3>template bilet</H3>
         <tr>
           <td><strong>Ticket Nr:</strong></td>
@@ -221,6 +258,7 @@
           <td>{{ flightData.discountOffer?.discountPercentage }}</td>
         </tr>
       </table>
+      <qr-code [value]="qrData" size="150"></qr-code>
       </div>
     </div>
   </div>
