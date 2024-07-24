@@ -1,7 +1,14 @@
 <div class="flights-container">
-  <ng-container *ngFor="let flightItem of flights; trackBy: trackByFlightNumber">
-    <app-flight [flightItem]="flightItem"></app-flight>
-    <div class="flight-pricing"></div>
+  <ng-container *ngIf="!noFlightsAvailable; else noFlightsTemplate">
+    <ng-container *ngFor="let flightItem of flights; trackBy: trackByFlightNumber">
+      <app-flight [flightItem]="flightItem"></app-flight>
+      <div class="flight-pricing"></div>
+    </ng-container>
   </ng-container>
+  <ng-template #noFlightsTemplate>
+    <div class="no-flights-message">
+      There are no available flights.
+    </div>
+  </ng-template>
   <app-footer></app-footer>
 </div>
