@@ -34,13 +34,7 @@
           <input id="userEmail" type="text" formControlName="userEmail" class="user-email-input">
         </div>        
       </div>
-      <!-- <div class="user-info">
-        <span class="info-title">Password:</span>
-        <span class="info-content" *ngIf="!isEditing">{{ userProfileForm.get('userPassword')?.value }}</span>
-        <div *ngIf="isEditing" class="input-group">
-          <input id="userPassword" type="text" formControlName="userPassword" class="user-password-input">
-        </div>        
-      </div> -->
+     
       <div class="button-wrapper">
         <button id="editButton" class="edit-btn" *ngIf="!isEditing" (click)="toggleEdit()">Edit Profile</button>
         <button id="saveButton" class="save-btn" *ngIf="isEditing" (click)="saveProfile()">Save</button>
