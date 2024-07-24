@@ -13,6 +13,7 @@ export class FlightsComponent implements OnInit {
   departingAirportId? : number;
   destinationAirportId? : number;
   departingTime? : Date;
+  discountFlightId?: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,6 +23,7 @@ export class FlightsComponent implements OnInit {
         this.departingAirportId = params['departingAirportId'];
         this.destinationAirportId = params['destinationAirportId'];
         this.departingTime = params['departingTime'];
+        this.discountFlightId = params['discountFlightId'];
         
       });
     }
@@ -31,6 +33,20 @@ export class FlightsComponent implements OnInit {
       this.flightService.searchFlights(this.departingAirportId, this.destinationAirportId, this.departingTime).subscribe(
         (flights) => {
           this.flights = flights;
+          console.table(this.flights);
+        },
+        (error) => {
+          console.error('Failed to load flights', error);
+        }
+      );
+    }
+    else if(this.discountFlightId){
+      console.log('disountFlightId: ${this.discountFlightId}', this.discountFlightId);
+      this.flightService.getFlight(this.discountFlightId).subscribe(
+        (flight) => {
+          console.log(flight);
+          this.flights=[];
+          this.flights.push(flight);
           console.table(this.flights);
         },
         (error) => {
