@@ -55,10 +55,10 @@
   </div>
 
   </form>
-  <div id="userTickets">
+   <div id="userTickets">
 
-    <div *ngIf="tickets | async as ticketList">
-      <mat-card *ngFor="let ticket of ticketList" class="ticket-card">
+    <div *ngIf="userTickets">
+      <mat-card *ngFor="let ticket of userTickets" class="ticket-card">
         <mat-card-header>
           <mat-card-title>Ticket ID: {{ ticket.ticketId }}</mat-card-title>
           <mat-card-subtitle>Flight ID: {{ ticket.flightId }}</mat-card-subtitle>
@@ -74,10 +74,8 @@
       </mat-card>
     </div>
 
-<!--
-<p-carousel 
-  *ngIf="tickets | async as ticketList" 
-  [value]="ticketList" 
+<!-- <p-carousel 
+  [value]="userTickets  " 
   [numVisible]="3" 
   [circular]="true"
   [autoplayInterval]="3000">
@@ -87,7 +85,7 @@
         Ticket ID: {{ ticket.ticketId }}
       </ng-template>
       <ng-template pTemplate="subtitle">
-        Flight ID: {{ ticket.flight.flightId }}
+        Flight ID: {{ ticket.flight.flightNumber }}
       </ng-template>
       <ng-template pTemplate="content">
         <p><strong>Passenger:</strong> {{ ticket.passenger.name }}</p>
@@ -99,9 +97,7 @@
       </ng-template>
     </p-card>
   </ng-template>
-</p-carousel>
-
--->
+</p-carousel> -->
   </div>
 </div>
 </div>

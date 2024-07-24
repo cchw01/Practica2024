@@ -14,7 +14,8 @@ import { Observable } from 'rxjs';
 export class UserProfileComponent implements OnInit {
   userForm: FormGroup;
   isEditing: boolean = false;
-  tickets?: Observable<TicketItem[]>;
+  tickets!: TicketItem[];
+  userTickets: TicketItem[] = [];
   userData: any;
 
   constructor(
@@ -43,7 +44,18 @@ export class UserProfileComponent implements OnInit {
       email: this.userData.emailAddress || '',
       password: '', // Set password field to empty initially
     });
-    this.tickets = this.userService.getUserTickets(this.userData.id);
+    this.loadUserTickets(this.userData.userId);
+  }
+  loadUserTickets(userId: number): void {
+    this.userService.getUserTickets(userId).subscribe({
+      next: (tickets) => {
+        this.userTickets = tickets;
+        console.log('Loaded user tickets:', this.userTickets); // Check the console log for the correct data structure
+      },
+      error: (error) => {
+        console.error('Failed to load tickets:', error);
+      },
+    });
   }
 
   toggleEdit(): void {
