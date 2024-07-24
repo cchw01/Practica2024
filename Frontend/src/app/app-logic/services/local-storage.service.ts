@@ -1,13 +1,28 @@
 import { Injectable } from '@angular/core';
 import { UserItem } from '../models/user-item';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalStorageService {
   private readonly USER_DATA_KEY = 'userData';
+  private isLoggedInSubject = new BehaviorSubject<boolean>(this.checkIsLoggedIn());
+  private isAdminSubject = new BehaviorSubject<boolean>(this.checkIsAdmin());
+
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
+  isAdmin$ = this.isAdminSubject.asObservable();
 
   constructor() {}
+
+  private checkIsLoggedIn(): boolean {
+    return !!localStorage.getItem(this.USER_DATA_KEY);
+  }
+
+  private checkIsAdmin(): boolean {
+    const userData = this.userData;
+    return userData && userData.role === 'admin';
+  }
 
   get userData(): any {
     const userData = localStorage.getItem(this.USER_DATA_KEY);
@@ -19,9 +34,9 @@ export class LocalStorageService {
     return user ? user.userId : null;
   }
 
-  get name(): string | null {
+  get name(): string {
     const user = this.userData;
-    return user ? user.name : null;
+    return user ? user.name : ''; 
   }
 
   get role(): string | null {
@@ -44,5 +59,12 @@ export class LocalStorageService {
 
   get isAdmin(): boolean {
     return this.role == 'admin';
+  }
+
+  storeUserData(user: UserItem): void {
+    const { password, ...userDetails } = user;
+    localStorage.setItem(this.USER_DATA_KEY, JSON.stringify(userDetails));
+    this.isLoggedInSubject.next(true);
+    this.isAdminSubject.next(user.role === 'admin');
   }
 }

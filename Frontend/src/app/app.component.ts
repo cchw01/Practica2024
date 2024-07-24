@@ -1,42 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { LocalStorageService } from './app-logic/services/local-storage.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'Frontend';
   isDropdownVisible = false;
   name?: string;
   isLogged?: boolean;
   isAdmin?: boolean;
+  private subscriptions: Subscription = new Subscription();
 
   constructor(
     private localStorageService: LocalStorageService,
-    private router: Router,
-    private route: ActivatedRoute
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      if (params['reload']) {
-        this.initializeComponent();
-      }
-    });
+    this.subscriptions.add(this.localStorageService.isLoggedIn$.subscribe(isLoggedIn => {
+      this.isLogged = isLoggedIn;
+      this.name = isLoggedIn ? this.localStorageService.name : 'Guest';
+    }));
+
+    this.subscriptions.add(this.localStorageService.isAdmin$.subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
+    }));
   }
 
-  initializeComponent() {
-    this.name = this.localStorageService.name
-      ? this.localStorageService.name
-      : 'Guest';
-    this.isLogged = this.localStorageService.isLoggedIn;
-    this.isAdmin = this.localStorageService.isAdmin;
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
-  toggleDropdown() {
+  toggleDropdown(): void {
     this.isDropdownVisible = !this.isDropdownVisible;
     const dropdown = document.getElementById('user_dropdown');
     if (dropdown) {
@@ -44,17 +44,19 @@ export class AppComponent implements OnInit {
     }
   }
 
-  goToProfile() {
+  goToProfile(): void {
     this.router.navigate(['/user-profile']);
   }
 
-  logout() {
+  logout(): void {
     this.localStorageService.logout();
-    this.initializeComponent();
+    this.isLogged = false;
+    this.isAdmin = false;
+    this.name = 'Guest';
     this.router.navigate(['/login']);
   }
 
-  login() {
+  login(): void {
     this.router.navigate(['/login']);
   }
 }
