@@ -35,7 +35,7 @@ const routes: Routes = [
   { path: 'check-in', component: CheckInComponent},
   { path: 'flights', component: FlightsComponent},
   { path: 'flights/:id', component: FlightComponent},
-  { path: 'flights/discount-flight/:discountFlightId', component: FlightsComponent},
+  { path: 'flights/discounted-flight/:discountFlightId', component: FlightsComponent},
   { path: 'flights/:departingAirportId/:destinationAirportId/:departingTime', component: FlightsComponent },
   { path: 'booking/:flightId', component: BookingComponent, canActivate: [AuthGuardService] },
 

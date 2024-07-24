@@ -58,7 +58,6 @@ export class FlightsComponent implements OnInit {
     {
       this.flightService.getFlights().subscribe(
         (flights) => {
-          this.flights= [];
           this.flights = flights;
           console.table(this.flights);
         },
