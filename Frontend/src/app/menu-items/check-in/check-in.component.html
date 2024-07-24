@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
   <div class="contentWrapper">
     <div class="patrat">
       <span class="textWrapper">
@@ -26,17 +26,56 @@
   <div class="imgWrapper">
     <img src="../../../assets/images/cover.jpg" alt="Background Image" />
   </div>
-</div>
+</div> -->
 
 <div class="check-in-list">
   <h2>Check-ins effectuated</h2>
-  <ul>
-    <li *ngFor="let element of checkInItems">
-      {{ element.ticketId }} - {{ element.passengerName }} - {{ getDocumentTypeLabel(element.idDocumentType) }} - {{ element.documentData }} - {{ element.passengerEmail }}
-      <button (click)="editCheckIn(element)">Edit</button>
-    </li>
-  </ul>
+  <table>
+    <thead>
+      <tr>
+        <th>Ticket ID</th>
+        <th>Passenger Name</th>
+        <th>Document Type</th>
+        <th>Document Data</th>
+        <th>Passenger Email</th>
+        <th>Flight Number</th>
+        <th>Departing Airport</th>
+        <th>Destination Airport</th>
+        <th>Aircraft</th>
+        <th>Departing Time</th>
+        <th>Flight Time</th>
+        <th>Flight Cost</th>
+        <th>QR Code</th>
+        <th>Actions</th>
+        <th>Discount</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let element of checkInItems">
+        <td>{{ element.ticketId }}</td>
+        <td>{{ element.passengerName }}</td>
+        <td>{{ getDocumentTypeLabel(element.idDocumentType) }}</td>
+        <td>{{ element.documentData }}</td>
+        <td>{{ element.passengerEmail }}</td>
+        <td>{{ element.flightData?.flightNumber }}</td>
+        <td>{{ element.flightData?.departingAirportId }}</td>
+        <td>{{ element.flightData?.destinationAirportId }}</td>
+        <td>{{ element.flightData?.aircraftId }}</td>
+        <td>{{ element.flightData?.departingTime | date:'short' }}</td>
+        <td>{{ element.flightData?.flightTime | date:'short' }}</td>
+        <td>{{ element.flightData?.flight?.flightCost }}</td>
+<!--         <td>{{ element.ticketData?.flight?.discountId }}</td> -->
+        <td>
+          <qr-code [value]="generateQrData(element)" size="100"></qr-code>
+        </td>
+        <td><button (click)="editCheckIn(element)">Edit</button></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
+
+
 
 
 
@@ -101,9 +140,10 @@
       </p>
     </div>
 
+
     <div class="form-container">
-      <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">     <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+
         <mat-form-field appearance="outline">
           <mat-label>Ticket Nr:</mat-label>
           <input matInput placeholder="Ticket" formControlName="ticketId" type="number" required [readonly]="isEditing" />
@@ -149,6 +189,7 @@
 
       <div id="pdfContent">
       <table style="margin-left: 20px;">
+        <H3>tenmplate bilet</H3>
         <tr>
           <td><strong>Ticket Nr:</strong></td>
           <td>{{ form.value.ticketId }}</td>
@@ -184,6 +225,39 @@
         <tr>
           <td><strong>Price:</strong></td>
           <td>{{ ticketData.price }}</td>
+        </tr>
+        <!-- nu se afiseaza -->
+        <tr>
+          <td><strong>Flight Number:</strong></td>
+          <td>{{ flightData.flightNumber }}</td>
+        </tr>
+        <tr>
+          <td><strong>Departing Airport:</strong></td>
+          <td>{{ flightData.departingAirport.airportName }}</td>
+        </tr>
+        <tr>
+          <td><strong>Destioantion Airport:</strong></td>
+          <td>{{ flightData.destinationAirport.airportName }}</td>
+        </tr>
+        <tr>
+          <td><strong>Aircraft:</strong></td>
+          <td>{{ flightData.aircraft.maker  + " " + flightData.aircraft.model}}</td>
+        </tr>
+        <tr>
+          <td><strong>Departing Time</strong></td>
+          <td>{{ flightData.departingTime | date:'short' }}</td>
+        </tr>
+        <tr>
+          <td><strong>Flight Time:</strong></td>
+          <td>{{ flightData.flightTime | formatFlightTime }}</td>
+        </tr>
+        <tr>
+          <td><strong>Flight Cost:</strong></td>
+          <td>{{ flightData.flightCost }}</td>
+        </tr>
+        <tr>
+          <td><strong>Discount:</strong></td>
+          <td>{{ flightData.discountOffer?.discountPercentage }}</td>
         </tr>
       </table>
       </div>
