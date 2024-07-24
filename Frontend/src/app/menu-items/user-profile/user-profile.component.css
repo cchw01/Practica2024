@@ -24,21 +24,18 @@
   background-color: #f9f9f9;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   max-width: 400px;
-  margin: 50px;
+  margin: 150px;
   padding: 20px;
-}
-
-#button-wrapper{
-  width:fit-content;
-}
-
-.form-button{
-  width:100px;
+  width: 300px;
+  border-radius: 15px;
 }
 
 mat-form-field {
   margin-bottom: 10px;
+  font-size: 1.3em;
 }
+
+
 
 :host ::ng-deep .p-password input {
   margin-bottom: 40px;
@@ -60,8 +57,8 @@ mat-form-field {
 }
 
 
-
 .ticket-card {
+  width: 500px;
   margin: 20px;
   padding: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -74,16 +71,56 @@ mat-form-field {
 }
 
 .ticket-card mat-card-title {
-  font-size: 1.2em;
+  font-size: 1.5em;
   font-weight: bold;
 }
 
 .ticket-card mat-card-subtitle {
-  font-size: 1em;
+  font-size: 1.4em;
   color: #888;
 }
 
 .ticket-card mat-card-content {
   margin-top: 10px;
+  
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  position:absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  border: none;
+  background-color: white;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.carousel-control-prev {
+  left: -11%; /* Adjusted to be outside the carousel items */
+}
+
+.carousel-control-next {
+  right: -4%; /* Adjusted to be outside the carousel items */
+}
+
+.tickets-container {
+  position: absolute;
+  top: 55%;
+  left: 67%;
+  transform: translate(-50%, -50%);
+  width: 42%;
+  
+}
+
+.carousel {
+  position: relative;
+  margin-bottom: 50px;
+  overflow: hidden;
+}
+
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease;
 }
 

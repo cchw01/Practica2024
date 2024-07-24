@@ -60,6 +60,7 @@ import { MatListModule } from '@angular/material/list';
 import { CarouselModule } from 'primeng/carousel';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
 
 @NgModule({
   declarations: [
@@ -121,6 +122,7 @@ import { ButtonModule } from 'primeng/button';
     CarouselModule,
     CardModule,
     ButtonModule,
+    TagModule,
   ],
   providers: [provideAnimationsAsync(), provideHttpClient()],
   bootstrap: [AppComponent],

@@ -18,6 +18,8 @@ export class UserProfileComponent implements OnInit {
   userTickets: TicketItem[] = [];
   userData: any;
 
+  currentSlide: number = 0;
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -94,4 +96,22 @@ export class UserProfileComponent implements OnInit {
       return this.userForm.controls[controlName].hasError(errorName);
     return false;
   };
+
+  getTransform(): string {
+    return `translateX(-${this.currentSlide * 33.33}%)`;
+  }
+
+  prevSlide() {
+    this.currentSlide =
+      this.currentSlide > 0
+        ? this.currentSlide - 1
+        : this.userTickets.length - 3;
+  }
+
+  nextSlide() {
+    this.currentSlide =
+      this.currentSlide < this.userTickets.length - 3
+        ? this.currentSlide + 1
+        : 0;
+  }
 }
