@@ -57,4 +57,13 @@ button:hover {
   color: #0056b3; 
 }
 
+.mat-mdc-raised-button {
+  background-color: #0a4c6b!important;
+  color: white !important;
+}
 
+
+
+input {
+  background-color: #f9f9f9 !important;
+}

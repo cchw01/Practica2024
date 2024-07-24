@@ -1,11 +1,13 @@
+
 .flights-container {
-    margin-top: 200px;
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
     padding-top: 100px;
     background-color: #e5e5e5;
+    margin-bottom: 70px;
+
 }
 .booking-page-title{
     text-align: center;
@@ -20,7 +22,7 @@
     font-size: 15px;
     line-height: 18px;
     font-weight: 100;
-    color: #adb5bd;
+    color: #686d71;
     margin-bottom: 20px;
   }
   .images-section{
@@ -29,3 +31,8 @@
     flex-direction: column; 
     align-items: center; 
   }
+
+  .flights-header {
+    margin-left: 100px;
+  }
+
