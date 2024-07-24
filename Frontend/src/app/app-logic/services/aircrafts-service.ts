@@ -29,7 +29,7 @@ export class AircraftsListMockServices {
   }
 
   getItemById(id: number): Observable<AircraftItem> {
-    return this.httpclient.get<AircraftItem>(`${this.apiUrl}/getbyid/${id}`);
+    return this.httpclient.get<AircraftItem>(`${this.apiUrl}/${id}`);
   }
 
 }

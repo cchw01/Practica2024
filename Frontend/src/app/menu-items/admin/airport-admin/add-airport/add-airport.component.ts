@@ -35,6 +35,14 @@ export class AddAirportComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.airportId !== 0) {
+      this.airportService.getItemById(this.airportId).subscribe((airport) => {
+        this.addAirportForm.patchValue({
+          airportName: airport.airportName,
+          location: airport.location
+        });
+      });
+    }
   }
 
   onSubmit(): void {
