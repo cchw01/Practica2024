@@ -7,3 +7,25 @@
     padding-top: 100px;
     background-color: #e5e5e5;
 }
+.booking-page-title{
+    text-align: center;
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin-top: 20px;
+  }
+  
+  .booking-page-description{
+    text-align: center;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 100;
+    color: #adb5bd;
+    margin-bottom: 20px;
+  }
+  .images-section{
+    position: relative;
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+  }

@@ -1,3 +1,4 @@
+
 <div class="flights-container">
   <ng-container *ngIf="!noFlightsAvailable; else noFlightsTemplate">
     <ng-container *ngFor="let flightItem of flights; trackBy: trackByFlightNumber">
@@ -7,7 +8,14 @@
   </ng-container>
   <ng-template #noFlightsTemplate>
     <div class="no-flights-message">
-      There are no available flights.
+      <div>
+        <h3 class="booking-page-title">ERROR YOUR FLIGHT DOESN'T EXIST!</h3>
+        <h5 class="booking-page-description">It seems that's an error, the flight for this booking either don't exist or it has a problem. Please try to select another flight or comeback later. </h5>
+        <h5 class="booking-page-description">Thank you, dear customer!</h5>
+        <div class="images-section">
+          <img src="../../../assets/images/airplane-booking.png" class="booking-page-image-top">
+        </div>
+      </div>
     </div>
   </ng-template>
   <app-footer></app-footer>
