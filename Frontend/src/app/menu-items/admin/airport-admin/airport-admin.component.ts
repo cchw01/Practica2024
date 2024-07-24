@@ -19,7 +19,6 @@ export class AirportAdminComponent {
     'location',
     'airportName',
     'edit',
-    'delete'
   ];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
