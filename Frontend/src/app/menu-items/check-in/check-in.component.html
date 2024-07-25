@@ -1,4 +1,3 @@
-
 <div class="row">
   <div class="contentWrapper">
     <div class="patrat">
@@ -17,11 +16,11 @@
         <li>Get all your travel info in 1 convenient place</li>
         <li>Store your details for safe and speedy bookings</li>
       </ul>
-         <button mat-raised-button color="primary">Check in with my account</button>
+<!--          <button class="user" mat-raised-button color="primary">Check in with my account</button>
          <p>
           Don't have an account? Sign up for a free account and enjoy all benefits!
-          <br><button mat-raised-button color="primary">Sign up!</button>
-        </p>    
+          <br><button class="user" mat-raised-button color="primary">Sign up!</button>
+        </p>  -->   
     </div>
   </div>
   <div class="imgWrapper">
@@ -29,54 +28,7 @@
   </div>
 </div> 
 
-<div *ngIf="checkInItems.length > 0; else noCheckInItems" class="check-in-list">
-  <h2>Check-ins effectuated</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>CheckIn ID</th>
-        <th>Passenger Name</th>
-        <th>Document Type</th>
-        <th>Document Data</th>
-        <th>Passenger Email</th>
-        <th>QrCode</th>
-        <th>Actions</th>
-        
 
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let element of checkInItems">
-        <td>{{ element.ticketId }}</td>
-        <td>{{ element.passengerName }}</td>
-        <td>{{ getDocumentTypeLabel(element.idDocumentType) }}</td>
-        <td>{{ element.documentData }}</td>
-        <td>{{ element.passengerEmail }}</td>        
-        <td>
-          <qr-code [value]="generateQrData(element)" size="100"></qr-code>
-        </td>
-        <td>
-          <button (click)="editCheckIn(element)">Edit</button>
-          <br>
-          <button (click)="editCheckIn(element)">Delete</button>
-        </td>
-        
-      </tr>
-    </tbody>
-  </table>
-</div>
-<ng-template #noCheckInItems>
-  <p>No check-in items found.</p>
-</ng-template>
-
-
-
-
-
-
-
-
-<p>Form status: {{ form.status }}</p>
 <div class="options">
   <h2>Possibilities for Check-IN</h2>
   <div class="header" (click)="toggleContent('online')">Online Check-in</div>
@@ -167,7 +119,9 @@
           <input matInput placeholder="Email Pasager" formControlName="passengerEmail" type="text" required />
         </mat-form-field>
   
-        <button  type="submit" [disabled]="!form.valid">Submit</button>
+        <div class="form-button-container">
+        <button mat-raised-button color="primary" class="form-button" type="submit" [disabled]="!form.valid">Submit</button>
+      </div>
       </form>
     </div>
   </div>
@@ -177,97 +131,216 @@
 <br>
  <div class="header" (click)="toggleContent('qr')">QR Check-In</div>
 <div class="content" [ngClass]="{ show: isQRContentVisible }">
-  <h1>Aici este Qr-ul.</h1>
+  <h1>Here is your QR Ticket!  <button mat-raised-button color="primary" (click)="generatePDF()">Generate PDF</button>
+  </h1>
   <div *ngIf="showQR">
     <div style="display: flex; align-items: center;">
-      <qr-code [value]="qrData" size="100"></qr-code>
-      <button (click)="generatePDF()">Generate PDF</button>
-
+<!--       <qr-code [value]="qrData" size="100"></qr-code>
+     <button mat-raised-button color="primary" (click)="generatePDF()">Generate PDF</button>
+-->
 <!--       continut pdf -->
       <div id="pdfContent">
-      <table style="margin-left: 20px;">
- 
-        <H3>template bilet</H3>
-        <tr>
-          <td><strong>Ticket Nr:</strong></td>
-          <td>{{ form.value.ticketId }}</td>
-        </tr>
-        <tr>
-          <td><strong>Passenger Name:</strong></td>
-          <td>{{ form.value.passengerName }}</td>
-        </tr>
-        <tr>
-          <td><strong>Document Type:</strong></td>
-          <td>{{ getDocumentTypeLabel(form.value.idDocumentType) }}</td>
-        </tr>
-        <tr>
-          <td><strong>Date Document:</strong></td>
-          <td>{{ form.value.documentData }}</td>
-        </tr>
-        <tr>
-          <td><strong>Email Pasager:</strong></td>
-          <td>{{ form.value.passengerEmail }}</td>
-        </tr>
-        <tr>
-          <td><strong>Flight ID:</strong></td>
-          <td>{{ ticketData.flightId }}</td>
-        </tr>
-        <tr>
-          <td><strong>User ID:</strong></td>
-          <td>{{ ticketData.userId }}</td>
-        </tr>
-        <tr>
-          <td><strong>Luggage:</strong></td>
-          <td>{{ ticketData.luggage }}</td>
-        </tr>
-        <tr>
-          <td><strong>Price:</strong></td>
-          <td>{{ ticketData.price }}</td>
-        </tr>
-        <!-- nu se afiseaza -->
-        <tr>
-          <td><strong>Flight Number:</strong></td>
-          <td>{{ flightData.flightNumber }}</td>
-        </tr>
-        <tr>
-          <td><strong>Departing Airport:</strong></td>
-          <td>{{ flightData.departingAirport.airportName }}</td>
-        </tr>
-        <tr>
-          <td><strong>Destioantion Airport:</strong></td>
-          <td>{{ flightData.destinationAirport.airportName }}</td>
-        </tr>
-        <tr>
-          <td><strong>Aircraft:</strong></td>
-          <td>{{ flightData.aircraft.maker  + " " + flightData.aircraft.model}}</td>
-        </tr>
-        <tr>
-          <td><strong>Departing Time</strong></td>
-          <td>{{ flightData.departingTime | date:'short' }}</td>
-        </tr>
-        <tr>
-          <td><strong>Flight Time:</strong></td>
-          <td>{{ flightData.flightTime | formatFlightTime }}</td>
-        </tr>
-        <tr>
-          <td><strong>Flight Cost:</strong></td>
-          <td>{{ flightData.flightCost }}</td>
-        </tr>
-        <tr>
-          <td><strong>Discount:</strong></td>
-          <td>{{ flightData.discountOffer?.discountPercentage }}</td>
-        </tr>
-      </table>
-      <qr-code [value]="qrData" size="150"></qr-code>
+        <div class="safie">
+          <div class="boarding-pass">
+            <div class="card card-top">
+              <div class="source">
+                <div class="code">IXM</div>
+                <div class="city">{{ flightData.departingAirport.airportName }}</div>
+              </div>
+              <div class="flight-median">
+                <i class="fas fa-plane"></i>
+              </div>
+              <div class="destination">
+                <div class="code">DXB</div>
+                <div class="city">{{ flightData.destinationAirport.airportName }}</div>
+              </div>
+            </div>
+            <div class="median"></div>
+            <div class="card card-bottom">
+              <div class="card-row">
+                <div class="card-item">
+                  <span class="label">Passenger</span>
+                  <p class="contentP">{{ form.value.passengerName }}</p>
+                </div>
+                <div class="card-item">
+                  <span class="label">Date</span>
+                  <p class="contentP">13/09/2024</p>
+                </div>
+              </div>
+              <div class="card-row">
+                <div class="card-item">
+                  <span class="label">Flight Number</span>
+                  <p class="contentP">{{ ticketData.flightId }}</p>
+                </div>
+                <div class="card-item">
+                  <span class="label">Luggage</span>
+                  <p class="contentP">{{ticketData.luggage}}</p>     
+                </div>
+                <div class="card-item">
+                  <span class="label">User ID</span>
+                  <p class="contentP">{{ ticketData.userId }}</p>
+                </div>
+                <div class="card-item">
+                  <span class="label">Document Type</span>
+                  <p class="contentP">{{ getDocumentTypeLabel(form.value.idDocumentType) }}</p>     
+                </div>
+              </div>
+              <div class="card-row">
+                <div class="card-item">
+                  <span class="label">Boarding Time</span>
+                  <p class="contentP">{{ flightData.departingTime | date:'short' }}</p>
+                </div>
+                <div class="card-item">
+                  <span class="label">Aircraft</span>
+                  <p class="contentP">{{ flightData.aircraft.maker  + " " + flightData.aircraft.model}}</p>     
+                </div>
+                <div class="card-item">
+                  <span class="label">Travelling Time</span>
+                  <p class="contentP">{{ flightData.flightTime | formatFlightTime }}</p>     
+                </div>
+              </div>
+              <div class="card-row">
+                <div class="card-item">
+                  <span class="label">Flight Cost</span>
+                  <p class="contentP">{{ flightData.flightCost }}</p>
+                </div>
+                <div class="card-item">
+                  <span class="label">Ticket Price</span>
+                  <p class="contentP">{{ticketData.price}}</p>     
+                </div>
+                <div class="card-item">
+                  <span class="label">Discount</span>
+                  <p class="contentP">{{ flightData.discountOffer?.discountPercentage }}</p>     
+                </div>
+              </div>
+        <!--       aici e qr
+         -->      <div class="card-row qr-code-section">
+                <div class="card-item qr-code">
+                  <span class="label">QR Code</span>
+                  <div id="qrcode">
+                    <qr-code [value]="qrData" size="150"></qr-code>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+
       </div>
     </div>
   </div>
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div *ngIf="checkInItems.length > 0; else noCheckInItems" class="check-in-list">
+  <h2>Check-ins effectuated</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>CheckIn ID</th>
+        <th>Passenger Name</th>
+        <th>Document Type</th>
+        <th>Document Data</th>
+        <th>Passenger Email</th>
+        <th>QrCode</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let element of checkInItems">
+        <td>{{ element.ticketId }}</td>
+        <td>{{ element.passengerName }}</td>
+        <td>{{ getDocumentTypeLabel(element.idDocumentType) }}</td>
+        <td>{{ element.documentData }}</td>
+        <td>{{ element.passengerEmail }}</td>        
+        <td>
+          <qr-code [value]="generateQrData(element)" size="100"></qr-code>
+        </td>
+        <td>
+          <button (click)="editCheckIn(element)">Edit</button>
+          <br>
+          <button (click)="editCheckIn(element)">Delete</button>
+        </td>
+        
+      </tr>
+    </tbody>
+  </table>
 </div>
-<p>
-  <strong>Note:</strong> If you are travelling within the Schengen area
-  you don't need to fill in the travel document details during the
-  online check-in procedure, since you are not required to provide such
-  details.
-</p>
+<ng-template #noCheckInItems>
+  <p>No check-in items found.</p>
+</ng-template>
+
+
+
+<!-- <table mat-table matSort [dataSource]="tableData" class="mat-elevation-z8">
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      
+    </th>
+    <td mat-cell *matCellDef="let row">
+  
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="checkInId">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID Check-In</th>
+    <td mat-cell *matCellDef="let element">{{ element.checkInId }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="ticket">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Number</th>
+    <td mat-cell *matCellDef="let element">{{ element.ticketId }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="passengerName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Passanger Name</th>
+    <td mat-cell *matCellDef="let element">{{ element.passengerName }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="idDocumentType">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Document Type</th>
+    <td mat-cell *matCellDef="let element">{{ getDocumentTypeLabel(element.idDocumentType) }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="documentData">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Document Data</th>
+    <td mat-cell *matCellDef="let element">{{ element.documentData }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="passengerEmail">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Passanger Email</th>
+    <td mat-cell *matCellDef="let element">{{ element.passengerEmail}}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="checkinColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: checkinColumns"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[25, 6, 9]" showFirstLastButtons></mat-paginator>
+
+
+
+
+ -->
