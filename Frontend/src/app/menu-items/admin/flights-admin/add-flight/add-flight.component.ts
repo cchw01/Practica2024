@@ -1,31 +1,29 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FlightService } from '../../../../app-logic/services/flights.service';
-import { FlightItem } from '../../../../app-logic/models/flight-item';
+import { AirportListMockService } from '../../../../app-logic/services/airport-service';
+import { AircraftsListMockServices } from '../../../../app-logic/services/aircrafts-service';
+import { Observable } from 'rxjs';
 import { AirportItem } from '../../../../app-logic/models/airport-item';
+import { AircraftItem } from '../../../../app-logic/models/aircraft-item';
 
 @Component({
   selector: 'app-add-flight',
   templateUrl: './add-flight.component.html',
-  styleUrl: './add-flight.component.css',
+  styleUrls: ['./add-flight.component.css'],
 })
-export class AddFlightComponent {
+export class AddFlightComponent implements OnInit {
   addFlightForm!: FormGroup;
   flightId!: number;
-  flights: FlightItem[] = [];
+  airports$: Observable<AirportItem[]>;
+  aircrafts$: Observable<AircraftItem[]>;
 
   constructor(
-    
     private formBuilder: FormBuilder,
     private flightService: FlightService,
+    private airportService: AirportListMockService,
+    private aircraftService: AircraftsListMockServices,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
@@ -41,13 +39,15 @@ export class AddFlightComponent {
       flightTime: ['', Validators.required],
       flightCost: ['', Validators.required],
     });
+
+    this.airports$ = this.airportService.getDataAirports();
+    this.aircrafts$ = this.aircraftService.getData();
   }
 
   ngOnInit(): void {
     if (this.flightId) {
       this.loadFlight(this.flightId);
     }
-    
   }
 
   loadFlight(flightNumber: number): void {
@@ -59,7 +59,6 @@ export class AddFlightComponent {
         departingTime: flight.departingTime,
         flightTime: flight.flightTime,
         flightCost: flight.flightCost,
-        discountId: flight.discountOffer?.discountId,
       });
     });
   }
@@ -68,7 +67,8 @@ export class AddFlightComponent {
     const flightData = this.addFlightForm.value;
     if (this.addFlightForm.valid) {
       if (this.flightId) {
-        this.flightService.updateFlight({
+        this.flightService
+          .updateFlight({
             ...flightData,
             flightNumber: this.flightId,
           })
