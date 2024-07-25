@@ -8,47 +8,40 @@
   
 
   <mat-form-field appearance="outline">
-    <mat-label>Departing Airport ID:</mat-label>
-    <input
-      matInput
-      placeholder="Departing Airport ID"
-      formControlName="departingAirportId"
-      type="text"
-      required
-    />
-    <mat-error *ngIf="hasError('departingAirportId', 'required')"
-      >Departing Airport ID is required</mat-error
-    >
+    <mat-label>Departing Airport:</mat-label>
+    <input matInput placeholder="Select departing airport" formControlName="departingAirportId"
+      [matAutocomplete]="autoAirport" required />
+    <mat-autocomplete #autoAirport="matAutocomplete">
+      <mat-option *ngFor="let airport of (airports$ | async)" [value]="airport.airportId">
+        {{ airport.airportName }}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="hasError('departingAirportId', 'required')">Departing Airport is required</mat-error>
   </mat-form-field>
-
+  
   <mat-form-field appearance="outline">
-    <mat-label>Destination Airport ID:</mat-label>
-    <input
-      matInput
-      placeholder="Destination Airport ID"
-      formControlName="destinationAirportId"
-      type="text"
-      required
-    />
-    <mat-error *ngIf="hasError('destinationAirportId', 'required')"
-      >Destination Airport ID is required</mat-error
-    >
+    <mat-label>Destination Airport:</mat-label>
+    <input matInput placeholder="Select destination airport" formControlName="destinationAirportId"
+      [matAutocomplete]="autoDestination" required />
+    <mat-autocomplete #autoDestination="matAutocomplete">
+      <mat-option *ngFor="let airport of (airports$ | async)" [value]="airport.airportId">
+        {{ airport.airportName }}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="hasError('destinationAirportId', 'required')">Destination Airport is required</mat-error>
   </mat-form-field>
-
+  
   <mat-form-field appearance="outline">
-    <mat-label>Aircraft ID:</mat-label>
-    <input
-      matInput
-      placeholder="Aircraft ID"
-      formControlName="aircraftId"
-      type="text"
-      required
-    />
-    <mat-error *ngIf="hasError('aircraftId', 'required')"
-      >Aircraft ID is required</mat-error
-    >
+    <mat-label>Aircraft:</mat-label>
+    <input matInput placeholder="Select aircraft" formControlName="aircraftId" [matAutocomplete]="autoAircraft"
+      required />
+    <mat-autocomplete #autoAircraft="matAutocomplete">
+      <mat-option *ngFor="let aircraft of (aircrafts$ | async)" [value]="aircraft.aircraftId">
+        {{ aircraft.maker+' '+aircraft.model }}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="hasError('aircraftId', 'required')">Aircraft is required</mat-error>
   </mat-form-field>
-
   <mat-form-field appearance="outline">
     <mat-label>Departing Time:</mat-label>
     <input
