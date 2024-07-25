@@ -1,3 +1,4 @@
+
 <div class="row">
   <div class="contentWrapper">
     <div class="patrat">
@@ -7,253 +8,301 @@
       </span>
       <h2>Ready to check-in?</h2>
       <p>
-        You can check in any time from 30 hours before your flight's departure (24
-        hours for flights to or from the United States). Please select how you
-        would like to check in.
+        You can check in any time from 30 hours before your flight's departure
+        (24 hours for flights to or from the United States). Please select how
+        you would like to check in.
       </p>
       <ul>
         <li>Check in, change, and rebook flights with ease</li>
         <li>Get all your travel info in 1 convenient place</li>
         <li>Store your details for safe and speedy bookings</li>
       </ul>
-<!--          <button class="user" mat-raised-button color="primary">Check in with my account</button>
+      <!--          <button class="user" mat-raised-button color="primary">Check in with my account</button>
          <p>
           Don't have an account? Sign up for a free account and enjoy all benefits!
           <br><button class="user" mat-raised-button color="primary">Sign up!</button>
-        </p>  -->   
+        </p>  -->
     </div>
   </div>
   <div class="imgWrapper">
     <img src="../../../assets/images/cover.jpg" alt="Background Image" />
   </div>
-</div> 
-
+</div>
 
 <div class="options">
   <h2>Possibilities for Check-IN</h2>
   <div class="header" (click)="toggleContent('online')">Online Check-in</div>
-  
-<div class="content" [ngClass]="{ show: isOnlineContentVisible }">
-  <div class="info-form-container">
-    <div class="info-container">
-      <p>
-        To reduce costs and keep our fares cheap, we offer free online check-in
-        options. Online check-in is available from
-        <strong>30 days up to 3 hours</strong> before the scheduled departure
-        time if you have <strong>purchased a seat</strong> during your booking.
-      </p>
-      <p>
-        In case you have not purchased any seats with your booking, check-in
-        will become available <strong>only 24 hours</strong> before departure.
-      </p>
-      <ul>
-        <li><a href="#">Check in online</a></li>
-        <li>Print your boarding card</li>
-        <li class="highlight">
-          Present the printed boarding card at the gate with your travel
-          documents no later than 30 minutes before the scheduled departure time
-        </li>
-        <li>
-          If you hold non-EU travel documents, you need to present yourself at
-          the check-in counter to have your documentation checked and your
-          boarding card stamped
-        </li>
-        <li>
-          If you have baggage to drop off, go to the baggage drop desk no later
-          than 40 minutes prior to departure or according to the local rules as
-          indicated in the below "CHECK-IN TIMES" section.
-        </li>
-      </ul>
-      <div class="note">
+
+  <div class="content" [ngClass]="{ show: isOnlineContentVisible }">
+    <div class="info-form-container">
+      <div class="info-container">
         <p>
-          <strong>Note:</strong> If you are travelling within the Schengen area
-          you don't need to fill in the travel document details during the
-          online check-in procedure, since you are not required to provide such
-          details.
+          To reduce costs and keep our fares cheap, we offer free online
+          check-in options. Online check-in is available from
+          <strong>30 days up to 3 hours</strong> before the scheduled departure
+          time if you have <strong>purchased a seat</strong> during your
+          booking.
+        </p>
+        <p>
+          In case you have not purchased any seats with your booking, check-in
+          will become available <strong>only 24 hours</strong> before departure.
+        </p>
+        <ul>
+          <li><a href="#">Check in online</a></li>
+          <li>Print your boarding card</li>
+          <li class="highlight">
+            Present the printed boarding card at the gate with your travel
+            documents no later than 30 minutes before the scheduled departure
+            time
+          </li>
+          <li>
+            If you hold non-EU travel documents, you need to present yourself at
+            the check-in counter to have your documentation checked and your
+            boarding card stamped
+          </li>
+          <li>
+            If you have baggage to drop off, go to the baggage drop desk no
+            later than 40 minutes prior to departure or according to the local
+            rules as indicated in the below "CHECK-IN TIMES" section.
+          </li>
+        </ul>
+        <div class="note">
+          <p>
+            <strong>Note:</strong> If you are travelling within the Schengen
+            area you don't need to fill in the travel document details during
+            the online check-in procedure, since you are not required to provide
+            such details.
+          </p>
+        </div>
+        <p>
+          During the online check-in process you might be requested to provide
+          visa details on certain routes. If no visa is required for your
+          destination, just fill in the field with xxxxx characters.
+        </p>
+        <p>
+          Children under 14 need to be accompanied and checked in online by a
+          passenger older than 16.
+        </p>
+        <p>
+          You can <a href="#">change your reservation</a> (except for the flight
+          and the name) or purchase additional services even after the online
+          check-in.
         </p>
       </div>
-      <p>
-        During the online check-in process you might be requested to provide
-        visa details on certain routes. If no visa is required for your
-        destination, just fill in the field with xxxxx characters.
-      </p>
-      <p>
-        Children under 14 need to be accompanied and checked in online by a
-        passenger older than 16.
-      </p>
-      <p>
-        You can <a href="#">change your reservation</a> (except for the flight
-        and the name) or purchase additional services even after the online
-        check-in.
-      </p>
-    </div>
 
+      <div class="form-container">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <mat-progress-bar
+            mode="determinate"
+            [value]="progress"
+          ></mat-progress-bar>
 
-    <div class="form-container">
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">     <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+          <mat-form-field appearance="outline">
+            <mat-label>Ticket Nr:</mat-label>
+            <input
+              matInput
+              placeholder="Ticket"
+              formControlName="ticketId"
+              type="number"
+              required
+              [readonly]="isEditing"
+            />
+          </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Ticket Nr:</mat-label>
-          <input matInput placeholder="Ticket" formControlName="ticketId" type="number" required [readonly]="isEditing" />
-        </mat-form-field>
-  
-        <mat-form-field appearance="outline">
-          <mat-label>Passager Name:</mat-label>
-          <input matInput placeholder="Passager name" formControlName="passengerName" type="text" required />
-        </mat-form-field>
-  
-        <mat-form-field appearance="outline">
-          <mat-label>Document Type:</mat-label>
-          <mat-select formControlName="idDocumentType" required>
-            <mat-option *ngFor="let option of documentTypeOptions" [value]="option.value">{{ option.label }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-  
-        <mat-form-field appearance="outline">
-          <mat-label>Date Document:</mat-label>
-          <input matInput placeholder="Document Date" formControlName="documentData" type="text" required />
-        </mat-form-field>
-  
-        <mat-form-field appearance="outline">
-          <mat-label>Email Pasager</mat-label>
-          <input matInput placeholder="Email Pasager" formControlName="passengerEmail" type="text" required />
-        </mat-form-field>
-  
-        <div class="form-button-container">
-        <button mat-raised-button color="primary" class="form-button" type="submit" [disabled]="!form.valid">Submit</button>
+          <mat-form-field appearance="outline">
+            <mat-label>Passager Name:</mat-label>
+            <input
+              matInput
+              placeholder="Passager name"
+              formControlName="passengerName"
+              type="text"
+              required
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Document Type:</mat-label>
+            <mat-select formControlName="idDocumentType" required>
+              <mat-option
+                *ngFor="let option of documentTypeOptions"
+                [value]="option.value"
+                >{{ option.label }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Date Document:</mat-label>
+            <input
+              matInput
+              placeholder="Document Date"
+              formControlName="documentData"
+              type="text"
+              required
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Email Pasager</mat-label>
+            <input
+              matInput
+              placeholder="Email Pasager"
+              formControlName="passengerEmail"
+              type="text"
+              required
+            />
+          </mat-form-field>
+
+          <div class="form-button-container">
+            <button
+              mat-raised-button
+              color="primary"
+              class="form-button"
+              type="submit"
+              [disabled]="!form.valid"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
       </div>
-      </form>
     </div>
   </div>
-</div>
 
-
-<br>
- <div class="header" (click)="toggleContent('qr')">QR Check-In</div>
-<div class="content" [ngClass]="{ show: isQRContentVisible }">
-  <h1>Here is your QR Ticket!  <button mat-raised-button color="primary" (click)="generatePDF()">Generate PDF</button>
-  </h1>
-  <div *ngIf="showQR">
-    <div style="display: flex; align-items: center;">
-<!--       <qr-code [value]="qrData" size="100"></qr-code>
+  <br />
+  <div class="header qr-header" (click)="toggleContent('qr')">QR Check-In</div>
+  <div class="content qr-content" [ngClass]="{ show: isQRContentVisible }">
+    <h3>
+      Here is your QR Ticket!
+      <button
+        *ngIf="isEditing"
+        mat-raised-button
+        color="primary"
+        (click)="generatePDF()"
+      >
+        Generate PDF
+      </button>
+    </h3>
+    <div *ngIf="showQR">
+      <div style="display: flex; align-items: center">
+        <!--       <qr-code [value]="qrData" size="100"></qr-code>
      <button mat-raised-button color="primary" (click)="generatePDF()">Generate PDF</button>
 -->
-<!--       continut pdf -->
-      <div id="pdfContent">
-        <div class="safie">
-          <div class="boarding-pass">
-            <div class="card card-top">
-              <div class="source">
-                <div class="code">IXM</div>
-                <div class="city">{{ flightData.departingAirport.airportName }}</div>
-              </div>
-              <div class="flight-median">
-                <i class="fas fa-plane"></i>
-              </div>
-              <div class="destination">
-                <div class="code">DXB</div>
-                <div class="city">{{ flightData.destinationAirport.airportName }}</div>
-              </div>
-            </div>
-            <div class="median"></div>
-            <div class="card card-bottom">
-              <div class="card-row">
-                <div class="card-item">
-                  <span class="label">Passenger</span>
-                  <p class="contentP">{{ form.value.passengerName }}</p>
+        <!--       continut pdf -->
+        <div id="pdfContent">
+          <div class="safie">
+            <div class="boarding-pass">
+              <div class="card card-top">
+                <div class="source">
+                  <div class="code">
+                    {{ flightData.departingAirport.airportName }}
+                  </div>
+                  <div class="city">
+                    {{ flightData.departingAirport.location }}
+                  </div>
                 </div>
-                <div class="card-item">
-                  <span class="label">Date</span>
-                  <p class="contentP">13/09/2024</p>
+                <div class="flight-median">
+                  <i class="fas fa-plane"></i>
+                </div>
+                <div class="destination">
+                  <div class="code">
+                    {{ flightData.departingAirport.airportName }}
+                  </div>
+                  <div class="city">
+                    {{ flightData.departingAirport.location }}
+                  </div>
                 </div>
               </div>
-              <div class="card-row">
-                <div class="card-item">
-                  <span class="label">Flight Number</span>
-                  <p class="contentP">{{ ticketData.flightId }}</p>
+              <div class="median"></div>
+              <div class="card card-bottom">
+                <div class="card-row">
+                  <div class="card-item">
+                    <span class="label">Passenger</span>
+                    <p class="contentP">{{ form.value.passengerName }}</p>
+                  </div>
+                  <div class="card-item">
+                    <span class="label">Boarding Time</span>
+                    <p class="contentP">
+                      {{ flightData.departingTime | date : "short" }}
+                    </p>
+                  </div>
                 </div>
-                <div class="card-item">
-                  <span class="label">Luggage</span>
-                  <p class="contentP">{{ticketData.luggage}}</p>     
-                </div>
-                <div class="card-item">
+                <div class="card-row">
+                  <div class="card-item">
+                    <span class="label">Flight Number</span>
+                    <p class="contentP">{{ ticketData.flightId }}</p>
+                  </div>
+                  <div class="card-item">
+                    <span class="label">Luggage</span>
+                    <p *ngIf="ticketData.luggage" class="contentP">Yes</p>
+                    <p *ngIf="!ticketData.luggage" class="contentP">No</p>
+                  </div>
+                  <!--                 <div class="card-item">
                   <span class="label">User ID</span>
                   <p class="contentP">{{ ticketData.userId }}</p>
+                </div> -->
+
+                  <div class="card-item">
+                    <span class="label">Ticket Price</span>
+                    <p class="contentP">{{ ticketData.price }}</p>
+                  </div>
                 </div>
-                <div class="card-item">
-                  <span class="label">Document Type</span>
-                  <p class="contentP">{{ getDocumentTypeLabel(form.value.idDocumentType) }}</p>     
+                <div class="card-row">
+                  <div class="card-item">
+                    <span class="label">Aircraft</span>
+                    <p class="contentP">
+                      {{
+                        flightData.aircraft.maker +
+                          " " +
+                          flightData.aircraft.model
+                      }}
+                    </p>
+                  </div>
+                  <div class="card-item">
+                    <span class="label">Travelling Time</span>
+                    <p class="contentP">
+                      {{ flightData.flightTime | formatFlightTime }}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div class="card-row">
-                <div class="card-item">
-                  <span class="label">Boarding Time</span>
-                  <p class="contentP">{{ flightData.departingTime | date:'short' }}</p>
-                </div>
-                <div class="card-item">
-                  <span class="label">Aircraft</span>
-                  <p class="contentP">{{ flightData.aircraft.maker  + " " + flightData.aircraft.model}}</p>     
-                </div>
-                <div class="card-item">
-                  <span class="label">Travelling Time</span>
-                  <p class="contentP">{{ flightData.flightTime | formatFlightTime }}</p>     
-                </div>
-              </div>
-              <div class="card-row">
-                <div class="card-item">
+                <div class="card-row">
+                  <!--                 <div class="card-item">
                   <span class="label">Flight Cost</span>
                   <p class="contentP">{{ flightData.flightCost }}</p>
-                </div>
-                <div class="card-item">
-                  <span class="label">Ticket Price</span>
-                  <p class="contentP">{{ticketData.price}}</p>     
-                </div>
-                <div class="card-item">
+                </div> -->
+                  <div class="card-item">
+                    <span class="label">Document Type</span>
+                    <p class="contentP">
+                      {{ getDocumentTypeLabel(form.value.idDocumentType) }}
+                    </p>
+                  </div>
+                  <div class="card-item">
+                    <span class="label">Document Data</span>
+                    <p class="contentP">{{ form.value.documentData }}</p>
+                  </div>
+                  <!--                 <div class="card-item">
                   <span class="label">Discount</span>
                   <p class="contentP">{{ flightData.discountOffer?.discountPercentage }}</p>     
+                </div> -->
                 </div>
-              </div>
-        <!--       aici e qr
-         -->      <div class="card-row qr-code-section">
-                <div class="card-item qr-code">
-                  <span class="label">QR Code</span>
-                  <div id="qrcode">
-                    <qr-code [value]="qrData" size="150"></qr-code>
+                <!--       aici e qr
+         -->
+                <div class="card-row qr-code-section">
+                  <div class="card-item qr-code">
+                    <span class="label">QR Code</span>
+                    <div id="qrcode">
+                      <qr-code [value]="qrData" size="150"></qr-code>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          </div>
-
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <div *ngIf="checkInItems.length > 0; else noCheckInItems" class="check-in-list">
   <h2>Check-ins effectuated</h2>
@@ -275,16 +324,15 @@
         <td>{{ element.passengerName }}</td>
         <td>{{ getDocumentTypeLabel(element.idDocumentType) }}</td>
         <td>{{ element.documentData }}</td>
-        <td>{{ element.passengerEmail }}</td>        
+        <td>{{ element.passengerEmail }}</td>
         <td>
           <qr-code [value]="generateQrData(element)" size="100"></qr-code>
         </td>
         <td>
           <button (click)="editCheckIn(element)">Edit</button>
-          <br>
+          <br />
           <button (click)="editCheckIn(element)">Delete</button>
         </td>
-        
       </tr>
     </tbody>
   </table>
