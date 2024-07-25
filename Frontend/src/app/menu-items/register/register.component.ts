@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserItem } from '../../app-logic/models/user-item';
 import { UserService } from '../../app-logic/services/user.service';
 import { Router } from '@angular/router';
-import { LocalStorageService } from '../../app-logic/services/local-storage.service';
 
 @Component({
   selector: 'app-register',
@@ -18,14 +17,12 @@ export class RegisterComponent {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private el: ElementRef,
-    private router: Router,
-    private localStorageService: LocalStorageService
+    private router: Router
   ) {
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
       emailAddress: ['', Validators.minLength(10) && Validators.email],
       password: [''],
-      role: ['', Validators.required],
     });
   }
 
@@ -46,11 +43,11 @@ export class RegisterComponent {
   onSubmit() {
     if (this.registerForm.valid) {
       this.user = new UserItem(this.registerForm.value);
+      this.user.role = 'passenger';
       this.userService.register(this.user).subscribe({
         next: (registeredUser) => {
           console.log('User registered:', registeredUser);
-          this.localStorageService.storeUserData(this.user);
-          this.router.navigate(['']);
+          this.router.navigate(['/login']);
         },
         error: (error) => {
           console.error('Registration failed:', error);

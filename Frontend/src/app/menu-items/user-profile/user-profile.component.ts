@@ -5,6 +5,7 @@ import { UserService } from '../../app-logic/services/user.service';
 import { UserItem } from '../../app-logic/models/user-item';
 import { TicketItem } from '../../app-logic/models/ticket-item';
 import { Observable } from 'rxjs';
+import { LocalStorageService } from '../../app-logic/services/local-storage.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -23,13 +24,14 @@ export class UserProfileComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private localStorageService: LocalStorageService
   ) {
     this.userForm = this.fb.group({
       name: [{ value: '' }, [Validators.required]],
       role: [{ value: '' }, [Validators.required]],
       email: [{ value: '' }, [Validators.required]],
-      password: [{ value: '' }, [Validators.required]], // Include the password field
+      password: [{ value: '' }], // Include the password field
     });
   }
 
@@ -42,7 +44,6 @@ export class UserProfileComponent implements OnInit {
     console.log('Loaded user data:', this.userData);
     this.userForm.patchValue({
       name: this.userData.name || '',
-      role: this.userData.role || '',
       email: this.userData.emailAddress || '',
       password: '', // Set password field to empty initially
     });
@@ -66,13 +67,17 @@ export class UserProfileComponent implements OnInit {
 
   saveProfile(): void {
     if (this.userForm.valid) {
+      this.userData = JSON.parse(localStorage.getItem('userData') || '{}');
       const updatedUserData = this.userForm.value;
+      let pw = '';
+      if (updatedUserData.password != '')
+        pw = this.userService.hashPassword(updatedUserData.password);
       const userItem: UserItem = {
-        userId: this.userData.id,
+        userId: this.userData.userId,
         name: updatedUserData.name,
-        role: updatedUserData.role,
+        role: this.userData.role,
         emailAddress: updatedUserData.email,
-        password: this.userService.hashPassword(updatedUserData.password) || '', // Only include password if it is provided
+        password: pw,
       };
 
       console.log('Updating user with data:', userItem);
@@ -80,7 +85,7 @@ export class UserProfileComponent implements OnInit {
       this.userService.updateUser(userItem).subscribe({
         next: (updatedUser) => {
           console.log('User updated:', updatedUser);
-          localStorage.setItem('userData', JSON.stringify(updatedUser));
+          this.localStorageService.updateUserData(userItem);
           this.isEditing = false;
           alert('Profile updated successfully');
         },
@@ -89,6 +94,7 @@ export class UserProfileComponent implements OnInit {
           alert('Failed to update profile');
         },
       });
+      if (this.userForm.value.password != '') this.router.navigate(['/login']);
     }
   }
   public hasError = (controlName: string, errorName: string) => {

@@ -7,7 +7,9 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LocalStorageService {
   private readonly USER_DATA_KEY = 'userData';
-  private isLoggedInSubject = new BehaviorSubject<boolean>(this.checkIsLoggedIn());
+  private isLoggedInSubject = new BehaviorSubject<boolean>(
+    this.checkIsLoggedIn()
+  );
   private isAdminSubject = new BehaviorSubject<boolean>(this.checkIsAdmin());
 
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
@@ -36,7 +38,7 @@ export class LocalStorageService {
 
   get name(): string {
     const user = this.userData;
-    return user ? user.name : ''; 
+    return user ? user.name : '';
   }
 
   get role(): string | null {
@@ -62,6 +64,14 @@ export class LocalStorageService {
   }
 
   storeUserData(user: UserItem): void {
+    const { password, ...userDetails } = user;
+    localStorage.setItem(this.USER_DATA_KEY, JSON.stringify(userDetails));
+    this.isLoggedInSubject.next(true);
+    this.isAdminSubject.next(user.role === 'admin');
+  }
+
+  updateUserData(user: UserItem): void {
+    localStorage.removeItem(this.USER_DATA_KEY);
     const { password, ...userDetails } = user;
     localStorage.setItem(this.USER_DATA_KEY, JSON.stringify(userDetails));
     this.isLoggedInSubject.next(true);

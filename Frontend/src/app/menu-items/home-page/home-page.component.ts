@@ -5,7 +5,12 @@ import { DiscountService } from '../../app-logic/services/discount.service';
 import { DiscountItem } from '../../app-logic/models/discount-item';
 import { Router } from '@angular/router';
 import { format } from 'date-fns';
-import { FormControl, Validators, AbstractControl, FormGroup  } from '@angular/forms';
+import {
+  FormControl,
+  Validators,
+  AbstractControl,
+  FormGroup,
+} from '@angular/forms';
 import { DiscountImageGalleryService } from '../../app-logic/services/discount-image-gallery.service';
 import { AirportListMockService } from '../../app-logic/services/airport-service';
 
@@ -23,7 +28,7 @@ export class HomePageComponent implements OnInit {
     departingTime: '',
     returnTime: '',
   };
-  
+
   seasonDiscountImages: { [key: string]: string[] } = {};
   usedImages: { [key: string]: string[] } = {};
   imageMapping: { [discountId: number]: string } = {};
@@ -36,7 +41,7 @@ export class HomePageComponent implements OnInit {
 
   constructor(
     private discountImageGalleryService: DiscountImageGalleryService,
-    private airportService : AirportListMockService,
+    private airportService: AirportListMockService,
     private discountService: DiscountService,
     private router: Router
   ) {
@@ -48,7 +53,6 @@ export class HomePageComponent implements OnInit {
         Validators.required,
         this.noPastDatesValidator.bind(this),
       ]),
-      passengers: new FormControl({ value: 1, disabled: true }),
     });
   }
 
@@ -76,11 +80,11 @@ export class HomePageComponent implements OnInit {
 
   getSeasonFromDate(date: Date): string {
     const month = date.getMonth(); // 0 = January, 11 = December
-    if (month >= 0 && month <= 1 || month === 11) return 'Winter';
+    if ((month >= 0 && month <= 1) || month === 11) return 'Winter';
     if (month >= 2 && month <= 4) return 'Spring';
     if (month >= 5 && month <= 7) return 'Summer';
     if (month >= 8 && month <= 10) return 'Fall';
-    return 'Winter'; 
+    return 'Winter';
   }
 
   initializeImageMapping() {
@@ -110,16 +114,16 @@ export class HomePageComponent implements OnInit {
       console.log('Discounts:', this.discounts);
     });
     this.discountService.getDiscounts().subscribe((data) => {
-      this.discounts = data
-      this.seasonDiscountImages = this.discountImageGalleryService.getSeasonImages();
+      this.discounts = data;
+      this.seasonDiscountImages =
+        this.discountImageGalleryService.getSeasonImages();
       this.initializeImageMapping();
-      });
-    
+    });
   }
 
   onInputChange(event: any, field: string) {
     console.log(`onInputChange called for ${field}`);
-    const value = event.value;                             // get the date value from event.value
+    const value = event.value; // get the date value from event.value
     if (field == 'departingTime') {
       const formattedDate = format(new Date(value), 'yyyy-MM-dd');
       this.formData[field] = formattedDate;
@@ -128,7 +132,6 @@ export class HomePageComponent implements OnInit {
     }
     console.log(`Updated ${field}:`, this.formData[field]);
   }
-  
 
   onSubmit() {
     const departingAirport = this.getAirportByName(
@@ -157,11 +160,9 @@ export class HomePageComponent implements OnInit {
         'Going to the route:  ' +
           `/flights/${departingAirport.airportId}/${destinationAirport.airportId}/${this.formData['departingTime']}`
       );
-      this.router.navigate(
-        [
-          `/flights/${departingAirport.airportId}/${destinationAirport.airportId}/${this.formData['departingTime']}`,
-        ],
-      );
+      this.router.navigate([
+        `/flights/${departingAirport.airportId}/${destinationAirport.airportId}/${this.formData['departingTime']}`,
+      ]);
     } else {
       console.log(this.errorMessage);
     }
@@ -180,17 +181,12 @@ export class HomePageComponent implements OnInit {
     this.currentSlide =
       this.currentSlide < this.discounts.length - 3 ? this.currentSlide + 1 : 0;
   }
-  openDiscountFlight(discountFlightId:number){
+  openDiscountFlight(discountFlightId: number) {
     if (discountFlightId) {
       console.log(
-        'Going to the route:  ' +
-          `/flights/discount-flight/${discountFlightId}`
+        'Going to the route:  ' + `/flights/discount-flight/${discountFlightId}`
       );
-      this.router.navigate(
-        [
-          `/flights/discounted-flight/${discountFlightId}`
-        ],
-      );
+      this.router.navigate([`/flights/discounted-flight/${discountFlightId}`]);
     } else {
       console.log(this.errorMessage);
     }
