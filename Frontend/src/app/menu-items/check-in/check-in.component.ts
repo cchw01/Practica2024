@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   CheckInItem,
@@ -14,6 +14,10 @@ import { FlightItem } from '../../app-logic/models/flight-item';
 import { FlightService } from '../../app-logic/services/flights.service';
 import { UserService } from '../../app-logic/services/user.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { CheckInDto } from '../../app-logic/DTOs/check-in-dto';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 
 
@@ -23,9 +27,6 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./check-in.component.css'],
 })
 export class CheckInComponent implements OnInit, AfterViewInit {
-deleteCheckIn(_t105: any) {
-throw new Error('Method not implemented.');
-}
   isOnlineContentVisible = false;
   isQRContentVisible = false;
 
@@ -51,12 +52,16 @@ throw new Error('Method not implemented.');
 
   checkInItemsP: CheckInItem[] = [];
 
+  // editing
   isEditing: boolean = false;
 
+  //id-uri
   checkInId!: number;
   flightId!: number;
 
   length = 0;
+
+  tableData!: MatTableDataSource<CheckInDto>;
 
   documentTypeOptions = [
     { value: IdDocumentType.IdentityCard, label: 'Identity Card' },
@@ -75,18 +80,20 @@ throw new Error('Method not implemented.');
     'action',
   ];
 
-  displayedColumns: string[] = ['ticketId', 'passengerName', 'idDocumentType', 'documentData', 'passengerEmail', 'qrCode', 'actions'];
+  selection = new SelectionModel<CheckInDto>(true, []);
 
-
-  
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private fb: FormBuilder,
     private checkInService: CheckInService,
     private flightService : FlightService,
-    private activatedRoute: ActivatedRoute,
-    private userService: UserService
+    private activatedRoute: ActivatedRoute
   ) {
+    this.tableData = new MatTableDataSource();
+
+
     // evidenta 
     this.checkInService.getDataCheckIn().subscribe((data) => {
       this.checkInItems = data; 
@@ -112,6 +119,7 @@ throw new Error('Method not implemented.');
   ngAfterViewInit(): void {}
 
   ngOnInit(): void {
+    this.loadCheckIns();
     this.itemId = 0;
 
     this.checkInService.getDataCheckIn().subscribe((data) => {
@@ -139,6 +147,34 @@ throw new Error('Method not implemented.');
     this.checkInService.getDataCheckIn().subscribe((data) => {
     this.checkInItems = data.filter((item: CheckInItem) => item.passengerEmail === userEmail);
   });
+  }
+
+  loadCheckIns() {
+    this.checkInService.getDataCheckIn().subscribe(checkins => {
+      this.tableData.data = checkins;
+      this.tableData.paginator = this.paginator;
+      this.tableData.sort = this.sort;
+    });
+  }
+
+  deleteCheckIn(id: number) {
+    if (confirm('Are you sure you want to delete this discount?')) {
+      this.checkInService.deleteCheckIn(id).subscribe(() => {
+        this.loadCheckIns();
+      });
+    }
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.tableData.data.length;
+    return numSelected === numRows;
+  }
+
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.tableData.data.forEach(row => this.selection.select(row));
   }
 
   private InitForm() {
@@ -278,8 +314,8 @@ throw new Error('Method not implemented.');
     }
   
     html2canvas(data).then((canvas) => {
-      const imgWidth = 150;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const imgWidth = 220;
+      const imgHeight = 300;
       const contentDataURL = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'mm', 'a4');
       const position = 0;
@@ -352,4 +388,3 @@ throw new Error('Method not implemented.');
     }
   }
 }  
-

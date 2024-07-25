@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+/* general color */
+.mat-mdc-raised-button:not(:disabled) {
+  background-color: #0a4c6b!important;
+  color: white!important;
+}
+
+
 .header {
   background-color: #0a4c6b;
   color: white;
@@ -22,7 +31,9 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   max-height: 0;
   overflow: hidden;
+  padding-bottom: 155px;
 }
+
 
 .content.show {
   display: block;
@@ -44,6 +55,7 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* formular check-in */
 mat-form-field {
   width: 100%;
   margin-bottom: 20px;
@@ -79,14 +91,34 @@ button {
   align-self: flex-end;
 }
 
-/*patrattttttt*/
+.options {
+  
+  padding-left: 30px;
+  padding-bottom: 50px;
+}
+
+.options h2{
+  font-size: 40px;
+  font-weight: 700;
+  color: #0a4c6b;
+}
+
+.form-button-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* incheiere formular check-in */
+/*front text - begin text*/
 .row {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 80px;
   overflow-x: hidden;
-  padding: 6rem 0;
+  padding: 6rem 0 0;
 }
 
 .row .imgWrapper {
@@ -95,7 +127,7 @@ button {
 
 .row .imgWrapper img {
   width: 100%;
-  height: 90%;
+  height: 80%;
   object-fit: cover;
   transition: 0.3s;
   border-radius: 10px; /* Rounded corners */
@@ -124,6 +156,7 @@ button {
   gap: 15px;
   margin-bottom: 10px;
   width: auto;
+  margin-top: -100px;
 }
 
 .line {
@@ -163,20 +196,168 @@ button {
   user-select: none;
 }
 
-h2 {
+
+/* design ticket pdf */
+#pdfContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.boarding-pass{
+  position: relative;
+  width: 320px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 0 4px rgba(0,0,0,0.08));
+
+  margin-top: 40px;
+}
+
+.boarding-pass .card{
+  display: flex;
+  background-color: #ffffff;
+  padding: 24px;
+}
+
+.boarding-pass .card.card-top{
+  text-align: center;
+  justify-content: space-between;
+  border-radius: 16px 16px 0 0;
+}
+
+.boarding-pass .card.card-top .code{
+  font-size: 32px;
+  font-weight: 900;
+}
+
+.boarding-pass .card.card-top .city{
+  font-size: 10px;
+  color: #0a4c6b;
+}
+
+.flight-median{
+  position:relative;
+  height: 50px;
+  width: 100px;
+  top: 12px;
+  border-radius: 100% 100% 0 0 / 180% 180% 0 0;
+  border: 2px dashed transparent;
+  border-top-color: #c7ecee;
+}
+
+.flight-median:before{
+  content: '';
+  position: absolute;
+  height: 6px;
+  width: 6px;
+  top: 14px;
+  left: 5px;
+  background-color: #0a4c6b;
+  border-radius: 50%;
+  box-shadow: 80px 0 0 #0a4c6b;
+}
+
+.flight-median i{
+  position: relative;
+  top: -11px;
+  color: #0a4c6b;
+}
+
+.boarding-pass .card.card-bottom{
+  flex-direction: column;
+  border-radius: 0 0 16px 16px;
+}
+
+.boarding-pass .card.card-bottom .card-row{
+  display: flex;
+  justify-content: space-between;
+
+
+}
+
+.boarding-pass .card.card-bottom .card-row:not(:last-child){
+  margin-bottom: 32px;
+}
+
+
+
+.boarding-pass .card.card-bottom .label{
+  font-size: 10px;
+  color: #0a4c6b;
+}
+
+.boarding-pass .card.card-bottom .content{
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.median{
+  height: 24px;
+  margin: 0 auto;
+  background-size: 24px 24px, calc(100%  - 24px) 1px, calc(100% - 24px) 100%, 24px 24px;
+  background-position: -12px 0, 12px 50%, 12px 0, calc(100% + 12px) 0;
+  background-repeat: no-repeat;
+  background-image: radial-gradient(circle, transparent 72%, #ffffff 72%),
+  repeating-linear-gradient(90deg, #ffffff 0 ,#ffffff 2%, #c7ecee 2%, #c7ecee 4%),
+  linear-gradient(#ffffff, #ffffff),
+  radial-gradient(circle, transparent 72%, #ffffff 72%);
+}
+
+.safie{
+  height: 150vh;
+  width: 100vh;
+  background-color: grey;
+  background: linear-gradient(45deg, #eaeaea 33.33%, #c7ecee 33.33%,#c7ecee 66.66%, #eaeaea 66.66% );
+}
+
+.boarding-pass .card-bottom .qr-code-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.boarding-pass .card-bottom .qr-code-section .qr-code {
+  text-align: center;
+}
+
+.boarding-pass .card-bottom .qr-code-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.boarding-pass .card-bottom .qr-code-section .qr-code {
+  text-align: center;
+}
+
+.boarding-pass .card-bottom .qr-code-section .qr-code .label {
+  display: block;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+#qrcode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+}
+
+/* check-in list */
+.check-in-list h2{
+  padding-left: 30px;
   font-size: 40px;
   font-weight: 700;
   color: #0a4c6b;
 }
 
-.options {
-  padding-left: 30px;
-}
 
-#pdfContent {
-  background: #ffffff;
-  padding: 10px;
-}
+/* alte chestii */
+
 
 table {
   width: 100%;
@@ -192,18 +373,9 @@ th, td {
   text-align: left;
 }
 
-.mat-mdc-raised-button:not(:disabled) {
-  background-color: #0a4c6b!important;
-  color: white!important;
+
+
+
+.user{
+  margin: 5px;
 }
-
-
-
-
-
-
-
-
-
-
-
