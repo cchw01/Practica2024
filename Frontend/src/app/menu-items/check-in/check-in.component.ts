@@ -61,7 +61,7 @@ export class CheckInComponent implements OnInit, AfterViewInit {
 
   length = 0;
 
-  tableData!: MatTableDataSource<CheckInDto>;
+  tableData: MatTableDataSource<CheckInItem>;
 
   documentTypeOptions = [
     { value: IdDocumentType.IdentityCard, label: 'Identity Card' },
@@ -75,8 +75,8 @@ export class CheckInComponent implements OnInit, AfterViewInit {
     'passengerName',
     'idDocumentType',
     'documentData',
-    'checkInStatus',
     'passengerEmail',
+    'qrCode',
     'action',
   ];
 
@@ -388,3 +388,4 @@ export class CheckInComponent implements OnInit, AfterViewInit {
     }
   }
 }  
+

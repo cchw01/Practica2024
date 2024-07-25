@@ -132,10 +132,10 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Date Document:</mat-label>
+            <mat-label>Document Info</mat-label>
             <input
               matInput
-              placeholder="Document Date"
+              placeholder="Document info"
               formControlName="documentData"
               type="text"
               required
@@ -206,10 +206,10 @@
                 </div>
                 <div class="destination">
                   <div class="code">
-                    {{ flightData.departingAirport.airportName }}
+                    {{ flightData.destinationAirport.airportName }}
                   </div>
                   <div class="city">
-                    {{ flightData.departingAirport.location }}
+                    {{ flightData.destinationAirport.location }}
                   </div>
                 </div>
               </div>
@@ -277,7 +277,7 @@
                     </p>
                   </div>
                   <div class="card-item">
-                    <span class="label">Document Data</span>
+                    <span class="label">Document Info</span>
                     <p class="contentP">{{ form.value.documentData }}</p>
                   </div>
                   <!--                 <div class="card-item">
@@ -304,7 +304,7 @@
   </div>
 </div>
 
-<div *ngIf="checkInItems.length > 0; else noCheckInItems" class="check-in-list">
+<!--<div *ngIf="checkInItems.length > 0; else noCheckInItems" class="check-in-list">
   <h2>Check-ins effectuated</h2>
   <table>
     <thead>
@@ -336,59 +336,71 @@
       </tr>
     </tbody>
   </table>
-</div>
+</div>-->
 <ng-template #noCheckInItems>
   <p>No check-in items found.</p>
 </ng-template>
 
 
+ <div *ngIf="checkInItems.length > 0; else noCheckInItems" class="check-in-list" style="margin-bottom: 50px;">
+  <h2>Check-ins effectuated</h2>
+  <table mat-table [dataSource]="tableData" class="mat-elevation-z8">
 
-<!-- <table mat-table matSort [dataSource]="tableData" class="mat-elevation-z8">
-  <ng-container matColumnDef="select">
-    <th mat-header-cell *matHeaderCellDef>
-      
-    </th>
-    <td mat-cell *matCellDef="let row">
-  
-    </td>
-  </ng-container>
+    <ng-container matColumnDef="checkInId">
+      <th mat-header-cell *matHeaderCellDef> ID Check-In </th>
+      <td mat-cell *matCellDef="let element"> {{ element.checkInId }} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="checkInId">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID Check-In</th>
-    <td mat-cell *matCellDef="let element">{{ element.checkInId }}</td>
-  </ng-container>
+    <ng-container matColumnDef="ticket">
+      <th mat-header-cell *matHeaderCellDef> Ticket Number </th>
+      <td mat-cell *matCellDef="let element"> {{ element.ticketId }} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="ticket">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Number</th>
-    <td mat-cell *matCellDef="let element">{{ element.ticketId }}</td>
-  </ng-container>
+    <ng-container matColumnDef="passengerName">
+      <th mat-header-cell *matHeaderCellDef> Passenger Name </th>
+      <td mat-cell *matCellDef="let element"> {{ element.passengerName }} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="passengerName">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Passanger Name</th>
-    <td mat-cell *matCellDef="let element">{{ element.passengerName }}</td>
-  </ng-container>
+    <ng-container matColumnDef="idDocumentType">
+      <th mat-header-cell *matHeaderCellDef> Document Type </th>
+      <td mat-cell *matCellDef="let element"> {{ getDocumentTypeLabel(element.idDocumentType) }} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="idDocumentType">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Document Type</th>
-    <td mat-cell *matCellDef="let element">{{ getDocumentTypeLabel(element.idDocumentType) }}</td>
-  </ng-container>
+    <ng-container matColumnDef="documentData">
+      <th mat-header-cell *matHeaderCellDef> Document Info </th>
+      <td mat-cell *matCellDef="let element"> {{ element.documentData }} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="documentData">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Document Data</th>
-    <td mat-cell *matCellDef="let element">{{ element.documentData }}</td>
-  </ng-container>
+    <ng-container matColumnDef="passengerEmail">
+      <th mat-header-cell *matHeaderCellDef> Passenger Email </th>
+      <td mat-cell *matCellDef="let element"> {{ element.passengerEmail }} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="passengerEmail">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Passanger Email</th>
-    <td mat-cell *matCellDef="let element">{{ element.passengerEmail}}</td>
-  </ng-container>
+    <ng-container matColumnDef="qrCode">
+      <th mat-header-cell *matHeaderCellDef> QR Code </th>
+      <td mat-cell *matCellDef="let element">
+        <qr-code [value]="generateQrData(element)" size="100"></qr-code>
+      </td>
+      </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="checkinColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: checkinColumns"></tr>
-</table>
-<mat-paginator [pageSizeOptions]="[25, 6, 9]" showFirstLastButtons></mat-paginator>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="action-buttons">
+          <button class="edit-button" (click)="editCheckIn(element)">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button class="delete-button" (click)="deleteCheckIn(element.checkInId)">
+          <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+      </td>
+    </ng-container>
 
 
 
-
- -->
+    <tr mat-header-row *matHeaderRowDef="checkinColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: checkinColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons></mat-paginator>
+</div>
