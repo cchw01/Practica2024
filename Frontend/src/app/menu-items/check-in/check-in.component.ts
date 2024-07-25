@@ -76,6 +76,7 @@ export class CheckInComponent implements OnInit, AfterViewInit {
     'idDocumentType',
     'documentData',
     'passengerEmail',
+    'qrCode',
     'action',
   ];
 
