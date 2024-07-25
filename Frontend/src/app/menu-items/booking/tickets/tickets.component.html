@@ -1,9 +1,3 @@
-<!--<div class="title-table">
-  <mat-toolbar>
-    <span>Table Of Tickets</span>
-  </mat-toolbar>
-</div>-->
-
 <h1>Manage tickets</h1>
 <div>
   <form>
@@ -14,9 +8,13 @@
   </form>
 </div>
 
-<table mat-table [dataSource]="filteredTicketsItems" matSort class="mat-elevation-z8">
-  <!-- Ticked Id Column -->
-  <ng-container matColumnDef="tickedId">
+<table
+  mat-table matSort
+  [dataSource]="ticketsData"
+  class="mat-elevation-z8"
+>
+  <!-- Ticket Id Column -->
+  <ng-container matColumnDef="ticketId">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
     <td mat-cell *matCellDef="let element">{{ element.ticketId }}</td>
   </ng-container>
@@ -48,27 +46,23 @@
   <!-- Flight Time Column -->
   <ng-container matColumnDef="flight.flightTime">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Flight time</th>
-    <td mat-cell *matCellDef="let element">{{ element.flight.flightTime }} hours</td>
+    <td mat-cell *matCellDef="let element">{{ element.flight.flightTime }} minutes</td>
   </ng-container>
 
   <!-- Flight Cost Column -->
   <ng-container matColumnDef="flight.flightCost">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Flight cost</th>
+    <th mat-header-cell *matHeaderCellDef>Flight cost</th>
     <td mat-cell *matCellDef="let element">
       Original: {{ element.flight.flightCost | currency }}<br>
-      <div *ngIf="element.flight.discountOffer">
+      <div *ngIf="element.flight.discountOffer" style="margin-top: 1px;">
         Discount: {{ element.flight.discountOffer.discountPercentage }}%<br>
-        New Price: {{
-          (element.flight.flightCost - (element.flight.flightCost * element.flight.discountOffer.discountPercentage / 100))
-          | currency
-        }}<br>
       </div>
-      Price On Ticket: {{ element.price }}<br>
+      Payed: {{ element.price | currency }}<br>
     </td>
   </ng-container>
 
   <!-- Passenger Column -->
-  <ng-container matColumnDef="passager">
+  <ng-container matColumnDef="passenger">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Passenger</th>
     <td mat-cell *matCellDef="let element">
       {{ element.passenger.name }}<br>
@@ -78,13 +72,13 @@
 
   <!-- Check In Column -->
   <ng-container matColumnDef="checkIn">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>CheckIn</th>
+    <th mat-header-cell *matHeaderCellDef>CheckIn</th>
     <td mat-cell *matCellDef="let element">{{ element.checkInId ? 'Done.' : 'Not done.' }}</td>
   </ng-container>
 
   <!-- Luggage Column -->
   <ng-container matColumnDef="luggage">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Luggage</th>
+    <th mat-header-cell *matHeaderCellDef>Luggage</th>
     <td mat-cell *matCellDef="let element">{{ element.luggage ? 'YES' : 'NO' }}</td>
   </ng-container>
 
@@ -93,11 +87,11 @@
     <td mat-cell *matCellDef="let element">
       <button class="delete-button" (click)="deleteTicket(element.ticketId)">
         <mat-icon>delete</mat-icon>
-    </button>
+      </button>
     </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="ticketsColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: ticketsColumns"></tr>
 </table>
-<mat-paginator [pageSizeOptions]="[3, 6, 9, 12, 15, 21]" [pageSize]="" showFirstLastButtons></mat-paginator>
+<mat-paginator [pageSizeOptions]="[25, 50, 5, 15]" showFirstLastButtons></mat-paginator>
