@@ -370,10 +370,38 @@ h3{
   color: #0a4c6b;
 }
 
+button.edit-button {
+  background-color: #4CAF50; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 7px;
+  margin-right: 5px;
+}
+
+button.edit-button:hover {
+  background-color: #45a049;
+}
+
+button.delete-button {
+  background-color: #f44336; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 7px;
+}
+
+button.delete-button:hover {
+  background-color: #e53935;
+}
+
+
 
 /* alte chestii */
 
-
+/*
 table {
   width: 100%;
   border-collapse: collapse;
@@ -393,6 +421,6 @@ th, td {
 
 .user{
   margin: 5px;
-}
+}*/
 
 
