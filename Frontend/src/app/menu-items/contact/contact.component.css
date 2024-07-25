@@ -1,9 +1,11 @@
+/* General Page Styles */
 .contact-page {
   position: relative;
   width: 100%;
   display: flex;
   align-items: stretch; 
   justify-content: center;
+  background: linear-gradient(to right, #e0f7fa, #ffffff);
 }
 
 .contact-container {
@@ -11,7 +13,7 @@
   width: 100%; 
   height: 100vh;
   margin: auto;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .contact-info, .contact-image {
@@ -23,17 +25,19 @@
 }
 
 .contact-info {
-    padding: 100px 25px 25px 25px;
-    overflow-y: auto; 
-    background-color: #f5f5f5;
-    -ms-overflow-style: none;  
-    scrollbar-width: none;
+  padding: 100px 25px 25px 25px;
+  overflow-y: auto;
+  background-color: #f5f5f5;
+  -ms-overflow-style: none;  
+  scrollbar-width: none;
 }
 
 .contact-image img {
   width: 100%;
   height: 100%; 
   object-fit: cover; 
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 @media (max-width: 900px) {
@@ -49,6 +53,7 @@
 
 .left-label {
   font-weight: 600;
+  color: #0a4c6b;
 }
 
 .contact-data {
@@ -56,16 +61,29 @@
   flex-direction: column;
   justify-content: center;
   background-color: #fff;
-  padding: 20px 20px 10px 20px;
+  padding: 20px;
   border-radius: 10px;
   width: 94%;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   margin-bottom: 40px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.contact-data:hover {
+  transform: translateY(-10px);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 20px;
 }
 
 .map-container {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.map-container:hover {
+  transform: translateY(-10px);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 20px;
 }
 
 .contact-info::-webkit-scrollbar {
@@ -75,11 +93,24 @@
 .contact-info h1 {
   font-size: 35px;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   color: #0a4c6b;
+  border-bottom: 2px solid black;
+  padding-bottom: 10px;
 }
 
 .contact-info p {
   font-size: 18px;
   margin-bottom: 15px;
+  color: #333;
+}
+
+@media (max-width: 600px) {
+  .contact-info h1 {
+    font-size: 28px;
+  }
+
+  .contact-info p {
+    font-size: 16px;
+  }
 }
