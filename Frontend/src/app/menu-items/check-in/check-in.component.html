@@ -244,7 +244,7 @@
 
                   <div class="card-item">
                     <span class="label">Ticket Price</span>
-                    <p class="contentP">{{ ticketData.price }}</p>
+                    <p class="contentP">{{ ticketData.price | currency}}</p>
                   </div>
                 </div>
                 <div class="card-row">
@@ -404,3 +404,12 @@
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons></mat-paginator>
 </div>
+
+
+<p>
+  During the online check-in process you might be requested to provide
+  visa details on certain routes. If no visa is required for your
+  destination, just fill in the field with xxxxx characters.
+</p>
+<app-footer></app-footer>
+
