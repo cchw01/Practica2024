@@ -146,6 +146,7 @@ export class CheckInComponent implements OnInit, AfterViewInit {
     // Fetch and filter check-in items based on user's email
     this.checkInService.getDataCheckIn().subscribe((data) => {
     this.checkInItems = data.filter((item: CheckInItem) => item.passengerEmail === userEmail);
+    this.tableData.data = this.checkInItems;
   });
   }
 
