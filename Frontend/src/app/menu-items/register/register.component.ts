@@ -23,7 +23,6 @@ export class RegisterComponent {
       name: ['', Validators.required],
       emailAddress: ['', Validators.minLength(10) && Validators.email],
       password: [''],
-      role: ['', Validators.required],
     });
   }
 
@@ -44,6 +43,7 @@ export class RegisterComponent {
   onSubmit() {
     if (this.registerForm.valid) {
       this.user = new UserItem(this.registerForm.value);
+      this.user.role = 'passenger';
       this.userService.register(this.user).subscribe({
         next: (registeredUser) => {
           console.log('User registered:', registeredUser);

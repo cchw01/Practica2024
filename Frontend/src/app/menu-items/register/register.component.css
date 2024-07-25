@@ -25,9 +25,20 @@ mat-form-field {
 }
 
 :host ::ng-deep .p-password input {
+  background-color: #F9F9F9;
   margin-bottom: 40px;
-  width: 210px;
-  height: 40px;
+  width: 185px;
+  height: 50px;
+  margin-bottom: 60px;
+  border: 1px solid gray;
+  border-radius: 3px;
+  font-size: 1.5em;
+  padding-left: 20px;
+}
+
+:host ::ng-deep .p-password input:focus {
+  border : 2px solid  #005cbb !important;
+  outline: 0 !important;
 }
 
 :host ::ng-deep .p-password-panel .p-password-meter .p-password-strength.weak {

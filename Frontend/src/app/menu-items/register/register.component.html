@@ -25,7 +25,7 @@
         <mat-error *ngIf="hasError('emailAddress', 'required')">E-mail is required!</mat-error>
     </mat-form-field>
 
-    <mat-label>Password:</mat-label>
+    <mat-label style="margin-left: -110px; margin-bottom:-12px; z-index:99; background-color: #F9F9F9; color:#44474e">Password:</mat-label>
     <p-password 
       formControlName="password" 
       promptLabel="Choose a password"
@@ -34,13 +34,6 @@
       strongLabel="Complex password"
     ></p-password>
 
-    <mat-form-field appearance="outline">
-      <mat-label>User type</mat-label>
-      <mat-select formControlName="role" required>
-        <mat-option value="admin">Admin</mat-option>
-        <mat-option value="passenger">Passenger</mat-option>
-      </mat-select>
-    </mat-form-field>
 
     <button mat-raised-button color="primary" type="submit" class="register_button">Register</button>
 

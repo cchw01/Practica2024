@@ -55,12 +55,6 @@
           </mat-error>
         </mat-form-field>
       -->
-
-        <!--Passengers selector-->
-        <mat-form-field appearance="outline" class="custom-form-field">
-          <mat-label>Passengers:</mat-label>
-          <input matInput type="number" formControlName="passengers" [disabled]="true">
-        </mat-form-field>
       
     
       <button type="submit" [disabled]="form.invalid" (click)="onSubmit()">

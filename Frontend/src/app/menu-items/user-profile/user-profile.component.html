@@ -15,18 +15,6 @@
        </mat-form-field>
 
        <mat-form-field appearance="outline">
-        <mat-label>Role</mat-label>
-        <input
-        matInput
-        formControlName="role"
-        [readonly]="!isEditing"
-        type="text"
-        required
-      />
-      <mat-error *ngIf="hasError('role', 'required')">Role is required!</mat-error>
-       </mat-form-field>
-
-       <mat-form-field appearance="outline">
         <mat-label>E-mail:</mat-label>
         <input
         matInput
@@ -38,7 +26,7 @@
       <mat-error *ngIf="hasError('email', 'required')">Email is required!</mat-error>
        </mat-form-field>
 
-      <mat-label *ngIf="isEditing">Password:</mat-label>
+      <mat-label id="labelPass" style="margin-left: -110px; margin-bottom:-12px; z-index:99; background-color: #F9F9F9; color:#44474e" *ngIf="isEditing">Password:</mat-label>
        <p-password 
       formControlName="password" 
       promptLabel="Change password? Type new password here"
@@ -50,13 +38,14 @@
       
   <div class="button-wrapper">
     <button mat-raised-button class="formButton" style="font-size: 1.3em;" *ngIf="!isEditing" (click)="toggleEdit()">Edit Profile</button>
-    <button mat-raised-button class="formButton" style="font-size: 1.3em;" *ngIf="isEditing"  (click)="saveProfile()">Save</button>
+    <button mat-raised-button class="formButton" style="font-size: 1.3em; margin-right: 50px;" *ngIf="isEditing"  (click)="saveProfile()">Save</button>
     <button mat-raised-button class="formButton" style="font-size: 1.3em;" *ngIf="isEditing"  (click)="toggleEdit()">Cancel</button>
   </div>
 
   </form>
-    <div class ="tickets-container" *ngIf="userTickets.length==0" style="font-size: 2.5em;">No tickets.</div>
+    <div id ="notickets-container" *ngIf="userTickets.length==0" style="font-size: 2.5em;">No tickets.</div>
     <div class="tickets-container" >
+      <button *ngIf="userTickets.length>0" style ="width:40px" class="carousel-control-prev"   (click)="prevSlide()"><img style ="width:70px" src="../../../assets/images/left_arrow.png"></button>
       <div class="carousel">
         
         <div class="carousel-inner" [style.transform]="getTransform()">
@@ -68,8 +57,8 @@
             <mat-card-content>
               <p><strong>From:</strong> {{ticket.flight.departingAirport.airportName}}</p>
               <p><strong>To:</strong>{{ticket.flight.destinationAirport.airportName}}</p>
-              <p><strong>Passenger:</strong> {{ ticket.passenger.name }}</p>
-              <p><strong>Email:</strong> {{ ticket.passenger.emailAddress }}</p>
+              <p><strong>Departing Time:</strong> {{ ticket.flight.departingTime | date:'short' }}</p>
+              <p><strong>Flight Time:</strong> {{ ticket.flight.flightTime | formatFlightTime }}</p>
               <p *ngIf="ticket.checkInId"><strong>Check-In ID:</strong> {{ ticket.checkInId }}</p>
               <p><strong>Luggage:</strong> {{ ticket.luggage ? 'Yes' : 'No' }}</p>
               <p><strong>Price:</strong> {{ ticket.price | currency }}</p>
@@ -80,7 +69,6 @@
        
       </div>
 
-      <button *ngIf="userTickets.length>0" style ="width:40px" class="carousel-control-prev"   (click)="prevSlide()"><img style ="width:70px" src="../../../assets/images/left_arrow.png"></button>
       <button *ngIf="userTickets.length>0"  style ="width:40px" class="carousel-control-next"  (click)="nextSlide()"><img style ="width:70px" src="../../../assets/images/right_arrow.png"></button> 
 
     </div>

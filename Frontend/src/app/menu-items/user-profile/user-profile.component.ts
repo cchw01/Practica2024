@@ -5,6 +5,7 @@ import { UserService } from '../../app-logic/services/user.service';
 import { UserItem } from '../../app-logic/models/user-item';
 import { TicketItem } from '../../app-logic/models/ticket-item';
 import { Observable } from 'rxjs';
+import { LocalStorageService } from '../../app-logic/services/local-storage.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -23,7 +24,8 @@ export class UserProfileComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private localStorageService: LocalStorageService
   ) {
     this.userForm = this.fb.group({
       name: [{ value: '' }, [Validators.required]],
@@ -42,7 +44,6 @@ export class UserProfileComponent implements OnInit {
     console.log('Loaded user data:', this.userData);
     this.userForm.patchValue({
       name: this.userData.name || '',
-      role: this.userData.role || '',
       email: this.userData.emailAddress || '',
       password: '', // Set password field to empty initially
     });
@@ -74,7 +75,7 @@ export class UserProfileComponent implements OnInit {
       const userItem: UserItem = {
         userId: this.userData.userId,
         name: updatedUserData.name,
-        role: updatedUserData.role,
+        role: this.userData.role,
         emailAddress: updatedUserData.email,
         password: pw,
       };
@@ -84,7 +85,7 @@ export class UserProfileComponent implements OnInit {
       this.userService.updateUser(userItem).subscribe({
         next: (updatedUser) => {
           console.log('User updated:', updatedUser);
-          localStorage.setItem('userData', JSON.stringify(userItem));
+          this.localStorageService.updateUserData(userItem);
           this.isEditing = false;
           alert('Profile updated successfully');
         },

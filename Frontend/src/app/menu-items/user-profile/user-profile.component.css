@@ -6,15 +6,16 @@
 #title{
   font-size: 38px;
   font-weight: bold;
-  margin-top:100px;
+  margin-top:120px;
   align-self: center;
 }
 
 #user-profile{
   display:flex;
-  flex-direction: row;
+  flex-direction: column;
   padding:15px;
   width: 100%;
+  align-items: center;
 }
 
 #user-form {
@@ -24,24 +25,40 @@
   background-color: #f9f9f9;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   max-width: 400px;
-  margin: 150px;
   padding: 20px;
   width: 300px;
   border-radius: 15px;
+  margin-top: 30px;
 }
+
 
 mat-form-field {
   margin-bottom: 10px;
   font-size: 1.3em;
 }
 
+.mat-mdc-raised-button:not(:disabled) {
+  background-color: #0a4c6b!important;
+  color: white!important;
+}
+
 
 
 :host ::ng-deep .p-password input {
+  background-color: #F9F9F9;
   margin-bottom: 40px;
-  width: 210px;
-  height: 40px;
+  width: 185px;
+  height: 50px;
   margin-bottom: 60px;
+  border: 1px solid gray;
+  border-radius: 3px;
+  font-size: 1.5em;
+  padding-left: 20px;
+}
+
+:host ::ng-deep .p-password input:focus {
+  border : 2px solid  #005cbb !important;
+  outline: 0 !important;
 }
 
 :host ::ng-deep .p-password-panel .p-password-meter .p-password-strength.weak {
@@ -58,6 +75,7 @@ mat-form-field {
 
 
 .ticket-card {
+  min-width: 200px;
   width: 500px;
   margin: 20px;
   padding: 15px;
@@ -87,34 +105,26 @@ mat-form-field {
 
 .carousel-control-prev,
 .carousel-control-next {
-  position:absolute;
-  top: 45%;
-  transform: translateY(-50%);
   border: none;
-  background-color: white;
+  background-color: transparent;
   padding: 10px;
   cursor: pointer;
 }
 
 .carousel-control-prev {
-  left: -11%; /* Adjusted to be outside the carousel items */
+ margin-right: 50px;
 }
 
-.carousel-control-next {
-  right: -4%; /* Adjusted to be outside the carousel items */
-}
 
 .tickets-container {
-  position: absolute;
-  top: 55%;
-  left: 67%;
-  transform: translate(-50%, -50%);
-  width: 42%;
-  
+  margin-left: -50px;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
 }
 
 .carousel {
-  position: relative;
   margin-bottom: 50px;
   overflow: hidden;
 }
@@ -124,3 +134,8 @@ mat-form-field {
   transition: transform 0.5s ease;
 }
 
+#notickets-container{
+  display: flex;
+  align-items: center;
+  margin-top:100px;
+}
