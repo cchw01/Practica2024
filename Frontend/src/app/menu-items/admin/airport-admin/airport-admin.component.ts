@@ -29,14 +29,18 @@ export class AirportAdminComponent {
   }
 
   ngOnInit(): void {
+    console.time('Page Load Time');
     this.loadAirports();
   }
 
   loadAirports() {
+    console.time('Data Fetch Time');
     this.airportService.getDataAirports().subscribe(aircrafts => {
       this.airportData.data = aircrafts;
       this.airportData.paginator = this.paginator;
       this.airportData.sort = this.sort;
+      console.timeEnd('Data Fetch Time');
+      console.timeEnd('Page Load Time');
     });
   }
 

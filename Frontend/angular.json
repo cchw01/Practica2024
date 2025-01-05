@@ -39,7 +39,7 @@
               }
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/azure-blue.css",
+              "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -100,9 +100,6 @@
               }
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/azure-blue.css",
-              "angular/material/prebuilt-theme/azure-blue.css",
-              "src/styles.css"
             ],
             "scripts": []
           }
