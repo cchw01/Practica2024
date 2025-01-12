@@ -40,7 +40,7 @@ export class AddAircraftComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.aircraftId !== 0) {
-      this.aircraftService.getItemById(this.aircraftId).subscribe((aircraft) => {
+      this.aircraftService.getById(this.aircraftId).subscribe((aircraft) => {
         this.addAircraftForm.patchValue({
           registrationNumber: aircraft.registrationNumber,
           maker: aircraft.maker,
@@ -64,12 +64,12 @@ export class AddAircraftComponent implements OnInit {
           ...aircraftData,
           aircraftId: this.aircraftId
         };
-        this.aircraftService.updateItem(updatedAircraftData);
+        this.aircraftService.update(updatedAircraftData);
         this.router.navigate(['/admin/aircraft']);
         }
       else 
       {
-        this.aircraftService.addItem(aircraftData);
+        this.aircraftService.add(aircraftData);
         this.router.navigate(['/admin/aircraft']);
       }
       }

@@ -36,7 +36,7 @@ export class AddAirportComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.airportId !== 0) {
-      this.airportService.getItemById(this.airportId).subscribe((airport) => {
+      this.airportService.getById(this.airportId).subscribe((airport) => {
         this.addAirportForm.patchValue({
           airportName: airport.airportName,
           location: airport.location
@@ -56,12 +56,12 @@ export class AddAirportComponent implements OnInit {
           ...aircraftData,
           airportId: this.airportId
         };
-        this.airportService.updateItem(updatedAirportData);
+        this.airportService.update(updatedAirportData);
         this.router.navigate(['/admin/airport']);
         }
       else 
       {
-        this.airportService.addItem(aircraftData);
+        this.airportService.add(aircraftData);
         this.router.navigate(['/admin/airport']);
       }
       }

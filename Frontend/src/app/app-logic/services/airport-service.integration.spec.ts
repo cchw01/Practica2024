@@ -16,7 +16,7 @@ describe('AirportListMockService Integration Tests', () => {
   });
 
   it('should fetch a list of airports from the backend', (done) => {
-    service.getDataAirports().subscribe((airports) => {
+    service.getAll().subscribe((airports) => {
       expect(airports).toBeTruthy();
       expect(Array.isArray(airports)).toBe(true);
 
@@ -37,10 +37,10 @@ describe('AirportListMockService Integration Tests', () => {
       location: 'Test Location',
     };
 
-    service.addItem(newAirport); -
+    service.add(newAirport); -
 
     setTimeout(() => {
-      service.getDataAirports().subscribe((airports) => {
+      service.getAll().subscribe((airports) => {
         const addedAirport = airports.find(
           (airport) => airport.airportName === newAirport.airportName
         );

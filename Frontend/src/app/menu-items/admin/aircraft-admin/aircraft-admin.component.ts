@@ -37,7 +37,7 @@ export class AircraftAdminComponent {
   }
 
   loadAircrafts() {
-    this.aircraftService.getData().subscribe((aircrafts) => {
+    this.aircraftService.getAll().subscribe((aircrafts) => {
       this.aircraftData.data = aircrafts;
       this.aircraftData.paginator = this.paginator;
       this.aircraftData.sort = this.sort;
@@ -46,7 +46,7 @@ export class AircraftAdminComponent {
 
   deleteAircraft(id: number) {
     if (confirm('Are you sure you want to delete this aircraft?')) {
-      this.aircraftService.deleteItem(id).subscribe(() => {
+      this.aircraftService.delete(id).subscribe(() => {
         this.loadAircrafts();
       });
     }

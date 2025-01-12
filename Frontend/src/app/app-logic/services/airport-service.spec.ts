@@ -6,7 +6,7 @@ import { AirportItem } from '../models/airport-item';
 describe('AirportListMockService Unit Tests', () => {
   let service: AirportListMockService;
   let httpMock: HttpTestingController;
-
+  const apiUrl = 'http://localhost:5198/api/Airport';
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -26,12 +26,12 @@ describe('AirportListMockService Unit Tests', () => {
       { airportId: 2, airportName: 'LAX', location: 'Los Angeles' },
     ];
 
-    service.getDataAirports().subscribe((airports) => {
+    service.getAll().subscribe((airports) => {
       expect(airports.length).toBe(2);
       expect(airports).toEqual(mockAirports);
     });
 
-    const req = httpMock.expectOne(service.apiUrl);
+    const req = httpMock.expectOne(apiUrl);
     expect(req.request.method).toBe('GET');
     req.flush(mockAirports);
   });
@@ -42,18 +42,18 @@ describe('AirportListMockService Unit Tests', () => {
       airportName: 'ORD',
       location: 'Chicago',
     };
-
+  
     spyOn(console, 'log');
-
-    service.addItem(newAirport);
-
-    const req = httpMock.expectOne(service.apiUrl);
+  
+    service.add(newAirport);
+  
+    const req = httpMock.expectOne('http://localhost:5198/api/Airport');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(newAirport);
-
+  
     req.flush(newAirport);
-
-    expect(console.log).toHaveBeenCalledWith(newAirport);
+  
+    expect(console.log).toHaveBeenCalledWith('Added:', newAirport);
   });
 
   it('should update an existing airport item', () => {
@@ -62,18 +62,18 @@ describe('AirportListMockService Unit Tests', () => {
       airportName: 'JFK International',
       location: 'New York',
     };
-
+  
     spyOn(console, 'log');
-
-    service.updateItem(updatedAirport);
-
-    const req = httpMock.expectOne(service.apiUrl);
+  
+    service.update(updatedAirport);
+  
+    const req = httpMock.expectOne('http://localhost:5198/api/Airport');
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual(updatedAirport);
-
+  
     req.flush(updatedAirport);
-
-    expect(console.log).toHaveBeenCalledWith(updatedAirport);
+  
+    expect(console.log).toHaveBeenCalledWith('Updated:', updatedAirport);
   });
 
   it('should delete an airport item by ID', () => {
@@ -84,11 +84,11 @@ describe('AirportListMockService Unit Tests', () => {
       location: 'New York',
     };
 
-    service.deleteItem(id).subscribe((response) => {
+    service.delete(id).subscribe((response) => {
       expect(response).toEqual(mockResponse);
     });
 
-    const req = httpMock.expectOne(`${service.apiUrl}/${id}`);
+    const req = httpMock.expectOne(`${apiUrl}/${id}`);
     expect(req.request.method).toBe('DELETE');
     req.flush(mockResponse);
   });
@@ -101,11 +101,11 @@ describe('AirportListMockService Unit Tests', () => {
       location: 'New York',
     };
 
-    service.getItemById(id).subscribe((airport) => {
+    service.getById(id).subscribe((airport) => {
       expect(airport).toEqual(mockAirport);
     });
 
-    const req = httpMock.expectOne(`${service.apiUrl}/${id}`);
+    const req = httpMock.expectOne(`${apiUrl}/${id}`);
     expect(req.request.method).toBe('GET');
     req.flush(mockAirport);
   });
