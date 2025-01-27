@@ -104,7 +104,7 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.airportService.getDataAirports().subscribe((data) => {
+    this.airportService.getAll().subscribe((data) => {
       this.airports = data;
       console.log('Airports:', this.airports);
     });

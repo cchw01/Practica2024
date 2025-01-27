@@ -35,7 +35,7 @@ export class AirportAdminComponent {
 
   loadAirports() {
     console.time('Data Fetch Time');
-    this.airportService.getDataAirports().subscribe(aircrafts => {
+    this.airportService.getAll().subscribe(aircrafts => {
       this.airportData.data = aircrafts;
       this.airportData.paginator = this.paginator;
       this.airportData.sort = this.sort;
@@ -46,7 +46,7 @@ export class AirportAdminComponent {
 
   deleteAirport(id: number) {
     if (confirm('Are you sure you want to delete this airport?')) {
-      this.airportService.deleteItem(id).subscribe(() => {
+      this.airportService.delete(id).subscribe(() => {
         this.loadAirports();
       });
     }

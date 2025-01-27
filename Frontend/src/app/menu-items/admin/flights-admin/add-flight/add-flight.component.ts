@@ -40,8 +40,8 @@ export class AddFlightComponent implements OnInit {
       flightCost: ['', Validators.required],
     });
 
-    this.airports$ = this.airportService.getDataAirports();
-    this.aircrafts$ = this.aircraftService.getData();
+    this.airports$ = this.airportService.getAll();
+    this.aircrafts$ = this.aircraftService.getAll();
   }
 
   ngOnInit(): void {
