@@ -10,7 +10,7 @@
 - Tickets -> See list of all tickets bought and created
 - Aircraft -> Manage list of all aircraft available in the company
 - Airport -> Manage list of all airports in relation with the flights
-### The administrative module:
+### The User module:
 - Home page
 - Flights -> See all available flights from present moment
 - Checkin -> Effectuate the check in after buying the ticket
